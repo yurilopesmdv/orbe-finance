@@ -1,6 +1,6 @@
 # SPEC-007 — Relatórios profundos com navegação simples
 
-Estado: draft. Origem: pedido de UI/UX simples com profundidade de dados e relatórios, em 16/10/2026. Depende de SPEC-003/004/005/006. Relatórios são internos e determinísticos, sem enviar dados a IA, BI ou serviço de gráficos.
+Estado: ready para R1 sintética; dados reais continuam bloqueados. Origem: pedido de UI/UX simples com profundidade de dados e relatórios, em 16/10/2026. Depende de SPEC-003/004/005/006. Relatórios são internos e determinísticos, sem enviar dados a IA, BI ou serviço de gráficos.
 
 | ID | Requisito |
 |---|---|

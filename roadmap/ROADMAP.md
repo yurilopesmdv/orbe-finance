@@ -6,8 +6,8 @@ Revisão 0.5, 16/10/2026. Bradesco/Mercado Pago PF prioritários; Inter/Nubank e
 |---|---|---|---|
 | R0 | Specs, pesquisa e planejamento publicados | Contratos e escopo coerentes | Preparado |
 | C0 | Contrato mínimo da ponte e revisão do backlog | T74 | done documental |
-| C1 | Runtime, acesso, domínio e wireframes | T01/T02/T04/T05/T47–T49 | T01 done documental; próxima T02 |
-| R1 | App sintético, acesso e relatórios | T07 em diante conforme contrato T74 | Não iniciado |
+| C1 | Runtime, acesso, domínio e wireframes | T01/T02/T04/T05/T47–T49/T06 | Concluído para escopo sintético |
+| R1 | App sintético, acesso e relatórios | T07 em diante conforme contrato T74 | Próxima T07 |
 | G2 | Gate de dados reais | T63/T75–T78 | Não iniciado |
 | R2 | Homologação privada dos dois bancos | T41/T42 e cobertura explícita | Não iniciado |
 | R3 | Biometria no runtime compatível | T46/T65 | Condicionado |

@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado em 16/10/2026: **T74 e T01 concluídas documentalmente; próximas tasks ainda não iniciadas**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado em 16/10/2026: **Concluídas: T74, T01, T02 (20 testes), T03, T04, T05, T47, T48, T49 e T06. Próxima T07.**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -15,7 +15,7 @@ Estado em 16/10/2026: **T74 e T01 concluídas documentalmente; próximas tasks a
 
 ## Aplicabilidade vigente 0.4
 
-Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 contêm capacidades locais reutilizáveis; T68 foi retirada e seu ID permanece reservado. A origem financeira será exclusivamente Open Finance. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Gate T63 continua obrigatório. T74 e T01 concluídas; próxima T02, isoladamente.
+Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 contêm capacidades locais reutilizáveis; T68 foi retirada e seu ID permanece reservado. A origem financeira será exclusivamente Open Finance. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Gate T63 continua obrigatório. Pré-requisitos de R1 concluídos em T06; próxima T07.
 
 ## Contrato de execução
 
@@ -175,3 +175,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## T49 — done como decisão de escopo
 
 [Evidência](../plan/T49-RUNTIME-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T06.
+
+## Evidência T06 — done (R1 sintética)
+
+[Prontidão](../plan/T06-R1-READINESS.md). Dependências revisadas, specs ready apenas para preparação sintética. Gate real e cobertura bancária permanecem pendentes. Próxima T07 bootstrap SDK57, sem dados reais.

@@ -1,6 +1,6 @@
 # SPEC-006 — Privacidade e segurança financeira
 
-Estado: draft; requisito de prioridade informado em 16/10/2026. Esta spec prevalece sobre conveniência, gratuidade e adoção automática de ferramentas. Não é certificado de ausência de vazamento. [Avaliação das fontes](../../docs/security/VENDOR-REVIEW.md) e [modelo de ameaças](../../docs/security/THREAT-MODEL.md).
+Estado: ready para R1 sintética; dados reais continuam bloqueados; requisito de prioridade informado em 16/10/2026. Esta spec prevalece sobre conveniência, gratuidade e adoção automática de ferramentas. Não é certificado de ausência de vazamento. [Avaliação das fontes](../../docs/security/VENDOR-REVIEW.md) e [modelo de ameaças](../../docs/security/THREAT-MODEL.md).
 
 ## Objetivo e limites de confiança
 

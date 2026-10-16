@@ -3,7 +3,7 @@
 **Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; Open Finance é a única origem financeira admitida. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
 
 
-Estado: draft. Depende de SPEC-000/001. Proposta inicial: adaptador Pluggy com caminho pessoal MeuPluggy; depende de homologação. Evidências e limites em [pesquisa](../../docs/research/FEASIBILITY.md).
+Estado: ready para R1 sintética; dados reais continuam bloqueados. Depende de SPEC-000/001. Proposta inicial: adaptador Pluggy com caminho pessoal MeuPluggy; depende de homologação. Evidências e limites em [pesquisa](../../docs/research/FEASIBILITY.md).
 
 | ID | Requisito |
 |---|---|

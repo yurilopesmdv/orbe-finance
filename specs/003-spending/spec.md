@@ -1,6 +1,6 @@
 # SPEC-003 — Gastos, tipos e categorias
 
-Estado: draft. Depende de SPEC-000/002. A classificação do Orbe é separada dos dados importados, para que a próxima sincronização não apague a escolha do usuário.
+Estado: ready para R1 sintética; dados reais continuam bloqueados. Depende de SPEC-000/002. A classificação do Orbe é separada dos dados importados, para que a próxima sincronização não apague a escolha do usuário.
 
 | ID | Requisito |
 |---|---|

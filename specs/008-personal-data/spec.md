@@ -1,6 +1,6 @@
 # SPEC-008 — Contas PF e persistência no aparelho
 
-Estado: draft, revisão 0.5 de 16/10/2026. Bradesco e Mercado Pago PF prioritários; Inter/Nubank em expansão. Fonte financeira exclusiva: Open Finance via Meu Pluggy, conforme SPEC-009. Não haverá alimentação por arquivos nem cadastro de saldos/transações.
+Estado: ready para R1 sintética; dados reais continuam bloqueados, revisão 0.5 de 16/10/2026. Bradesco e Mercado Pago PF prioritários; Inter/Nubank em expansão. Fonte financeira exclusiva: Open Finance via Meu Pluggy, conforme SPEC-009. Não haverá alimentação por arquivos nem cadastro de saldos/transações.
 
 | ID | Requisito |
 |---|---|

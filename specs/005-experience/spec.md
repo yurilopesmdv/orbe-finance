@@ -1,6 +1,6 @@
 # SPEC-005 — Experiência profissional no iPhone
 
-Estado: draft. Esta é uma especificação textual de produto; wireframe local estático em docs/design/wireframes.html; ainda não há app executável.
+Estado: ready para R1 sintética; dados reais continuam bloqueados. Esta é uma especificação textual de produto; wireframe local estático em docs/design/wireframes.html; ainda não há app executável.
 
 | ID | Requisito |
 |---|---|

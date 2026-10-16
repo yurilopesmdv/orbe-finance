@@ -1,6 +1,6 @@
 # SPEC-004 — Contas, investimentos e cofrinhos
 
-Estado: draft. Depende de SPEC-000/002. A carteira organiza fatos importados e reservas; não inicia movimentação de dinheiro.
+Estado: ready para R1 sintética; dados reais continuam bloqueados. Depende de SPEC-000/002. A carteira organiza fatos importados e reservas; não inicia movimentação de dinheiro.
 
 | ID | Requisito |
 |---|---|

@@ -1,63 +1,32 @@
-# Estado de retomada — revisão 0.4
+# Estado de retomada — execução contínua
 
-Checkpoint: 16/10/2026, America/Sao_Paulo. Repo: /home/yurilopesm/projects/orbe-finance. Etapa autorizada: publicar documentação na main e executar uma task por vez, T74 e T01 concluídas; próxima T02.
+Checkpoint: 16/10/2026, America/Sao_Paulo. Repo /home/yurilopesm/projects/orbe-finance, main. Usuário autorizou continuar automaticamente, uma task por vez, sem aguardar novo prompt. Separação de tasks serve para validar/versionar/retomar. Push na main autorizado. Nenhum agente paralelo.
 
-## Decisão atual
+## Próxima ação
 
-Usuário escolheu Meu Pluggy condicionado à pesquisa pública. Não foi encontrada evidência pública comprovada de falha grave vigente do próprio serviço nas fontes consultadas. Há vulnerabilidades corrigidas do Actual Budget, um integrador diferente, e relato aberto de ausência de cofrinhos MP. Pesquisa não certifica inexistência de falhas nem aprova dados reais. [Relatório](../docs/security/MEU-PLUGGY-REVIEW.md).
+T06 concluída; iniciar T07 (bootstrap Expo SDK57). Ler AGENTS, plan/T06-R1-READINESS.md, plan/T01-RUNTIME-STRUCTURE.md e plan/T74-BRIDGE-CONTRACT.md. Selecionar Node22.23.2/npm12.2.0 por shell isolado; default Node18 não serve. Verificar versões reais de registry/template antes de instalar. Não executar outras tasks simultaneamente.
 
-Integração automática Bradesco/Mercado Pago PF é prioritária. Fonte financeira exclusiva: Open Finance. Inter/Nubank ficam expansão. Privacidade prevalece sobre gratuidade; Pluggy e ponte processam a sincronização, sem promessa de conhecimento zero. Ferramentas de criação/IA/CI/Git não recebem dados reais. Senha/sessão da ponte e desbloqueio local são distintos. Expo Go somente sintético até validar runtime/armazenamento/Face ID; não prometer Face ID funcional no Expo Go.
+## Concluído
 
-## Retomada e próxima ação
+- T74: contrato da ponte (6058f29).
+- T01: iPhone11/iOS26.6.2/ExpoGo57.0.9 SDK57 confirmado pelo titular; paths (2a8ef01).
+- T02: spike de sessão/recuperação/bloqueio, 20 testes Node22 passaram, sem dependência/rede (b3f69a9).
+- T03: termos pessoais/cadência/cotas e lacunas registrados (1f19ac9).
+- T04: contrato monetário e 14 fixtures JSON inventadas (13744b4).
+- T05: wireframes HTML locais, sintaxe JS validada; sem render automatizado (8be82e4).
+- T47/T48/T49: diligência com bloqueio real, fronteiras/chaves e runtime sintético (68d5a51/ec6bb16/152bbda).
+- T06: specs ready somente para R1 sintética; prontidão em plan/T06-R1-READINESS.md.
 
-Ler AGENTS → este checkpoint → [SPEC-009](../specs/009-meu-pluggy/spec.md) → [plano vigente](../plan/MEU-PLUGGY.md) → [tasks](../tasks/TASKS.md). SPEC-009 prevalece sobre escolhas conflitantes da revisão local 0.3. T74 concluída documentalmente: [contrato](../plan/T74-BRIDGE-CONTRACT.md), base d2dec67. Ponte Supabase Auth/Functions sem persistência financeira, metadados sob RLS, cache local atualizado ao abrir; cron/webhook desligados. T01 concluída: [runtime/paths](../plan/T01-RUNTIME-STRUCTURE.md). iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57 confirmados pelo proprietário. Seleção Node22.23.2/npm12.2.0 local; default Node18 não deve ser usado. Próxima task T02: spike sintético de acesso, isoladamente. Nenhuma outra task iniciada. Implementação sequencial autorizada. Gate de dados reais T63/T78 antes de consentimento; cobertura real só depois da comparação privada T41/T42.
+## Contratos preservados
+
+Origem exclusiva Open Finance via Meu Pluggy, Bradesco/Mercado Pago PF prioritários; Inter/Nubank expansão. Sem alimentação por extratos. Gratuidade pessoal documentada não prova origem Open Finance nem cobertura de cada produto. Cofrinhos MP têm relato público de limitação; nenhum banco homologado.
+
+Supabase Auth/Functions planejados em projeto novo, sem persistência de valores financeiros; metadados sob RLS. Fornecedor/ponte leem durante consulta, sem E2EE fictício. Cache/classificação/relatórios no aparelho. Sem cron/webhook inicial. Sessão do backend e bloqueio local são distintos. Face ID/SQLCipher reais não suportados no Expo Go; runtime real segue decisão/teste T65–T67 e gates T63/T78.
 
 ## Estado real
 
-Somente documentos Markdown; não há app, package.json, lockfile, SDK, backend provisionado, .env, credencial bancária, CI ou deploy Orbe. Nenhum login, consentimento, contratação ou extrato real consultado. Nenhuma ferramenta de scan de infraestrutura/exploit foi executada. Pesquisa pública e verificação documental são as únicas evidências desta etapa.
-
-Nenhuma frente/agente ativo ou path reservado. Push na main autorizado explicitamente pelo usuário em 16/10/2026. Recursos/segredos do F1 não foram reutilizados.
+Há documentos, wireframe HTML, spike JS e fixtures sintéticas. Ainda não há app, package.json/lockfile, SDK instalado, backend, .env, credenciais, CI ou deploy Orbe. Nenhum banco conectado, login real, consentimento ou contratação. Ferramentas/IA/Git só usam código/públicos/inventados; não acessar .env do F1. Nenhuma falha/resultado de mock comprova privacidade real.
 
 ## Checkpoint por task
 
-Registrar ID/estado, requisitos, responsável/paths, commit base, pendências, evidências realmente executadas, limites e próxima ação. Nunca registrar senha/token/CPF/conta/valor real. Conferir git status. Checkpoint ao concluir task ou antes de interrupção; nenhuma execução automática a cada cinco horas foi configurada.
-
-## Evidência e limites da T74
-
-Fontes públicas oficiais Pluggy/Supabase consultadas, contrato definido e backlog revisado. Guia pessoal gratuito não prova origem Open Finance de cada banco; documentação comercial premium não prova cobrança no proxy. Confirmar em T03/T77, sem fallback por senha bancária. Sem credenciais, instalação, código ou conexão real. Histórico de publicação da revisão de escopo: d2dec67 na main. Checkpoint atualizado após uma única task, T74.
-
-## Checkpoint T01 — done
-
-Base 6058f29. Paths desta execução: plan/T01-RUNTIME-STRUCTURE.md, specs/000-product/spec.md, tasks/TASKS.md, roadmap/STATE.md, roadmap/ROADMAP.md, AGENTS.md, README.md, plan/MEU-PLUGGY.md, docs/research/FEASIBILITY.md, docs/PLANNING-VALIDATION.md. Pesquisa oficial + consulta de versões locais + confirmação textual do aparelho. Sem instalação/código/conta real. Face ID e SQLCipher seguem indisponíveis no Expo Go; nunca contornar com finanças reais em claro. Próxima T02; não iniciar T07 antes dos contratos/gates definidos. Nenhum path/agente ativo.
-
-## Execução corrente T02
-
-Estado doing, base 2a8ef01; responsável único, paths reservados spikes/access/*, plan/T02-ACCESS-SPIKE.md, SPEC-001/TASKS/STATE. Node22 nativo, sem pacotes ou rede no spike. Execução contínua sequencial autorizada pelo usuário: não aguardar confirmação entre tasks; checkpoints existem para retomar após interrupção.
-
-## T02 — done / retomada vigente
-
-Spike sintético em spikes/access/*, 20 testes Node22 passaram. Sem pacote/SDK/rede/backend. Estado e erros sanitizados; login/resposta tardios não desbloqueiam após background/logout; recuperação exige novo login. Ver plan/T02-ACCESS-SPIKE.md. Próxima T03; continuar automaticamente depois nas tasks independentes, sem pedir nova confirmação. Estado atual supera trechos históricos deste checkpoint.
-
-## T03 — done / retomada vigente
-
-Pesquisa oficial em plan/T03-PERSONAL-FEASIBILITY.md. Termos pessoais documentados; origem Open Finance de Bradesco/MP no portal pessoal e cobertura real ainda pendentes. T63/T78 não liberados. Próxima T04: contrato financeiro e catálogo sintético; continuar sem aguardar confirmação.
-
-## T04 — done / retomada vigente
-
-Contrato em plan/T04-FINANCIAL-CONTRACT.md e 14 casos sintéticos JSON. Specs atualizadas antes dos casos; JSON parseado, sem afirmar testes do domínio ainda inexistente. Próxima T05: wireframes estáticos. Sem app/dependências/conta real.
-
-## T05 — done / retomada vigente
-
-Wireframe estático local em docs/design/wireframes.html, evidência em plan/T05-WIREFRAMES.md. Cinco fluxos/estados, sem rede ou dados reais; JS validado, ainda sem render automatizado/teste no iPhone. T02/T03/T04/T05 concluídas em sequência. Próxima T47, depois T48/T49/T06 conforme dependências. T07 não iniciado.
-
-## T47 — done como decisão de escopo
-
-[Evidência](../plan/T47-VENDOR-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T48.
-
-## T48 — done como decisão de escopo
-
-[Evidência](../plan/T48-TRUST-KEYS.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T49.
-
-## T49 — done como decisão de escopo
-
-[Evidência](../plan/T49-RUNTIME-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T06.
+Registrar ID/estado, requisito, paths, base, resultado, testes realmente executados, limites, commit e próxima ação. Conferir git status; uma task/commit por assunto. Se serviço/aparelho bloquear uma task, registrar e avançar em outra independente autorizada; não marcar teste não executado como sucesso. Não pedir novo “pode continuar” entre tasks. Nenhuma execução periódica de cinco horas configurada.
