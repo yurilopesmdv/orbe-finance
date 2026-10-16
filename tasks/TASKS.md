@@ -159,3 +159,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## Evidência T04 — done
 
 [Contrato financeiro](../plan/T04-FINANCIAL-CONTRACT.md), 14 casos inteiramente sintéticos em tests/fixtures/financial-cases.json. Contrato de centavos, mês, estornos, moedas e sobreposição definido; JSON parseado. Cálculos ainda não implementados (T24/T26). Próxima T05.
+
+## Evidência T05 — done (wireframe)
+
+[Wireframe local](../docs/design/wireframes.html) e [evidência](../plan/T05-WIREFRAMES.md). Cinco fluxos com estados, ocultação, filtro e período persistido na navegação. Sintaxe JS validada; sem navegador/aparelho homologado. Próxima T47 (prerequisito de T06).

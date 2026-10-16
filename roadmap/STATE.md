@@ -45,3 +45,7 @@ Pesquisa oficial em plan/T03-PERSONAL-FEASIBILITY.md. Termos pessoais documentad
 ## T04 — done / retomada vigente
 
 Contrato em plan/T04-FINANCIAL-CONTRACT.md e 14 casos sintéticos JSON. Specs atualizadas antes dos casos; JSON parseado, sem afirmar testes do domínio ainda inexistente. Próxima T05: wireframes estáticos. Sem app/dependências/conta real.
+
+## T05 — done / retomada vigente
+
+Wireframe estático local em docs/design/wireframes.html, evidência em plan/T05-WIREFRAMES.md. Cinco fluxos/estados, sem rede ou dados reais; JS validado, ainda sem render automatizado/teste no iPhone. T02/T03/T04/T05 concluídas em sequência. Próxima T47, depois T48/T49/T06 conforme dependências. T07 não iniciado.
