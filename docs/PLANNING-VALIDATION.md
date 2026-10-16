@@ -8,9 +8,9 @@ Revisão concluída nesta etapa:
 
 | Checagem documental | Resultado |
 |---|---|
-| Arquivos Markdown | 19 documentos, incluindo 6 specs |
-| Requisitos identificados | 44; todos aparecem nas tasks e na matriz de validação |
-| Microtasks futuras | 46; dependências existentes e grafo sem ciclos |
+| Arquivos Markdown | 23 documentos, incluindo 8 specs |
+| Requisitos identificados | 70; todos aparecem nas tasks e na matriz de validação |
+| Microtasks futuras | 63; dependências existentes e grafo sem ciclos |
 | Links locais | Nenhum destino inválido |
 | Whitespace | Sem espaços finais; git diff --check aprovado |
 | Arquivos não Markdown alterados/criados | Nenhum |
@@ -32,3 +32,7 @@ A conferência automática foi executada por script temporário fora do reposit�
 ## Limites
 
 Não foram executados testes de software, SDK, iPhone, biometria, RLS, sincronização ou reconciliação com dados reais. Não houve validação comercial de marca, contrato de provedor ou preço dentro de conta autenticada. Fontes/preços foram consultados publicamente e precisam ser revalidados antes de uso. Zero código não significa funcionalidades já prontas: os documentos são contratos para implementação posterior.
+
+## Revisão de privacidade e relatórios
+
+Políticas e fontes oficiais adicionais consultadas; resultados em docs/security. Rastreabilidade e grafo revalidados após acrescentar 26 requisitos e 17 tasks. Aprovação de fornecedor, testes de software/tráfego/aparelho e verificação de implementação continuam pendentes. Os resultados locais não demonstram ausência universal de vazamento.

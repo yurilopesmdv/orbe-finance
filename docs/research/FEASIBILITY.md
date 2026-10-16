@@ -37,6 +37,10 @@ A [autenticação Pluggy](https://docs.pluggy.ai/en/docs/connect-widget/authenti
 
 O backend gerenciado é uma proposta baseada em [senha Supabase](https://supabase.com/docs/guides/auth/passwords) e [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), em projeto separado. Isso não comprova que a nova aplicação esteja segura: será necessário testar políticas, ownership, jobs e credenciais. A interpretação regulatória do fornecedor não dispensa registrar armazenamento/retencão e tratamento no Orbe.
 
-## Resultado
+## Resultado inicial de viabilidade
 
 Viável como proposta de app pessoal com senha, consolidação assíncrona e caminho gratuito sujeito à homologação dos quatro bancos. Face ID não é viável mantendo exclusivamente Expo Go iOS. Conexão integral dentro do Orbe, cofrinhos nominados e atualização imediata não estão comprovados. Próximo passo é fechar contratos e depois executar spikes autorizados, não instalar SDKs nesta etapa.
+
+## Revisão de segurança posterior
+
+A conclusão de viabilidade acima não é aprovação de privacidade. A [revisão de fornecedores](../security/VENDOR-REVIEW.md) identificou lacunas contratuais e de acesso. Pluggy/Meu Pluggy e Supabase permanecem não aprovados para conteúdo financeiro real; a escolha fica suspensa até resolver o gate de [ameaças e destinos](../security/THREAT-MODEL.md). Expo Go continua útil para protótipo sintético, sem implicar aceite para produção financeira.

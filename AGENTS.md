@@ -13,3 +13,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa,
 - Versionar mudanças com Conventional Commits em português e identidade Git configurada. Nunca sobrescrever trabalho existente ou publicar artefatos financeiros privados.
 
 [Specs](specs/README.md) · [Plano](plan/PLAN.md) · [Tasks](tasks/TASKS.md) · [Roadmap](roadmap/ROADMAP.md) · [Decisões](docs/decisions/DECISIONS.md) · [Pesquisa](docs/research/FEASIBILITY.md).
+
+- Revisão de privacidade: ler SPEC-006/007 e docs/security antes de decisões técnicas. Nenhum fornecedor aprovado para finanças reais. IA/MCP/devtools não acessam produção financeira, nem read-only. Expo Go permanece sintético; T63 precede homologação de banco. Relatórios internos não autorizam exportação, BI, analytics ou novas saídas. Privacidade prevalece sobre gratuidade; não prometer risco zero ou E2EE sem protocolo/chaves comprovados.

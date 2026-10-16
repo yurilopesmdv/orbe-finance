@@ -28,7 +28,7 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T03 | — | PRD-05, OF-01, OF-09 | Integração | Confirmar termos/cotas do uso pessoal e trilha Open Finance | Plano pessoal confirmado, quatro bancos elegíveis ou limites registrados; sem contratar pago |
 | T04 | T01 | EXP-02, EXP-05, PORT-04 | Domínio | Fechar contrato monetário e catálogo de casos sintéticos | Expectativas dos exemplos de gastos e sobreposição aprovadas documentalmente |
 | T05 | T01 | UX-01, UX-04 | UI | Desenhar wireframes estáticos dos cinco fluxos | Fluxos com estados vazio/parcial/erro e textos de fonte/data, sem app funcional |
-| T06 | T02, T03, T04, T05 | PRD-06 | Integração | Atualizar specs e registrar conclusão dos spikes | Decisões por requisito e escopo da primeira fatia em ready; implementação autorizada |
+| T06 | T02, T03, T04, T05, T47, T48, T49 | PRD-06 | Integração | Atualizar specs e registrar conclusão dos spikes | Decisões por requisito e escopo da primeira fatia em ready; implementação autorizada |
 | T07 | T06 | PRD-04, PRD-07 | Base | Bootstrap Expo e configuração local independente | Projeto abre no Expo Go do proprietário sem dependência do F1 |
 | T08 | T07 | PRD-07, AUTH-02 | Dados | Preparar backend separado e migrations versionadas | Destino conferido, sem tocar projeto F1, credenciais privadas fora do app |
 | T09 | T07 | PRD-06 | Base | Configurar checks de CI do novo repo | Instalação por lockfile, typecheck e testes de exemplo passam em CI |
@@ -61,14 +61,31 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T36 | T20, T21, T22, T23 | OF-04, OF-06, OF-09 | Backend | Configurar reconciliação limitada e recuperação de falhas | Itens conhecidos, quotas, backoff, observabilidade e modo off comprovados |
 | T37 | T17, T20, T33, T36 | AUTH-08, OF-08 | Backend | Implementar pausa, remoção e apagamento | Job em curso/evento atrasado não recria dados; limites de backups/revogação explicados |
 | T38 | T27, T29, T30, T31, T32, T33, T37 | PRD-04, UX-01, UX-04 | Validação | Validar R1 com cenários sintéticos no iPhone | Login/bloqueio, filtros e totais passam; R1 não é apresentada como integração real |
-| T39 | T03, T18, T21, T22, T23, T24, T36, T38 | PRD-01, OF-01 | Integração | Homologar Nubank com autorização do titular | Ficha por banco completa, dados conciliados e reserva explicada ou limitação registrada |
+| T39 | T03, T18, T21, T22, T23, T24, T36, T38, T63 | PRD-01, OF-01 | Integração | Homologar Nubank com autorização do titular | Ficha por banco completa, dados conciliados e reserva explicada ou limitação registrada |
 | T40 | T39 | PRD-01, OF-01 | Integração | Homologar Inter | Segunda origem prova consolidação/transferência sem duplicidade; ficha completa |
 | T41 | T40 | PRD-01, OF-01 | Integração | Homologar Mercado Pago | Saldo remunerado/reserva investigados, sem inferir cofrinho por nome |
 | T42 | T41 | PRD-01, OF-01 | Integração | Homologar Bradesco | Comparar contas/movimentos/posições e registrar cobertura efetiva do contexto |
 | T43 | T39, T40, T41, T42, T35, T37 | OF-05, OF-06, OF-08 | Validação | Exercitar falhas integradas e segurança operacional | Evento fora de ordem, 429, revogação, fonte parcial e retry passam sem dados reais em Git |
 | T44 | T09, T38, T43 | PRD-06, PRD-07 | Operação | Configurar publicação privada e recuperação | CI precede deploy; runtime compatível, secrets independentes e rollback documentados |
-| T45 | T44 | PRD-01, PRD-02, UX-03 | Validação | Aceitar R2 no iPhone e registrar release | Quatro bancos homologados ou redução aceita; evidências sanitizadas e limites explícitos |
+| T45 | T44, T62, T63 | PRD-01, PRD-02, UX-03 | Validação | Aceitar R2 no iPhone e registrar release | Quatro bancos homologados ou redução aceita; evidências sanitizadas e limites explícitos |
 | T46 | T45 | AUTH-07, PRD-08 | Pesquisa | Avaliar distribuição nativa e Face ID para R3 | Decisão de build/custo registrada antes de código; Expo Go continua sem promessa biométrica |
+| T47 | — | SEC-01, SEC-04 | Pesquisa | Concluir diligência de fornecedores/termos/destinatários | Respostas aplicáveis ao plano, limites e aprovação ou bloqueio; leitura pública atual não basta |
+| T48 | T47 | SEC-06, SEC-08 | Arquitetura | Comparar fronteiras de confiança e gestão de chaves | Quem lê plaintext e quem possui cada chave estão explícitos; sem E2EE fictício |
+| T49 | T01, T48 | SEC-09, SEC-10, SEC-18 | Pesquisa | Decidir runtime real e inventariar superfícies dev | Expo Go sintético; distribuição real e controles a comprovar registrados sem migração implícita |
+| T50 | T09, T48 | SEC-02, SEC-03 | Operação | Isolar ferramentas/ambientes e retirar SDKs de coleta | Sem produção financeira em IA/MCP/CI; dependências e destinos inventariados |
+| T51 | T18, T49 | SEC-05, SEC-15 | Backend | Restringir destinos, URLs, redirects e conteúdo da fonte | Canários não saem por URL/asset; texto malicioso não dispara navegação, SSRF ou ferramenta |
+| T52 | T20, T50 | SEC-03, SEC-12 | Operação | Validar logging mínimo em sucesso e falha | Sem payload/auth/valor/descrição em logs, traces ou uploads; infraestrutura gerenciada avaliada |
+| T53 | T12, T49 | SEC-09, SEC-10 | Acesso | Validar tela, gravação, clipboard e retorno no iPhone | Captura/alternador/teclado e limitações documentados no runtime escolhido |
+| T54 | T09, T50 | SEC-11 | Operação | Revisar cadeia de dependências, secrets e atualização | Contas com MFA, privilégios mínimos e bundle/artefatos sem segredos privados |
+| T55 | T17, T27 | SEC-07, SEC-16 | Validação | Testar exfiltração por leitura, agregados e cache | Identidade alheia e sessão expirada não acessam nem totais; resultados sanitizados |
+| T56 | T37, T48 | SEC-08, SEC-14 | Operação | Provar purge, modo off e restore sem reconexão | Jobs/eventos/backup não reativam dados revogados; retenção real de cada destino registrada |
+| T57 | T27, T26, T24 | RPT-02, RPT-03, RPT-06 | Backend | Definir consultas privadas e drill-down dos relatórios | Lista fecha com resumo, regras/completude/filtros rastreáveis e sem nova saída externa |
+| T58 | T28, T29, T57 | RPT-01, RPT-07 | UI | Criar acesso simples a relatórios internos | Resumo → relatório → detalhe preserva contexto e não exige nova área complexa |
+| T59 | T30, T57, T58 | RPT-02, RPT-03 | UI | Adicionar filtros avançados sob demanda | Filtros ativos claros, volta preserva período e tipos financeiros não se confundem |
+| T60 | T31, T57, T58 | RPT-04, RPT-05 | Domínio | Comparar períodos e composição sem histórico inventado | Base zero/período parcial tratados; metas não duplicam ativos; snapshots reais existentes |
+| T61 | T53, T58, T59, T60 | RPT-08 | UI | Validar listas acessíveis e ocultação nos relatórios | Leitor de tela, gráfico e detalhe respeitam privacidade e navegação simples |
+| T62 | T51, T55, T57, T58, T59, T60, T61 | RPT-01, RPT-04, RPT-06, RPT-07, SEC-13, SEC-16 | Validação | Reconciliar relatórios e testar suas saídas com canários | Sem destino externo/exportação; detalhe, agregado e cache privados, sem divergência financeira |
+| T63 | T47, T48, T49, T50, T51, T52, T53, T54, T55, T56, T62 | SEC-04, SEC-17, SEC-18 | Validação | Resolver gate de dados reais com o titular | Fornecedores/runtime decididos, riscos residuais registrados, sem alta/crítica aberta; sem consentimento prévio ao gate |
 
 ## Limites de arquivos e paralelismo futuro
 
@@ -86,3 +103,7 @@ Até T06: apenas documentos/spikes dentro de escopo autorizado; nenhum executáv
 O integrador controla package.json/lockfile, navegação raiz, migrations, contratos comuns, plano, tasks e STATE. Trabalho paralelo só após dependências prontas e paths sem sobreposição; revisão integra uma task por vez. Cada delegado recebe ID, entradas, arquivos permitidos, comportamento esperado, testes e proibições de dados reais/segredos. Não reutilizar instruções ou credenciais do F1.
 
 Caminho crítico proposto: T01–T06 → T07/T08 → T10–T17 → T18–T27 → telas/ingestão → T38 → homologações → T43–T45. Há paralelismo possível entre pesquisa de cobertura e wireframe, ou funções puras de domínio e UI sintética após contratos; não existem agentes trabalhando agora.
+
+## Revisão de prioridade 0.2
+
+T47–T49 são diligência/decisão e não autorizam conectar bancos. Nenhum fornecedor aprovado. T50–T63 ainda não iniciadas; usam sintéticos antes do gate. As tasks anteriores que preparavam adaptador/worker não podem ser usadas como justificativa para acessar produção financeira. Desenvolvimento, inclusive por ferramentas, não lê produção. O backlog agora contém 63 microtasks; IDs anteriores foram preservados.

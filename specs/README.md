@@ -12,6 +12,8 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. N
 | [003 — Gastos](003-spending/spec.md) | Transações, categorias e consolidação mensal |
 | [004 — Carteira](004-portfolio/spec.md) | Contas, investimentos, cofrinhos e reconciliação |
 | [005 — Experiência](005-experience/spec.md) | Navegação e estados da interface |
+| [006 — Segurança](006-security/spec.md) | Privacidade, fornecedores, saídas e gate de dados reais |
+| [007 — Relatórios](007-reports/spec.md) | Profundidade por detalhe progressivo, sem serviços externos |
 
 ## Processo e controle de mudança
 
@@ -23,6 +25,6 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. N
 6. Alteração de escopo atualiza spec e ADR antes de abrir as tasks correspondentes. Histórico Git preserva versões; IDs de requisitos não são reutilizados.
 7. Validação relaciona requisito → task → cenário → evidência e registra falhas/limites.
 
-Estados: draft, ready, implementing, validated, deferred. As seis specs estão em draft. Ready exige resolver as decisões que bloqueiam aquela fatia; não exige concluir todos os bancos antes de uma fatia sintética autorizada. O caminho prioritário é uso pessoal gratuito, quatro bancos, Expo Go e senha. A exigência original de Face ID permanece rastreada, condicionada ao runtime.
+Estados: draft, ready, implementing, validated, deferred. As oito specs estão em draft. Ready exige resolver as decisões que bloqueiam aquela fatia; não exige concluir todos os bancos antes de uma fatia sintética autorizada. O caminho prioritário é uso pessoal, quatro bancos e senha. Gratuidade é preferência subordinada à privacidade; Expo Go permanece ambiente sintético até decisão de runtime para dados reais. A exigência original de Face ID permanece rastreada, condicionada ao runtime.
 
 Próximos documentos: [plano](../plan/PLAN.md), [microtasks](../tasks/TASKS.md), [roadmap](../roadmap/ROADMAP.md) e [estado de retomada](../roadmap/STATE.md).

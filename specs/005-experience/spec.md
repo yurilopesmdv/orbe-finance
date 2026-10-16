@@ -27,3 +27,7 @@ Direção visual proposta: sóbria, fundos neutros, um acento de marca, hierarqu
 - AC-U03: leitor de tela comunica valor, moeda, fonte, data e parcialidade; ocultar valores mascara texto acessível também.
 - AC-U04: ao retomar do banco/navegador, autenticação do Orbe precede exposição financeira e atualização de status.
 - AC-U05: fontes vazias mostram “Nenhuma movimentação no período”; erro de consulta mostra erro e opção de tentar novamente, não o mesmo vazio.
+
+## Aprofundamento progressivo
+
+Aplicar [SPEC-007](../007-reports/spec.md): tela inicial com poucos indicadores e navegação resumo → relatório → dados de origem. Filtros avançados ficam sob demanda, com contexto preservado ao voltar. Relatórios são gráficos/listas internos, sem SDK analítico/BI externo; confidencialidade é regida por [SPEC-006](../006-security/spec.md). Nenhum aviso técnico substitui texto simples sobre data e parcialidade perto do valor.

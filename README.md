@@ -13,6 +13,8 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Investigação](docs/research/FEASIBILITY.md) | Expo Go, biometria, Open Finance e alternativas de custo |
 | [Cobertura por banco](docs/research/BANK-COVERAGE.md) | O que consta na documentação e o que falta homologar |
 | [Fontes oficiais](docs/research/SOURCES.md) | Evidências e data da consulta |
+| [Revisão dos fornecedores](docs/security/VENDOR-REVIEW.md) | Achados, limites e aprovações ainda pendentes |
+| [Modelo de ameaças](docs/security/THREAT-MODEL.md) | Destinos de dados, controles e riscos residuais |
 | [Decisões](docs/decisions/DECISIONS.md) | Escolhas propostas, confirmadas e adiadas |
 | [Plano](plan/PLAN.md) | Arquitetura, modelo conceitual, segurança e sequência |
 | [Microtasks](tasks/TASKS.md) | Dependências, entregas pequenas e validação |
@@ -21,4 +23,6 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Revisão documental](docs/PLANNING-VALIDATION.md) | Verificações realmente feitas nesta etapa |
 | [Orientações de trabalho](AGENTS.md) | Método e continuidade |
 
-O candidato inicial de integração é Meu Pluggy + conector pessoal, sujeito a confirmação de termos/cobertura em cada banco. Não há promessa de tempo real, cofrinhos identificados em todos os bancos ou gratuidade de toda a infraestrutura. Nenhum plano pago foi contratado.
+O candidato de custo é Meu Pluggy + conector pessoal, sem aprovação de segurança para dados reais. O uso depende de termos/cobertura, decisão de confiança e gate da SPEC-006. Não há promessa de tempo real, cofrinhos identificados em todos os bancos ou gratuidade de toda a infraestrutura. Nenhum plano pago foi contratado.
+
+Privacidade prevalece sobre gratuidade. Expo Go fica restrito a dados sintéticos até definir o ambiente real. UI proposta: resumo simples, relatórios internos e detalhe de cada total, sem IA/BI externo. Nenhum sistema ou fornecedor foi declarado livre de toda possibilidade de vazamento.

@@ -14,9 +14,9 @@ Usuário inicial: uma pessoa, no próprio iPhone, usando Expo Go. Instituições
 |---|---|---|
 | PRD-01 | DEVE consolidar os quatro bancos com status individual de cobertura e atualização; não prometer cobertura total sem evidência real | R1/R2 |
 | PRD-02 | DEVE separar saldo de contas, investimentos, reservas e gastos; dados ausentes não equivalem a zero | R1/R2 |
-| PRD-03 | DEVE oferecer gastos por tipo e categoria, com correção pelo usuário | R1 |
-| PRD-04 | DEVE funcionar inicialmente em Expo Go no iPhone e exigir senha de acesso | R1 |
-| PRD-05 | DEVE priorizar integração pessoal gratuita; qualquer plano pago permanece fora da contratação atual | R0/R2 |
+| PRD-03 | DEVE oferecer gastos por tipo e categoria, com correção pelo usuário e relatórios internos aprofundáveis (SPEC-007) | R1 |
+| PRD-04 | DEVE funcionar inicialmente em Expo Go no iPhone e exigir senha de acesso; dados reais dependem do gate de SPEC-006 | R1 |
+| PRD-05 | DEVE priorizar integração pessoal gratuita; qualquer plano pago permanece fora da contratação atual e privacidade prevalece sobre gratuidade | R0/R2 |
 | PRD-06 | DEVE documentar specs, plano, microtasks, evidências e checkpoint de continuidade | R0 e todas |
 | PRD-07 | DEVE manter dados e infraestrutura independentes do Bolão F1 | Todas |
 | PRD-08 | DEVE apresentar acesso ao Face ID já cadastrado no iOS quando o runtime permitir, sem cadastrar rosto no Orbe | R3 condicionada |
@@ -41,3 +41,7 @@ R2 só pode ser declarada completa se houver evidências dos quatro bancos ou ac
 ## Premissas e questões abertas
 
 Não foi informado em quais bancos existem reservas nem os modelos dos produtos. Conta PF e moeda BRL são premissas a confirmar antes da homologação. Modelo do iPhone, versão iOS e SDK compatível com Expo Go serão registrados antes do bootstrap. O nome Orbe Finance é de trabalho; marca/domínio não foram verificados.
+
+## Revisão de privacidade e relatórios
+
+Pedido posterior de 16/10/2026: simplicidade de UI com profundidade de análise e prioridade estrita de confidencialidade. SPEC-006 bloqueia uso real até fornecedor/runtime/controles serem avaliados; SPEC-007 define relatórios dentro do app. R1 permanece sintética. R2 agora depende também do gate de segurança e decisão explícita sobre acesso de provedores; nenhum deles está aprovado. Não prometer risco zero ou conexão Open Finance sem processamento por terceiros.

@@ -1,0 +1,35 @@
+# SPEC-007 — Relatórios profundos com navegação simples
+
+Estado: draft. Origem: pedido de UI/UX simples com profundidade de dados e relatórios, em 16/10/2026. Depende de SPEC-003/004/005/006. Relatórios são internos e determinísticos, sem enviar dados a IA, BI ou serviço de gráficos.
+
+| ID | Requisito |
+|---|---|
+| RPT-01 | DEVE oferecer resumo legível e aprofundamento progressivo: cartão → relatório → movimentos/ativos que compõem o valor, preservando filtros |
+| RPT-02 | DEVE permitir período/mês e filtros por instituição, conta, tipo e categoria, com dados detalhados e totais reconciliáveis |
+| RPT-03 | DEVE mostrar despesas por categoria, receitas/despesas de consumo, transferências, aportes, resgates e estornos separadamente |
+| RPT-04 | DEVE comparar períodos equivalentes com base e datas claras; divisão por zero, período incompleto e falta de histórico não geram porcentagem enganosa |
+| RPT-05 | DEVE mostrar composição de contas/investimentos/reservas por banco/classe e evolução só a partir de snapshots existentes, sem inventar rentabilidade/histórico |
+| RPT-06 | DEVE exibir completude, fontes, última atualização e regras de cálculo perto do resultado; total parcial continua parcial ao aprofundar |
+| RPT-07 | DEVE manter gráficos/tabelas e cálculo dentro dos componentes aprovados, sem render remoto, exportação, links públicos ou compartilhamento no MVP |
+| RPT-08 | DEVE permitir alternar gráfico e lista acessível, ocultar valores em todas as camadas e carregar detalhe sob demanda, sem depender de cores para explicar dados |
+
+## Arquitetura de informação
+
+Manter quatro áreas: Visão geral, Movimentações, Carteira e Ajustes. Relatórios é destino secundário da visão geral ou do contexto, sem nova barra cheia de opções. Tela inicial mostra poucos indicadores essenciais: ativos reconciliados, gastos do mês e cobertura/atualização. Botões claros: Ver gastos, Ver carteira e Ver relatório.
+
+Um relatório começa com título e período, resumo curto e um gráfico/lista. Filtros avançados ficam em painel sob demanda; filtros ativos são visíveis. Tocar categoria abre as transações que explicam aquele valor. Tocar instituição/classe abre as posições, sem misturar cofrinhos já incluídos. Voltar preserva contexto.
+
+Explicações financeiras curtas usam linguagem comum: “Transferência entre suas contas”, “Valor já incluído nos investimentos” e “Dados deste banco ainda não chegaram”. Fórmula/origem detalhada fica acessível em Como este valor foi calculado. Nunca esconder parcialidade no nível avançado.
+
+## Relatórios do escopo inicial proposto
+
+Gastos por categoria; fluxo mensal de consumo; comparação de meses; composição por banco e classe; evolução observada da carteira; progresso de metas locais. Compras de cartão detalhadas continuam dependentes da cobertura da spec de gastos. Sem histórico suficiente, relatório explica o limite em vez de extrapolar.
+
+## Aceite
+
+- AC-R01: categoria de R$ 80 em relatório abre a lista filtrada cujo total líquido é R$ 80 e preserva mês/banco ao voltar.
+- AC-R02: período anterior zero mostra comparação em reais e percentual indisponível, não infinito; mês aberto fica identificado.
+- AC-R03: caixinha de R$ 200 já incluída em R$ 1.000 de ativos não cria R$ 1.200 em gráfico de composição.
+- AC-R04: falta um banco: visão geral, relatório e detalhe comunicam a mesma parcialidade; histórico inicia no primeiro snapshot válido.
+- AC-R05: ocultar valores vale para títulos, gráfico, lista e leitor de tela; relatório não solicita domínios externos para gerar imagem/gráfico.
+- AC-R06: leitor de tela consegue chegar de resumo a transações e voltar; filtros têm rótulos e não exigem memorizar uma legenda de cores.

@@ -32,3 +32,23 @@ Consulta: 16/10/2026. Fontes primárias; conteúdo/preço/cobertura podem mudar.
 **Confirmado documentalmente:** texto publicado nas fontes acima. **Proposto:** escolha de arquitetura/regra do Orbe. **Pendente de teste:** comportamento com SDK, plano, conta e aparelho reais. **Homologado:** somente depois de evidência de execução, data e resultado.
 
 Guias de fornecedores podem conter simplificações de produto, inclusive exemplos que agrupam “caixinhas” sob CDB. Não converter isso em regra universal sobre Nubank, Mercado Pago, Bradesco ou Inter. Campo e resposta real prevalecem na homologação; nenhum trecho promocional substitui a análise de tratamento de dados no backend do Orbe.
+
+## Fontes da revisão de privacidade
+
+Consultadas em 16/10/2026; leitura pública, sem conteúdo bancário real. Documentos publicados não constituem garantia de ausência de incidente.
+
+| ID | Fonte primária | Uso na revisão |
+|---|---|---|
+| S23 | [Pluggy: termos e privacidade](https://www.pluggy.ai/legal) | Escopo amplo, parceiros, tratamento internacional e controles declarados |
+| S24 | [Pluggy: PDF de privacidade](https://www.pluggy.ai/docs/politica-de-privacidade.pdf) | Limites de garantia/eliminação e necessidade de esclarecimento do plano aplicável |
+| S25 | [Meu Pluggy: portal](https://meu.pluggy.ai/en) | Funcionalidades IA/MCP/plataformas; não comprova envio automático a essas funções |
+| S26 | [Supabase: residência](https://supabase.com/legal/privacy-resources/data-residency-and-transfers-faq) | Diferença entre região principal e operações externas |
+| S27 | [Supabase: subprocessadores](https://supabase.com/legal/subprocessor-list/October-12-2026.pdf) | Lista publicada; presença de fornecedor não prova conteúdo financeiro enviado |
+| S28 | [Supabase: advisories Auth](https://github.com/supabase/auth/security/advisories) | Vulnerabilidades por componente, sem inferir vazamento do Orbe |
+| S29 | [Supabase: advisory Apple/Azure](https://github.com/supabase/auth/security/advisories/GHSA-v36f-qvww-8w8m) | Exemplo concreto para futura revisão de versão/configuração |
+| S30 | [Supabase: defesa em MCP](https://supabase.com/blog/defense-in-depth-mcp) | Risco de conteúdo não confiável junto a ferramentas e dados privados |
+| S31 | [Expo: captura de tela](https://docs.expo.dev/versions/latest/sdk/screen-capture/) | Capacidades que precisam de teste em aparelho; sem garantia universal |
+| S32 | [Expo: ferramentas de depuração](https://docs.expo.dev/debugging/tools/) | Superfície do ambiente dev a separar de conteúdo real |
+| S33 | [OWASP MASVS](https://mas.owasp.org/MASVS/) | Organização dos controles e testes móveis; não certificação |
+
+A ausência de resultado em busca pública de incidentes não foi usada como evidência de segurança. Não foram realizadas consultas a dumps, credenciais vazadas ou dados de terceiros.

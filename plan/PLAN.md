@@ -1,10 +1,10 @@
 # Plano de implementação — após as specs
 
-Versão 0.1, 16/10/2026. Estado: proposed. Entrada: [specs](../specs/README.md), [pesquisa](../docs/research/FEASIBILITY.md), [decisões](../docs/decisions/DECISIONS.md). Nenhuma implementação foi iniciada. Este plano orienta a próxima fase quando autorizada.
+Versão 0.2, 16/10/2026. Estado: proposed. Entrada: [specs](../specs/README.md), [pesquisa](../docs/research/FEASIBILITY.md), [decisões](../docs/decisions/DECISIONS.md). Nenhuma implementação foi iniciada. Este plano orienta a próxima fase quando autorizada.
 
 ## Sequência e gates
 
-R0 fecha contratos e limitações → R1 prova base, segurança e cálculos com dados sintéticos → R2 prova integração pessoal banco a banco → R3 avalia build nativo/Face ID. Tasks de investigação sem dados reais podem avançar sem resolver a cobertura de todos os bancos; homologação real não pode. Até G2, as tasks de adaptador/worker/telas usam fixtures sintéticas ou sandbox autorizado; código de integração preparado em R1 não significa dados reais conectados.
+R0 fecha contratos e limitações, incluindo SPEC-006/007 → R1 prova base, segurança e cálculos com dados sintéticos → R2 prova integração pessoal banco a banco após gate de fornecedores/runtime → R3 avalia build nativo/Face ID. Tasks de investigação sem dados reais podem avançar sem resolver a cobertura de todos os bancos; homologação real não pode. Até G2, as tasks de adaptador/worker/telas usam fixtures sintéticas ou sandbox autorizado; código de integração preparado em R1 não significa dados reais conectados.
 
 Antes do bootstrap: registrar iPhone/iOS/Expo Go, selecionar SDK efetivamente suportado e Node compatível, revalidar dependências. Não fixar versão do projeto F1 por semelhança nem instalar latest sem conferir runtime. Orbe tem ambiente e credenciais próprios. Nenhuma dependência foi instalada neste planejamento.
 
@@ -55,7 +55,7 @@ Estrutura futura sugerida (não criada): app de rotas; features; domain; data; U
 | webhook_receipts/jobs | identificador, correlação, tentativas, lease e erro | deduplicação; ACK só após persistir, job recuperável após interrupção |
 | audit_events | operações sensíveis e IDs internos | sem payload financeiro, segredos ou descrição de extrato em logs |
 
-Snapshots têm data da fonte e data de importação. Valores de fonte referem-se ao estado real conhecido, sem fabricar histórico prévio. Conteúdo bruto, se necessário ao diagnóstico, terá acesso server-side restrito, retenção máxima proposta de 7 dias e dados minimizados; padrão é não persistir payload bruto. Esses prazos são proposta operacional, não declaração de obrigação legal.
+Snapshots têm data da fonte e data de importação. Valores de fonte referem-se ao estado real conhecido, sem fabricar histórico prévio. Conteúdo bruto financeiro não será persistido nem enviado a ferramentas de diagnóstico por padrão. Exceção exigiria revisão de finalidade, retenção e destinatários na SPEC-006; a antiga hipótese de 7 dias não autoriza captura real. Retenção efetiva e suas exceções dependem da revisão de cada destino antes do uso real.
 
 ## Contratos de operação propostos
 
@@ -94,3 +94,13 @@ CI futuro: lockfile, typecheck, testes de domínio/SQL/HTTP e export de verifica
 A [matriz de validação](../docs/VALIDATION.md) define cenários, não resultados executados. R1 requer simuladores e iPhone para a fatia local; R2 requer banco real, autoria/consentimento, reconciliação e reversão. Falhas significativas abrem microtask e atualizam o estado, sem redefinir um requisito para caber no código.
 
 Rollback: cliente retorna à atualização compatível anterior; migrations aditivas permanecem. Worker pode ser pausado sem apagar dados. Restore só será declarado validado após teste em ambiente separado; histórico Git não é backup de dados financeiros.
+
+## Revisão 0.2 — privacidade e profundidade
+
+[SPEC-006](../specs/006-security/spec.md) e [SPEC-007](../specs/007-reports/spec.md) passam a integrar o contrato. Arquitetura com Supabase/Pluggy permanece candidata, não escolha aprovada. Comparar processamento gerenciado versus redução de cópias na nuvem, com gestão de chaves realista; worker que descriptografa não oferece zero knowledge ao operador desse worker. Não embutir segredo de agregador no app para tentar evitar backend.
+
+Gate antes de real: T47–T49 avaliam fornecedores, confiança e runtime; T50–T56 planejam/implementam controles após autorização; T63 exige evidências sintéticas dos controles. R2 só começa depois desse gate. R1 continua sem bancos reais, inclusive em ferramentas. O app sintético pode usar Expo Go; o ambiente real será decidido com o titular após comparar limites e distribuição. Não migrar para build nativo silenciosamente.
+
+Relatórios: T57–T62 acrescentam consultas/filtros privados, visão progressiva, comparações e listas acessíveis. Contratos reaproveitam valores canônicos e completude; cache pertence ao proprietário e expira junto da sessão/filtros/versão. Preferir cálculo no aparelho quando os dados autorizados disponíveis bastarem; processamento server-side eventual fica restrito ao backend aprovado e à consulta autenticada. Nenhum BI, LLM, renderizador remoto ou compartilhamento por link entra no fluxo.
+
+Validação de exposição usa canários sintéticos para procurar dados em rede, logs, bundle, disco/cache e evidências. Não levar dados reais ao chat para demonstrar sanitização. A execução desses testes ainda não ocorreu; documentos especificam o que precisa ser comprovado.

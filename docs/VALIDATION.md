@@ -36,3 +36,17 @@ Estado: desenho de testes, **não testes executados**. Não há código nesta et
 R1 exige evidência de acesso/segurança/domínio, não conexão bancária. R2 exige também quatro fichas e visão conjunta com fonte/data/completude; se um produto faltar, limitação explícita e aceite de escopo reduzido antes de declarar conclusão. R3 não é aprovada por simular resultado biométrico.
 
 Antes de dados reais, validar logs/segredos/retencão, comportamento de exclusão, quotas, backup/restore e superfície de endpoints. Esses são critérios do produto financeiro planejado, não alegação de auditoria completa. Não usar conta real de terceiro para provar RLS. Evidência pública deve conter apenas cenários sintéticos e IDs de testes sem identificação financeira.
+
+## Revisão 0.2 — segurança e relatórios
+
+Os cenários abaixo também são planejados, sem execução de software. Canários são dados sintéticos criados para detecção de exposição, nunca cópias de extrato real.
+
+| Cenário | Requisitos rastreados | Tasks | Prova futura esperada |
+|---|---|---|---|
+| V18 Diligência e confiança | SEC-01, SEC-04, SEC-06, SEC-17, SEC-18 | T47–T49, T63 | Destinatários/chaves/termos/runtime definidos e gate real resolvido, sem alegar risco zero |
+| V19 Ferramentas e publicação | SEC-02, SEC-03, SEC-10, SEC-11 | T50, T53, T54 | Sem dados de produção em dev/IA/MCP/CI; supply chain e runtime controlados |
+| V20 Rede, logs e conteúdo malicioso | SEC-05, SEC-12, SEC-15 | T51, T52 | Canários não expostos em URLs/logs/destinos desconhecidos; texto da fonte não executa instruções |
+| V21 Acesso, aparelho e exclusão | SEC-07, SEC-08, SEC-09, SEC-14 | T53, T55, T56 | Leitura cruzada negada, captura/bloqueio testados e restore sem reconexão |
+| V22 Relatórios privados | SEC-13, SEC-16, RPT-01, RPT-02, RPT-03, RPT-04, RPT-05, RPT-06, RPT-07, RPT-08 | T57–T62 | Drill-down reconciliado, filtros/base temporal corretos, acessibilidade e ausência de nova saída |
+
+Instrumentação de teste não pode tornar-se o próprio vazamento: traces e capturas somente sintéticos; ferramentas sem acesso a segredos/produção. Medir o tráfego e armazenamento observáveis no ambiente do teste e registrar o que ficou fora da inspeção. Sucesso de scanner não demonstra inexistência de todos os ataques.
