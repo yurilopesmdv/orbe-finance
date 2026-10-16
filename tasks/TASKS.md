@@ -171,3 +171,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## T48 — done como decisão de escopo
 
 [Evidência](../plan/T48-TRUST-KEYS.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T49.
+
+## T49 — done como decisão de escopo
+
+[Evidência](../plan/T49-RUNTIME-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T06.

@@ -57,3 +57,7 @@ Wireframe estático local em docs/design/wireframes.html, evidência em plan/T05
 ## T48 — done como decisão de escopo
 
 [Evidência](../plan/T48-TRUST-KEYS.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T49.
+
+## T49 — done como decisão de escopo
+
+[Evidência](../plan/T49-RUNTIME-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T06.
