@@ -1,0 +1,43 @@
+{
+  "name": "orbe-finance",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "engines": {
+    "node": ">=22.13.0 <23",
+    "npm": ">=12 <13"
+  },
+  "packageManager": "npm@12.2.0",
+  "scripts": {
+    "start": "EXPO_NO_TELEMETRY=1 expo start --lan",
+    "ios": "expo start --ios",
+    "typecheck": "tsc --noEmit",
+    "test": "node spikes/access/session.test.mjs",
+    "export:ios": "EXPO_NO_TELEMETRY=1 expo export --platform ios",
+    "check": "npm run typecheck && npm test"
+  },
+  "dependencies": {
+    "expo": "~57.0.30",
+    "expo-constants": "~57.0.22",
+    "expo-linking": "~57.0.13",
+    "expo-router": "~57.0.28",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-gesture-handler": "~2.32.0",
+    "react-native-reanimated": "4.5.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-web": "~0.21.0",
+    "react-native-worklets": "0.10.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "decode-uri-component": "0.5.0",
+    "uuid": "11.1.1"
+  }
+}

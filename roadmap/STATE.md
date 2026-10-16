@@ -30,3 +30,13 @@ Há documentos, wireframe HTML, spike JS e fixtures sintéticas. Ainda não há 
 ## Checkpoint por task
 
 Registrar ID/estado, requisito, paths, base, resultado, testes realmente executados, limites, commit e próxima ação. Conferir git status; uma task/commit por assunto. Se serviço/aparelho bloquear uma task, registrar e avançar em outra independente autorizada; não marcar teste não executado como sucesso. Não pedir novo “pode continuar” entre tasks. Nenhuma execução periódica de cinco horas configurada.
+
+## T07 — doing / retomada vigente
+
+Bootstrap mínimo SDK57, base 9805406. Registry/template oficial consultados; paths em plan/T07-BOOTSTRAP.md. Nenhum backend/credencial/dado real. Instalar versões e validar typecheck, spike, doctor e export iOS antes de concluir. Smoke físico permanece pendente do titular; não declarar executado.
+
+## T07 — review / retomada vigente
+
+App mínimo criado e dependências instaladas com lockfile/scripts desabilitados. Typecheck/20 testes/Doctor21/21/compatibilidade/export iOS passaram. Metro ativo porta8083, sessão de ferramenta13056; /status confirmou execução. Solicitação assíncrona ao titular para abrir exp://192.168.18.7:8083 e confirmar tela demonstrativa. Nenhum banco/secret/backend.
+
+18 alertas altos de duas raízes transitivas sem patch; ver docs/security/DEPENDENCIES.md. Overrides corrigiram10 moderados; sem downgrade forçado. Próxima task local T09, que depende somente dos artefatos T07 já verificados; smoke físico segue pendente. Não interromper trabalho independente por esperar resposta. T08 ainda sem projeto remoto (não reutilizar credenciais F1).

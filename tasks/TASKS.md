@@ -179,3 +179,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## Evidência T06 — done (R1 sintética)
 
 [Prontidão](../plan/T06-R1-READINESS.md). Dependências revisadas, specs ready apenas para preparação sintética. Gate real e cobertura bancária permanecem pendentes. Próxima T07 bootstrap SDK57, sem dados reais.
+
+## T07 — review
+
+[Bootstrap](../plan/T07-BOOTSTRAP.md): typecheck,20 testes, compatibilidade,Doctor21/21,export iOS e Metro/status passaram. Smoke físico solicitado, aguardando titular. Auditoria com18 altos transitivos sem patch, gate real bloqueado. Para T09, a dependência T07 requer os artefatos locais verificados; confirmação física continua pendente e não bloqueia configurar checks de CI. Próxima task local T09; T08 remota ainda não provisionada.
