@@ -58,3 +58,7 @@ Validação 0.5 executada: 30 documentos, 10 specs, 85 requisitos ativos e 77 ta
 Specs de acesso/Open Finance/fornecedor ajustadas antes do contrato da ponte. Backlog revisado para metadados server-side e finanças locais, sem worker/webhook no MVP; dependências de expansão retiradas do caminho de release. Pesquisa oficial confirmou limites do proxy, distinguindo-os dos conectores empresariais Open Finance. Não houve código, HTTP financeiro, testes RLS ou provisionamento.
 
 Validação final T74 executada: 31 documentos Markdown, 10 specs, 85 requisitos ativos e 77 tasks; nenhum link quebrado/requisito sem rastreio/dependência inexistente/ciclo. git diff --check passou. Uma task concluída; T01 ainda não iniciada.
+
+## T01 — runtime e estrutura
+
+Requisito PRD-04: runtime confirmado textualmente pelo titular, matriz SDK/Node/iOS consultada em fontes oficiais, Node22.23.2/npm12.2.0 executados localmente, paths definidos e limites registrados. Somente Markdown alterado; nenhum pacote instalado ou app executado. Esta é conclusão documental de compatibilidade, não homologação física.

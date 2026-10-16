@@ -2,7 +2,7 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual: início da execução sequencial autorizado; T74 concluída documentalmente; próxima T01.** Não há app executável, backend provisionado, dependências ou bancos conectados. O Face ID está previsto para uma etapa com runtime compatível; sua limitação no Expo Go está registrada na pesquisa.
+**Estado atual: início da execução sequencial autorizado; T74/T01 concluídas documentalmente; próxima T02.** Não há app executável, backend provisionado, dependências ou bancos conectados. O Face ID está previsto para uma etapa com runtime compatível; sua limitação no Expo Go está registrada na pesquisa.
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 
@@ -16,6 +16,7 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Revisão dos fornecedores](docs/security/VENDOR-REVIEW.md) | Achados, limites e aprovações ainda pendentes |
 | [Modelo de ameaças](docs/security/THREAT-MODEL.md) | Destinos de dados, controles e riscos residuais |
 | [Decisões](docs/decisions/DECISIONS.md) | Escolhas propostas, confirmadas e adiadas |
+| [Runtime e estrutura](plan/T01-RUNTIME-STRUCTURE.md) | iPhone, SDK57, Node, limites e paths de implementação |
 | [Contrato da ponte](plan/T74-BRIDGE-CONTRACT.md) | Autenticação, metadados, retenção e API da primeira fatia |
 | [Plano vigente Meu Pluggy](plan/MEU-PLUGGY.md) | Automação PF, ponte privada e entregas pequenas |
 | [Pesquisa de segurança Meu Pluggy](docs/security/MEU-PLUGGY-REVIEW.md) | Vulnerabilidades encontradas, limites e decisão |

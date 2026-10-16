@@ -25,8 +25,10 @@ A infraestrutura da ponte pode ter custo mesmo com acesso pessoal gratuito. Nenh
 
 ## Continuidade
 
-T74 concluída documentalmente; próxima task T01. Execução sequencial autorizada; próxima T01. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.
+T74/T01 concluídas documentalmente; próxima task T02. Execução sequencial autorizada. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.
 
 ## Contrato aplicável
 
 [T74](T74-BRIDGE-CONTRACT.md) define a ponte sem persistência financeira, Supabase Auth/Functions e metadados sob RLS. Webhook/cron desligados inicialmente. Atualização bancária no fornecedor independe do app; cache local consulta ao abrir/retomar desbloqueado. O contrato prevalece sobre hipóteses anteriores de worker e relatórios no servidor.
+
+[T01](T01-RUNTIME-STRUCTURE.md) fixa SDK57 e Node22.23.2/npm12.2.0 para o cliente confirmado pelo proprietário. T02 é a próxima task; não adotar latest ou alterar o ambiente global.

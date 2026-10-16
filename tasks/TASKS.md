@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado em 16/10/2026: **T74 concluída documentalmente; próximas tasks ainda não iniciadas**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado em 16/10/2026: **T74 e T01 concluídas documentalmente; próximas tasks ainda não iniciadas**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -15,7 +15,7 @@ Estado em 16/10/2026: **T74 concluída documentalmente; próximas tasks ainda n�
 
 ## Aplicabilidade vigente 0.4
 
-Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 contêm capacidades locais reutilizáveis; T68 foi retirada e seu ID permanece reservado. A origem financeira será exclusivamente Open Finance. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Gate T63 continua obrigatório. T74 concluída; próxima T01, isoladamente.
+Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 contêm capacidades locais reutilizáveis; T68 foi retirada e seu ID permanece reservado. A origem financeira será exclusivamente Open Finance. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Gate T63 continua obrigatório. T74 e T01 concluídas; próxima T02, isoladamente.
 
 ## Contrato de execução
 
@@ -143,3 +143,7 @@ T78 não declara cobertura real antes do primeiro consentimento: T41/T42 passam 
 ## Evidência T74 — done
 
 Contrato em [T74-BRIDGE-CONTRACT](../plan/T74-BRIDGE-CONTRACT.md), base d2dec67, requisitos MPG-01/02/03/07 e specs correlatas. Apenas documentação alterada, sem endpoint/backend provisionado. Critérios de arquitetura/segredos/autorização/retencão/custo definidos; viabilidade Open Finance pessoal por banco continua em T03/T77, sem promessa de acesso real. Dependência de release em Inter/Nubank removida; webhook deferred não bloqueia a versão inicial. Próxima task T01.
+
+## Evidência T01 — done
+
+[Runtime e estrutura](../plan/T01-RUNTIME-STRUCTURE.md), base 6058f29, requisito PRD-04. Proprietário confirmou iPhone 11/iOS 26.6.2/Expo Go 57.0.9/SDK 57.0.0. Selecionados SDK57 e Node22.23.2/npm12.2.0 locais; matriz de limitações e paths futuros definidos. Sem instalar dependências ou abrir app. Próxima task T02; T07 continua responsável pelo bootstrap e smoke no aparelho.

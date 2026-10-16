@@ -44,7 +44,7 @@ A integração automática A1 só pode ser declarada completa se houver evidênc
 
 ## Premissas e questões abertas
 
-Não foi informado em quais bancos existem reservas nem os modelos dos produtos. Conta PF está confirmada; BRL permanece moeda inicial. Modelo do iPhone, versão iOS e SDK compatível com Expo Go serão registrados antes do bootstrap. O nome Orbe Finance é de trabalho; marca/domínio não foram verificados.
+Não foi informado em quais bancos existem reservas nem os modelos dos produtos. Conta PF está confirmada; BRL permanece moeda inicial. T01 registrou iPhone 11, iOS 26.6.2, Expo Go 57.0.9 com suporte SDK 57.0.0, informados pelo proprietário; base selecionada SDK 57. Compatibilidade física do app ainda será testada em T07/T38. O nome Orbe Finance é de trabalho; marca/domínio não foram verificados.
 
 ## Revisão de privacidade e relatórios
 

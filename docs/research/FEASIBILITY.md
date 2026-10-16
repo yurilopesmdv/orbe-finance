@@ -44,3 +44,7 @@ Viável como proposta de app pessoal com senha, consolidação assíncrona e cam
 ## Revisão de segurança posterior
 
 A conclusão de viabilidade acima não é aprovação de privacidade. A [revisão de fornecedores](../security/VENDOR-REVIEW.md) identificou lacunas contratuais e de acesso. Pluggy/Meu Pluggy e Supabase permanecem não aprovados para conteúdo financeiro real; a escolha fica suspensa até resolver o gate de [ameaças e destinos](../security/THREAT-MODEL.md). Expo Go continua útil para protótipo sintético, sem implicar aceite para produção financeira.
+
+## Atualização T01 — runtime confirmado
+
+Em 16/10/2026, proprietário confirmou iPhone11/iOS26.6.2/ExpoGo57.0.9 com SDK57. Matriz e ferramentas locais em [T01](../../plan/T01-RUNTIME-STRUCTURE.md). SDK58 recém-lançado ainda não é o cliente instalado; a base permanece SDK57. Não houve smoke real do app ou instalação nesta task. Limites de Face ID/SQLCipher permanecem.
