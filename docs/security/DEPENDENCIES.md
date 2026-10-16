@@ -19,3 +19,7 @@ Auditoria caiu de28 (10 moderados/18 altos) para18 altos, sem moderados/crítico
 18 são pacotes afetados direta/indiretamente na árvore, não18 falhas independentes. Reconciliar alcance exato no bundle/ambiente em T54 antes de release real. Metro fica em LAN, somente sintéticos; não aceitar configuração/arquivos de origem desconhecida, não usar certificados de terceiros nem publicar servidor de desenvolvimento como produção. Essas restrições reduzem exposição mas não corrigem o pacote vulnerável. O gate real continua fechado, sem exceção por passar o bundle.
 
 [decode-uri-component](https://github.com/advisories/GHSA-vcc3-ghjq-m6fr), [uuid](https://github.com/advisories/GHSA-w5hq-g745-h8pq). Reconsultar advisories e remover overrides quando versões compatíveis upstream incorporarem correção. Nunca alegar zero vulnerabilidades. CI não executará deploy nem receberá segredos bancários; audit com falha precisa de classificação explícita, sem suppressão silenciosa.
+
+## CI T09
+
+Exceção explícita somente para os dois URLs de advisory acima, válida até23/10/2026, exclusivamente sintéticos. Script security:audit falha para novo advisory, resposta inválida ou prazo expirado; imprime quantidade restante em vez de alegar zero. Não usar continue-on-error no audit. Gate real exige resolver/mitigar e revisar essas pendências, sem herdar a exceção de desenvolvimento.

@@ -40,3 +40,11 @@ Bootstrap mínimo SDK57, base 9805406. Registry/template oficial consultados; pa
 App mínimo criado e dependências instaladas com lockfile/scripts desabilitados. Typecheck/20 testes/Doctor21/21/compatibilidade/export iOS passaram. Metro ativo porta8083, sessão de ferramenta13056; /status confirmou execução. Solicitação assíncrona ao titular para abrir exp://192.168.18.7:8083 e confirmar tela demonstrativa. Nenhum banco/secret/backend.
 
 18 alertas altos de duas raízes transitivas sem patch; ver docs/security/DEPENDENCIES.md. Overrides corrigiram10 moderados; sem downgrade forçado. Próxima task local T09, que depende somente dos artefatos T07 já verificados; smoke físico segue pendente. Não interromper trabalho independente por esperar resposta. T08 ainda sem projeto remoto (não reutilizar credenciais F1).
+
+## T09 — doing
+
+Base c07cb13. Checks GitHub Actions fixados por SHA, sem secrets/deploy; instalação por lockfile/scripts desabilitados, typecheck/testes/compatibilidade/audit/export. Auditoria tem exceção temporária explícita para dois advisories sem patch (somente sintético,23/10/2026); falha fechada para novidades/erro/prazo. Smoke físico T07 pendente.
+
+## T09 — review / retomada vigente
+
+Workflow/scripts de audit implementados,29 testes locais passaram (20 sessão+9 audit), YAML válido8 etapas; primeira execução GitHub pendente após push. T07: QR exibido ao usuário para exp://192.168.18.7:8083, aguardando teste físico; Metro sessão13056. Próxima tarefa após conferir CI: T08 preparar backend próprio, sem usar .env F1. Docker existe, mas consulta ao socket no sandbox foi negada; testar acesso autorizado antes de concluir indisponibilidade. Nenhum projeto Supabase Orbe existente/credencial foi lido.

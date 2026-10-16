@@ -183,3 +183,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## T07 — review
 
 [Bootstrap](../plan/T07-BOOTSTRAP.md): typecheck,20 testes, compatibilidade,Doctor21/21,export iOS e Metro/status passaram. Smoke físico solicitado, aguardando titular. Auditoria com18 altos transitivos sem patch, gate real bloqueado. Para T09, a dependência T07 requer os artefatos locais verificados; confirmação física continua pendente e não bloqueia configurar checks de CI. Próxima task local T09; T08 remota ainda não provisionada.
+
+## T09 — review
+
+Workflow implementado com SHAs oficiais e sem secrets/deploy. Typecheck +29 testes +YAML +audit passaram localmente; primeira execução remota pendente após push. [Evidência](../plan/T09-CI.md). T07 continua aguardando confirmação física do QR enviado.
