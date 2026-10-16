@@ -1,6 +1,6 @@
 # Plano vigente — Meu Pluggy, revisão 0.4
 
-Deriva da [SPEC-009](../specs/009-meu-pluggy/spec.md), que prevalece sobre escolhas conflitantes da revisão 0.3. Etapa atual somente documental; não iniciar código. O fluxo principal é automático; importação/manual permanece contingência.
+Deriva da [SPEC-009](../specs/009-meu-pluggy/spec.md), que prevalece sobre escolhas conflitantes da revisão 0.3. Implementação autorizada em 16/10/2026, uma task por vez. O fluxo principal é automático; a origem financeira é exclusivamente Open Finance.
 
 ## Arquitetura proposta e fronteiras de confiança
 
@@ -12,7 +12,7 @@ Segredos do fornecedor permanecem no servidor. A ponte usa autenticação do pro
 
 1. T74 fecha contrato do proxy pessoal, destinatários, retenção/chaves e autenticação da ponte com dados sintéticos. Atualizar as tasks cloud reaproveitadas antes de executá-las; não copiar automaticamente todo o desenho gerenciado antigo.
 2. T01/T02/T04/T05 e T47–T49 fecham runtime, acesso, domínio, wireframes e riscos. T65 continua útil para runtime; autenticação local T66 é complementar à sessão da ponte. Nenhum controle nativo é declarado funcional no Expo Go sem prova.
-3. Após autorização de implementação, adaptar T07–T27 ao contrato T74, com ponte mínima e ingestão de respostas simuladas. Só armazenar no servidor aquilo explicitamente definido. Importação T68 não é dependência da sincronização principal.
+3. Após autorização de implementação, adaptar T07–T27 ao contrato T74, com ponte mínima e ingestão de respostas simuladas. Só armazenar no servidor aquilo explicitamente definido.
 4. T75 verifica autenticação/autorização de todas as rotas, incluindo status/configuração; T76 fecha itens permitidos, cadência e falhas do proxy. Reaproveitar testes de egress/logs e relatórios T50–T62.
 5. T77 homologa matriz de cobertura sintética e prepara comparação privada de Bradesco/MP; não afirmar cofrinhos disponíveis a partir de documentação genérica. Incidentes operacionais não são prova de incidente de segurança.
 6. T78 consolida evidências técnicas com T63 antes de conectar banco real. Depois, homologação privada pelo titular, somente Bradesco/MP. T39/T40 permanecem expansão. Revisar riscos/resultado de cobertura antes de declarar produto completo.
@@ -25,4 +25,4 @@ A infraestrutura da ponte pode ter custo mesmo com acesso pessoal gratuito. Nenh
 
 ## Continuidade
 
-Próxima tarefa documental: T74. Implementação permanece pendente de autorização de fase. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.
+Próxima tarefa documental: T74. Execução sequencial autorizada; começar por T74. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.

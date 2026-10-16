@@ -1,6 +1,6 @@
 # SPEC-009 — Integração automática Meu Pluggy
 
-Estado: draft, revisão 0.4 de 16/10/2026. O usuário escolheu Meu Pluggy, condicionado à pesquisa pública de segurança. [Resultado da pesquisa](../../docs/security/MEU-PLUGGY-REVIEW.md): seguir no planejamento; produção depende de evidências próprias. Esta spec prevalece sobre a opção local sem agregador da revisão 0.3. Importação/manual é alternativa e não substitui o objetivo automático.
+Estado: draft, revisão 0.4 de 16/10/2026. O usuário escolheu Meu Pluggy, condicionado à pesquisa pública de segurança. [Resultado da pesquisa](../../docs/security/MEU-PLUGGY-REVIEW.md): seguir no planejamento; produção depende de evidências próprias. Esta spec prevalece sobre a opção local sem agregador da revisão 0.3. A origem financeira é exclusivamente Open Finance.
 
 | ID | Requisito |
 |---|---|
@@ -21,4 +21,4 @@ Estado: draft, revisão 0.4 de 16/10/2026. O usuário escolheu Meu Pluggy, condi
 - Cofrinho MP não retornado e movimentos Bradesco indisponíveis aparecem como parcialidade datada, sem apagar valores válidos anteriores nem inventar zeros.
 - Revogar impede nova coleta e evento atrasado não recria conexão apagada. Exclusão de backup do fornecedor só é afirmada com confirmação de alcance/retencão.
 
-Senha/sessão continuam no escopo. Expo Go permanece ambiente sintético enquanto limitações de biometria/armazenamento do runtime real não forem resolvidas. Nenhum código ou consentimento bancário autorizado nesta etapa.
+Senha/sessão continuam no escopo. Expo Go permanece ambiente sintético enquanto limitações de biometria/armazenamento do runtime real não forem resolvidas. Implementação sintética autorizada, uma task por vez; consentimento bancário permanece após gate.

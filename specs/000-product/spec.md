@@ -1,6 +1,6 @@
 # SPEC-000 — Produto e escopo
 
-**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; Open Finance é a única origem financeira admitida. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
 
 Estado: draft. Origem: solicitações e respostas do usuário em 16/10/2026.
 
@@ -25,18 +25,18 @@ Usuário inicial: uma pessoa, no próprio iPhone, usando Expo Go. Prioridade vig
 
 ## Entregas incrementais vigentes
 
-- **R0 — Planejamento atual:** somente Markdown; nenhum app, recurso cloud, credencial ou conexão bancária.
-- **L0/L1 — Base local:** contrato/runtime, senha/chaves e dados sintéticos; sem autenticação cloud ou backend financeiro obrigatório.
-- **L2/L3 — Gestão local:** entrada/importação conforme layout oficial, classificação, investimentos/cofrinhos e relatórios no aparelho. Uso real só após comprovar controles e limites; não equivale a sync automática.
-- **A0/A1 — Automação pendente:** acesso direto PF será avaliado separadamente; se elegível, nova revisão de contrato/segredos antes de habilitar. Integração automática continua parte do objetivo, ainda não comprovada.
+- R0: specs/contratos, pesquisa e roadmap.
+- R1: acesso, domínio e telas com respostas inteiramente sintéticas.
+- R2: integração Open Finance Meu Pluggy, Bradesco/Mercado Pago PF, após gate de dados reais e homologação privada por produto.
+- R3: Face ID no ambiente nativo compatível, após validação em aparelho.
 
-A trilha anterior gerenciada R1/R2/R3 foi subordinada à decisão local da SPEC-008. Face ID pertence ao ambiente nativo compatível após teste, não ao Expo Go.
+Implementação autorizada em 16/10/2026, uma task por vez. Não conectar banco real ou contratar serviço nesta preparação.
 
 ## Fora do MVP
 
 Pagamentos, Pix, iniciar aplicações/resgates, recomendação de ativos, assessoria, cálculo fiscal/IR, rentabilidade auditada, cotações em tempo real, empréstimos detalhados, conta familiar, usuários públicos, Android, site de gestão, App Store e IA sobre dados bancários. Cartões/faturas completos são fase posterior; se o provedor trouxer compras de cartão, seu tratamento e o pagamento da fatura devem evitar duplicidade desde a primeira inclusão.
 
-BRL é a moeda inicial. Valores em outras moedas ficam separados e sinalizados; não entram em um total convertido sem uma spec futura de câmbio. Orçamentos mensais, recorrências preditivas e notificações push ficam em backlog. SPEC-008 promove entrada/importação local à primeira fatia, usando somente formatos oficiais confirmados; CSV/OFX são candidatos, não disponibilidade garantida.
+BRL é a moeda inicial. Valores em outras moedas ficam separados e sinalizados; não entram em um total convertido sem uma spec futura de câmbio. Orçamentos mensais, recorrências preditivas e notificações push ficam em backlog. A origem financeira será exclusivamente Open Finance.
 
 ## Critérios de sucesso
 
@@ -49,7 +49,3 @@ Não foi informado em quais bancos existem reservas nem os modelos dos produtos.
 ## Revisão de privacidade e relatórios
 
 Pedido posterior de 16/10/2026: simplicidade de UI com profundidade de análise e prioridade estrita de confidencialidade. SPEC-006 bloqueia uso real até fornecedor/runtime/controles serem avaliados; SPEC-007 define relatórios dentro do app. R1 permanece sintética. R2 agora depende também do gate de segurança e decisão explícita sobre acesso de provedores; nenhum deles está aprovado. Não prometer risco zero ou conexão Open Finance sem processamento por terceiros.
-
-## Revisão 0.3 vigente
-
-O usuário delegou caminho técnico e confirmou PF. [SPEC-008](../008-personal-data/spec.md) e [plano PF](../../plan/PF-IMPLEMENTATION.md) governam a primeira fatia: núcleo local, duas instituições prioritárias e entrada local como contingência. A trilha gerenciada anterior não autoriza backend/agregador por padrão. O objetivo de integração automática não foi descartado nem atendido; permanece separado e dependente de viabilidade oficial.

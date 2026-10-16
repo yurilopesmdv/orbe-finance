@@ -1,6 +1,6 @@
 # SPEC-001 — Acesso, sessão e privacidade
 
-**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; Open Finance é a única origem financeira admitida. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
 
 > Aplicabilidade atual: a proposta gerenciada abaixo é trilha condicional. Para a primeira fatia, [SPEC-008](../008-personal-data/spec.md) define senha/chaves locais e fontes PF, sem conta cloud por padrão. Regras de proteção permanecem, mas não criar backend automaticamente.
 

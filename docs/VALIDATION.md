@@ -57,7 +57,7 @@ Instrumentação de teste não pode tornar-se o próprio vazamento: traces e cap
 |---|---|---|---|
 | V23 Fontes PF | PF-01, PF-07 | T64, T72 | Prioridade de duas instituições, acesso/custo/scopes separados; automação indisponível sem prova |
 | V24 Persistência e acesso locais | PF-02, PF-03, PF-04, PF-08 | T65–T67, T71 | Sem conta cloud, chave/senha/captura protegidas no ambiente validado; sem conteúdo real em dev |
-| V25 Entrada local e integridade | PF-05, PF-06 | T68–T70, T73 | Formatos oficiais, deduplicação, fonte/data, parcialidade e relatórios reconciliados |
+| V25 Lotes API e integridade | PF-06 | T69, T70, T73 | Deduplicação, fonte/data, parcialidade e relatórios reconciliados |
 
 Cenários anteriores que presumiam servidor/RLS são condicionais à adoção de ponte futura. RLS não prova proteção de arquivo no iPhone; chave inválida, journals, temporários, reinício, bloqueio e recuperação precisam de testes locais próprios. Nenhum desses testes de software foi executado no planejamento.
 

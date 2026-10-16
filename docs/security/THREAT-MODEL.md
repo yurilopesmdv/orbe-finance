@@ -37,7 +37,6 @@ A. Agregador + backend gerenciado: simplifica sync/relatórios, mas provedores e
 
 B. Agregador + persistência/cálculos mais próximos do aparelho: reduz cópias na nuvem do Orbe, mas não elimina acesso do agregador, risco de recuperação de chaves nem necessidade de cliente seguro. É necessário investigar autenticação, sincronização e chaves sem embutir segredo do provedor no app.
 
-C. Entrada manual/importação local sem agregador: reduz esse terceiro, mas não entrega a integração Open Finance solicitada. É alternativa de escopo, não substituição automática.
 
 Não chamar B de E2EE sem protocolo e gestão de chaves verificáveis. Cifrar com chave guardada no mesmo backend não impede esse backend de acessar dados. Uma exigência literal de nenhum terceiro ler dados é incompatível com agregador que processa conteúdo; a decisão tem que ser explicitada antes da conexão.
 

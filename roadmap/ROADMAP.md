@@ -1,21 +1,15 @@
-# Roadmap vigente — contas PF e privacidade
+# Roadmap — Open Finance via Meu Pluggy
 
-**Revisão vigente 0.4:** [SPEC-009](../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
-
-Revisão 0.3 de 16/10/2026. [SPEC-008](../specs/008-personal-data/spec.md) e [plano PF](../plan/PF-IMPLEMENTATION.md) governam a primeira fatia. Contas pessoais PF confirmadas; prioridade Bradesco/Mercado Pago. Inter/Nubank ficam em expansão.
+Revisão 0.5, 16/10/2026. Bradesco/Mercado Pago PF prioritários; Inter/Nubank expansão. Fonte financeira exclusiva Open Finance. [SPEC-009](../specs/009-meu-pluggy/spec.md) e [plano vigente](../plan/MEU-PLUGGY.md).
 
 | Marco | Resultado | Tasks / saída | Estado |
 |---|---|---|---|
-| R0 | Pesquisa, specs, decisões, plano e continuidade | Documentos coerentes; zero código | Revisado |
-| L0 | Contratos locais, formatos e runtime | T64/T65; restrições de segurança/custo explícitas | Não iniciado |
-| L1 | Cofre local, senha/Face ID e entrada sintética | T66–T69; chaves, dados e regras comprovados em ambiente sintético | Não iniciado |
-| L2 | UI simples e relatórios profundos locais | T70; resumo → relatório → dados, sem saídas externas | Não iniciado |
-| L3 | Aceite privado da capacidade local | T71/T73; controles testados e riscos residuais conhecidos antes de conteúdo real | Não iniciado |
-| A0 | Viabilidade de API direta PF | T72; acesso/custo/cobertura/permissões oficiais por banco | Pendente, sem conexão habilitada |
-| A1 | Integração automática, se viável | Nova revisão de spec/contrato/ponte antes de tasks de conexão | Não autorizada nesta etapa |
+| R0 | Specs, pesquisa e planejamento publicados | Contratos e escopo coerentes | Preparado |
+| C0 | Contrato mínimo da ponte e revisão do backlog | T74 | Próxima task |
+| C1 | Runtime, acesso, domínio e wireframes | T01/T02/T04/T05/T47–T49 | Não iniciado |
+| R1 | App sintético, acesso e relatórios | T07 em diante conforme contrato T74 | Não iniciado |
+| G2 | Gate de dados reais | T63/T75–T78 | Não iniciado |
+| R2 | Homologação privada dos dois bancos | T41/T42 e cobertura explícita | Não iniciado |
+| R3 | Biometria no runtime compatível | T46/T65 | Condicionado |
 
-L3 não equivale a A1 nem satisfaz sozinho o objetivo original de Open Finance. Entrada local/manual é capacidade/contingência identificada; integração automática permanece uma pendência, não uma promessa falsa. Preços de API e distribuição iOS são avaliados separadamente. Nenhum serviço será contratado ou consentimento aberto durante planejamento.
-
-Trilha de cloud/worker/agregador anterior fica condicional; não executar só porque há tasks detalhadas. O produto não depende de Supabase/Pluggy para a base selecionada. Se surgir API PF elegível, avaliar segredo e operações efetivamente permitidas — credencial com poderes amplos não vira read-only porque o código usa apenas GET.
-
-Checkpoint ao concluir task e antes de interrupção; registrar responsável, paths, requisito, commit, evidência e próximo ID em STATE. A referência a cinco horas não configura execução automática. A cada sessão, conferir estado real antes de continuar.
+Uma task por vez, com checkpoint, evidências e commit. Expo Go permanece sintético até validar controles. Ausência de produto no Open Finance bloqueia a cobertura correspondente; não existe alimentação financeira alternativa. Nenhuma execução periódica autônoma foi configurada.

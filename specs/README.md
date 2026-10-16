@@ -1,6 +1,6 @@
 # Specs do Orbe Finance
 
-Versão documental 0.1 — 16/10/2026, America/Sao_Paulo. Estado: especificação inicial revisada documentalmente; ainda sem validação de integração ou aceite de implementação. A autorização atual cobre investigação e planejamento, com zero código.
+Versão documental 0.1 — 16/10/2026, America/Sao_Paulo. Estado: especificação inicial revisada documentalmente; ainda sem validação de integração ou aceite de implementação. Execução sintética autorizada em 16/10/2026, uma task por vez.
 
 A ordem de trabalho é **spec → plan → tasks → implement → validate**. Nesta entrega, as três primeiras etapas estão preparadas; implement não foi iniciado. Requisitos usam DEVE para comportamento obrigatório, PODERÁ para evolução. Decisões técnicas propostas estão no plano, separadas dos requisitos de produto.
 
@@ -14,7 +14,7 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. N
 | [005 — Experiência](005-experience/spec.md) | Navegação e estados da interface |
 | [006 — Segurança](006-security/spec.md) | Privacidade, fornecedores, saídas e gate de dados reais |
 | [007 — Relatórios](007-reports/spec.md) | Profundidade por detalhe progressivo, sem serviços externos |
-| [008 — Contas PF](008-personal-data/spec.md) | Capacidade local/contingência, com precedência da revisão 0.4 |
+| [008 — Contas PF](008-personal-data/spec.md) | Persistência PF e origem exclusivamente Open Finance |
 | [009 — Meu Pluggy](009-meu-pluggy/spec.md) | Fornecedor selecionado, automação PF e controles da ponte |
 
 ## Processo e controle de mudança
@@ -23,7 +23,7 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. N
 2. A pesquisa diferencia evidência de fornecedor, hipótese e resultado realmente observado.
 3. O plano relaciona arquitetura, contratos e risco aos requisitos; decisão relevante recebe ADR.
 4. Cada microtask recebe ID, dependências, arquivos sob responsabilidade, critério de aceite e evidência esperada. Nenhuma task é concluída por ter apenas código escrito.
-5. A implementação só começa após o usuário autorizar essa fase. Esse é o limite explícito desta solicitação, não uma exigência adicional para tarefas futuras já autorizadas.
+5. A fase técnica foi autorizada; executar uma task por vez, conforme dependências e gates de dados reais.
 6. Alteração de escopo atualiza spec e ADR antes de abrir as tasks correspondentes. Histórico Git preserva versões; IDs de requisitos não são reutilizados.
 7. Validação relaciona requisito → task → cenário → evidência e registra falhas/limites.
 

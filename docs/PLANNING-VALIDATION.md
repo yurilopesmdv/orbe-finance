@@ -46,3 +46,9 @@ PF confirmadas pelo usuário. Capacidade local selecionada e integração direta
 SPEC-009 escrita antes do plano Meu Pluggy e das tasks T74–T78. Alteração preserva IDs antigos e explicita precedência sobre arquitetura exclusivamente local. Pesquisa passiva em fontes primárias, sem dados reais, login, scan de infraestrutura ou exploits. Validação documental verifica links locais, rastreabilidade de requisitos e grafo de dependências; nenhum teste de software ou scan de dependências pode ser declarado executado nesta fase.
 
 Validação documental 0.4 executada: 30 Markdown, 10 specs, 86 requisitos rastreados, 78 microtasks; links locais resolvidos, requisitos presentes no backlog e matriz, dependências existentes e grafo sem ciclos. Somente Markdown alterado, sem whitespace final. Dependência de Mercado Pago em Inter removida: expansão não bloqueia a prioridade PF. Nenhum teste funcional do app executado.
+
+## Revisão 0.5 — origem exclusiva
+
+Escopo simplificado para Open Finance. PF-05/T68 retirados, IDs reservados; dependências ajustadas. Implementação e push na main autorizados, uma task por vez. Histórico de revisões abaixo/anteriores não altera a direção vigente.
+
+Validação 0.5 executada: 30 documentos, 10 specs, 85 requisitos ativos e 77 tasks; links resolvidos, requisitos rastreados, dependências válidas e sem ciclos. PF-05/T68 reservados, sem reuso. Nenhum código alterado.

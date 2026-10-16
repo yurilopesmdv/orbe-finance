@@ -1,6 +1,6 @@
 # Registro de decisões
 
-**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; Open Finance é a única origem financeira admitida. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
 
 Data inicial: 16/10/2026. Estados: accepted (restrição/pedido confirmado), proposed (escolha a validar), deferred (fora da etapa). Uma mudança registra motivo, impacto em requisitos/tasks e evidência. Este arquivo não autoriza implementação.
 
@@ -40,6 +40,6 @@ Estado: proposed para mudança da distribuição real; sintéticos permanecem pe
 
 Estado: proposed. Aprovar detalhe progressivo e cálculos determinísticos, com dados autorizados do próprio app, sem IA/BI/render remoto. Exportação e compartilhamento permanecem fora do MVP; relatórios não criam novos destinatários e usam os mesmos controles de acesso dos lançamentos.
 
-## ADR-010 — revisão vigente de contas PF
+## ADR-010 — persistência no aparelho
 
-Direção selecionada: [núcleo local](ADR-010-LOCAL-CORE.md). Subordina as propostas gerenciadas anteriores e mantém integração automática como pendência própria, sem promessa de cobertura/custo. Primeira fatia prioriza Bradesco/Mercado Pago PF; Inter/Nubank ficam para expansão.
+A antiga arquitetura autônoma foi substituída. [Registro atualizado](ADR-010-LOCAL-CORE.md). Origem financeira exclusiva Open Finance via Meu Pluggy, Bradesco/Mercado Pago PF prioritários; execução autorizada uma task por vez.

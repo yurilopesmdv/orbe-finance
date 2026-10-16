@@ -1,6 +1,6 @@
 # Revisão de fontes e fornecedores — 16/10/2026
 
-**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; Open Finance é a única origem financeira admitida. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
 
 Escopo: leitura de páginas/políticas públicas e advisories oficiais. Não houve auditoria interna dos provedores, acesso a contas, teste de invasão, contratação ou consulta a dados bancários reais. A pesquisa anterior avaliou viabilidade e preço; não representava aprovação de segurança. Esta revisão corrige essa distinção no planejamento.
 

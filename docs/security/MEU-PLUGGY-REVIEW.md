@@ -36,6 +36,6 @@ A visão pública de Security do Meu Pluggy não apresentou advisory publicado, 
 2. Navegação bancária e consentimento no canal oficial do fornecedor/banco, sem coletar senha bancária no Orbe, scraping ou automação de internet banking. Confirmar o tipo real de conector e seus dados solicitados antes de habilitá-lo; não supor que todo conector seja Open Finance regulado.
 3. Sem IA/MCP/BI/analytics ou integrações adicionais autorizadas. Fornecedor e ponte necessariamente processam o conteúdo da sincronização; não alegar criptografia ponta a ponta contra esses destinatários.
 4. Testes sintéticos de autenticação, autorização, expiração, revogação, logs, exclusão, dependências e falhas antes do gate de dados reais já previsto. Revisar advisories novamente com versões/lockfile definidos.
-5. Confirmar privadamente cobertura por banco/produto e consentimento do titular antes de qualquer conexão real. Cofrinhos ausentes ficam explicitamente indisponíveis; posição manual é contingência identificada.
+5. Confirmar privadamente cobertura por banco/produto e consentimento do titular antes de qualquer conexão real. Cofrinhos ausentes ficam explicitamente indisponíveis; produto ausente fica explicitamente indisponível.
 
 Não foi conectado banco, criado backend ou instalado SDK. A preferência do usuário pelo fornecedor não elimina o gate de dados reais nem autoriza contratação.
