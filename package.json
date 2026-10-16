@@ -15,7 +15,10 @@
     "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs",
     "export:ios": "EXPO_NO_TELEMETRY=1 expo export --platform ios",
     "check": "npm run typecheck && npm test",
-    "security:audit": "node scripts/audit-dependencies.mjs"
+    "security:audit": "node scripts/audit-dependencies.mjs",
+    "backend:start": "node scripts/local-backend.mjs start",
+    "backend:stop": "node scripts/local-backend.mjs stop",
+    "backend:status": "node scripts/local-backend.mjs status"
   },
   "dependencies": {
     "expo": "~57.0.30",

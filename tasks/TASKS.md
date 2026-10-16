@@ -50,9 +50,9 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T21 | T18, T20 | OF-04, OF-06 | Integração | Importar contas por lote completo | Paginação/timeout não promovem parcial como completo; sem zeros falsos |
 | T22 | T14, T20, T21 | OF-05, EXP-01 | Integração | Importar movimentos e alterações da fonte | Repetição, cancelamento e janela incremental tratados sem apagar ausentes indevidamente |
 | T23 | T15, T20 | OF-05, PORT-02 | Integração | Importar posições de investimentos | IDs, valores null, moeda, bruto/líquido e datas preservados |
-| T24 | T15, T21, T23 | PORT-03, PORT-04, PORT-06 | Domínio | Reconciliar reservas e ativos canônicos | Total sem dupla contagem; ambiguidades geram subtotal parcial e não rentabilidade inventada |
+| T24 | T04 | PORT-03, PORT-04, PORT-06 | Domínio | Reconciliar reservas e ativos canônicos | Total sem dupla contagem; ambiguidades geram subtotal parcial e não rentabilidade inventada |
 | T25 | T14, T22 | EXP-02, EXP-03, EXP-04 | Domínio | Aplicar categoria e tipo com precedência explícita | Override vence regra, que vence provedor; Sem categoria preserva valor |
-| T26 | T04, T22, T25 | EXP-05, EXP-06, EXP-07 | Domínio | Calcular mês, estornos, transferências e cartão | Exemplos financeiros fecham com lista; pareamento incerto não remove despesa |
+| T26 | T04 | EXP-05, EXP-06, EXP-07 | Domínio | Calcular mês, estornos, transferências e cartão | Exemplos financeiros fecham com lista; pareamento incerto não remove despesa |
 | T27 | T17, T21, T22, T23, T24, T26 | PRD-02, UX-02 | Backend | Implementar consultas locais e validar ponte autenticada | Filtros/paginação/total/data/completude consistentes e sem acesso cruzado |
 | T28 | T05, T07, T12 | UX-01, UX-03, UX-04 | UI | Criar shell, componentes e estados sintéticos | Safe area, texto dinâmico, acessibilidade e dados demonstrativos identificados |
 | T29 | T27, T28 | PRD-01, UX-02, UX-03 | UI | Criar visão geral com parciais e fontes | Mostra Bradesco/MP ou ausência explícita; ocultar valores inclui leitor de tela |
@@ -195,3 +195,7 @@ CI do commit e7677f4 concluída com success: https://github.com/yurilopesmdv/orb
 ## Ajuste de validação física
 
 Usuário adiou o teste do app para o fim. T07 done quanto à implementação/checks; teste físico permanece pendente em T38/T45 e não bloqueia tasks locais. Nenhum firewall alterado; script de diagnóstico preparado foi removido antes de aplicação. T09 done com CI remota aprovada. Próxima T08.
+
+## T08 — blocked, trabalho independente segue
+
+CLI publica Mailpit fora do loopback nesta instalação; launcher detecta e para só o Orbe. Config/migration preparadas, sem remoto. Pedido assíncrono de credencial própria registrado; nenhum banco conectado. T26/T24 foram ajustadas para depender de T04: são funções puras com contratos/fixtures e não precisam aguardar implementação de ingestão/SQL. Integração dessas funções com dados reais continua nas tasks de ingestão e validação, sem antecipar cobertura. Próxima T26.

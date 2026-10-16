@@ -60,3 +60,13 @@ Metro sessão13056/porta8083 ativo e escutando *; QR enviado codifica exp://192.
 Usuário encerrou diagnóstico do iPhone e pediu teste físico somente ao final da implementação. T07 done para código/checks; abertura física adiada para T38/T45, sem falsa evidência. Nenhum firewall alterado ou túnel criado; script temporário de correção removido. Ambiente é WSL2 mirrored/Windows, não Linux nativo; Docker29.8.2 acessível fora do sandbox. Metro porta8083 ainda ativo, somente demonstração.
 
 T09 done: CI38957346131 success. Próxima T08: backend local independente via Supabase CLI2.121.0, sem credenciais remotas nem F1. Node22/npm12 definidos. Continuar automaticamente uma task por vez; sem exigir novo prompt.
+
+## T08 — doing
+
+CLI2.121.0 inicializou config local, sem cloud/login. Config mínima e migration baseline preparadas em supabase/. Portas54340–54349 próprias; rede Docker planejada orbe-finance-local com bind127.0.0.1. Não tocar containers/volumes de outros projetos, nem credenciais F1. Saída de start/status contém chaves locais: redirecionar para arquivo privado, nunca text no chat. Teste físico adiado pelo usuário; sem alterações de firewall.
+
+## Retomada vigente — T08 blocked, próxima T26
+
+Task08: config/migration e launcher preparados, mas runtime não aprovado. CLI2.121.0 publicou /supabase_inbucket_orbe-finance na rede orbe-finance-local em0.0.0.0/::54344 apesar da opção127.0.0.1. Launcher parou só Orbe automaticamente; sem firewall/túnel/alteração de outros projetos. Próxima ação remota depende de token próprio solicitado ao titular via .env.local. Ao receber, mover apenas segredo administrativo para .env.backend.local antes de Metro/build (Expo carrega .env.local). Nunca ler/reutilizar .env F1.
+
+Continuidade: implementar T26 e T24 puras; dependências ajustadas a T04 (contratos/fixtures) antes do código. Ingestão e domínio não precisam ser implementados em ordem artificial; validar integração posteriormente. T08 continua bloqueada, sem selo de conclusão. Nenhum processo de start pendente, serviços Orbe parados. Metro sessão13056 permanece com demonstração, teste físico adiado pelo usuário.
