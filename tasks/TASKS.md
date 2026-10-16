@@ -167,3 +167,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## T47 — done como decisão de escopo
 
 [Evidência](../plan/T47-VENDOR-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T48.
+
+## T48 — done como decisão de escopo
+
+[Evidência](../plan/T48-TRUST-KEYS.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T49.

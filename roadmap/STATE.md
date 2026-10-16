@@ -53,3 +53,7 @@ Wireframe estático local em docs/design/wireframes.html, evidência em plan/T05
 ## T47 — done como decisão de escopo
 
 [Evidência](../plan/T47-VENDOR-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T48.
+
+## T48 — done como decisão de escopo
+
+[Evidência](../plan/T48-TRUST-KEYS.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T49.
