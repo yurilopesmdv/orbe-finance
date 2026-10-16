@@ -187,3 +187,11 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## T09 — review
 
 Workflow implementado com SHAs oficiais e sem secrets/deploy. Typecheck +29 testes +YAML +audit passaram localmente; primeira execução remota pendente após push. [Evidência](../plan/T09-CI.md). T07 continua aguardando confirmação física do QR enviado.
+
+## T09 — done
+
+CI do commit e7677f4 concluída com success: https://github.com/yurilopesmdv/orbe-finance/actions/runs/38957346131. T07 permanece review por carregamento infinito relatado no iPhone; resolver conectividade antes de próximas tasks.
+
+## Ajuste de validação física
+
+Usuário adiou o teste do app para o fim. T07 done quanto à implementação/checks; teste físico permanece pendente em T38/T45 e não bloqueia tasks locais. Nenhum firewall alterado; script de diagnóstico preparado foi removido antes de aplicação. T09 done com CI remota aprovada. Próxima T08.

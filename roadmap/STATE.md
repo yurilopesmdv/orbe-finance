@@ -48,3 +48,15 @@ Base c07cb13. Checks GitHub Actions fixados por SHA, sem secrets/deploy; instala
 ## T09 — review / retomada vigente
 
 Workflow/scripts de audit implementados,29 testes locais passaram (20 sessão+9 audit), YAML válido8 etapas; primeira execução GitHub pendente após push. T07: QR exibido ao usuário para exp://192.168.18.7:8083, aguardando teste físico; Metro sessão13056. Próxima tarefa após conferir CI: T08 preparar backend próprio, sem usar .env F1. Docker existe, mas consulta ao socket no sandbox foi negada; testar acesso autorizado antes de concluir indisponibilidade. Nenhum projeto Supabase Orbe existente/credencial foi lido.
+
+## Retomada vigente — diagnóstico T07 no iPhone
+
+T09 done: CI38957346131 passou no commit e7677f4. Usuário informou PC no cabo/iPhone Wi-Fi na mesma rede e carregamento infinito no Expo Go. Prioridade atual resolver T07, sem iniciar T08 enquanto esta investigação precisar de ação.
+
+Metro sessão13056/porta8083 ativo e escutando *; QR enviado codifica exp://192.168.18.7:8083. Testes no host: manifesto LAN200 com launchAsset correto; download bundle LAN200,5605097 bytes. Isso não prova alcance do iPhone. Sessão16515 finalizada; sudo -n ufw status não executou pois exige senha, nenhum firewall alterado. Pergunta assíncrona aguarda Safari no iPhone abrindo http://192.168.18.7:8083/status (responde packager-status:running ou também trava?). Orientado verificar Ajustes/Privacidade e Segurança/Rede Local/Expo Go. Sem túnel habilitado, sem dados reais.
+
+## Retomada vigente — continuar T08
+
+Usuário encerrou diagnóstico do iPhone e pediu teste físico somente ao final da implementação. T07 done para código/checks; abertura física adiada para T38/T45, sem falsa evidência. Nenhum firewall alterado ou túnel criado; script temporário de correção removido. Ambiente é WSL2 mirrored/Windows, não Linux nativo; Docker29.8.2 acessível fora do sandbox. Metro porta8083 ainda ativo, somente demonstração.
+
+T09 done: CI38957346131 success. Próxima T08: backend local independente via Supabase CLI2.121.0, sem credenciais remotas nem F1. Node22/npm12 definidos. Continuar automaticamente uma task por vez; sem exigir novo prompt.

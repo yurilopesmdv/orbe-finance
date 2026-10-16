@@ -1,6 +1,6 @@
 # T07 — Bootstrap Expo SDK57
 
-Estado: review — implementação e checks concluídos; smoke físico pendente, 16/10/2026. PRD-04/07, dependência T06 concluída. Paths: package.json/package-lock.json, .nvmrc/.gitignore, app.config.ts/tsconfig.json/expo-env.d.ts, src/app/*, src/config/runtime.ts, esta evidência e checkpoints. Sem backend, banco ou credenciais.
+Estado: done para implementação/checks; smoke físico adiado pelo usuário para validação final, 16/10/2026. PRD-04/07, dependência T06 concluída. Paths: package.json/package-lock.json, .nvmrc/.gitignore, app.config.ts/tsconfig.json/expo-env.d.ts, src/app/*, src/config/runtime.ts, esta evidência e checkpoints. Sem backend, banco ou credenciais.
 
 Registry npm consultado antes de instalar: Expo57.0.30 e template oficial expo-template-default57.0.32. React19.2.3/RN0.86.3 e versões compatíveis extraídas do package.json do tarball oficial, sem executar o template. Estrutura mínima escrita no repo, preservando documentação e histórico.
 
@@ -17,3 +17,5 @@ Primeira tela apenas identifica o ambiente demonstrativo e limites; não mostra 
 - npm audit inicial: 28 alertas (18 altos/10 moderados). Overrides decode-uri-component0.5.0 e uuid11.1.1 removeram os 10 moderados; typecheck/testes/bundle revalidados após mudança. Permanecem 18 altos propagados por braces/node-forge sem versão corrigida no registry consultado. [Revisão](../docs/security/DEPENDENCIES.md).
 
 Sem fake de login financeiro, backend, .env ou credencial. Tela informa ambiente demonstrativo e ausência de banco. A T07 fica review até confirmação física; artefatos verificados podem alimentar T09 (checks automatizados), que não depende de validar hardware e será a próxima task local. Não transformar essa exceção limitada em liberação de dados reais.
+
+Decisão do usuário: adiar teste no aparelho até implementação concluída. Tentativa LAN travou no iPhone/Safari; não houve mudança de firewall ou túnel. Diagnóstico WSL/Windows não será continuado agora. Reproduzir conectividade na validação final T38/T45. Artefatos T07 concluídos sem alegar abertura física.
