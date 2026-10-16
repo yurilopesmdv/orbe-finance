@@ -49,3 +49,7 @@ Contrato em plan/T04-FINANCIAL-CONTRACT.md e 14 casos sintéticos JSON. Specs at
 ## T05 — done / retomada vigente
 
 Wireframe estático local em docs/design/wireframes.html, evidência em plan/T05-WIREFRAMES.md. Cinco fluxos/estados, sem rede ou dados reais; JS validado, ainda sem render automatizado/teste no iPhone. T02/T03/T04/T05 concluídas em sequência. Próxima T47, depois T48/T49/T06 conforme dependências. T07 não iniciado.
+
+## T47 — done como decisão de escopo
+
+[Evidência](../plan/T47-VENDOR-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T48.

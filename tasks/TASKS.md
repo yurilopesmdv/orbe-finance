@@ -163,3 +163,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## Evidência T05 — done (wireframe)
 
 [Wireframe local](../docs/design/wireframes.html) e [evidência](../plan/T05-WIREFRAMES.md). Cinco fluxos com estados, ocultação, filtro e período persistido na navegação. Sintaxe JS validada; sem navegador/aparelho homologado. Próxima T47 (prerequisito de T06).
+
+## T47 — done como decisão de escopo
+
+[Evidência](../plan/T47-VENDOR-GATE.md). Pesquisa/arquitetura sintética concluída; uso financeiro real bloqueado. Nenhum serviço ou credencial provisionado. Próxima T48.
