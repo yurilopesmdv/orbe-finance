@@ -155,3 +155,7 @@ Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 te
 ## Evidência T03 — done (pesquisa)
 
 [Viabilidade pessoal](../plan/T03-PERSONAL-FEASIBILITY.md): termos/cotas/cadência documentados, limites registrados. Aplicabilidade Open Finance de Bradesco/MP no canal pessoal continua pendente do gate real. Sem contratar ou consentir. Próxima T04.
+
+## Evidência T04 — done
+
+[Contrato financeiro](../plan/T04-FINANCIAL-CONTRACT.md), 14 casos inteiramente sintéticos em tests/fixtures/financial-cases.json. Contrato de centavos, mês, estornos, moedas e sobreposição definido; JSON parseado. Cálculos ainda não implementados (T24/T26). Próxima T05.

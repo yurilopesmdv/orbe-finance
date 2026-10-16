@@ -34,3 +34,7 @@ Categorias iniciais propostas: moradia, alimentação, transporte, saúde, educa
 - AC-E05: compra de cartão R$ 200 + pagamento de fatura R$ 200 não geram R$ 400 de gasto.
 - AC-E06: data 2026-10-01 permanece em outubro, inclusive em dispositivo de outro fuso; pendências/cancelamentos são distinguíveis.
 - AC-E07: resumo por categoria fecha com lista detalhada para os mesmos filtros e versão de classificação; Sem categoria não some do total.
+
+## Contrato monetário T04
+
+BRL em centavos inteiros seguros (Number.isSafeInteger), entrada monetária decimal como string, sem parseFloat/arredondamento silencioso. Rejeitar casas além de duas, notação exponencial, NaN/infinito e overflow; null continua ausência, diferente de zero. Valor de movimento é magnitude não negativa; direção é campo obrigatório separado. Soma também precisa permanecer inteira segura. Moedas distintas não são somadas. Data civil estrita YYYY-MM-DD mantém o mês; timestamp exige offset/Z e é agrupado em America/Sao_Paulo. Identidade de lote é (fonte, conta, ID externo), nunca só descrição/data/valor. Contrato detalhado e casos em T04.

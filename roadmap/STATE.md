@@ -41,3 +41,7 @@ Spike sintético em spikes/access/*, 20 testes Node22 passaram. Sem pacote/SDK/r
 ## T03 — done / retomada vigente
 
 Pesquisa oficial em plan/T03-PERSONAL-FEASIBILITY.md. Termos pessoais documentados; origem Open Finance de Bradesco/MP no portal pessoal e cobertura real ainda pendentes. T63/T78 não liberados. Próxima T04: contrato financeiro e catálogo sintético; continuar sem aguardar confirmação.
+
+## T04 — done / retomada vigente
+
+Contrato em plan/T04-FINANCIAL-CONTRACT.md e 14 casos sintéticos JSON. Specs atualizadas antes dos casos; JSON parseado, sem afirmar testes do domínio ainda inexistente. Próxima T05: wireframes estáticos. Sem app/dependências/conta real.

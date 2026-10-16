@@ -24,7 +24,7 @@ Total de ativos BRL reconciliados = soma de componentes canônicos incluídos um
 
 Exemplo de regra proposta: conta total de R$ 1.000 já inclui reserva de R$ 200. Exibir conta R$ 1.000, reservado R$ 200 e livre R$ 800 somente se os campos da fonte comprovarem essa relação. Total de ativos continua R$ 1.000, e não R$ 1.200. Se a conta reportar apenas R$ 800 livres e um investimento distinto de R$ 200 fora dela, a soma poderá ser R$ 1.000 após reconciliação.
 
-Meta local: título, valor-alvo, prazo opcional e alocações em ativos. Soma de alocações locais por ativo não ultrapassa o valor conhecido; validar concorrência no servidor. Não alocar novamente parte já reservada na fonte sem identificar que se trata da mesma reserva. Desvincular meta não resgata o investimento.
+Meta local: título, valor-alvo, prazo opcional e alocações em ativos. Soma de alocações locais por ativo não ultrapassa o valor conhecido; validar concorrência transacional no repositório local, conforme T74. Não alocar novamente parte já reservada na fonte sem identificar que se trata da mesma reserva. Desvincular meta não resgata o investimento.
 
 ## Aceite
 

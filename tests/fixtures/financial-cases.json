@@ -1,0 +1,127 @@
+{
+  "synthetic": true,
+  "version": 1,
+  "cases": [
+    {
+      "id": "M01",
+      "kind": "sum",
+      "currency": "BRL",
+      "amounts": [
+        "0.10",
+        "0.20"
+      ],
+      "expectedCents": 30
+    },
+    {
+      "id": "M02",
+      "kind": "expense",
+      "postedExpensesCents": [
+        10000
+      ],
+      "linkedPostedRefundsCents": [
+        2000
+      ],
+      "expectedCents": 8000
+    },
+    {
+      "id": "M03",
+      "kind": "excluded",
+      "type": "own_transfer",
+      "amountCents": 50000,
+      "expectedExpenseCents": 0
+    },
+    {
+      "id": "M04",
+      "kind": "portfolio",
+      "accountTotalCents": 100000,
+      "includedReserveCents": 20000,
+      "expectedTotalCents": 100000,
+      "expectedAvailableCents": 80000
+    },
+    {
+      "id": "M05",
+      "kind": "missing",
+      "investmentCents": null,
+      "expectedTotal": null,
+      "expectedPartial": true
+    },
+    {
+      "id": "M06",
+      "kind": "civil_month",
+      "value": "2026-10-01",
+      "expectedMonth": "2026-10"
+    },
+    {
+      "id": "M07",
+      "kind": "instant_month",
+      "value": "2026-10-01T01:00:00Z",
+      "zone": "America/Sao_Paulo",
+      "expectedMonth": "2026-09"
+    },
+    {
+      "id": "M08",
+      "kind": "expense",
+      "period": "2026-10",
+      "postedExpensesCents": [],
+      "linkedPostedRefundsCents": [
+        2000
+      ],
+      "originalExpenseMonth": "2026-09",
+      "expectedCents": -2000
+    },
+    {
+      "id": "M09",
+      "kind": "card",
+      "postedPurchaseCents": 20000,
+      "billSettlementCents": 20000,
+      "expectedExpenseCents": 20000
+    },
+    {
+      "id": "M10",
+      "kind": "invalid_decimal",
+      "inputs": [
+        "1.001",
+        "1e3",
+        "NaN",
+        "Infinity",
+        "9,90",
+        "90071992547409.92"
+      ],
+      "expected": "reject"
+    },
+    {
+      "id": "M11",
+      "kind": "overlap_unknown",
+      "accountCents": 100000,
+      "ambiguousInvestmentCents": 20000,
+      "expectedReconciledSubtotalCents": 100000,
+      "expectedPartial": true
+    },
+    {
+      "id": "M12",
+      "kind": "pending",
+      "expenseCents": 5000,
+      "expectedExpenseCents": 0
+    },
+    {
+      "id": "M13",
+      "kind": "duplicate",
+      "source": "synthetic",
+      "account": "synthetic-account",
+      "externalId": "synthetic-movement",
+      "amountCents": 1000,
+      "repetitions": 2,
+      "expectedCount": 1
+    },
+    {
+      "id": "M14",
+      "kind": "foreign_currency",
+      "brlCents": 10000,
+      "usdCents": 5000,
+      "expectedBrlCents": 10000,
+      "expectedSeparateCurrencies": [
+        "USD"
+      ]
+    }
+  ]
+}
