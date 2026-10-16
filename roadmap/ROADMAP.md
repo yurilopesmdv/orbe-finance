@@ -13,3 +13,7 @@ Revisão 0.5, 16/10/2026. Bradesco/Mercado Pago PF prioritários; Inter/Nubank e
 | R3 | Biometria no runtime compatível | T46/T65 | Condicionado |
 
 Uma task por vez, com checkpoint, evidências e commit. Expo Go permanece sintético até validar controles. Ausência de produto no Open Finance bloqueia a cobertura correspondente; não existe alimentação financeira alternativa. Nenhuma execução periódica autônoma foi configurada.
+
+## Pausa —16/10/2026
+
+Execução pausada a pedido do usuário; nenhum serviço Orbe ativo. T07/T09 e T26 entregues no escopo documentado, T08 preparada/bloqueada, T24 próxima após retomada. Detalhes/evidências em STATE.md. Não há retomada agendada.

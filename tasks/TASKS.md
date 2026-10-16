@@ -203,3 +203,7 @@ CLI publica Mailpit fora do loopback nesta instalação; launcher detecta e para
 ## T26 — done
 
 [Domínio de gastos](../plan/T26-EXPENSE-DOMAIN.md): dinheiro/datas/despesas em TS puro;18 casos novos passaram e total47 testes. Sem backend ou conta real. Próxima T24 (reconciliação pura), conforme dependência T04 ajustada.
+
+## Pausa solicitada —16/10/2026
+
+Usuário pediu standby até amanhã, salvar progresso e atualizar Git. Execução pausada; nenhuma retomada automática.47 testes e CI do29640f8 aprovados. T24 ainda não iniciada e é próxima local após nova autorização; T08 depende de credencial/configuração pendente. Serviços Orbe parados; teste físico adiado para T38/T45. Estado consolidado em roadmap/STATE.md.

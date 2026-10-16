@@ -2,7 +2,7 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual: início da execução sequencial autorizado; Bootstrap SDK57 criado e verificado; T07 aguarda smoke físico e próxima task local é T09.** Há base Expo executável com dependências instaladas; não há backend provisionado ou bancos conectados. O Face ID está previsto para uma etapa com runtime compatível; sua limitação no Expo Go está registrada na pesquisa.
+**Estado atual: pausado pelo usuário em16/10/2026; checkpoint salvo para retomada futura.** Bootstrap Expo e domínio de gastos implementados,47 testes passaram e CI aprovada. Backend preparado porém bloqueado; Metro e containers Orbe parados. Teste no iPhone ficou para a validação final.
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 

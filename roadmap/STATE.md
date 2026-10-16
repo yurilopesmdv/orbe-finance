@@ -1,80 +1,48 @@
-# Estado de retomada — execução contínua
+# Estado de retomada — PAUSADO pelo usuário
 
-Checkpoint: 16/10/2026, America/Sao_Paulo. Repo /home/yurilopesm/projects/orbe-finance, main. Usuário autorizou continuar automaticamente, uma task por vez, sem aguardar novo prompt. Separação de tasks serve para validar/versionar/retomar. Push na main autorizado. Nenhum agente paralelo.
+Checkpoint de 16/10/2026, America/Sao_Paulo. Usuário pediu standby, salvar tudo/atualizar Git e não continuar hoje; intenção de retomar amanhã17/10. Nenhuma retomada automática agendada. Aguardar nova instrução do usuário antes de retomar tasks. Repositório /home/yurilopesm/projects/orbe-finance, main.
 
-## Próxima ação
+## Estado salvo
 
-T06 concluída; iniciar T07 (bootstrap Expo SDK57). Ler AGENTS, plan/T06-R1-READINESS.md, plan/T01-RUNTIME-STRUCTURE.md e plan/T74-BRIDGE-CONTRACT.md. Selecionar Node22.23.2/npm12.2.0 por shell isolado; default Node18 não serve. Verificar versões reais de registry/template antes de instalar. Não executar outras tasks simultaneamente.
+Último código:29640f8, publicado na main. CI desse commit passou: https://github.com/yurilopesmdv/orbe-finance/actions/runs/38959782371. CI do backend preparado e dos checkpoints anteriores também passou. Este checkpoint é documental e não exige nova execução de CI.
 
-## Concluído
+- T74: contrato ponte de leitura mínima, metadados server-side e finanças/relatórios no aparelho (6058f29).
+- T01: iPhone11/iOS26.6.2/ExpoGo57.0.9 suportando SDK57; Node22.23.2/npm12.2.0 (2a8ef01).
+- T02: spike sintético de sessão, bloqueio/background, expiração e recuperação;20 testes (b3f69a9).
+- T03: pesquisa pessoal/termos/cotas/cadência, limites de Open Finance por banco preservados (1f19ac9).
+- T04: contrato financeiro e14 fixtures JSON inventadas (13744b4).
+- T05: wireframe local docs/design/wireframes.html, cinco fluxos/estados (8be82e4).
+- T47/T48/T49/T06: fornecedores reais bloqueados; fronteiras/chaves/runtime definidos; specs ready apenas R1 sintética (68d5a51/ec6bb16/152bbda/9805406).
+- T07: bootstrap SDK57 executável e verificado, somente demonstração; teste físico adiado pelo usuário (c07cb13).
+- T09: CI por lockfile/SHAs oficiais, checks e auditoria restrita (e7677f4); resultado remoto aprovado.
+- T26: TS puro de dinheiro/datas/despesas/estornos/deduplicação,18 testes adicionais (29640f8).
 
-- T74: contrato da ponte (6058f29).
-- T01: iPhone11/iOS26.6.2/ExpoGo57.0.9 SDK57 confirmado pelo titular; paths (2a8ef01).
-- T02: spike de sessão/recuperação/bloqueio, 20 testes Node22 passaram, sem dependência/rede (b3f69a9).
-- T03: termos pessoais/cadência/cotas e lacunas registrados (1f19ac9).
-- T04: contrato monetário e 14 fixtures JSON inventadas (13744b4).
-- T05: wireframes HTML locais, sintaxe JS validada; sem render automatizado (8be82e4).
-- T47/T48/T49: diligência com bloqueio real, fronteiras/chaves e runtime sintético (68d5a51/ec6bb16/152bbda).
-- T06: specs ready somente para R1 sintética; prontidão em plan/T06-R1-READINESS.md.
+## Validação realmente feita
 
-## Contratos preservados
+TypeScript passou.47 testes passaram (20 sessão+9 política de audit+18 domínio). Expo Doctor21/21 e compatibilidade de dependências passaram na T07. Bundle Hermes iOS gerado localmente e na CI. T26 consumiu casos financeiros T04; carteira M04/05/11 ainda depende de T24. Nenhuma autenticação de banco ou dado financeiro real foi testado.
 
-Origem exclusiva Open Finance via Meu Pluggy, Bradesco/Mercado Pago PF prioritários; Inter/Nubank expansão. Sem alimentação por extratos. Gratuidade pessoal documentada não prova origem Open Finance nem cobertura de cada produto. Cofrinhos MP têm relato público de limitação; nenhum banco homologado.
+## Processos parados
 
-Supabase Auth/Functions planejados em projeto novo, sem persistência de valores financeiros; metadados sob RLS. Fornecedor/ponte leem durante consulta, sem E2EE fictício. Cache/classificação/relatórios no aparelho. Sem cron/webhook inicial. Sessão do backend e bloqueio local são distintos. Face ID/SQLCipher reais não suportados no Expo Go; runtime real segue decisão/teste T65–T67 e gates T63/T78.
+Metro sessão13056 encerrado com SIGINT; porta8083 sem listener na última inspeção. Nenhum container Orbe em execução. Stack Supabase local foi parada preservando volumes/imagens/rede próprios. Nenhum firewall alterado, túnel criado, outro projeto parado ou recurso F1 reutilizado. Não iniciar serviços antes de o usuário retomar.
 
-## Estado real
+## T08 — configuração preparada, execução bloqueada
 
-Há documentos, wireframe HTML, spike JS e fixtures sintéticas. Ainda não há app, package.json/lockfile, SDK instalado, backend, .env, credenciais, CI ou deploy Orbe. Nenhum banco conectado, login real, consentimento ou contratação. Ferramentas/IA/Git só usam código/públicos/inventados; não acessar .env do F1. Nenhuma falha/resultado de mock comprova privacidade real.
+Commit e73e788: supabase/config.toml, migration20261016170000_bootstrap.sql e scripts/local-backend.mjs. CLI2.121.0 iniciou stack nova, mas Mailpit publicou54344 em0.0.0.0/:: apesar de rede Docker própria orbe-finance-local com host_binding_ipv4=127.0.0.1. Launcher detecta portas fora de127.0.0.1/::1 e para somente Orbe automaticamente; backend permanece parado. Não declarar loopback ou backend concluídos.
 
-## Checkpoint por task
+Foi solicitado SUPABASE_ACCESS_TOKEN próprio no .env.local para preparar projeto separado de desenvolvimento. Usuário adiou isso para amanhã; não insistir nem acessar credenciais F1. Nenhum projeto cloud/conta paga/consentimento bancário criado. Quando retomar e houver credencial, mover somente segredo administrativo para .env.backend.local (Expo carrega .env.local), manter privado/ignorado e nunca imprimir valor. Toda criação/configuração precisa ser no projeto Orbe próprio; nenhum token privilegiado no cliente.
 
-Registrar ID/estado, requisito, paths, base, resultado, testes realmente executados, limites, commit e próxima ação. Conferir git status; uma task/commit por assunto. Se serviço/aparelho bloquear uma task, registrar e avançar em outra independente autorizada; não marcar teste não executado como sucesso. Não pedir novo “pode continuar” entre tasks. Nenhuma execução periódica de cinco horas configurada.
+## Teste físico adiado
 
-## T07 — doing / retomada vigente
+PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas ExpoGo e Safari ficaram carregando. Host serviu manifesto e bundle200 pela LAN; iPhone não foi homologado. Ambiente real é WSL2 mirrored/Windows, perfil Ethernet público; não há elevação Windows/sudo na sessão. Script de firewall foi preparado e removido antes de qualquer aplicação. Usuário pediu interromper diagnóstico e deixar teste no aparelho para depois da implementação (T38/T45). Não reabrir essa frente antes da hora.
 
-Bootstrap mínimo SDK57, base 9805406. Registry/template oficial consultados; paths em plan/T07-BOOTSTRAP.md. Nenhum backend/credencial/dado real. Instalar versões e validar typecheck, spike, doctor e export iOS antes de concluir. Smoke físico permanece pendente do titular; não declarar executado.
+## Pendências de segurança
 
-## T07 — review / retomada vigente
+18 alertas altos transitivos de duas raízes sem patch (braces/node-forge);10 moderados corrigidos via overrides decode-uri-component0.5.0 e uuid11.1.1. Ver docs/security/DEPENDENCIES.md. Exceção explícita de CI somente sintética até23/10/2026; novo advisory/erro/prazo expirado falha. Nada disso libera dados reais. ExpoGo não suporta FaceID/SQLCipher reais; T65–T67 e gates T63/T78 permanecem necessários.
 
-App mínimo criado e dependências instaladas com lockfile/scripts desabilitados. Typecheck/20 testes/Doctor21/21/compatibilidade/export iOS passaram. Metro ativo porta8083, sessão de ferramenta13056; /status confirmou execução. Solicitação assíncrona ao titular para abrir exp://192.168.18.7:8083 e confirmar tela demonstrativa. Nenhum banco/secret/backend.
+Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-18 alertas altos de duas raízes transitivas sem patch; ver docs/security/DEPENDENCIES.md. Overrides corrigiram10 moderados; sem downgrade forçado. Próxima task local T09, que depende somente dos artefatos T07 já verificados; smoke físico segue pendente. Não interromper trabalho independente por esperar resposta. T08 ainda sem projeto remoto (não reutilizar credenciais F1).
+## Próxima ação após autorização de retomada
 
-## T09 — doing
+Conferir git status e ler AGENTS, tasks/TASKS.md, plan/T74-BRIDGE-CONTRACT.md e contratos T01/T04. T24 é a próxima task local: reconciliação pura de conta/investimento/cofrinho, sem dupla contagem ou rentabilidade inventada. Dependências de T24/T26 foram ajustadas a T04 antes do código por serem funções puras independentes da ingestão. T24 ainda NÃO iniciada; não existe código de carteira parcial a recuperar. T08 retoma quando houver credencial própria/alternativa local resolvida, sem bloquear domínio/UI independentes.
 
-Base c07cb13. Checks GitHub Actions fixados por SHA, sem secrets/deploy; instalação por lockfile/scripts desabilitados, typecheck/testes/compatibilidade/audit/export. Auditoria tem exceção temporária explícita para dois advisories sem patch (somente sintético,23/10/2026); falha fechada para novidades/erro/prazo. Smoke físico T07 pendente.
-
-## T09 — review / retomada vigente
-
-Workflow/scripts de audit implementados,29 testes locais passaram (20 sessão+9 audit), YAML válido8 etapas; primeira execução GitHub pendente após push. T07: QR exibido ao usuário para exp://192.168.18.7:8083, aguardando teste físico; Metro sessão13056. Próxima tarefa após conferir CI: T08 preparar backend próprio, sem usar .env F1. Docker existe, mas consulta ao socket no sandbox foi negada; testar acesso autorizado antes de concluir indisponibilidade. Nenhum projeto Supabase Orbe existente/credencial foi lido.
-
-## Retomada vigente — diagnóstico T07 no iPhone
-
-T09 done: CI38957346131 passou no commit e7677f4. Usuário informou PC no cabo/iPhone Wi-Fi na mesma rede e carregamento infinito no Expo Go. Prioridade atual resolver T07, sem iniciar T08 enquanto esta investigação precisar de ação.
-
-Metro sessão13056/porta8083 ativo e escutando *; QR enviado codifica exp://192.168.18.7:8083. Testes no host: manifesto LAN200 com launchAsset correto; download bundle LAN200,5605097 bytes. Isso não prova alcance do iPhone. Sessão16515 finalizada; sudo -n ufw status não executou pois exige senha, nenhum firewall alterado. Pergunta assíncrona aguarda Safari no iPhone abrindo http://192.168.18.7:8083/status (responde packager-status:running ou também trava?). Orientado verificar Ajustes/Privacidade e Segurança/Rede Local/Expo Go. Sem túnel habilitado, sem dados reais.
-
-## Retomada vigente — continuar T08
-
-Usuário encerrou diagnóstico do iPhone e pediu teste físico somente ao final da implementação. T07 done para código/checks; abertura física adiada para T38/T45, sem falsa evidência. Nenhum firewall alterado ou túnel criado; script temporário de correção removido. Ambiente é WSL2 mirrored/Windows, não Linux nativo; Docker29.8.2 acessível fora do sandbox. Metro porta8083 ainda ativo, somente demonstração.
-
-T09 done: CI38957346131 success. Próxima T08: backend local independente via Supabase CLI2.121.0, sem credenciais remotas nem F1. Node22/npm12 definidos. Continuar automaticamente uma task por vez; sem exigir novo prompt.
-
-## T08 — doing
-
-CLI2.121.0 inicializou config local, sem cloud/login. Config mínima e migration baseline preparadas em supabase/. Portas54340–54349 próprias; rede Docker planejada orbe-finance-local com bind127.0.0.1. Não tocar containers/volumes de outros projetos, nem credenciais F1. Saída de start/status contém chaves locais: redirecionar para arquivo privado, nunca text no chat. Teste físico adiado pelo usuário; sem alterações de firewall.
-
-## Retomada vigente — T08 blocked, próxima T26
-
-Task08: config/migration e launcher preparados, mas runtime não aprovado. CLI2.121.0 publicou /supabase_inbucket_orbe-finance na rede orbe-finance-local em0.0.0.0/::54344 apesar da opção127.0.0.1. Launcher parou só Orbe automaticamente; sem firewall/túnel/alteração de outros projetos. Próxima ação remota depende de token próprio solicitado ao titular via .env.local. Ao receber, mover apenas segredo administrativo para .env.backend.local antes de Metro/build (Expo carrega .env.local). Nunca ler/reutilizar .env F1.
-
-Continuidade: implementar T26 e T24 puras; dependências ajustadas a T04 (contratos/fixtures) antes do código. Ingestão e domínio não precisam ser implementados em ordem artificial; validar integração posteriormente. T08 continua bloqueada, sem selo de conclusão. Nenhum processo de start pendente, serviços Orbe parados. Metro sessão13056 permanece com demonstração, teste físico adiado pelo usuário.
-
-## T26 — doing
-
-Contrato atualizado antes de código; funções puras de dinheiro/datas/despesas em src/domain, testes usam fixtures inventadas T04. Nenhuma dependência nova, banco ou rede nos cálculos. Validar typecheck+20 sessão+9 audit+18 domínio antes de concluir. T08 permanece bloqueada, stack parada.
-
-## Retomada vigente — T26 done, próxima T24
-
-T26 passou typecheck e18 testes novos;47 totais. Dinheiro exato/datas Brasília/despesas/estornos/deduplicação em src/domain. T08 segue blocked com stack parada; credencial própria pendente. T24 próxima: reconciliação pura de ativos/cofrinhos, sem banco. Nenhum outro processo backend em inicialização.
+Ao voltar a trabalhar: seguir automaticamente uma task por vez, validar, atualizar checkpoint e commitar com identidade/convenção existentes. A pausa atual prevalece sobre a continuidade automática até nova mensagem de retomada. Nenhum agente ou path reservado; nenhum processo de instalação/start pendente.
