@@ -8,9 +8,9 @@ Revisão concluída nesta etapa:
 
 | Checagem documental | Resultado |
 |---|---|
-| Arquivos Markdown | 23 documentos, incluindo 8 specs |
-| Requisitos identificados | 70; todos aparecem nas tasks e na matriz de validação |
-| Microtasks futuras | 63; dependências existentes e grafo sem ciclos |
+| Arquivos Markdown | 27 documentos, incluindo 9 specs |
+| Requisitos identificados | 78; todos aparecem nas tasks e na matriz de validação |
+| Microtasks futuras | 73; dependências existentes e grafo sem ciclos |
 | Links locais | Nenhum destino inválido |
 | Whitespace | Sem espaços finais; git diff --check aprovado |
 | Arquivos não Markdown alterados/criados | Nenhum |
@@ -36,3 +36,7 @@ Não foram executados testes de software, SDK, iPhone, biometria, RLS, sincroniz
 ## Revisão de privacidade e relatórios
 
 Políticas e fontes oficiais adicionais consultadas; resultados em docs/security. Rastreabilidade e grafo revalidados após acrescentar 26 requisitos e 17 tasks. Aprovação de fornecedor, testes de software/tráfego/aparelho e verificação de implementação continuam pendentes. Os resultados locais não demonstram ausência universal de vazamento.
+
+## Revisão 0.3 — PF
+
+PF confirmadas pelo usuário. Capacidade local selecionada e integração direta investigada separadamente, sem prometer cobertura/gratuidade. SPEC-008 criada antes da trilha de plano/tasks correspondente. Links, rastreabilidade e grafo revalidados; nenhuma execução de software ou análise de extrato real.

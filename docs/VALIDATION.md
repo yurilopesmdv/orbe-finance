@@ -50,3 +50,13 @@ Os cenários abaixo também são planejados, sem execução de software. Canári
 | V22 Relatórios privados | SEC-13, SEC-16, RPT-01, RPT-02, RPT-03, RPT-04, RPT-05, RPT-06, RPT-07, RPT-08 | T57–T62 | Drill-down reconciliado, filtros/base temporal corretos, acessibilidade e ausência de nova saída |
 
 Instrumentação de teste não pode tornar-se o próprio vazamento: traces e capturas somente sintéticos; ferramentas sem acesso a segredos/produção. Medir o tráfego e armazenamento observáveis no ambiente do teste e registrar o que ficou fora da inspeção. Sucesso de scanner não demonstra inexistência de todos os ataques.
+
+## Revisão 0.3 — núcleo local PF
+
+| Cenário | Requisitos | Tasks | Prova futura |
+|---|---|---|---|
+| V23 Fontes PF | PF-01, PF-07 | T64, T72 | Prioridade de duas instituições, acesso/custo/scopes separados; automação indisponível sem prova |
+| V24 Persistência e acesso locais | PF-02, PF-03, PF-04, PF-08 | T65–T67, T71 | Sem conta cloud, chave/senha/captura protegidas no ambiente validado; sem conteúdo real em dev |
+| V25 Entrada local e integridade | PF-05, PF-06 | T68–T70, T73 | Formatos oficiais, deduplicação, fonte/data, parcialidade e relatórios reconciliados |
+
+Cenários anteriores que presumiam servidor/RLS são condicionais à adoção de ponte futura. RLS não prova proteção de arquivo no iPhone; chave inválida, journals, temporários, reinício, bloqueio e recuperação precisam de testes locais próprios. Nenhum desses testes de software foi executado no planejamento.

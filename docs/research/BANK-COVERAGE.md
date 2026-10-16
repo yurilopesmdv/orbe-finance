@@ -1,5 +1,7 @@
 # Matriz de cobertura e homologação bancária
 
+> Revisão vigente: todas as contas são PF confirmadas; prioridade inicial agora é Bradesco e Mercado Pago. Inter/Nubank ficam em expansão. A matriz abaixo preserva a investigação de agregador; [APIs PF](PERSONAL-ACCOUNTS.md) registra a rota direta, ainda sem comprovação de acesso gratuito completo.
+
 Prioridade informada: Mercado Pago, Bradesco, Inter e Nubank. Uso pessoal gratuito. Data: 16/10/2026. Status de todos: **não homologados**. Nenhuma conta foi conectada durante o planejamento.
 
 | Banco PF a confirmar | Contas/extrato: documentação OF | Investimentos: documentação OF | Cofrinhos/nomes/metas | Dados reais no Orbe | Ordem de validação proposta |

@@ -1,5 +1,7 @@
 # Plano de implementação — após as specs
 
+> Revisão vigente 0.3: ler primeiro [PF-IMPLEMENTATION.md](PF-IMPLEMENTATION.md) e SPEC-008. A arquitetura gerenciada 0.2 abaixo fica como alternativa condicional/histórico de investigação; não é a primeira fatia selecionada.
+
 Versão 0.2, 16/10/2026. Estado: proposed. Entrada: [specs](../specs/README.md), [pesquisa](../docs/research/FEASIBILITY.md), [decisões](../docs/decisions/DECISIONS.md). Nenhuma implementação foi iniciada. Este plano orienta a próxima fase quando autorizada.
 
 ## Sequência e gates

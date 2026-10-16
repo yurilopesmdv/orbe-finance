@@ -1,56 +1,33 @@
-# Estado de retomada
+# Estado de retomada — revisão 0.3
 
-Checkpoint: 16/10/2026, America/Sao_Paulo. Projeto: /home/yurilopesm/projects/orbe-finance. Repo: yurilopesmdv/orbe-finance. Estágio: R0 — investigação e planejamento. Nenhum código ou recurso de infraestrutura foi criado.
+Checkpoint: 16/10/2026, America/Sao_Paulo. Repo: /home/yurilopesm/projects/orbe-finance, yurilopesmdv/orbe-finance. Etapa autorizada: investigação e planejamento, zero código. O usuário delegou a escolha técnica, subordinada à privacidade; isso não autorizou contratação nem envio de conteúdo financeiro para ferramentas.
 
-## Leia primeiro, nesta ordem
+## Leitura de retomada
 
-[AGENTS](../AGENTS.md) → este arquivo → [roadmap](ROADMAP.md) → [specs](../specs/README.md) → [plano](../plan/PLAN.md) → [tasks](../tasks/TASKS.md). Em uma tarefa específica, ler a spec e as ADRs relacionadas; não reler toda a pesquisa por padrão.
+[AGENTS](../AGENTS.md) → este arquivo → [roadmap](ROADMAP.md) → [SPEC-008](../specs/008-personal-data/spec.md) → [plano PF vigente](../plan/PF-IMPLEMENTATION.md) → [tasks](../tasks/TASKS.md). Ler as demais specs relacionadas ao ID da tarefa. O plano gerenciado 0.2 permanece como alternativa condicional, não primeira fatia.
 
-## Intenção e decisões recebidas
+## Pedidos e decisões preservados
 
-- App pessoal profissional, inicialmente só iPhone no Expo Go, senha e desejo de usar Face ID já cadastrado.
-- Consolidar contas, gastos por tipo/categoria, investimentos e cofrinhos.
-- Bancos: Mercado Pago, Bradesco, Inter e Nubank.
-- Priorizar alternativa gratuita para uso próprio.
-- Etapa atual: zero código; seguir spec → plan → tasks → implement, com microtasks e continuidade entre sessões.
+- Produto pessoal profissional: contas, gastos por tipo/categoria, investimentos/cofrinhos e relatórios profundos com interface simples.
+- Todas as contas são PF, confirmado pelo usuário. Prioridade agora Bradesco/Mercado Pago; Inter/Nubank, do pedido inicial, ficam em expansão.
+- Gratuidade é preferência, mas privacidade prevalece. Não prometer ausência universal de vazamento.
+- Direção selecionada: núcleo local protegido no iPhone, sem backend financeiro/agregador obrigatório. Senha local, biometria nativa após validação e relatórios no aparelho.
+- Expo Go somente sintético; SQLCipher/Face ID exigem runtime compatível. Custos e instalação privada ainda precisam de definição antes de contratar/instalar.
+- APIs diretas PF não estão comprovadas como gratuitas e completas. Bradesco: elegibilidade/custo/cobertura faltam; MP: relatórios não provam carteira/cofrinhos integrais. Nenhuma conexão habilitada.
+- Importação/manual é contingência/capacidade local identificada, não entrega de Open Finance. Objetivo de automação permanece pendente, não foi silenciosamente descartado.
 
-## Concluído
+## Estado real e evidências
 
-P01–P05: repo inspecionado, documentação oficial consultada, seis specs escritas antes de plano/tasks, respostas do usuário incorporadas, decisões e backlog dependente preparados. P06 concluída no planejamento inicial: 19 documentos, 44 requisitos e 46 microtasks. Revisão atual de privacidade: 23 documentos, 8 specs, 70 requisitos, 63 microtasks futuras e zero código. Resultados em [validação documental](../docs/PLANNING-VALIDATION.md). Estado das specs: draft, sem aceite de execução real. Decisões arquiteturais: proposed, salvo restrições explícitas do usuário.
+27 documentos Markdown, 9 specs, 78 requisitos rastreados e 73 microtasks futuras. Links, referências de requisitos e grafo de dependências verificados; nenhuma task técnica iniciada. Não há package.json, app, SDK instalado, backend, .env, credencial bancária, CI ou deploy do Orbe. Não houve login em banco, consentimento, conta cloud criada ou extrato real lido nesta investigação. [Revisão documental](../docs/PLANNING-VALIDATION.md).
 
-## Estado técnico real
+[Fornecedores](../docs/security/VENDOR-REVIEW.md) continuam sem aprovação para conteúdo real. IA/MCP/devtools/CI/Git não têm acesso a dados financeiros. Políticas públicas não certificam risco zero. [ADR-010](../docs/decisions/ADR-010-LOCAL-CORE.md) registra a escolha e os riscos de aparelho, chaves, backup e disponibilidade.
 
-Não há package.json, app, SDK selecionado, backend, banco, .env, credenciais, CI, testes executáveis ou deploy do Orbe. Não há conexão bancária real ou resultado financeiro homologado. Os testes descritos são critérios futuros. A pasta do Bolão F1 não foi alterada durante este planejamento e não é ambiente deste projeto.
+## Próxima ação
 
-## Achados que não devem ser perdidos
+Enquanto continuar planejamento, revisar contratos de fonte/runtime e ajustar documentos. Após autorização da fase técnica, começar T64; T65 e T72 seguem suas dependências. Registrar modelo/iOS do iPhone, distribuição e formatos oficiais sem pedir extrato real no chat. T39/T40 (Nubank/Inter) deferred; demais tasks cloud anteriores são condicionais e não devem disparar implementação por existência no backlog.
 
-Face ID em Expo Go iOS tem impedimento documentado; R1 usa senha e R3 depende de distribuição compatível. Caminho candidato de custo, ainda não aprovado para dados reais: Meu Pluggy + proxy pessoal, com autorização no portal, IDs conhecidos e cadência definida pelo provedor. Não usar GET /v2/items nem forçar atualização de proxy. Banco na tabela de cobertura não é garantia para o consentimento real. Cofrinhos podem estar incluídos em saldos/posições e exigem reconciliação.
+Nenhuma frente/agente ativo ou path reservado. Push dos commits locais continua pendente da confirmação anteriormente solicitada; nenhuma instrução posterior autorizou envio remoto. Arquivos de código, recursos do F1 ou seu .env não foram reutilizados.
 
-## Próximas ações executáveis
+## Checkpoint por task
 
-1. Revisar os documentos com o usuário e ajustar somente specs/plano se a etapa continuar sendo planejamento.
-2. Antes de T01/T02, registrar modelo do iPhone, versão iOS e Expo Go; antes da homologação, identificar em quais bancos há reservas e tipo de conta (PF presumida).
-3. Ao receber autorização para implementar, iniciar T01/T03/T04/T05 conforme dependências; não iniciar diretamente tela ou integração bancária.
-
-Próxima task de código: nenhuma autorizada. Próximas tasks de fase seguinte: T47/T48 (diligência/confiança) e T01/T49 (runtime), respeitando dependências. Nenhuma frente/agente ativo e nenhum arquivo reservado para execução paralela.
-
-## Bloqueios por escopo
-
-| Condição | Impacto | Saída |
-|---|---|---|
-| Autorização atual é planejamento | Não implementar/provisionar nesta etapa | Instrução posterior para iniciar implementação |
-| Face ID com Expo Go | AUTH-07/PRD-08 adiados | Decisão futura sobre development build |
-| Cobertura real não testada | Impede declarar R2 pronta | Fichas por banco e testes após G2 |
-| Aparelho/produtos detalhados não informados | Afeta bootstrap e homologação, não impede specs iniciais | Coletar no início das tasks relevantes |
-
-## Formato de checkpoint para futuras sessões
-
-Registrar: task e estado; spec/requisitos; commit base e alterações ainda sem commit; arquivos tocados; evidência/testes que realmente rodaram; falhas/limitações; dependências e próxima ação concreta; responsável e paths reservados se houver paralelismo. Usar IDs, nunca valores de tokens, CPF, contas ou extratos. Antes de retomar, conferir git status e se os arquivos correspondem ao checkpoint.
-
-## Revisão de privacidade — não perder na retomada
-
-O usuário priorizou evitar exposição financeira por qualquer via e pediu UI simples com relatórios profundos. Risco zero universal não é demonstrável. [Revisão de fornecedores](../docs/security/VENDOR-REVIEW.md) registra políticas amplas, funcionalidades externas e limites de residência/acesso; nenhuma evidência permite aprovar Pluggy/Meu Pluggy/Supabase para dados reais agora. Não há comprovação de vazamento do Orbe, que ainda não possui dados bancários.
-
-SPEC-006 exclui dados reais de IA/MCP, devtools, Git/CI, logs, analytics, replay, BI, exports e links. Expo Go permanece sintético até avaliação e decisão de runtime para real. SPEC-007 estabelece resumo → relatório → lançamentos/posições, sem nova saída de dados. Gate T63 antecede T39 e todas as homologações reais.
-
-Autorização continua apenas planejamento. Push dos commits anteriores para main permanece pendente da confirmação solicitada; não usar este pedido de revisão como autorização para envio remoto. Não há execução de ferramentas com dados financeiros reais, provisionamento ou contrato de fornecedor.
+Registrar ID/estado, requisitos, responsável/paths, commit base, mudanças pendentes, evidências que realmente rodaram, falhas/limites e próxima ação. Nunca registrar senha/token/CPF/conta/valor bancário real. Conferir git status antes de retomar. Checkpoint ao concluir task ou antes de interrupção; nenhuma execução automática a cada cinco horas foi configurada.

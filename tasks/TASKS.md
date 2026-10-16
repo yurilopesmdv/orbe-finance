@@ -13,6 +13,10 @@ Estado em 16/10/2026: **nenhuma task T foi iniciada**. A autorização atual é 
 | P05 | Preparar plano, ADRs e microtasks dependentes | done |
 | P06 | Preparar roadmap/checkpoint e validar documentos | done |
 
+## Aplicabilidade vigente 0.3
+
+T64–T73 são a próxima trilha selecionada da primeira fatia PF/local. T01/T04/T05 e contratos de domínio podem ser reaproveitados após ajustar os critérios locais; tasks anteriores de cloud/SDK bancário/worker não estão liberadas por padrão. T39/T40 (Nubank/Inter) ficam deferred para expansão. T41/T42 não autorizam conexão: acesso real continua desligado. A automação só é retomada após a prova de elegibilidade T72 e spec atualizada. Nenhuma task técnica foi iniciada.
+
 ## Contrato de execução
 
 Cada task abaixo é uma unidade revisável, com uma única pessoa/frente responsável. Alvo de 20–60 minutos de trabalho ativo; timebox é estimativa, não promessa. Se superar esse tamanho, registrar subtasks Txx.a/Txx.b com seus critérios antes de continuar. Homologações podem depender de janelas bancárias externas; tempo de espera não transforma task em concluída.
@@ -107,3 +111,20 @@ Caminho crítico proposto: T01–T06 → T07/T08 → T10–T17 → T18–T27 →
 ## Revisão de prioridade 0.2
 
 T47–T49 são diligência/decisão e não autorizam conectar bancos. Nenhum fornecedor aprovado. T50–T63 ainda não iniciadas; usam sintéticos antes do gate. As tasks anteriores que preparavam adaptador/worker não podem ser usadas como justificativa para acessar produção financeira. Desenvolvimento, inclusive por ferramentas, não lê produção. O backlog agora contém 63 microtasks; IDs anteriores foram preservados.
+
+## Microtasks da primeira fatia PF/local
+
+Todas todo, condicionadas à autorização da fase técnica. T72 é pesquisa independente; não é dependência para validar a utilidade da base local e não autoriza contratar/conectar.
+
+| ID | Dependências | Requisitos | Responsável lógico | Entrega pequena | Aceite / evidência mínima |
+|---|---|---|---|---|---|
+| T64 | — | PF-01, PRD-01, PRD-06 | Planejamento | Fechar contrato da primeira fatia PF/local e layouts sintéticos | Bradesco/Mercado Pago PF, cobertura e formatos conhecidos registrados, sem extrato real em ferramentas |
+| T65 | T64 | PF-08, PRD-04, SEC-09, SEC-10, SEC-18 | Pesquisa | Validar runtime privado e instalação/custo antes de uso real | Compatibilidade de SQLCipher/Face ID documentada; Expo Go somente sintético; sem contratação implícita |
+| T66 | T65 | PF-03, PF-04, AUTH-01, AUTH-03, AUTH-04, AUTH-06, AUTH-07, SEC-06 | Acesso | Provar chave, senha local, biometria e perda de acesso com sintéticos | Sem senha em claro/chave fixa; fallback/lock/reset não liberam banco antigo; sem auth cloud por padrão |
+| T67 | T65, T66 | PF-02, PF-03, AUTH-02, AUTH-05, AUTH-08, SEC-07, SEC-08, SEC-11, SEC-12, SEC-14 | Dados | Implementar repositório local protegido e ciclo de vida | Arquivo/journal/temporários/backup avaliados com sintéticos; bloquear e apagar sem manter conteúdo reutilizável |
+| T68 | T64, T67 | PF-05, OF-05, EXP-01, SEC-05, SEC-15 | Dados | Importar formato oficial provado por fixtures e entrada local manual | Prévia, limites de arquivo, idempotência e rejeição atômica; sem OCR/URL/fórmula executável ou upload |
+| T69 | T67, T68 | PF-06, PRD-02, PRD-03, EXP-02, EXP-03, EXP-04, EXP-05, EXP-06, EXP-07, PORT-01, PORT-02, PORT-03, PORT-04, PORT-05, PORT-06, PORT-07 | Domínio | Reaproveitar cálculos financeiros em fontes locais | Transferências/estornos/cofrinhos reconciliados; valor manual sem fingir sync; correções preservadas |
+| T70 | T66, T69 | RPT-01, RPT-02, RPT-03, RPT-04, RPT-05, RPT-06, RPT-07, RPT-08, UX-01, UX-02, UX-03, UX-04, UX-05 | UI | Montar gestão e relatórios internos com detalhe progressivo | Resumo/filtros/drill-down acessíveis e reconciliados com sintéticos, fonte/data/parcialidade claras |
+| T71 | T67, T68, T70 | SEC-01, SEC-02, SEC-03, SEC-05, SEC-09, SEC-10, SEC-11, SEC-12, SEC-13, SEC-15, SEC-16, SEC-17, PF-02, PF-08 | Validação | Validar exposição e dispositivo na arquitetura local | Rede/log/arquivo/cache/captura/update testados com sintéticos; ferramentas continuam sem conteúdo real |
+| T72 | T64 | PF-07, OF-01, OF-02, OF-03, OF-04, OF-06, OF-07, OF-08, OF-09, SEC-04, PRD-05 | Pesquisa | Fechar elegibilidade PF oficial de cada API sem ativar conexão | Custo/scopes/certificado/cobertura/revogação comprovados ou limitação explícita; nenhuma credencial no app |
+| T73 | T71 | PF-01, PF-06, PF-08, PRD-06, PRD-07, PRD-08, SEC-17, SEC-18 | Validação | Registrar aceite da capacidade local no iPhone e pendências da automação | Titular valida privadamente, sem enviar extrato ao desenvolvimento; app local não recebe selo de Open Finance completo |

@@ -1,5 +1,7 @@
 # SPEC-001 — Acesso, sessão e privacidade
 
+> Aplicabilidade atual: a proposta gerenciada abaixo é trilha condicional. Para a primeira fatia, [SPEC-008](../008-personal-data/spec.md) define senha/chaves locais e fontes PF, sem conta cloud por padrão. Regras de proteção permanecem, mas não criar backend automaticamente.
+
 Estado: draft. Depende de SPEC-000. Objetivo: impedir acesso aos dados financeiros sem autenticação e recuperar acesso sem expor credenciais.
 
 | ID | Requisito |

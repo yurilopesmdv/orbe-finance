@@ -52,3 +52,16 @@ Consultadas em 16/10/2026; leitura pública, sem conteúdo bancário real. Docum
 | S33 | [OWASP MASVS](https://mas.owasp.org/MASVS/) | Organização dos controles e testes móveis; não certificação |
 
 A ausência de resultado em busca pública de incidentes não foi usada como evidência de segurança. Não foram realizadas consultas a dumps, credenciais vazadas ou dados de terceiros.
+
+## Fontes da decisão PF/local
+
+| ID | Fonte | Evidência / limite |
+|---|---|---|
+| S34 | [Bradesco Open APIs](https://api.bradesco/openapis) | Produto saldo/extrato, plano e certificado; não confirma elegibilidade/custo PF |
+| S35 | [Mercado Pago: dinheiro em conta](https://www.mercadopago.com.br/developers/pt/docs/reports/account-money/introduction) | Relatórios de movimentos; não comprova carteira pessoal integral |
+| S36 | [Mercado Pago: geração via API](https://www.mercadopago.com.br/developers/pt/docs/reports/account-money/api) | Procedimento documentado de relatórios; sem chamada autenticada nesta pesquisa |
+| S37 | [Mercado Pago: autenticação](https://www.mercadopago.com.br/developers/pt/reference) | Credencial privada fora do cliente; permissões read-only não comprovadas |
+| S38 | [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/) | SQLCipher não suportado em Expo Go, exige build adequado |
+| S39 | [Apple Developer Program](https://developer.apple.com/programs/enroll/) | Condições de distribuição/custo precisam de decisão separada; nenhuma contratação |
+
+Consultadas em 16/10/2026. Bradesco público é aplicação JavaScript e o conteúdo indexado oficial foi usado; não houve acesso ao catálogo autenticado/contrato individual. Ausência de documentação completa é lacuna, não prova de indisponibilidade absoluta da API.

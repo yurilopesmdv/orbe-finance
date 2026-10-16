@@ -1,5 +1,7 @@
 # SPEC-002 — Conexões e sincronização
 
+> Aplicabilidade atual: a proposta gerenciada abaixo é trilha condicional. Para a primeira fatia, [SPEC-008](../008-personal-data/spec.md) define senha/chaves locais e fontes PF, sem conta cloud por padrão. Regras de proteção permanecem, mas não criar backend automaticamente.
+
 Estado: draft. Depende de SPEC-000/001. Proposta inicial: adaptador Pluggy com caminho pessoal MeuPluggy; depende de homologação. Evidências e limites em [pesquisa](../../docs/research/FEASIBILITY.md).
 
 | ID | Requisito |

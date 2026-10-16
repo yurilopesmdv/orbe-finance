@@ -37,3 +37,7 @@ Estado: proposed para mudança da distribuição real; sintéticos permanecem pe
 ## ADR-009 — Relatórios internos, sem novas saídas
 
 Estado: proposed. Aprovar detalhe progressivo e cálculos determinísticos, com dados autorizados do próprio app, sem IA/BI/render remoto. Exportação e compartilhamento permanecem fora do MVP; relatórios não criam novos destinatários e usam os mesmos controles de acesso dos lançamentos.
+
+## ADR-010 — revisão vigente de contas PF
+
+Direção selecionada: [núcleo local](ADR-010-LOCAL-CORE.md). Subordina as propostas gerenciadas anteriores e mantém integração automática como pendência própria, sem promessa de cobertura/custo. Primeira fatia prioriza Bradesco/Mercado Pago PF; Inter/Nubank ficam para expansão.
