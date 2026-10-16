@@ -8,10 +8,10 @@ Prioridade informada: Mercado Pago, Bradesco, Inter e Nubank. Uso pessoal gratui
 
 | Banco PF a confirmar | Contas/extrato: documentação OF | Investimentos: documentação OF | Cofrinhos/nomes/metas | Dados reais no Orbe | Ordem de validação proposta |
 |---|---|---|---|---|---|
-| Nubank | Listado | Listado; validar instrumento real | Representação e nomes a confirmar | Não testados | 1 — prova de conta + reserva |
-| Inter | Listado | Listado; validar instrumento real | Produtos utilizados a informar | Não testados | 2 — comparar segunda fonte |
-| Mercado Pago | Listado | Listado; validar instrumento real | Campos e inclusão no saldo a confirmar | Não testados | 3 — reservas e saldo remunerado |
-| Bradesco | Listado | Listado; validar instrumento real | Produtos utilizados a informar | Não testados | 4 — confirmar reconciliação final |
+| Nubank | Listado | Listado; validar instrumento real | Representação e nomes a confirmar | Não testados | Expansão |
+| Inter | Listado | Listado; validar instrumento real | Produtos utilizados a informar | Não testados | Expansão |
+| Mercado Pago | Listado | Listado; validar instrumento real | Campos e inclusão no saldo a confirmar | Não testados | 1 — prioridade PF |
+| Bradesco | Listado | Listado; validar instrumento real | Produtos utilizados a informar | Não testados | 2 — prioridade PF |
 
 “Listado” vem da [cobertura oficial de instituições](https://docs.pluggy.ai/en/docs/open-finance/institutions-coverage). A tabela agrega contextos: não é homologação do conector pessoal ou do proxy. A ordem é hipótese operacional para exercitar riscos, não prioridade financeira recomendada nem preferência expressa do usuário. É ajustável conforme contas disponíveis.
 
@@ -28,4 +28,6 @@ Prioridade informada: Mercado Pago, Bradesco, Inter e Nubank. Uso pessoal gratui
 
 ## Gate de aceitação
 
-Banco só recebe homologado após comparação privada com saldo/extrato na fonte, identidade/ownership, repetição de sync sem duplicidade e comportamento seguro de revogação. Diferenças temporais precisam de justificativa de data, não tolerância numérica genérica. Não anexar extratos reais ao repositório. R2 exige as quatro fichas ou redução de escopo explicitamente aceita; um banco ausente não deve ser marcado como concluído.
+Banco só recebe homologado após comparação privada com saldo/extrato na fonte, identidade/ownership, repetição de sync sem duplicidade e comportamento seguro de revogação. Diferenças temporais precisam de justificativa de data, não tolerância numérica genérica. Não anexar extratos reais ao repositório. R2 exige as fichas Bradesco/Mercado Pago e cobertura por produto explicitamente aceita; um banco ausente não deve ser marcado como concluído.
+
+Pesquisa T03 concluída: [evidência e limitações](../../plan/T03-PERSONAL-FEASIBILITY.md). Origem Open Finance dos bancos no Meu Pluggy pessoal não comprovada por tabela comercial; não habilitar dados reais antes dessa prova.

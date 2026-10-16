@@ -151,3 +151,7 @@ Contrato em [T74-BRIDGE-CONTRACT](../plan/T74-BRIDGE-CONTRACT.md), base d2dec67,
 ## Evidência T02 — done (spike sintético)
 
 Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 testes passaram, sem dependências. Critérios AUTH-01/03/04/06 testados por porta fake, incluindo races e recuperação. [Evidência/limites](../plan/T02-ACCESS-SPIKE.md). Não equivale a login real ou teste no aparelho. Próxima T03.
+
+## Evidência T03 — done (pesquisa)
+
+[Viabilidade pessoal](../plan/T03-PERSONAL-FEASIBILITY.md): termos/cotas/cadência documentados, limites registrados. Aplicabilidade Open Finance de Bradesco/MP no canal pessoal continua pendente do gate real. Sem contratar ou consentir. Próxima T04.

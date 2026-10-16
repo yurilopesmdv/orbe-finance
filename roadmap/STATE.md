@@ -37,3 +37,7 @@ Estado doing, base 2a8ef01; responsável único, paths reservados spikes/access/
 ## T02 — done / retomada vigente
 
 Spike sintético em spikes/access/*, 20 testes Node22 passaram. Sem pacote/SDK/rede/backend. Estado e erros sanitizados; login/resposta tardios não desbloqueiam após background/logout; recuperação exige novo login. Ver plan/T02-ACCESS-SPIKE.md. Próxima T03; continuar automaticamente depois nas tasks independentes, sem pedir nova confirmação. Estado atual supera trechos históricos deste checkpoint.
+
+## T03 — done / retomada vigente
+
+Pesquisa oficial em plan/T03-PERSONAL-FEASIBILITY.md. Termos pessoais documentados; origem Open Finance de Bradesco/MP no portal pessoal e cobertura real ainda pendentes. T63/T78 não liberados. Próxima T04: contrato financeiro e catálogo sintético; continuar sem aguardar confirmação.
