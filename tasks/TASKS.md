@@ -13,9 +13,9 @@ Estado em 16/10/2026: **nenhuma task T foi iniciada**. A autorização atual é 
 | P05 | Preparar plano, ADRs e microtasks dependentes | done |
 | P06 | Preparar roadmap/checkpoint e validar documentos | done |
 
-## Aplicabilidade vigente 0.3
+## Aplicabilidade vigente 0.4
 
-T64–T73 são a próxima trilha selecionada da primeira fatia PF/local. T01/T04/T05 e contratos de domínio podem ser reaproveitados após ajustar os critérios locais; tasks anteriores de cloud/SDK bancário/worker não estão liberadas por padrão. T39/T40 (Nubank/Inter) ficam deferred para expansão. T41/T42 não autorizam conexão: acesso real continua desligado. A automação só é retomada após a prova de elegibilidade T72 e spec atualizada. Nenhuma task técnica foi iniciada.
+Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 permanecem como capacidades locais/contingência: importação T68 não bloqueia a automação, e T66 não substitui autenticação da ponte. Critérios antigos que exigem ausência de agregador/cloud estão superados pela SPEC-009 e devem ser ajustados no contrato T74 antes da implementação. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Nenhuma task técnica iniciada; gate T63 continua obrigatório.
 
 ## Contrato de execução
 
@@ -32,7 +32,7 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T03 | — | PRD-05, OF-01, OF-09 | Integração | Confirmar termos/cotas do uso pessoal e trilha Open Finance | Plano pessoal confirmado, quatro bancos elegíveis ou limites registrados; sem contratar pago |
 | T04 | T01 | EXP-02, EXP-05, PORT-04 | Domínio | Fechar contrato monetário e catálogo de casos sintéticos | Expectativas dos exemplos de gastos e sobreposição aprovadas documentalmente |
 | T05 | T01 | UX-01, UX-04 | UI | Desenhar wireframes estáticos dos cinco fluxos | Fluxos com estados vazio/parcial/erro e textos de fonte/data, sem app funcional |
-| T06 | T02, T03, T04, T05, T47, T48, T49 | PRD-06 | Integração | Atualizar specs e registrar conclusão dos spikes | Decisões por requisito e escopo da primeira fatia em ready; implementação autorizada |
+| T06 | T02, T03, T04, T05, T47, T48, T49, T74 | PRD-06 | Integração | Atualizar specs e registrar conclusão dos spikes | Decisões por requisito e escopo da primeira fatia em ready; implementação autorizada |
 | T07 | T06 | PRD-04, PRD-07 | Base | Bootstrap Expo e configuração local independente | Projeto abre no Expo Go do proprietário sem dependência do F1 |
 | T08 | T07 | PRD-07, AUTH-02 | Dados | Preparar backend separado e migrations versionadas | Destino conferido, sem tocar projeto F1, credenciais privadas fora do app |
 | T09 | T07 | PRD-06 | Base | Configurar checks de CI do novo repo | Instalação por lockfile, typecheck e testes de exemplo passam em CI |
@@ -67,11 +67,11 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T38 | T27, T29, T30, T31, T32, T33, T37 | PRD-04, UX-01, UX-04 | Validação | Validar R1 com cenários sintéticos no iPhone | Login/bloqueio, filtros e totais passam; R1 não é apresentada como integração real |
 | T39 | T03, T18, T21, T22, T23, T24, T36, T38, T63 | PRD-01, OF-01 | Integração | Homologar Nubank com autorização do titular | Ficha por banco completa, dados conciliados e reserva explicada ou limitação registrada |
 | T40 | T39 | PRD-01, OF-01 | Integração | Homologar Inter | Segunda origem prova consolidação/transferência sem duplicidade; ficha completa |
-| T41 | T40 | PRD-01, OF-01 | Integração | Homologar Mercado Pago | Saldo remunerado/reserva investigados, sem inferir cofrinho por nome |
-| T42 | T41 | PRD-01, OF-01 | Integração | Homologar Bradesco | Comparar contas/movimentos/posições e registrar cobertura efetiva do contexto |
+| T41 | T38, T78 | PRD-01, OF-01 | Integração | Homologar Mercado Pago | Saldo remunerado/reserva investigados, sem inferir cofrinho por nome |
+| T42 | T41, T78 | PRD-01, OF-01 | Integração | Homologar Bradesco | Comparar contas/movimentos/posições e registrar cobertura efetiva do contexto |
 | T43 | T39, T40, T41, T42, T35, T37 | OF-05, OF-06, OF-08 | Validação | Exercitar falhas integradas e segurança operacional | Evento fora de ordem, 429, revogação, fonte parcial e retry passam sem dados reais em Git |
 | T44 | T09, T38, T43 | PRD-06, PRD-07 | Operação | Configurar publicação privada e recuperação | CI precede deploy; runtime compatível, secrets independentes e rollback documentados |
-| T45 | T44, T62, T63 | PRD-01, PRD-02, UX-03 | Validação | Aceitar R2 no iPhone e registrar release | Quatro bancos homologados ou redução aceita; evidências sanitizadas e limites explícitos |
+| T45 | T44, T62, T63, T42, T78 | PRD-01, PRD-02, UX-03 | Validação | Aceitar R2 no iPhone e registrar release | Bradesco/MP comparados privadamente, cobertura por produto explícita; expansão Inter/Nubank adiada; limitações registradas |
 | T46 | T45 | AUTH-07, PRD-08 | Pesquisa | Avaliar distribuição nativa e Face ID para R3 | Decisão de build/custo registrada antes de código; Expo Go continua sem promessa biométrica |
 | T47 | — | SEC-01, SEC-04 | Pesquisa | Concluir diligência de fornecedores/termos/destinatários | Respostas aplicáveis ao plano, limites e aprovação ou bloqueio; leitura pública atual não basta |
 | T48 | T47 | SEC-06, SEC-08 | Arquitetura | Comparar fronteiras de confiança e gestão de chaves | Quem lê plaintext e quem possui cada chave estão explícitos; sem E2EE fictício |
@@ -128,3 +128,15 @@ Todas todo, condicionadas à autorização da fase técnica. T72 é pesquisa ind
 | T71 | T67, T68, T70 | SEC-01, SEC-02, SEC-03, SEC-05, SEC-09, SEC-10, SEC-11, SEC-12, SEC-13, SEC-15, SEC-16, SEC-17, PF-02, PF-08 | Validação | Validar exposição e dispositivo na arquitetura local | Rede/log/arquivo/cache/captura/update testados com sintéticos; ferramentas continuam sem conteúdo real |
 | T72 | T64 | PF-07, OF-01, OF-02, OF-03, OF-04, OF-06, OF-07, OF-08, OF-09, SEC-04, PRD-05 | Pesquisa | Fechar elegibilidade PF oficial de cada API sem ativar conexão | Custo/scopes/certificado/cobertura/revogação comprovados ou limitação explícita; nenhuma credencial no app |
 | T73 | T71 | PF-01, PF-06, PF-08, PRD-06, PRD-07, PRD-08, SEC-17, SEC-18 | Validação | Registrar aceite da capacidade local no iPhone e pendências da automação | Titular valida privadamente, sem enviar extrato ao desenvolvimento; app local não recebe selo de Open Finance completo |
+
+## Microtasks Meu Pluggy — revisão 0.4
+
+| ID | Dependências | Requisitos | Responsável lógico | Entrega pequena | Aceite / evidência mínima |
+|---|---|---|---|---|---|
+| T74 | — | MPG-01, MPG-02, MPG-03, MPG-07 | Planejamento | Fechar contrato do proxy/ponte e revisar tasks reaproveitadas | Cadastro privado, sessão, vínculos, destinatários, custo, retenção e limites definidos antes de código |
+| T75 | T74, T18, T55 | MPG-02, MPG-03, MPG-06 | Validação | Testar acesso em rotas financeiras/status/configuração | Sem sessão/expirada, dono incorreto e item/conta trocado negados antes da consulta; não expor existência de secrets |
+| T76 | T74, T19, T21, T22 | MPG-04, MPG-08 | Integração | Validar proxy pessoal e estados com fixtures | IDs permitidos, cadência diária, ausência de refresh/listagem, indisponibilidade e revogação respeitados |
+| T77 | T74, T23, T24, T76 | MPG-05, MPG-08 | Validação | Preparar matriz Bradesco/MP e homologação privada | Cofrinho ausente/conta sem movimentos não viram zero; fontes/datas e dupla contagem testadas sinteticamente; cobertura real ainda pendente |
+| T78 | T63, T75, T76, T77 | MPG-06, MPG-07, MPG-08 | Validação | Consolidar decisão de prontidão para primeiro consentimento | Evidências de segredos/logs/dependências/revogação e risco residual revisadas; nenhuma falha alta/crítica aberta da integração; depois comparar cobertura privadamente |
+
+T78 não declara cobertura real antes do primeiro consentimento: T41/T42 passam a exigir T78 antes de acessar dados reais e registram a comparação privada depois. A release T45 exige essa comparação e cobertura explícita; registrar redução de escopo se cofrinhos não retornarem, sem declarar o objetivo original completo. Pesquisa pública não conclui T75–T78.

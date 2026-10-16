@@ -40,3 +40,9 @@ Políticas e fontes oficiais adicionais consultadas; resultados em docs/security
 ## Revisão 0.3 — PF
 
 PF confirmadas pelo usuário. Capacidade local selecionada e integração direta investigada separadamente, sem prometer cobertura/gratuidade. SPEC-008 criada antes da trilha de plano/tasks correspondente. Links, rastreabilidade e grafo revalidados; nenhuma execução de software ou análise de extrato real.
+
+## Revisão 0.4
+
+SPEC-009 escrita antes do plano Meu Pluggy e das tasks T74–T78. Alteração preserva IDs antigos e explicita precedência sobre arquitetura exclusivamente local. Pesquisa passiva em fontes primárias, sem dados reais, login, scan de infraestrutura ou exploits. Validação documental verifica links locais, rastreabilidade de requisitos e grafo de dependências; nenhum teste de software ou scan de dependências pode ser declarado executado nesta fase.
+
+Validação documental 0.4 executada: 30 Markdown, 10 specs, 86 requisitos rastreados, 78 microtasks; links locais resolvidos, requisitos presentes no backlog e matriz, dependências existentes e grafo sem ciclos. Somente Markdown alterado, sem whitespace final. Dependência de Mercado Pago em Inter removida: expansão não bloqueia a prioridade PF. Nenhum teste funcional do app executado.

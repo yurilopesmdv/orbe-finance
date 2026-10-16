@@ -1,5 +1,7 @@
 # ADR-010 — Núcleo local para contas PF
 
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 Estado: direção técnica selecionada em planejamento; controles ainda não implementados/validados. Data: 16/10/2026. Base: usuário confirmou todas as contas PF e delegou escolha técnica desde que preserve privacidade. [Investigação](../research/PERSONAL-ACCOUNTS.md) e [SPEC-008](../../specs/008-personal-data/spec.md).
 
 ## Decisão

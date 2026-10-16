@@ -1,5 +1,7 @@
 # Plano vigente para a primeira fatia PF — revisão 0.3
 
+**Revisão vigente 0.4:** [SPEC-009](../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 Estado: planejamento, zero código. Governa a primeira fatia local; a arquitetura de servidor do plano 0.2 fica condicional. Entradas: [SPEC-008](../specs/008-personal-data/spec.md), SPEC-003/004/005/006/007 e [ADR-010](../docs/decisions/ADR-010-LOCAL-CORE.md).
 
 ## Componentes selecionados como candidatos

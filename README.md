@@ -16,7 +16,9 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Revisão dos fornecedores](docs/security/VENDOR-REVIEW.md) | Achados, limites e aprovações ainda pendentes |
 | [Modelo de ameaças](docs/security/THREAT-MODEL.md) | Destinos de dados, controles e riscos residuais |
 | [Decisões](docs/decisions/DECISIONS.md) | Escolhas propostas, confirmadas e adiadas |
-| [Plano vigente PF](plan/PF-IMPLEMENTATION.md) | Núcleo local e investigação separada da automação |
+| [Plano vigente Meu Pluggy](plan/MEU-PLUGGY.md) | Automação PF, ponte privada e entregas pequenas |
+| [Pesquisa de segurança Meu Pluggy](docs/security/MEU-PLUGGY-REVIEW.md) | Vulnerabilidades encontradas, limites e decisão |
+| [Plano local anterior](plan/PF-IMPLEMENTATION.md) | Histórico e contingência |
 | [Plano gerenciado anterior](plan/PLAN.md) | Alternativa condicional, não caminho padrão da primeira fatia |
 | [Microtasks](tasks/TASKS.md) | Dependências, entregas pequenas e validação |
 | [Roadmap](roadmap/ROADMAP.md) | Marcos e gates de entrega |
@@ -24,8 +26,6 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Revisão documental](docs/PLANNING-VALIDATION.md) | Verificações realmente feitas nesta etapa |
 | [Orientações de trabalho](AGENTS.md) | Método e continuidade |
 
-O candidato de custo é Meu Pluggy + conector pessoal, sem aprovação de segurança para dados reais. O uso depende de termos/cobertura, decisão de confiança e gate da SPEC-006. Não há promessa de tempo real, cofrinhos identificados em todos os bancos ou gratuidade de toda a infraestrutura. Nenhum plano pago foi contratado.
+Meu Pluggy é o fornecedor selecionado para planejar a integração automática Bradesco/Mercado Pago PF. [SPEC-009](specs/009-meu-pluggy/spec.md) prevalece sobre a revisão local 0.3: importação/manual é contingência. A pesquisa pública não encontrou evidência comprovada de falha grave vigente no próprio serviço; encontrou falhas corrigidas no integrador Actual Budget e um relato de cobertura dos cofrinhos MP. Isso não é auditoria nem garantia de ausência de vazamento.
 
-Privacidade prevalece sobre gratuidade. Expo Go fica restrito a dados sintéticos até definir o ambiente real. UI proposta: resumo simples, relatórios internos e detalhe de cada total, sem IA/BI externo. Nenhum sistema ou fornecedor foi declarado livre de toda possibilidade de vazamento.
-
-Revisão vigente: [SPEC-008](specs/008-personal-data/spec.md) seleciona capacidade local cifrada e relatórios no iPhone, sem backend financeiro obrigatório. APIs diretas PF ainda não comprovam integração gratuita completa; [investigação](docs/research/PERSONAL-ACCOUNTS.md). Importação/manual não é Open Finance automático e não encerra essa pendência do objetivo original.
+Expo Go permanece restrito a dados sintéticos até validar runtime real, armazenamento e biometria. Senha e sessão da ponte são distintas do desbloqueio local. Pluggy/ponte processam a sincronização; IA/BI/analytics/ferramentas não recebem conteúdo financeiro. Nenhum banco conectado, recurso contratado ou código implementado. Gate de dados reais permanece obrigatório.

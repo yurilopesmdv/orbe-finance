@@ -1,5 +1,7 @@
 # Matriz de cobertura e homologação bancária
 
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 > Revisão vigente: todas as contas são PF confirmadas; prioridade inicial agora é Bradesco e Mercado Pago. Inter/Nubank ficam em expansão. A matriz abaixo preserva a investigação de agregador; [APIs PF](PERSONAL-ACCOUNTS.md) registra a rota direta, ainda sem comprovação de acesso gratuito completo.
 
 Prioridade informada: Mercado Pago, Bradesco, Inter e Nubank. Uso pessoal gratuito. Data: 16/10/2026. Status de todos: **não homologados**. Nenhuma conta foi conectada durante o planejamento.

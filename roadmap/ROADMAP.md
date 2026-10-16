@@ -1,5 +1,7 @@
 # Roadmap vigente — contas PF e privacidade
 
+**Revisão vigente 0.4:** [SPEC-009](../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 Revisão 0.3 de 16/10/2026. [SPEC-008](../specs/008-personal-data/spec.md) e [plano PF](../plan/PF-IMPLEMENTATION.md) governam a primeira fatia. Contas pessoais PF confirmadas; prioridade Bradesco/Mercado Pago. Inter/Nubank ficam em expansão.
 
 | Marco | Resultado | Tasks / saída | Estado |

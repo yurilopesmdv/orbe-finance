@@ -1,5 +1,7 @@
 # Registro de decisões
 
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 Data inicial: 16/10/2026. Estados: accepted (restrição/pedido confirmado), proposed (escolha a validar), deferred (fora da etapa). Uma mudança registra motivo, impacto em requisitos/tasks e evidência. Este arquivo não autoriza implementação.
 
 ## ADR-001 — Distribuição e autenticação

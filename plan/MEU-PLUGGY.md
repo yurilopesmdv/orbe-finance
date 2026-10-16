@@ -1,0 +1,28 @@
+# Plano vigente — Meu Pluggy, revisão 0.4
+
+Deriva da [SPEC-009](../specs/009-meu-pluggy/spec.md), que prevalece sobre escolhas conflitantes da revisão 0.3. Etapa atual somente documental; não iniciar código. O fluxo principal é automático; importação/manual permanece contingência.
+
+## Arquitetura proposta e fronteiras de confiança
+
+Banco → Meu Pluggy → ponte privada autenticada → app. Classificação e relatórios ficam no iPhone por padrão, com persistência local protegida no runtime validado. Pluggy e ponte processam dados financeiros: esta arquitetura não impede tecnicamente que esses operadores os leiam. Minimizar retenção na ponte, evitar persistência de payload bancário por padrão e registrar eventual necessidade antes de criar tabelas/workers. Guardar apenas configuração/vínculos/cursores estritamente necessários conforme contrato aprovado.
+
+Segredos do fornecedor permanecem no servidor. A ponte usa autenticação do proprietário e autorização por vínculo interno de item/conta. Cadastro público desativado. Desbloqueio local e sessão do servidor são controles distintos; não reutilizar uma senha local como segredo de API. Definir provedor Auth, recuperação e armazenamento de sessão antes de bootstrap. Não assumir que RLS protege dados em memória/logs ou que Face ID autentica requisições HTTP.
+
+## Sequência de pequenas entregas
+
+1. T74 fecha contrato do proxy pessoal, destinatários, retenção/chaves e autenticação da ponte com dados sintéticos. Atualizar as tasks cloud reaproveitadas antes de executá-las; não copiar automaticamente todo o desenho gerenciado antigo.
+2. T01/T02/T04/T05 e T47–T49 fecham runtime, acesso, domínio, wireframes e riscos. T65 continua útil para runtime; autenticação local T66 é complementar à sessão da ponte. Nenhum controle nativo é declarado funcional no Expo Go sem prova.
+3. Após autorização de implementação, adaptar T07–T27 ao contrato T74, com ponte mínima e ingestão de respostas simuladas. Só armazenar no servidor aquilo explicitamente definido. Importação T68 não é dependência da sincronização principal.
+4. T75 verifica autenticação/autorização de todas as rotas, incluindo status/configuração; T76 fecha itens permitidos, cadência e falhas do proxy. Reaproveitar testes de egress/logs e relatórios T50–T62.
+5. T77 homologa matriz de cobertura sintética e prepara comparação privada de Bradesco/MP; não afirmar cofrinhos disponíveis a partir de documentação genérica. Incidentes operacionais não são prova de incidente de segurança.
+6. T78 consolida evidências técnicas com T63 antes de conectar banco real. Depois, homologação privada pelo titular, somente Bradesco/MP. T39/T40 permanecem expansão. Revisar riscos/resultado de cobertura antes de declarar produto completo.
+
+## Uso pessoal e sincronização
+
+Documentação consultada descreve até cinco conexões pessoais e atualização automática diária; validar termos/capacidades novamente na implementação. Proxy pessoal não oferece listagem genérica de itens nem atualização manual via PATCH: obter IDs por fluxo autorizado e mantê-los vinculados ao proprietário. Definir retorno do consentimento e reentrada do app com fixtures; não depender de webhook, SDK nativo ou callback que não tenha sido comprovado no plano/runtime.
+
+A infraestrutura da ponte pode ter custo mesmo com acesso pessoal gratuito. Nenhum recurso foi contratado. Exclusão/revogação envolve aparelho, ponte e fornecedor separadamente; confirmar retenção/backup e evitar promessa de apagamento instantâneo universal.
+
+## Continuidade
+
+Próxima tarefa documental: T74. Implementação permanece pendente de autorização de fase. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.

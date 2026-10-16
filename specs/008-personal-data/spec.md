@@ -1,19 +1,21 @@
 # SPEC-008 — Contas PF e núcleo financeiro local
 
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 Estado: draft, revisão 0.3 de 16/10/2026. Usuário confirmou que todas as contas são PF e delegou a escolha do caminho técnico, subordinada à privacidade. Escopo prioritário de investigação: Bradesco e Mercado Pago. Inter e Nubank deixam a primeira fatia; não foram homologados nem removidos de alguma integração existente, pois não há app implementado.
 
 ## Decisão de arquitetura e limite de entrega
 
-Adotar núcleo local: armazenamento protegido, categorização e relatórios no iPhone. Nenhum backend financeiro/conta cloud/agregador será requisito para essa base. Integração automática continua parte do objetivo original, mas não está comprovada por APIs diretas PF; não declarar objetivo integral entregue apenas por fazer um app offline. Importação local é uma capacidade útil e contingência explícita, não Open Finance automático disfarçado.
+Adotar núcleo local: armazenamento protegido, categorização e relatórios no iPhone. A opção sem backend/agregador abaixo é histórica; a automação vigente requer a ponte definida na SPEC-009. Integração automática continua parte do objetivo original, mas não está comprovada por APIs diretas PF; não declarar objetivo integral entregue apenas por fazer um app offline. Importação local é uma capacidade útil e contingência explícita, não Open Finance automático disfarçado.
 
 Esta spec complementa e prevalece sobre escolhas anteriores de arquitetura gerenciada, não apaga as regras de domínio/privacidade. As propostas de Auth por e-mail, RLS multiusuário, workers e filas na nuvem das SPEC-001/002 e plano 0.2 ficam suspensas para a primeira fatia, não devem ser implementadas por padrão. Se uma ponte de API for viável, seus requisitos de autorização/segredos continuam obrigatórios e serão especificados antes de implementação. Segurança e relatórios das SPEC-006/007 permanecem aplicáveis.
 
 | ID | Requisito |
 |---|---|
 | PF-01 | DEVE tratar Bradesco e Mercado Pago como PF confirmadas, com acesso/custo/capacidades de API registrados separadamente; ausência de prova não significa endpoint inexistente |
-| PF-02 | DEVE manter carteira, transações, classificação e relatórios no aparelho por padrão, sem enviar conteúdo a Supabase, agregador, IA, BI, analytics ou ferramentas de criação |
+| PF-02 | DEVE manter carteira, transações, classificação e relatórios no aparelho por padrão, sem enviar conteúdo a IA, BI, analytics ou ferramentas de criação; sincronização com Pluggy/ponte é permitida somente nos limites da SPEC-009 |
 | PF-03 | DEVE usar armazenamento criptografado com componentes mantidos, gestão de chave e senha local avaliadas; não implementar criptografia caseira nem prometer proteção com bloqueio visual apenas |
-| PF-04 | DEVE planejar senha local e Face ID nativo opcional, sem cadastro de rosto ou conta cloud; decisão de perda de senha/chave e reinstalação deve ser explícita |
+| PF-04 | DEVE planejar senha local e Face ID nativo opcional, sem cadastro de rosto; sessão remota da ponte definida na SPEC-009; decisão de perda de senha/chave e reinstalação deve ser explícita |
 | PF-05 | DEVE permitir entrada manual/importação local somente de formatos oficiais confirmados, com prévia, validação e deduplicação; não usar scraping, automação de internet banking ou API interna reversa |
 | PF-06 | DEVE preservar fontes, datas, parcialidade e reconciliação dos investimentos/cofrinhos mesmo quando um formato não trouxer esses produtos; atualização manual não simula sincronização automática |
 | PF-07 | DEVE manter integração direta desligada até provar elegibilidade PF, custo, scopes efetivos, revogação e cobertura; nunca embutir Access Token/certificado privilegiado no app |

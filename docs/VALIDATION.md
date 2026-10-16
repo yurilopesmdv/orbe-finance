@@ -60,3 +60,14 @@ Instrumentação de teste não pode tornar-se o próprio vazamento: traces e cap
 | V25 Entrada local e integridade | PF-05, PF-06 | T68–T70, T73 | Formatos oficiais, deduplicação, fonte/data, parcialidade e relatórios reconciliados |
 
 Cenários anteriores que presumiam servidor/RLS são condicionais à adoção de ponte futura. RLS não prova proteção de arquivo no iPhone; chave inválida, journals, temporários, reinício, bloqueio e recuperação precisam de testes locais próprios. Nenhum desses testes de software foi executado no planejamento.
+
+## Revisão 0.4 — Meu Pluggy prioritário
+
+Esta revisão prevalece nas condições históricas de ausência de cloud/agregador e quatro bancos. Primeira homologação: Bradesco/Mercado Pago. Testes ainda não executados.
+
+| Cenário | Requisitos | Tasks | Prova futura |
+|---|---|---|---|
+| V26 Contratos da automação PF | MPG-01, MPG-03, MPG-07 | T74 | Termos/custo/destinatários, sessão da ponte versus desbloqueio e dados mínimos definidos |
+| V27 Regressão de acesso | MPG-02, MPG-03, MPG-06 | T75, T78 | Nenhuma rota financeira/status/configuração expõe dados/metadados a anônimo, outra identidade ou vínculo trocado |
+| V28 Proxy e falhas | MPG-04, MPG-08 | T76 | Cadência/itens permitidos, refresh indisponível, revogação e último lote preservados |
+| V29 Cobertura e liberação | MPG-05, MPG-06, MPG-07, MPG-08 | T77, T78, T41, T42 | Matriz sintética antes do gate; após consentimento, comparação privada dos dois bancos, cofrinhos e exclusão; nenhuma garantia universal de segurança |

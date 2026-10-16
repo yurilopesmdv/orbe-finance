@@ -1,5 +1,7 @@
 # Trabalho no Orbe Finance
 
+Direção vigente: ler [SPEC-009](specs/009-meu-pluggy/spec.md), [plano Meu Pluggy](plan/MEU-PLUGGY.md) e STATE. Automação Meu Pluggy Bradesco/MP PF é principal; importação é contingência. Revisão 0.4 prevalece sobre instruções conflitantes de arquitetura exclusivamente local. Não iniciar código nesta fase.
+
 Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa, plano, backlog e decisões. Este repositório é independente do Bolão F1; não copiar .env, chaves, banco ou pipelines daquele projeto.
 
 - Etapa autorizada em 16/10/2026: investigação e planejamento, somente Markdown. Não criar código, manifests, migrations executáveis, dependências, infraestrutura ou conexões bancárias enquanto essa instrução não for ampliada pelo usuário.

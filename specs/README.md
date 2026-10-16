@@ -14,7 +14,8 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. N
 | [005 — Experiência](005-experience/spec.md) | Navegação e estados da interface |
 | [006 — Segurança](006-security/spec.md) | Privacidade, fornecedores, saídas e gate de dados reais |
 | [007 — Relatórios](007-reports/spec.md) | Profundidade por detalhe progressivo, sem serviços externos |
-| [008 — Contas PF](008-personal-data/spec.md) | Núcleo local, duas instituições e integração automática ainda pendente |
+| [008 — Contas PF](008-personal-data/spec.md) | Capacidade local/contingência, com precedência da revisão 0.4 |
+| [009 — Meu Pluggy](009-meu-pluggy/spec.md) | Fornecedor selecionado, automação PF e controles da ponte |
 
 ## Processo e controle de mudança
 
@@ -26,6 +27,6 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. N
 6. Alteração de escopo atualiza spec e ADR antes de abrir as tasks correspondentes. Histórico Git preserva versões; IDs de requisitos não são reutilizados.
 7. Validação relaciona requisito → task → cenário → evidência e registra falhas/limites.
 
-Estados: draft, ready, implementing, validated, deferred. As nove specs estão em draft. SPEC-008 prevalece nas decisões da primeira fatia PF; [plano PF](../plan/PF-IMPLEMENTATION.md) é a entrada técnica vigente. Ready exige resolver as decisões que bloqueiam aquela fatia; não exige concluir todos os bancos antes de uma fatia sintética autorizada. O caminho prioritário é uso pessoal, Bradesco/Mercado Pago PF e senha. Gratuidade é preferência subordinada à privacidade; Expo Go permanece ambiente sintético até decisão de runtime para dados reais. A exigência original de Face ID permanece rastreada, condicionada ao runtime.
+Estados: draft, ready, implementing, validated, deferred. As dez specs estão em draft. SPEC-009 prevalece nas decisões da automação PF; [plano Meu Pluggy](../plan/MEU-PLUGGY.md) é a entrada técnica vigente. Ready exige resolver as decisões que bloqueiam aquela fatia; não exige concluir todos os bancos antes de uma fatia sintética autorizada. O caminho prioritário é uso pessoal, Bradesco/Mercado Pago PF e senha. Gratuidade é preferência subordinada à privacidade; Expo Go permanece ambiente sintético até decisão de runtime para dados reais. A exigência original de Face ID permanece rastreada, condicionada ao runtime.
 
 Próximos documentos: [plano](../plan/PLAN.md), [microtasks](../tasks/TASKS.md), [roadmap](../roadmap/ROADMAP.md) e [estado de retomada](../roadmap/STATE.md).

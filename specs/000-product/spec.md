@@ -1,5 +1,7 @@
 # SPEC-000 — Produto e escopo
 
+**Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; importação/local sem agregador é contingência, não caminho principal. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
+
 Estado: draft. Origem: solicitações e respostas do usuário em 16/10/2026.
 
 ## Problema e resultado desejado

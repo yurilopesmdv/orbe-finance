@@ -65,3 +65,7 @@ A ausência de resultado em busca pública de incidentes não foi usada como evi
 | S39 | [Apple Developer Program](https://developer.apple.com/programs/enroll/) | Condições de distribuição/custo precisam de decisão separada; nenhuma contratação |
 
 Consultadas em 16/10/2026. Bradesco público é aplicação JavaScript e o conteúdo indexado oficial foi usado; não houve acesso ao catálogo autenticado/contrato individual. Ausência de documentação completa é lacuna, não prova de indisponibilidade absoluta da API.
+
+## Pesquisa pública de segurança — revisão 0.4
+
+Fontes, achados, limites e data em [Meu Pluggy — revisão de segurança](../security/MEU-PLUGGY-REVIEW.md). Consultar advisories novamente ao fixar dependências; não interpretar ausência de relato como certificado de segurança.
