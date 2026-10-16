@@ -29,3 +29,11 @@ Fontes públicas oficiais Pluggy/Supabase consultadas, contrato definido e backl
 ## Checkpoint T01 — done
 
 Base 6058f29. Paths desta execução: plan/T01-RUNTIME-STRUCTURE.md, specs/000-product/spec.md, tasks/TASKS.md, roadmap/STATE.md, roadmap/ROADMAP.md, AGENTS.md, README.md, plan/MEU-PLUGGY.md, docs/research/FEASIBILITY.md, docs/PLANNING-VALIDATION.md. Pesquisa oficial + consulta de versões locais + confirmação textual do aparelho. Sem instalação/código/conta real. Face ID e SQLCipher seguem indisponíveis no Expo Go; nunca contornar com finanças reais em claro. Próxima T02; não iniciar T07 antes dos contratos/gates definidos. Nenhum path/agente ativo.
+
+## Execução corrente T02
+
+Estado doing, base 2a8ef01; responsável único, paths reservados spikes/access/*, plan/T02-ACCESS-SPIKE.md, SPEC-001/TASKS/STATE. Node22 nativo, sem pacotes ou rede no spike. Execução contínua sequencial autorizada pelo usuário: não aguardar confirmação entre tasks; checkpoints existem para retomar após interrupção.
+
+## T02 — done / retomada vigente
+
+Spike sintético em spikes/access/*, 20 testes Node22 passaram. Sem pacote/SDK/rede/backend. Estado e erros sanitizados; login/resposta tardios não desbloqueiam após background/logout; recuperação exige novo login. Ver plan/T02-ACCESS-SPIKE.md. Próxima T03; continuar automaticamente depois nas tasks independentes, sem pedir nova confirmação. Estado atual supera trechos históricos deste checkpoint.

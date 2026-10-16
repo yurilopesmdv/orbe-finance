@@ -37,3 +37,7 @@ O Face ID no Expo Go iOS é limitação confirmada em [pesquisa](../../docs/rese
 - AC-A07: dado apagar conta confirmado, filas deixam de consultar bancos; novos callbacks não recriam dados removidos.
 
 Contrato T74 seleciona Supabase Auth em projeto próprio e Edge Functions para a ponte, com proprietário fixado no servidor. Projeto ainda não provisionado; verificação de runtime/recuperação permanece em T01/T02.
+
+## Contrato do spike T02
+
+Spike isolado em spikes/access, sem pacote externo ou Supabase real. Estados: locked, authenticating, unlocked, recovery_pending, recovering. Inactive/background invalidam imediatamente a geração de trabalho, removem a sessão local e cancelam respostas financeiras pendentes. Resultado tardio de login/consulta nunca desbloqueia nem repõe conteúdo. Recuperação concluída exige novo login por senha e não libera finanças usando a sessão de recuperação. Expiração usa relógio injetável no teste, sem esperar tempo real. O adaptador real, autorização de servidor e testes físicos permanecem tarefas posteriores; este protótipo não deve ser importado pelo app de produção.

@@ -147,3 +147,7 @@ Contrato em [T74-BRIDGE-CONTRACT](../plan/T74-BRIDGE-CONTRACT.md), base d2dec67,
 ## Evidência T01 — done
 
 [Runtime e estrutura](../plan/T01-RUNTIME-STRUCTURE.md), base 6058f29, requisito PRD-04. Proprietário confirmou iPhone 11/iOS 26.6.2/Expo Go 57.0.9/SDK 57.0.0. Selecionados SDK57 e Node22.23.2/npm12.2.0 locais; matriz de limitações e paths futuros definidos. Sem instalar dependências ou abrir app. Próxima task T02; T07 continua responsável pelo bootstrap e smoke no aparelho.
+
+## Evidência T02 — done (spike sintético)
+
+Base 2a8ef01. spikes/access/session.mjs e session.test.mjs; Node22 nativo, 20 testes passaram, sem dependências. Critérios AUTH-01/03/04/06 testados por porta fake, incluindo races e recuperação. [Evidência/limites](../plan/T02-ACCESS-SPIKE.md). Não equivale a login real ou teste no aparelho. Próxima T03.

@@ -21,3 +21,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa,
 - Contrato T74: plan/T74-BRIDGE-CONTRACT.md. Ponte de leitura sem persistir valores financeiros; Supabase Auth/Functions e RLS apenas de metadados. Cache/relatórios no aparelho, sem cron/webhook no MVP. Uma task por vez; fonte bancária original deve comprovar Open Finance.
 
 - T01 definiu SDK57 para iPhone11/iOS26.6.2/ExpoGo57.0.9; Node22.23.2/npm12.2.0 instalados. Ler plan/T01-RUNTIME-STRUCTURE.md antes de código. Não usar Node18 default ou SDK latest automaticamente; paths futuros definidos no contrato.
+
+- Usuário autorizou continuidade automática entre tasks; uma por vez significa sequência e checkpoint, não pedir nova confirmação. Prosseguir nas tasks independentes se outra estiver bloqueada por serviço/aparelho.
