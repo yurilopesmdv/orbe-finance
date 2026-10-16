@@ -1,6 +1,6 @@
 # Estado de retomada — revisão 0.4
 
-Checkpoint: 16/10/2026, America/Sao_Paulo. Repo: /home/yurilopesm/projects/orbe-finance. Etapa autorizada: publicar documentação na main e executar uma task por vez, começando T74.
+Checkpoint: 16/10/2026, America/Sao_Paulo. Repo: /home/yurilopesm/projects/orbe-finance. Etapa autorizada: publicar documentação na main e executar uma task por vez, T74 concluída; próxima T01.
 
 ## Decisão atual
 
@@ -10,7 +10,7 @@ Integração automática Bradesco/Mercado Pago PF é prioritária. Fonte finance
 
 ## Retomada e próxima ação
 
-Ler AGENTS → este checkpoint → [SPEC-009](../specs/009-meu-pluggy/spec.md) → [plano vigente](../plan/MEU-PLUGGY.md) → [tasks](../tasks/TASKS.md). SPEC-009 prevalece sobre escolhas conflitantes da revisão local 0.3. Próxima task documental T74: contrato mínimo da ponte, autenticação/retencão, termos/cotas e revisão das tasks reaproveitadas. Nenhuma task técnica iniciada. Implementação sequencial autorizada. Gate de dados reais T63/T78 antes de consentimento; cobertura real só depois da comparação privada T41/T42.
+Ler AGENTS → este checkpoint → [SPEC-009](../specs/009-meu-pluggy/spec.md) → [plano vigente](../plan/MEU-PLUGGY.md) → [tasks](../tasks/TASKS.md). SPEC-009 prevalece sobre escolhas conflitantes da revisão local 0.3. T74 concluída documentalmente: [contrato](../plan/T74-BRIDGE-CONTRACT.md), base d2dec67. Ponte Supabase Auth/Functions sem persistência financeira, metadados sob RLS, cache local atualizado ao abrir; cron/webhook desligados. Próxima task T01: matriz runtime e paths. Nenhuma outra task técnica iniciada. Implementação sequencial autorizada. Gate de dados reais T63/T78 antes de consentimento; cobertura real só depois da comparação privada T41/T42.
 
 ## Estado real
 
@@ -21,3 +21,7 @@ Nenhuma frente/agente ativo ou path reservado. Push na main autorizado explicita
 ## Checkpoint por task
 
 Registrar ID/estado, requisitos, responsável/paths, commit base, pendências, evidências realmente executadas, limites e próxima ação. Nunca registrar senha/token/CPF/conta/valor real. Conferir git status. Checkpoint ao concluir task ou antes de interrupção; nenhuma execução automática a cada cinco horas foi configurada.
+
+## Evidência e limites da T74
+
+Fontes públicas oficiais Pluggy/Supabase consultadas, contrato definido e backlog revisado. Guia pessoal gratuito não prova origem Open Finance de cada banco; documentação comercial premium não prova cobrança no proxy. Confirmar em T03/T77, sem fallback por senha bancária. Sem credenciais, instalação, código ou conexão real. Histórico de publicação da revisão de escopo: d2dec67 na main. Checkpoint atualizado após uma única task, T74.

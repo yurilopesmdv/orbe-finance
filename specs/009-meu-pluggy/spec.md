@@ -4,7 +4,7 @@ Estado: draft, revisão 0.4 de 16/10/2026. O usuário escolheu Meu Pluggy, condi
 
 | ID | Requisito |
 |---|---|
-| MPG-01 | DEVE priorizar sincronização automática Meu Pluggy para Bradesco e Mercado Pago PF; confirmar termos/cotas gratuitos pessoais antes de implementar, sem prometer gratuidade permanente ou de infraestrutura |
+| MPG-01 | DEVE usar exclusivamente Open Finance na conexão original do banco via Meu Pluggy, sem fallback por senha bancária, e priorizar sincronização automática Meu Pluggy para Bradesco e Mercado Pago PF; confirmar termos/cotas gratuitos pessoais antes de implementar, sem prometer gratuidade permanente ou de infraestrutura |
 | MPG-02 | DEVE manter credenciais privilegiadas exclusivamente na ponte autenticada, sem incluir segredo no cliente; toda leitura/status/sincronização valida proprietário e vínculo do item/conta no servidor |
 | MPG-03 | DEVE distinguir sessão da ponte e desbloqueio local; Face ID/desbloqueio do iPhone não substituem autorização HTTP, nem clientUserId enviado pelo cliente comprova propriedade |
 | MPG-04 | DEVE respeitar as capacidades do proxy pessoal, manter lista autorizada de itens e mostrar data/parcialidade; não simular tempo real nem chamar refresh/listagem não disponíveis no plano |
@@ -22,3 +22,7 @@ Estado: draft, revisão 0.4 de 16/10/2026. O usuário escolheu Meu Pluggy, condi
 - Revogar impede nova coleta e evento atrasado não recria conexão apagada. Exclusão de backup do fornecedor só é afirmada com confirmação de alcance/retencão.
 
 Senha/sessão continuam no escopo. Expo Go permanece ambiente sintético enquanto limitações de biometria/armazenamento do runtime real não forem resolvidas. Implementação sintética autorizada, uma task por vez; consentimento bancário permanece após gate.
+
+## Contrato de arquitetura T74
+
+A ponte é de leitura sob sessão e não persiste saldos, movimentos, posições ou relatórios. Atualização automática bancária ocorre no fornecedor mesmo com app fechado; o Orbe recebe e promove novos lotes ao abrir/retomar desbloqueado ou solicitar busca. Não prometer sincronização do cache local com o app fechado. Credenciais, vínculos e limites ficam no servidor, relatórios/categorias/metas no aparelho. [Contrato T74](../../plan/T74-BRIDGE-CONTRACT.md).

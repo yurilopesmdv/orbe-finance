@@ -1,6 +1,6 @@
 # Trabalho no Orbe Finance
 
-Direção vigente: ler [SPEC-009](specs/009-meu-pluggy/spec.md), [plano Meu Pluggy](plan/MEU-PLUGGY.md) e STATE. Automação Meu Pluggy Bradesco/MP PF é principal; Open Finance é a única origem financeira admitida. Revisão 0.4 prevalece sobre instruções conflitantes de arquitetura exclusivamente local. Execução autorizada uma task por vez; começar T74.
+Direção vigente: ler [SPEC-009](specs/009-meu-pluggy/spec.md), [plano Meu Pluggy](plan/MEU-PLUGGY.md) e STATE. Automação Meu Pluggy Bradesco/MP PF é principal; Open Finance é a única origem financeira admitida. Revisão 0.4 prevalece sobre instruções conflitantes de arquitetura exclusivamente local. Execução autorizada uma task por vez; T74 concluída; próxima T01.
 
 Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa, plano, backlog e decisões. Este repositório é independente do Bolão F1; não copiar .env, chaves, banco ou pipelines daquele projeto.
 
@@ -17,3 +17,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa,
 [Specs](specs/README.md) · [Plano](plan/PLAN.md) · [Tasks](tasks/TASKS.md) · [Roadmap](roadmap/ROADMAP.md) · [Decisões](docs/decisions/DECISIONS.md) · [Pesquisa](docs/research/FEASIBILITY.md).
 
 - Revisão de privacidade: ler SPEC-006/007 e docs/security antes de decisões técnicas. Nenhum fornecedor aprovado para finanças reais. IA/MCP/devtools não acessam produção financeira, nem read-only. Expo Go permanece sintético; T63 precede homologação de banco. Relatórios internos não autorizam exportação, BI, analytics ou novas saídas. Privacidade prevalece sobre gratuidade; não prometer risco zero ou E2EE sem protocolo/chaves comprovados.
+
+- Contrato T74: plan/T74-BRIDGE-CONTRACT.md. Ponte de leitura sem persistir valores financeiros; Supabase Auth/Functions e RLS apenas de metadados. Cache/relatórios no aparelho, sem cron/webhook no MVP. Uma task por vez; fonte bancária original deve comprovar Open Finance.

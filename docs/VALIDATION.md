@@ -10,7 +10,7 @@ Estado: desenho de testes, **não testes executados**. Não há código nesta et
 | V04 Bloqueio e biometria | AUTH-04, AUTH-05, AUTH-07, PRD-08 | T12, T38, T46 | Sem flash financeiro ao retomar; nenhuma biometria fictícia em Expo Go; build futuro exige teste físico |
 | V05 Autorização e ownership | AUTH-02, OF-02, OF-07 | T13–T18, T27, T34, T35 | Testes negativos de cada tabela/endpoint e relações cruzadas, sem segredo no bundle |
 | V06 Revogar/apagar | AUTH-08, OF-03, OF-08 | T19, T33, T37, T43 | Corrida com worker/evento atrasado, pausa, renovação e purge sem recriação |
-| V07 Sincronização durável | OF-04, OF-05 | T20–T23, T35, T36 | App fechado, lease expirado, repetição, paginação, ordenação invertida e retomada |
+| V07 Sincronização durável | OF-04, OF-05 | T20–T23, T35, T36 | App fechado preserva cache local; consulta ao reabrir, lease, repetição, paginação e retomada |
 | V08 Falha e qualidade | OF-06, PORT-05, UX-03 | T21, T23, T27, T29, T43 | Timeout/429/página 2/valor null e produto parcial sem zeros ou sucesso falso |
 | V09 Categorias | PRD-03, EXP-01, EXP-03, EXP-04 | T14, T25, T30 | Filtros fecham com total e override sobrevive a reimportação; categoria alheia negada |
 | V10 Cálculo e estados | EXP-02, EXP-05 | T04, T22, T26 | Centavos exatos, cancelado/pendente, fronteira de mês/fuso e estorno intermensal |
@@ -71,3 +71,7 @@ Esta revisão prevalece nas condições históricas de ausência de cloud/agrega
 | V27 Regressão de acesso | MPG-02, MPG-03, MPG-06 | T75, T78 | Nenhuma rota financeira/status/configuração expõe dados/metadados a anônimo, outra identidade ou vínculo trocado |
 | V28 Proxy e falhas | MPG-04, MPG-08 | T76 | Cadência/itens permitidos, refresh indisponível, revogação e último lote preservados |
 | V29 Cobertura e liberação | MPG-05, MPG-06, MPG-07, MPG-08 | T77, T78, T41, T42 | Matriz sintética antes do gate; após consentimento, comparação privada dos dois bancos, cofrinhos e exclusão; nenhuma garantia universal de segurança |
+
+## Contrato T74 aplicado
+
+Metadados sob RLS no servidor; saldos/movimentos/posições e relatórios ficam no aparelho. Cenários de banco/RLS aplicam-se aos vínculos; domínio/relatórios exigem testes de repositório local. Cron/webhook não fazem parte do MVP e não podem ser declarados testados; testar que estão ausentes/desligados. V07 distingue atualização automática da origem e consulta ao reabrir o app, sem promessa de atualização local com app fechado. T74 concluída por revisão documental, não por testes de software.

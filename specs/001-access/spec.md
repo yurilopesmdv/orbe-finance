@@ -2,7 +2,6 @@
 
 **Revisão vigente 0.4:** [SPEC-009](../../specs/009-meu-pluggy/spec.md) seleciona Meu Pluggy para integração automática Bradesco/Mercado Pago PF. [Plano vigente](../../plan/MEU-PLUGGY.md). Esta revisão prevalece sobre escolhas conflitantes abaixo; Open Finance é a única origem financeira admitida. Pesquisa pública permite seguir no planejamento, sem aprovação de dados reais.
 
-> Aplicabilidade atual: a proposta gerenciada abaixo é trilha condicional. Para a primeira fatia, [SPEC-008](../008-personal-data/spec.md) define senha/chaves locais e fontes PF, sem conta cloud por padrão. Regras de proteção permanecem, mas não criar backend automaticamente.
 
 Estado: draft. Depende de SPEC-000. Objetivo: impedir acesso aos dados financeiros sem autenticação e recuperar acesso sem expor credenciais.
 
@@ -15,7 +14,7 @@ Estado: draft. Depende de SPEC-000. Objetivo: impedir acesso aos dados financeir
 | AUTH-05 | DEVE evitar exposição de valores no alternador de apps e bloquear renderização até concluir autenticação; não prometer blindagem contra captura de tela |
 | AUTH-06 | DEVE tratar erro de senha, limitação de tentativas, rede ausente, sessão expirada e recuperação sem revelar existência de contas |
 | AUTH-07 | DEVE usar a biometria já cadastrada no iOS quando houver build compatível, com opt-in após login por senha, fallback para senha e revogação do opt-in |
-| AUTH-08 | DEVE apagar dados pessoais por fluxo confirmado e reautenticado, cancelar jobs e orientar revogação no provedor; retenção em backups deve ser explicitada |
+| AUTH-08 | DEVE apagar dados pessoais por fluxo confirmado e reautenticado, cancelar consultas em curso e orientar revogação no provedor; retenção em backups deve ser explicitada |
 
 Senha e sessão do Orbe, autorização bancária e Face ID são três coisas diferentes. O Orbe não solicita senha do banco em formulários próprios e não recebe imagem/template facial. Bloqueio visual local não revoga automaticamente um token de sessão já emitido; logout e expiração têm regras próprias.
 
@@ -36,3 +35,5 @@ O Face ID no Expo Go iOS é limitação confirmada em [pesquisa](../../docs/rese
 - AC-A05: dado Expo Go, opção facial não executa autenticação nem mostra sucesso fictício; com build futuro, cancelamento/falha não desbloqueiam.
 - AC-A06: dado link de recuperação expirado, fluxo falha com orientação; novo código válido permite redefinir senha sem logging de tokens.
 - AC-A07: dado apagar conta confirmado, filas deixam de consultar bancos; novos callbacks não recriam dados removidos.
+
+Contrato T74 seleciona Supabase Auth em projeto próprio e Edge Functions para a ponte, com proprietário fixado no servidor. Projeto ainda não provisionado; verificação de runtime/recuperação permanece em T01/T02.

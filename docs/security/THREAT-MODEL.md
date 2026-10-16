@@ -49,3 +49,7 @@ Não chamar B de E2EE sem protocolo e gestão de chaves verificáveis. Cifrar co
 5. Plano de revogação, modo off, recuperação e risco residual apresentado ao titular.
 
 A aprovação desse gate é distinta da autorização para escrever código futuro. Hoje nenhum dos dois implica conectar bancos. Não realizar scans contra provedores ou bancos para “provar” privacidade.
+
+## Arquitetura selecionada T74
+
+Opção B: ponte de leitura Supabase Auth/Functions, somente metadados persistidos; Pluggy/ponte processam valores durante consultas. Cache e relatórios locais. Credenciais só no servidor e endpoint sempre verifica proprietário/vínculo. Cron/webhook desligados. Esta escolha ainda não aprova runtime ou fornecedor para dados reais.

@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado em 16/10/2026: **nenhuma task T foi iniciada**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado em 16/10/2026: **T74 concluída documentalmente; próximas tasks ainda não iniciadas**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -15,7 +15,7 @@ Estado em 16/10/2026: **nenhuma task T foi iniciada**. Implementação autorizad
 
 ## Aplicabilidade vigente 0.4
 
-Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 contêm capacidades locais reutilizáveis; T68 foi retirada e seu ID permanece reservado. A origem financeira será exclusivamente Open Finance. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Gate T63 continua obrigatório. T74 é a primeira task a executar, isoladamente.
+Meu Pluggy é a integração automática selecionada. T74 fecha contratos antes de reutilizar T01–T63; T75–T78 acrescentam validação específica. T64–T73 contêm capacidades locais reutilizáveis; T68 foi retirada e seu ID permanece reservado. A origem financeira será exclusivamente Open Finance. T39/T40 ficam deferred; primeira homologação Bradesco/Mercado Pago. Gate T63 continua obrigatório. T74 concluída; próxima T01, isoladamente.
 
 ## Contrato de execução
 
@@ -29,7 +29,7 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 |---|---|---|---|---|---|
 | T01 | — | PRD-04 | Integração | Definir iPhone/iOS/Expo Go, SDK, Node e paths finais | Matriz de compatibilidade registrada; nenhuma versão herdada automaticamente |
 | T02 | T01 | AUTH-01, AUTH-03, AUTH-04, AUTH-06 | Acesso | Spike de senha, recuperação, sessão e bloqueio no runtime | Contrato documentado para background, restart e recuperação sem scheme próprio |
-| T03 | — | PRD-05, OF-01, OF-09 | Integração | Confirmar termos/cotas do uso pessoal e trilha Open Finance | Plano pessoal confirmado, quatro bancos elegíveis ou limites registrados; sem contratar pago |
+| T03 | — | PRD-05, OF-01, OF-09 | Integração | Confirmar termos/cotas do uso pessoal e trilha Open Finance | Plano pessoal confirmado, Bradesco/MP PF com trilha Open Finance original confirmada ou lacuna registrada; sem contratar pago |
 | T04 | T01 | EXP-02, EXP-05, PORT-04 | Domínio | Fechar contrato monetário e catálogo de casos sintéticos | Expectativas dos exemplos de gastos e sobreposição aprovadas documentalmente |
 | T05 | T01 | UX-01, UX-04 | UI | Desenhar wireframes estáticos dos cinco fluxos | Fluxos com estados vazio/parcial/erro e textos de fonte/data, sem app funcional |
 | T06 | T02, T03, T04, T05, T47, T48, T49, T74 | PRD-06 | Integração | Atualizar specs e registrar conclusão dos spikes | Decisões por requisito e escopo da primeira fatia em ready; implementação autorizada |
@@ -39,37 +39,37 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T10 | T08 | AUTH-01, AUTH-02 | Acesso | Provisionar proprietário e restringir novos cadastros | Proprietário entra; nova conta não autorizada não acessa dados; recuperação testável |
 | T11 | T07, T10 | AUTH-03, AUTH-06 | Acesso | Implementar login, recuperação e logout | Sucesso, erro, expiração, offline e logout cobertos sem persistir senha |
 | T12 | T11 | AUTH-04, AUTH-05, AUTH-07 | Acesso | Implementar bloqueio e privacidade por AppState | Retorno exige senha; dados não piscam; Face ID ausente no Expo Go |
-| T13 | T08, T04 | OF-05, PORT-05 | Dados | Criar conexões, contas e lotes com ownership | Constraints e RLS impedem referências entre donos; migrations reaplicáveis no ambiente de teste |
-| T14 | T13 | EXP-02, EXP-04 | Dados | Criar movimentos, categorias, regras e overrides | Reimportação não apaga override e categoria de outro dono é negada |
-| T15 | T13 | PORT-02, PORT-03, PORT-04 | Dados | Criar posições, relações de ativos e reservas | Representação de inclusão sem ciclos e testes de sobreposição preparados |
-| T16 | T15 | PORT-07 | Dados | Criar metas e alocações atômicas | Duas gravações concorrentes não excedem o valor alocável |
-| T17 | T13, T14, T15, T16 | AUTH-02 | Validação | Executar matriz RLS/ownership com duas identidades | CRUD, joins, RPCs e relações cruzadas negados para não dono/anônimo |
+| T13 | T08, T04 | OF-05, PORT-05 | Dados | Criar vínculos de conexões/contas e controle de consultas, sem valores financeiros | Constraints e RLS impedem referências entre donos; migrations reaplicáveis no ambiente de teste |
+| T14 | T13, T07 | EXP-02, EXP-04 | Dados | Criar repositório local de movimentos, categorias, regras e overrides | Reimportação não apaga override e categoria de outro dono é negada |
+| T15 | T13 | PORT-02, PORT-03, PORT-04 | Dados | Criar posições e relações de ativos/reservas no aparelho | Representação de inclusão sem ciclos e testes de sobreposição preparados |
+| T16 | T15 | PORT-07 | Dados | Criar metas e alocações atômicas locais | Duas gravações concorrentes não excedem o valor alocável |
+| T17 | T13, T14, T15, T16 | AUTH-02 | Validação | Testar RLS de metadados e autorização de repositórios locais com duas identidades | CRUD, joins, RPCs e relações cruzadas negados para não dono/anônimo |
 | T18 | T03, T13 | OF-02, OF-07 | Integração | Implementar adaptador autenticado e provisionamento privado | Segredos server-side; item validado e associado somente ao proprietário fixado |
 | T19 | T18 | OF-01, OF-03 | Integração | Normalizar capacidades e estados de conexão | Capacidade ausente/negada é distinta de coleção vazia; origem de autorização rastreável |
-| T20 | T13, T18 | OF-04, OF-05 | Backend | Implementar fila, lease e idempotência de jobs | Repetição e interrupção de worker não duplicam execução nem deixam job perdido |
+| T20 | T13, T18 | OF-04, OF-05 | Backend | Implementar lease/cooldown de consultas e idempotência de lotes locais | Uma consulta por conexão; paginação do lote não bloqueada por cooldown; interrupção mantém lote local válido |
 | T21 | T18, T20 | OF-04, OF-06 | Integração | Importar contas por lote completo | Paginação/timeout não promovem parcial como completo; sem zeros falsos |
 | T22 | T14, T20, T21 | OF-05, EXP-01 | Integração | Importar movimentos e alterações da fonte | Repetição, cancelamento e janela incremental tratados sem apagar ausentes indevidamente |
 | T23 | T15, T20 | OF-05, PORT-02 | Integração | Importar posições de investimentos | IDs, valores null, moeda, bruto/líquido e datas preservados |
 | T24 | T15, T21, T23 | PORT-03, PORT-04, PORT-06 | Domínio | Reconciliar reservas e ativos canônicos | Total sem dupla contagem; ambiguidades geram subtotal parcial e não rentabilidade inventada |
 | T25 | T14, T22 | EXP-02, EXP-03, EXP-04 | Domínio | Aplicar categoria e tipo com precedência explícita | Override vence regra, que vence provedor; Sem categoria preserva valor |
 | T26 | T04, T22, T25 | EXP-05, EXP-06, EXP-07 | Domínio | Calcular mês, estornos, transferências e cartão | Exemplos financeiros fecham com lista; pareamento incerto não remove despesa |
-| T27 | T17, T21, T22, T23, T24, T26 | PRD-02, UX-02 | Backend | Expor consultas financeiras autenticadas | Filtros/paginação/total/data/completude consistentes e sem acesso cruzado |
+| T27 | T17, T21, T22, T23, T24, T26 | PRD-02, UX-02 | Backend | Implementar consultas locais e validar ponte autenticada | Filtros/paginação/total/data/completude consistentes e sem acesso cruzado |
 | T28 | T05, T07, T12 | UX-01, UX-03, UX-04 | UI | Criar shell, componentes e estados sintéticos | Safe area, texto dinâmico, acessibilidade e dados demonstrativos identificados |
-| T29 | T27, T28 | PRD-01, UX-02, UX-03 | UI | Criar visão geral com parciais e fontes | Mostra os quatro bancos ou ausência explícita; ocultar valores inclui leitor de tela |
+| T29 | T27, T28 | PRD-01, UX-02, UX-03 | UI | Criar visão geral com parciais e fontes | Mostra Bradesco/MP ou ausência explícita; ocultar valores inclui leitor de tela |
 | T30 | T25, T26, T27, T28 | PRD-03, EXP-01, EXP-03, EXP-04 | UI | Criar lista/filtros e revisão de classificação | Resumo e detalhe concordam; alteração manual persiste após nova importação |
 | T31 | T24, T27, T28 | PORT-01, PORT-02, PORT-05 | UI | Criar carteira de contas e investimentos | Livre/reservado/valor desconhecido e moedas não se confundem |
 | T32 | T16, T24, T31 | PORT-03, PORT-07 | UI | Criar visão de reservas e metas locais | Alocação não cria dinheiro, não transfere e não duplica total |
 | T33 | T19, T20, T28 | OF-08, OF-09, UX-05 | UI | Criar conexões, guia pessoal e reimportação | Retorno manual seguro, cooldown e pausa; sem campo público de item arbitrário |
 | T34 | T18, T19, T20 | OF-07 | Integração | Validar autenticidade e contrato de entrega de eventos | Mecanismo documentado do plano ou webhook explicitamente desabilitado |
-| T35 | T20, T34 | OF-04, OF-05, OF-07 | Backend | Implementar entrada de webhook se viável | ACK após persistência; payload forjado/repetido não altera ownership nem gera coleta ilimitada |
-| T36 | T20, T21, T22, T23 | OF-04, OF-06, OF-09 | Backend | Configurar reconciliação limitada e recuperação de falhas | Itens conhecidos, quotas, backoff, observabilidade e modo off comprovados |
+| T35 | T34 | OF-04, OF-05, OF-07 | Backend | deferred: webhook fora da primeira versão | Só retomar com nova spec de autenticação/retencão; sem endpoint público no MVP |
+| T36 | T20, T21, T22, T23 | OF-04, OF-06, OF-09 | Backend | Configurar reconciliação ao abrir/retomar e recuperação de falhas | Itens conhecidos, quotas, backoff, observabilidade e modo off comprovados |
 | T37 | T17, T20, T33, T36 | AUTH-08, OF-08 | Backend | Implementar pausa, remoção e apagamento | Job em curso/evento atrasado não recria dados; limites de backups/revogação explicados |
 | T38 | T27, T29, T30, T31, T32, T33, T37 | PRD-04, UX-01, UX-04 | Validação | Validar R1 com cenários sintéticos no iPhone | Login/bloqueio, filtros e totais passam; R1 não é apresentada como integração real |
 | T39 | T03, T18, T21, T22, T23, T24, T36, T38, T63 | PRD-01, OF-01 | Integração | Homologar Nubank com autorização do titular | Ficha por banco completa, dados conciliados e reserva explicada ou limitação registrada |
 | T40 | T39 | PRD-01, OF-01 | Integração | Homologar Inter | Segunda origem prova consolidação/transferência sem duplicidade; ficha completa |
 | T41 | T38, T78 | PRD-01, OF-01 | Integração | Homologar Mercado Pago | Saldo remunerado/reserva investigados, sem inferir cofrinho por nome |
 | T42 | T41, T78 | PRD-01, OF-01 | Integração | Homologar Bradesco | Comparar contas/movimentos/posições e registrar cobertura efetiva do contexto |
-| T43 | T39, T40, T41, T42, T35, T37 | OF-05, OF-06, OF-08 | Validação | Exercitar falhas integradas e segurança operacional | Evento fora de ordem, 429, revogação, fonte parcial e retry passam sem dados reais em Git |
+| T43 | T41, T42, T34, T37 | OF-05, OF-06, OF-08 | Validação | Exercitar falhas integradas e segurança operacional | Evento fora de ordem, 429, revogação, fonte parcial e retry passam sem dados reais em Git |
 | T44 | T09, T38, T43 | PRD-06, PRD-07 | Operação | Configurar publicação privada e recuperação | CI precede deploy; runtime compatível, secrets independentes e rollback documentados |
 | T45 | T44, T62, T63, T42, T78 | PRD-01, PRD-02, UX-03 | Validação | Aceitar R2 no iPhone e registrar release | Bradesco/MP comparados privadamente, cobertura por produto explícita; expansão Inter/Nubank adiada; limitações registradas |
 | T46 | T45 | AUTH-07, PRD-08 | Pesquisa | Avaliar distribuição nativa e Face ID para R3 | Decisão de build/custo registrada antes de código; Expo Go continua sem promessa biométrica |
@@ -83,7 +83,7 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T54 | T09, T50 | SEC-11 | Operação | Revisar cadeia de dependências, secrets e atualização | Contas com MFA, privilégios mínimos e bundle/artefatos sem segredos privados |
 | T55 | T17, T27 | SEC-07, SEC-16 | Validação | Testar exfiltração por leitura, agregados e cache | Identidade alheia e sessão expirada não acessam nem totais; resultados sanitizados |
 | T56 | T37, T48 | SEC-08, SEC-14 | Operação | Provar purge, modo off e restore sem reconexão | Jobs/eventos/backup não reativam dados revogados; retenção real de cada destino registrada |
-| T57 | T27, T26, T24 | RPT-02, RPT-03, RPT-06 | Backend | Definir consultas privadas e drill-down dos relatórios | Lista fecha com resumo, regras/completude/filtros rastreáveis e sem nova saída externa |
+| T57 | T27, T26, T24 | RPT-02, RPT-03, RPT-06 | Backend | Definir consultas locais privadas e drill-down dos relatórios | Lista fecha com resumo, regras/completude/filtros rastreáveis e sem nova saída externa |
 | T58 | T28, T29, T57 | RPT-01, RPT-07 | UI | Criar acesso simples a relatórios internos | Resumo → relatório → detalhe preserva contexto e não exige nova área complexa |
 | T59 | T30, T57, T58 | RPT-02, RPT-03 | UI | Adicionar filtros avançados sob demanda | Filtros ativos claros, volta preserva período e tipos financeiros não se confundem |
 | T60 | T31, T57, T58 | RPT-04, RPT-05 | Domínio | Comparar períodos e composição sem histórico inventado | Base zero/período parcial tratados; metas não duplicam ativos; snapshots reais existentes |
@@ -120,7 +120,7 @@ Todas todo, com execução sequencial autorizada. T72 é pesquisa independente; 
 |---|---|---|---|---|---|
 | T64 | — | PF-01, PRD-01, PRD-06 | Planejamento | Fechar contrato PF e respostas sintéticas | Bradesco/Mercado Pago PF, cobertura da API registrada, sem conteúdo real em ferramentas |
 | T65 | T64 | PF-08, PRD-04, SEC-09, SEC-10, SEC-18 | Pesquisa | Validar runtime privado e instalação/custo antes de uso real | Compatibilidade de SQLCipher/Face ID documentada; Expo Go somente sintético; sem contratação implícita |
-| T66 | T65 | PF-03, PF-04, AUTH-01, AUTH-03, AUTH-04, AUTH-06, AUTH-07, SEC-06 | Acesso | Provar chave, senha local, biometria e perda de acesso com sintéticos | Sem senha em claro/chave fixa; fallback/lock/reset não liberam banco antigo; sem auth cloud por padrão |
+| T66 | T65 | PF-03, PF-04, AUTH-01, AUTH-03, AUTH-04, AUTH-06, AUTH-07, SEC-06 | Acesso | Provar chave, senha local, biometria e perda de acesso com sintéticos | Sem senha em claro/chave fixa; fallback/lock/reset não liberam banco antigo; sessão remota da ponte validada separadamente |
 | T67 | T65, T66 | PF-02, PF-03, AUTH-02, AUTH-05, AUTH-08, SEC-07, SEC-08, SEC-11, SEC-12, SEC-14 | Dados | Implementar repositório local protegido e ciclo de vida | Arquivo/journal/temporários/backup avaliados com sintéticos; bloquear e apagar sem manter conteúdo reutilizável |
 | T69 | T67, T22, T23 | PF-06, PRD-02, PRD-03, EXP-02, EXP-03, EXP-04, EXP-05, EXP-06, EXP-07, PORT-01, PORT-02, PORT-03, PORT-04, PORT-05, PORT-06, PORT-07 | Domínio | Reaproveitar cálculos financeiros em fontes locais | Transferências/estornos/cofrinhos reconciliados; produto ausente sem preencher saldo; correções preservadas |
 | T70 | T66, T69 | RPT-01, RPT-02, RPT-03, RPT-04, RPT-05, RPT-06, RPT-07, RPT-08, UX-01, UX-02, UX-03, UX-04, UX-05 | UI | Montar gestão e relatórios internos com detalhe progressivo | Resumo/filtros/drill-down acessíveis e reconciliados com sintéticos, fonte/data/parcialidade claras |
@@ -139,3 +139,7 @@ Todas todo, com execução sequencial autorizada. T72 é pesquisa independente; 
 | T78 | T63, T75, T76, T77 | MPG-06, MPG-07, MPG-08 | Validação | Consolidar decisão de prontidão para primeiro consentimento | Evidências de segredos/logs/dependências/revogação e risco residual revisadas; nenhuma falha alta/crítica aberta da integração; depois comparar cobertura privadamente |
 
 T78 não declara cobertura real antes do primeiro consentimento: T41/T42 passam a exigir T78 antes de acessar dados reais e registram a comparação privada depois. A release T45 exige essa comparação e cobertura explícita; registrar redução de escopo se cofrinhos não retornarem, sem declarar o objetivo original completo. Pesquisa pública não conclui T75–T78.
+
+## Evidência T74 — done
+
+Contrato em [T74-BRIDGE-CONTRACT](../plan/T74-BRIDGE-CONTRACT.md), base d2dec67, requisitos MPG-01/02/03/07 e specs correlatas. Apenas documentação alterada, sem endpoint/backend provisionado. Critérios de arquitetura/segredos/autorização/retencão/custo definidos; viabilidade Open Finance pessoal por banco continua em T03/T77, sem promessa de acesso real. Dependência de release em Inter/Nubank removida; webhook deferred não bloqueia a versão inicial. Próxima task T01.

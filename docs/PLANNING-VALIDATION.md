@@ -52,3 +52,9 @@ Validação documental 0.4 executada: 30 Markdown, 10 specs, 86 requisitos rastr
 Escopo simplificado para Open Finance. PF-05/T68 retirados, IDs reservados; dependências ajustadas. Implementação e push na main autorizados, uma task por vez. Histórico de revisões abaixo/anteriores não altera a direção vigente.
 
 Validação 0.5 executada: 30 documentos, 10 specs, 85 requisitos ativos e 77 tasks; links resolvidos, requisitos rastreados, dependências válidas e sem ciclos. PF-05/T68 reservados, sem reuso. Nenhum código alterado.
+
+## T74 — revisão de contrato
+
+Specs de acesso/Open Finance/fornecedor ajustadas antes do contrato da ponte. Backlog revisado para metadados server-side e finanças locais, sem worker/webhook no MVP; dependências de expansão retiradas do caminho de release. Pesquisa oficial confirmou limites do proxy, distinguindo-os dos conectores empresariais Open Finance. Não houve código, HTTP financeiro, testes RLS ou provisionamento.
+
+Validação final T74 executada: 31 documentos Markdown, 10 specs, 85 requisitos ativos e 77 tasks; nenhum link quebrado/requisito sem rastreio/dependência inexistente/ciclo. git diff --check passou. Uma task concluída; T01 ainda não iniciada.

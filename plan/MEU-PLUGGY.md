@@ -10,9 +10,9 @@ Segredos do fornecedor permanecem no servidor. A ponte usa autenticação do pro
 
 ## Sequência de pequenas entregas
 
-1. T74 fecha contrato do proxy pessoal, destinatários, retenção/chaves e autenticação da ponte com dados sintéticos. Atualizar as tasks cloud reaproveitadas antes de executá-las; não copiar automaticamente todo o desenho gerenciado antigo.
+1. T74 concluiu o [contrato mínimo](T74-BRIDGE-CONTRACT.md), que define o acesso ao proxy pessoal, destinatários, retenção/chaves e autenticação da ponte com dados sintéticos. Atualizar as tasks cloud reaproveitadas antes de executá-las; não copiar automaticamente todo o desenho gerenciado antigo.
 2. T01/T02/T04/T05 e T47–T49 fecham runtime, acesso, domínio, wireframes e riscos. T65 continua útil para runtime; autenticação local T66 é complementar à sessão da ponte. Nenhum controle nativo é declarado funcional no Expo Go sem prova.
-3. Após autorização de implementação, adaptar T07–T27 ao contrato T74, com ponte mínima e ingestão de respostas simuladas. Só armazenar no servidor aquilo explicitamente definido.
+3. Com implementação autorizada, adaptar T07–T27 ao contrato T74, com ponte mínima e ingestão de respostas simuladas. Só armazenar no servidor aquilo explicitamente definido.
 4. T75 verifica autenticação/autorização de todas as rotas, incluindo status/configuração; T76 fecha itens permitidos, cadência e falhas do proxy. Reaproveitar testes de egress/logs e relatórios T50–T62.
 5. T77 homologa matriz de cobertura sintética e prepara comparação privada de Bradesco/MP; não afirmar cofrinhos disponíveis a partir de documentação genérica. Incidentes operacionais não são prova de incidente de segurança.
 6. T78 consolida evidências técnicas com T63 antes de conectar banco real. Depois, homologação privada pelo titular, somente Bradesco/MP. T39/T40 permanecem expansão. Revisar riscos/resultado de cobertura antes de declarar produto completo.
@@ -25,4 +25,8 @@ A infraestrutura da ponte pode ter custo mesmo com acesso pessoal gratuito. Nenh
 
 ## Continuidade
 
-Próxima tarefa documental: T74. Execução sequencial autorizada; começar por T74. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.
+T74 concluída documentalmente; próxima task T01. Execução sequencial autorizada; próxima T01. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.
+
+## Contrato aplicável
+
+[T74](T74-BRIDGE-CONTRACT.md) define a ponte sem persistência financeira, Supabase Auth/Functions e metadados sob RLS. Webhook/cron desligados inicialmente. Atualização bancária no fornecedor independe do app; cache local consulta ao abrir/retomar desbloqueado. O contrato prevalece sobre hipóteses anteriores de worker e relatórios no servidor.

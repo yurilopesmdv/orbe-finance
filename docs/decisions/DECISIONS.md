@@ -43,3 +43,7 @@ Estado: proposed. Aprovar detalhe progressivo e cálculos determinísticos, com 
 ## ADR-010 — persistência no aparelho
 
 A antiga arquitetura autônoma foi substituída. [Registro atualizado](ADR-010-LOCAL-CORE.md). Origem financeira exclusiva Open Finance via Meu Pluggy, Bradesco/Mercado Pago PF prioritários; execução autorizada uma task por vez.
+
+## ADR-011 — Ponte de leitura mínima
+
+Estado: accepted para preparação sintética em T74. [Contrato](../../plan/T74-BRIDGE-CONTRACT.md). Supabase Auth/Functions em projeto independente, RLS de metadados, nenhum armazenamento financeiro no servidor Orbe. Relatórios no aparelho; coleta bancária automática no fornecedor e consulta local ao abrir. Cron/webhooks adiados; conexão original deve comprovar Open Finance. Cobertura e gratuidade dessa trilha não presumidas. Dados reais dependem dos gates já definidos.
