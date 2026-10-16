@@ -38,3 +38,7 @@ Categorias iniciais propostas: moradia, alimentação, transporte, saúde, educa
 ## Contrato monetário T04
 
 BRL em centavos inteiros seguros (Number.isSafeInteger), entrada monetária decimal como string, sem parseFloat/arredondamento silencioso. Rejeitar casas além de duas, notação exponencial, NaN/infinito e overflow; null continua ausência, diferente de zero. Valor de movimento é magnitude não negativa; direção é campo obrigatório separado. Soma também precisa permanecer inteira segura. Moedas distintas não são somadas. Data civil estrita YYYY-MM-DD mantém o mês; timestamp exige offset/Z e é agrupado em America/Sao_Paulo. Identidade de lote é (fonte, conta, ID externo), nunca só descrição/data/valor. Contrato detalhado e casos em T04.
+
+## Interface pura T26
+
+Entradas canônicas incluem fonte/conta/ID externo, magnitude em centavos, moeda, direção, tipo, estado e data. Mesmo ID com conteúdo financeiro divergente é conflito, não atualização decidida pela ordem da lista; ingestão deve resolver versão antes do domínio. Estorno só reduz gasto se referência ao original efetivado de despesa puder ser confirmada no conjunto fornecido, inclusive fora do mês filtrado. Caso contrário, marcar parcial e preservar item para revisão. Tipos desconhecidos ou valores ausentes tornam a análise parcial. Pagamento de fatura classificado como liquidação não é nova despesa; relatório deve indicar sua base de cobertura.

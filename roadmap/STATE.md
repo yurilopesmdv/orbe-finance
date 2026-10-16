@@ -70,3 +70,11 @@ CLI2.121.0 inicializou config local, sem cloud/login. Config mínima e migration
 Task08: config/migration e launcher preparados, mas runtime não aprovado. CLI2.121.0 publicou /supabase_inbucket_orbe-finance na rede orbe-finance-local em0.0.0.0/::54344 apesar da opção127.0.0.1. Launcher parou só Orbe automaticamente; sem firewall/túnel/alteração de outros projetos. Próxima ação remota depende de token próprio solicitado ao titular via .env.local. Ao receber, mover apenas segredo administrativo para .env.backend.local antes de Metro/build (Expo carrega .env.local). Nunca ler/reutilizar .env F1.
 
 Continuidade: implementar T26 e T24 puras; dependências ajustadas a T04 (contratos/fixtures) antes do código. Ingestão e domínio não precisam ser implementados em ordem artificial; validar integração posteriormente. T08 continua bloqueada, sem selo de conclusão. Nenhum processo de start pendente, serviços Orbe parados. Metro sessão13056 permanece com demonstração, teste físico adiado pelo usuário.
+
+## T26 — doing
+
+Contrato atualizado antes de código; funções puras de dinheiro/datas/despesas em src/domain, testes usam fixtures inventadas T04. Nenhuma dependência nova, banco ou rede nos cálculos. Validar typecheck+20 sessão+9 audit+18 domínio antes de concluir. T08 permanece bloqueada, stack parada.
+
+## Retomada vigente — T26 done, próxima T24
+
+T26 passou typecheck e18 testes novos;47 totais. Dinheiro exato/datas Brasília/despesas/estornos/deduplicação em src/domain. T08 segue blocked com stack parada; credencial própria pendente. T24 próxima: reconciliação pura de ativos/cofrinhos, sem banco. Nenhum outro processo backend em inicialização.

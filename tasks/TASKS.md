@@ -199,3 +199,7 @@ Usuário adiou o teste do app para o fim. T07 done quanto à implementação/che
 ## T08 — blocked, trabalho independente segue
 
 CLI publica Mailpit fora do loopback nesta instalação; launcher detecta e para só o Orbe. Config/migration preparadas, sem remoto. Pedido assíncrono de credencial própria registrado; nenhum banco conectado. T26/T24 foram ajustadas para depender de T04: são funções puras com contratos/fixtures e não precisam aguardar implementação de ingestão/SQL. Integração dessas funções com dados reais continua nas tasks de ingestão e validação, sem antecipar cobertura. Próxima T26.
+
+## T26 — done
+
+[Domínio de gastos](../plan/T26-EXPENSE-DOMAIN.md): dinheiro/datas/despesas em TS puro;18 casos novos passaram e total47 testes. Sem backend ou conta real. Próxima T24 (reconciliação pura), conforme dependência T04 ajustada.
