@@ -1,3 +1,4 @@
+import { demoAccounts, filterSummary } from '@/data/demo/filters';
 import { useState } from 'react';
 import { Modal, TextInput, View } from 'react-native';
 import { Action, Body, Card, Screen, StateCard, palette } from '@/components/ui';
@@ -11,26 +12,31 @@ export default function MovementsScreen() {
   const demo = useDemo();
   const [month, setMonth] = useState('2026-10');
   const [institution, setInstitution] = useState<string>();
+  const [account, setAccount] = useState<string>();
   const [category, setCategory] = useState<string | null>();
   const [type, setType] = useState<FinancialType>();
   const [search, setSearch] = useState('');
   const [offset, setOffset] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
-  const result = queryMovements(demo.movements, { month, institutionId: institution, categoryId: category, type, search, offset, limit: 3 }, true);
+  const result = queryMovements(demo.movements, { month, institutionId: institution, accountId: account, categoryId: category, type, search, offset, limit: 3 }, true);
   const detail = demo.movements.find(m => movementKey(m) === selected);
   const resetPage = (action: () => void) => { setOffset(0); action(); };
   return <Screen title="Movimentações" subtitle="Exemplos inventados · movimentações de conta, sem compras de cartão.">
     <Card title="Período"><Body>{month === '2026-10' ? 'Outubro de 2026' : 'Setembro de 2026'}</Body><Action title={month === '2026-10' ? 'Ver setembro' : 'Ver outubro'} secondary onPress={() => resetPage(() => setMonth(month === '2026-10' ? '2026-09' : '2026-10'))} /></Card>
+    <Card title="Filtros atuais"><Body>{filterSummary({ month, institutionId: institution, accountId: account, categoryId: category, type, search })}</Body></Card>
     <Action title={filtersOpen ? 'Fechar filtros' : 'Filtrar movimentos'} secondary onPress={() => setFiltersOpen(v => !v)} />
     {filtersOpen && <Card title="Filtros ativos">
       <Body>Banco: {institution === 'bradesco' ? 'Bradesco' : institution === 'mercado-pago' ? 'Mercado Pago' : 'Todos'}. Categoria: {category === undefined ? 'Todas' : categoryLabel(category)}. Tipo: {types.find(t => t.id === type)?.label ?? 'Todos'}.</Body>
       <TextInput accessibilityLabel="Buscar na descrição dos exemplos" placeholder="Buscar descrição" placeholderTextColor={palette.muted} value={search} onChangeText={value => resetPage(() => setSearch(value))} style={{ borderWidth: 1, borderColor: palette.line, borderRadius: 10, padding: 14, minHeight: 48, fontSize: 16, color: palette.ink }} autoCorrect={false} />
-      {[{ id: undefined, label: 'Todos os bancos' }, { id: 'bradesco', label: 'Bradesco' }, { id: 'mercado-pago', label: 'Mercado Pago' }].map(item => <Action key={item.label} title={item.label} selected={institution === item.id} secondary onPress={() => resetPage(() => setInstitution(item.id))} />)}
+      {[{ id: undefined, label: 'Todos os bancos' }, { id: 'bradesco', label: 'Bradesco' }, { id: 'mercado-pago', label: 'Mercado Pago' }].map(item => <Action key={item.label} title={item.label} selected={institution === item.id} secondary onPress={() => resetPage(() => { setInstitution(item.id); if (item.id && demoAccounts.find(a => a.id === account)?.institution !== item.id) setAccount(undefined); })} />)}
+      <Body>Conta</Body>
+      <Action title="Todas as contas" secondary selected={account === undefined} onPress={() => resetPage(() => setAccount(undefined))} />
+      {demoAccounts.filter(a => institution === undefined || a.institution === institution).map(item => <Action key={item.id} title={item.label} secondary selected={account === item.id} onPress={() => resetPage(() => setAccount(item.id))} />)}
       {[{ id: undefined, label: 'Todas as categorias' }, ...categoryOptions, { id: null, label: 'Sem categoria' }].map(item => <Action key={item.label} title={item.label} selected={category === item.id} secondary onPress={() => resetPage(() => setCategory(item.id))} />)}
       <Action title="Todos os tipos" selected={type === undefined} secondary onPress={() => resetPage(() => setType(undefined))} />
       {types.map(item => <Action key={item.id} title={item.label} selected={type === item.id} secondary onPress={() => resetPage(() => setType(item.id))} />)}
-      <Action title="Limpar filtros" onPress={() => resetPage(() => { setInstitution(undefined); setCategory(undefined); setType(undefined); setSearch(''); })} />
+      <Action title="Limpar filtros" onPress={() => resetPage(() => { setInstitution(undefined); setAccount(undefined); setCategory(undefined); setType(undefined); setSearch(''); })} />
     </Card>}
     <Card title="Gastos líquidos · filtros atuais"><Money cents={result.summary.netCents} /><Body>{result.totalCount} movimentos encontrados. Total considera despesas efetivadas menos estornos vinculados em todo o filtro, não só nesta página. Transferências próprias ficam fora.</Body>{result.summary.partial && <Body>Subtotal parcial: há classificação ou vínculo pendente de revisão.</Body>}</Card>
     {result.items.length === 0 && <StateCard state="empty" />}

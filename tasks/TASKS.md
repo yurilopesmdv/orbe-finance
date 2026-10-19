@@ -426,3 +426,11 @@ Guia/tela desconectada e mensagens de acesso corrigidas sem mudar abas. TypeScri
 ## T18b2 — done
 
 Runtime gerenciado desligado validado em três HTTP anônimos503; função própria versão1, gate literalfalse, sem env/dados.279 testes/typecheck passaram. Adapters ativos/ponte completa continuam pendentes (T18b3/T18c/gates). Próxima T59a filtros avançados/conta e preservação do contexto na demo.
+
+## T59a — doing
+
+[Filtros da demo](../plan/T59a-ADVANCED-FILTERS.md), RPT-09; depende T30a/T57a/T58a. T59b fontes reais/persistência e físico seguem pendentes.
+
+## T59a — done
+
+Filtros por conta/tipo/categoria e resumo visível, contexto/pai preservado no detalhe. TypeScript cliente/ponte e283 testes/export iOS/scan passaram. T59b privado/físico pendente. Próxima T60a comparação pura com base zero/período aberto/parcial/sem histórico explícitos.

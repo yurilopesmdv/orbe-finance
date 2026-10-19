@@ -45,3 +45,9 @@ Tipos financeiros são apresentados separadamente por entradas/saídas efetivada
 Destino secundário /reports a partir da visão geral, sem quinta aba. Período/instituição da demonstração e categorias calculados por T57a; categoria abre /report-detail por IDs de filtros conhecidos, sem valores/descrições/tokens em URL. Detalhe usa T27a e retorna à mesma instância do relatório, preservando filtros. Parâmetros desconhecidos falham de forma explícita, sem ampliar consulta silenciosamente.
 
 Mostrar fonte/data/base de conta sem cartão, fórmula e tipos separados; cada valor segue ocultação compartilhada. Lista textual acessível inicial, sem dependência de cor, imagem remota/exportação. T58b/T61 ainda exigem repositório privado e validação física; T59/T60 continuam filtros avançados/comparações e não ficam marcados completos por esta demonstração.
+
+## RPT-09 — Filtros avançados com contexto (T59a)
+
+Na demo, relatório DEVE combinar instituição/conta/tipo/categoria/mês, com resumo de filtros sempre visível mesmo com painel fechado. Contas listadas são somente exemplos conhecidos e compatíveis com a instituição; mudar instituição limpa conta incompatível. Detalhe da categoria preserva conta/tipo/período/instituição, sem valores ou dados livres em rota. Parâmetro desconhecido/array/conta de outra instituição não pode ampliar consulta silenciosamente. Limpar filtros preserva mês; voltar mantém contexto da pilha. Movimentações oferece o mesmo filtro por conta e contexto visível. Nenhuma rede/persistência privada nova.
+
+Quando a categoria já está filtrada no relatório, o drill-down carrega também o escopo original de categoria, validado contra a categoria do detalhe, para recomputar a mesma parcialidade sem confiar em booleano fornecido pela rota.
