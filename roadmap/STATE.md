@@ -41,8 +41,8 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação — T27a
+## Próxima ação — T29a
 
-T24 e T25 concluídas e validadas: TypeScript e 84 testes passaram (20 sessão, 9 auditoria, 18 gastos, 19 carteira, 18 classificação). T28 concluída: quatro abas, componentes e galeria demonstrativa; TypeScript, testes e exportação iOS passaram. Próxima T27a: consultas locais puras de dados sintéticos, separadas da T27b (ponte autenticada) que exige backend. Autenticação real T12 continua obrigatória antes de dados privados. T08 sem credencial própria.
+T24 e T25 concluídas e validadas: TypeScript e 84 testes passaram (20 sessão, 9 auditoria, 18 gastos, 19 carteira, 18 classificação). T28 concluída: quatro abas, componentes e galeria demonstrativa; TypeScript, testes e exportação iOS passaram. T27a concluída: consultas locais com filtros, paginação e estornos consistentes. TypeScript e 95 testes passaram. Próxima T29a: visão geral demonstrativa com dados inventados; T27b (ponte autenticada) exige backend. Autenticação real T12 continua obrigatória antes de dados privados. T08 sem credencial própria.
 
 Git local reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar automaticamente uma task por vez com commits e checkpoint. Teste físico permanece ao final.

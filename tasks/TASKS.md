@@ -227,3 +227,14 @@ Shell demonstrativo depende de T05/T07; T12 continua obrigatória para dados pri
 ## T28 — done
 
 [Shell demonstrativo](../plan/T28-DEMO-SHELL.md): quatro abas, componentes reutilizáveis e sete estados explícitos. TypeScript, 84 testes e bundle iOS aprovados. Próxima T27a: consulta local pura; T27b ponte autenticada segue bloqueada por backend.
+
+## Decomposição T27 (antes de implementação)
+
+- T27a: T24/T25/T26/T28, consultas locais puras sobre lote sintético classificado; paths src/data/local, tests/data. Aceite: filtros/paginação/total/moeda/completude e identidade consistentes, sem rede.
+- T27b: mantém T17/T21/T22/T23, ponte autenticada e isolamento real; bloqueada por T08. T27 completa somente após ambas.
+
+T29–T31 podem ter demonstração com T27a; integração real continua exigindo T27b e autenticação. Não marcar tarefas completas por demonstração.
+
+## T27a — done
+
+[Consultas locais](../plan/T27-LOCAL-QUERIES.md): TypeScript e 95 testes aprovados. T27b pendente; T27 não concluída integralmente. Próxima T29a: visão geral demonstrativa com dados inventados, sem persistência financeira.
