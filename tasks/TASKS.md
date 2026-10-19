@@ -446,3 +446,11 @@ T60a comparação mensal pura de observações explícitas; T60b UI/fixtures e a
 ## T60a — done
 
 Comparação mensal pura de observações explícitas, BigInt e razão/partialidade honesta. TypeScript cliente/ponte e297 testes aprovados (14novos). Roadmap ativo atualizado. Próxima T60b UI/fixtures de comparação; T60c evolução/composição e privado seguem pendentes.
+
+## T60b — doing
+
+[Comparação demonstrativa](../plan/T60b-COMPARISON-UI.md), RPT-11. Filtros preservados e histórico apenas explicitamente inventado; sem novas consultas.
+
+## T60b — done
+
+Comparação ligada aos filtros da demo, fonte/cobertura/null e ocultação explícitos. TypeScript cliente/ponte e307 testes/export iOS/scan passaram. T60c decomposta em c1 composição por fonte/classe sem duplicidade e c2 evolução apenas com snapshots existentes. Próxima T60c1.

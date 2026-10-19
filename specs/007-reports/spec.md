@@ -55,3 +55,7 @@ Quando a categoria já está filtrada no relatório, o drill-down carrega també
 ## RPT-10 — Comparação mensal honesta (T60a)
 
 Comparação DEVE usar observações de dois meses consecutivos da mesma moeda, com centavos inteiros, cobertura e data de observação explícitas. Ausência é null, não zero. Diferença observada pode aparecer para subtotais conhecidos, mantendo parcialidade. Percentual somente quando ambos os meses têm cobertura completa e já estavam encerrados na data da observação em Brasília; negar base<=0, consumo atual negativo, data desconhecida e valores fora da faixa segura. Calcular diferença/razão com BigInt, arredondando percentual a duas casas (basis points, meio para longe de zero), sem rentabilidade/extrapolação. Projeção retorna só campos canônicos, sem extras do objeto de entrada. T60a não cria histórico nem tela; composição/evolução patrimonial continuam T60c.
+
+## RPT-11 — Comparação na demo (T60b)
+
+Relatórios DEVE abrir comparação com os mesmos filtros e voltar preservando contexto. Setembro2026 é definido explicitamente como cenário vazio conhecido; outubro2026 é observação parcial em19/10; agosto ou mês sem fixture permanece ausente, sem saldo inventado. Valores da comparação derivam da seleção local completa, nunca de histórico gerado. Diferença e percentual usam ocultação visual/acessível compartilhada; motivos não contêm valores. Rota aceita somente filtros conhecidos, sem texto livre/valores. Não é evolução de patrimônio nem rentabilidade.
