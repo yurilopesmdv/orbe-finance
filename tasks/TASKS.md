@@ -274,3 +274,11 @@ T31a: T24/T27a/T28/T29a, carteira demonstrativa por instituição e componente, 
 ## T10a — done; T10b pendente
 
 Registro privado/função de autorização aplicados; testes reais com rollback e dois usuários inventados passaram, nenhum resíduo. TypeScript/109 testes locais aprovados. T10b = cadastrar usuário no painel e provisionar UUID privado; solicitado ao titular. T11a cliente de autenticação pode ser preparado contra contrato fail-closed; T11b login efetivo exige T10b.
+
+## Decomposição T11
+
+T11a (T07/T10a): gateway REST Auth com testes de transporte sintético. T11b (T10b/T11a): configuração pública, telas, sessão/recuperação efetiva e entrega do código. T12 exige T11b e valida bloqueio. T11 só completa com ambas. Contrato/plano definidos antes do gateway.
+
+## T11a — done
+
+[Gateway Auth](../plan/T11-AUTH-GATEWAY.md): origem/chave pública restritas, verificação do proprietário server-side, token volátil, recuperação/logout e20 testes de transporte inventado. TypeScript/129 testes passaram. T11b depende de T10b (UUID do dono ainda ausente). Continuar T57a local enquanto aguarda, sem bloquear execução inteira.

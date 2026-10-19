@@ -41,10 +41,10 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação — T11a
+## Próxima ação — T57a
 
 T24/T25/T28/T27a/T29a/T30a/T31a concluídas na fatia sintética. TypeScript, 107 testes e exportação iOS passaram. Auth/ponte/persistência reais das subtasks b continuam pendentes. Checkpoint de carteira aef2db8 publicado e CI anterior aprovada.
 
-T08 cloud e T10a concluídas. Migration 20261019180000 cria registro singleton privado/função orbe_is_owner. Teste real como authenticated/anon com duas identidades fictícias passou; rollback e ausência de resíduos confirmados. TypeScript/109 testes locais aprovados. T10b aguarda ORBE_OWNER_USER_ID no arquivo privado; cadastro/senha solicitados diretamente no painel. Não acessar e-mail/senha. Ausência de dono nega acesso. Próxima T11a: cliente Auth/sessão testável sem segredo administrativo. Login efetivo T11b depende do dono; T12 AppState seguirá. T57a ainda não iniciada.
+T08 cloud e T10a concluídas. Migration 20261019180000 cria registro singleton privado/função orbe_is_owner. Teste real como authenticated/anon com duas identidades fictícias passou; rollback e ausência de resíduos confirmados. TypeScript/109 testes locais aprovados. T10b aguarda ORBE_OWNER_USER_ID no arquivo privado; cadastro/senha solicitados diretamente no painel. Não acessar e-mail/senha. Ausência de dono nega acesso. T11a concluída: gateway Auth em src/features/auth/gateway.ts, 20 testes novos, total129 e TypeScript passaram. Não importado pela UI ainda; nenhum login/email real executado nas ferramentas. UUID do dono segue ausente no checkpoint. T11b/T12 aguardam integração do proprietário; seguir T57a local (relatórios) enquanto isso. T57a ainda não iniciada.
 
 Git reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar uma task por vez sem esperar novo pedido. Teste físico adiado ao final. Nenhum banco conectado, nenhum dado financeiro real ou recurso F1 acessado.
