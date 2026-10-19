@@ -512,7 +512,9 @@ T20b2:381 testes, typechecks e export iOS aprovados. Coordenador metadata-only, 
 ## T21 — decomposição
 
 - T21a done: normalizador de DTO interno de contas com fixtures; [plano](../plan/T21a-CANONICAL-ACCOUNTS.md), OF-16.
-- T21b pending: staging completo com coordenador/MemoryAssets, sem backend ativo.
+- T21b done: staging completo com coordenador/MemoryAssets, sem backend ativo.
 - T21c pending: adapter fornecedor, vínculos administrativos e cobertura por banco, após gates. T21 só completa depois das três.
 
 T21a:396 testes e typechecks aprovados. DTO mínimo de contas com vínculo explícito, centavos/data/null, projeção sem PII e dedupe; mapeamento Pluggy e staging ainda pendentes. Próxima T21b.
+
+T21b:412 testes/typechecks aprovados. Staging de contas de uso único integrado por fixtures ao coordenador e MemoryAssets. T21c continua pendente por fonte/OF/gates. Próxima T22a DTO canônico de movimentos, independente do fornecedor.

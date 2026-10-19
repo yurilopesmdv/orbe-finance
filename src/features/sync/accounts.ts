@@ -9,6 +9,7 @@ export interface AccountPageContext {
 }
 export interface AccountPage {
   readonly kind: 'page';
+  readonly rowCount: number;
   readonly items: readonly Readonly<OwnedAsset>[];
   readonly nextCursor: string | null;
   readonly complete: boolean;
@@ -62,6 +63,6 @@ export function normalizeAccountPage(raw: unknown, context: unknown, policy: { e
       if (prior && JSON.stringify(prior) !== JSON.stringify(row)) return invalid();
       rows.set(row.id, row);
     }
-    return Object.freeze({ kind: 'page', items: Object.freeze([...rows.values()]), nextCursor: cursor, complete: cursor === null, partial, authoritative: page.authoritative && !partial, sourceUpdatedAt });
+    return Object.freeze({ kind: 'page', rowCount: page.items.length, items: Object.freeze([...rows.values()]), nextCursor: cursor, complete: cursor === null, partial, authoritative: page.authoritative && !partial, sourceUpdatedAt });
   } catch { return invalid(); }
 }
