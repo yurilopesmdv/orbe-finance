@@ -54,7 +54,7 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T25 | T04, T26 | EXP-02, EXP-03, EXP-04 | Domínio | Aplicar categoria e tipo com precedência explícita | Override vence regra, que vence provedor; Sem categoria preserva valor |
 | T26 | T04 | EXP-05, EXP-06, EXP-07 | Domínio | Calcular mês, estornos, transferências e cartão | Exemplos financeiros fecham com lista; pareamento incerto não remove despesa |
 | T27 | T17, T21, T22, T23, T24, T26 | PRD-02, UX-02 | Backend | Implementar consultas locais e validar ponte autenticada | Filtros/paginação/total/data/completude consistentes e sem acesso cruzado |
-| T28 | T05, T07, T12 | UX-01, UX-03, UX-04 | UI | Criar shell, componentes e estados sintéticos | Safe area, texto dinâmico, acessibilidade e dados demonstrativos identificados |
+| T28 | T05, T07 | UX-01, UX-03, UX-04 | UI | Criar shell, componentes e estados sintéticos | Safe area, texto dinâmico, acessibilidade e dados demonstrativos identificados |
 | T29 | T27, T28 | PRD-01, UX-02, UX-03 | UI | Criar visão geral com parciais e fontes | Mostra Bradesco/MP ou ausência explícita; ocultar valores inclui leitor de tela |
 | T30 | T25, T26, T27, T28 | PRD-03, EXP-01, EXP-03, EXP-04 | UI | Criar lista/filtros e revisão de classificação | Resumo e detalhe concordam; alteração manual persiste após nova importação |
 | T31 | T24, T27, T28 | PORT-01, PORT-02, PORT-05 | UI | Criar carteira de contas e investimentos | Livre/reservado/valor desconhecido e moedas não se confundem |
@@ -219,3 +219,11 @@ Domínio puro depende de T04/T26; T14/T22 continuam necessários à integração
 ## T25 — done
 
 [Classificação pura](../plan/T25-CLASSIFICATION-DOMAIN.md) validada: 84 testes totais e TypeScript aprovados. Próxima T28, shell exclusivamente sintético; autenticação real T12 permanece gate de integração.
+
+## T28 — doing
+
+Shell demonstrativo depende de T05/T07; T12 continua obrigatória para dados privados. Contrato SPEC-005 atualizado antes de código. Nenhum login fictício.
+
+## T28 — done
+
+[Shell demonstrativo](../plan/T28-DEMO-SHELL.md): quatro abas, componentes reutilizáveis e sete estados explícitos. TypeScript, 84 testes e bundle iOS aprovados. Próxima T27a: consulta local pura; T27b ponte autenticada segue bloqueada por backend.

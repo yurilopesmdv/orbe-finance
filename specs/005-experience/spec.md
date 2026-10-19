@@ -1,6 +1,6 @@
 # SPEC-005 — Experiência profissional no iPhone
 
-Estado: ready para R1 sintética; dados reais continuam bloqueados. Esta é uma especificação textual de produto; wireframe local estático em docs/design/wireframes.html; ainda não há app executável.
+Estado: ready para R1 sintética; dados reais continuam bloqueados. Esta é uma especificação textual de produto; wireframe local estático em docs/design/wireframes.html; bootstrap executável disponível; shell em evolução.
 
 | ID | Requisito |
 |---|---|
@@ -35,3 +35,9 @@ Aplicar [SPEC-007](../007-reports/spec.md): tela inicial com poucos indicadores 
 ## Direção T05
 
 Quatro abas: Visão geral, Movimentações, Carteira, Ajustes. Relatórios acessíveis pela Visão geral e por totais de gastos, mantendo período/filtro ao voltar. Conexões ficam em Ajustes e no status do resumo. Fundo claro neutro, verde escuro como acento, tipografia do sistema; gráficos sempre acompanhados de lista. Wireframe não integra banco nem simula aprovação de segurança/Face ID.
+
+## Recorte T28 — shell demonstrativo
+
+Quatro abas com rotas reais, safe area, texto escalável e sinalização permanente de dados inventados. Componentes reutilizáveis para cartão, botão e estados (carregando, vazio, sem conexão, parcial, desatualizado, erro e bloqueado). Uma galeria explicitamente demonstrativa em Ajustes permite inspecionar os estados sem representar consultas reais.
+
+Não coletar senha nem simular autenticação, Face ID ou conexão bancária. Dependência T12 permanece gate para integrar dados privados; shell sintético depende apenas de T05/T07. Telas de dados completos são T29–T33. Estado de ocultar valores/persistência pertence à T29 e não fica falsamente apresentado como concluído. Validar typecheck, suíte e exportação iOS; acessibilidade/gestos no aparelho ficam para T38/T45 por decisão do usuário.

@@ -1,8 +1,11 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { runtime } from '@/config/runtime';
+import { useRouter } from 'expo-router';
+import { Action } from '@/components/ui';
 
 export default function WelcomeScreen() {
+  const router = useRouter();
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.page}>
@@ -14,10 +17,11 @@ export default function WelcomeScreen() {
         <Text style={styles.description}>Contas, gastos e investimentos em uma visão simples, com os detalhes que você precisa.</Text>
         <View style={styles.card}>
           <Text accessibilityRole="header" style={styles.cardTitle}>Estamos preparando seu Orbe</Text>
-          <Text style={styles.body}>Esta é a base do aplicativo. Login, relatórios e conexão por Open Finance serão adicionados nas próximas etapas.</Text>
+          <Text style={styles.body}>Explore a estrutura do aplicativo com dados demonstrativos. Login, relatórios e conexão por Open Finance continuam em desenvolvimento.</Text>
           <View style={styles.divider} />
           <Text style={styles.body}>Nenhum banco conectado. Não informe senhas ou dados financeiros neste ambiente.</Text>
         </View>
+        <Action title="Explorar demonstração" onPress={() => router.replace('/(tabs)/overview')} />
         <Text style={styles.footnote}>Orbe Finance · 0.1.0 · {runtime.dataMode === 'synthetic' ? 'Dados demonstrativos' : ''}</Text>
       </ScrollView>
     </SafeAreaView>
