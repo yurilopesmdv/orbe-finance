@@ -1,11 +1,15 @@
 import { useRouter } from 'expo-router';
 import { Action, Body, Card, Screen } from '@/components/ui';
 import { Money, usePrivacy } from '@/components/privacy';
+import { useDemo } from '@/data/demo/store';
+import { queryMovements } from '@/data/local/query';
 import { demoOverview, demoSourceDate } from '@/data/demo/scenario';
 export default function OverviewScreen() {
   const router = useRouter();
   const privacy = usePrivacy();
-  const { portfolio, expenses } = demoOverview();
+  const { portfolio } = demoOverview();
+  const demo = useDemo();
+  const expenses = queryMovements(demo.movements, { month: '2026-10' }, true).summary;
   return <Screen title="Sua visão geral" subtitle="Outubro de 2026 · cenário inventado, sem bancos conectados.">
     <Action title={privacy.hidden ? 'Mostrar valores demonstrativos' : 'Ocultar valores'} secondary onPress={privacy.toggle} />
     <Card title="Subtotal de ativos · parcial">

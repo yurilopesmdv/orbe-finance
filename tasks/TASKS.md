@@ -246,3 +246,11 @@ T29a (T24/T26/T27a/T28): resumo sintético com fonte/data/parcialidade e oculta�
 ## T29a — done
 
 [Resumo demonstrativo](../plan/T29-OVERVIEW.md): cálculos compartilhados, fontes/datas/parcialidade, valores ocultos por padrão e ao background. TypeScript, 97 testes e exportação iOS passaram. T29b pendente. Próxima T30a, lista e revisão volátil dos exemplos.
+
+## Decomposição T30
+
+T30a (T25/T26/T27a/T28/T29a): filtros, páginas e detalhe dos exemplos com overrides em memória. T30b exige T27b e persistência privada, sync real e validação física. T30 só completa com ambas. Paths lista, src/data/demo/store.tsx, domínio demonstrativo e testes.
+
+## T30a — done
+
+[Lista demonstrativa](../plan/T30-MOVEMENTS.md): filtros, paginação, detalhe e correção em memória compartilhada. TypeScript, 99 testes e bundle iOS aprovados. T30b continua pendente; próxima T31a, carteira sintética.
