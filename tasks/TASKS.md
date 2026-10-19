@@ -540,9 +540,11 @@ T22b2:461 testes/typechecks aprovados; manifesto de contas e paginação global/
 
 - T23a done: normalizar posições/reservas internas, [plano](../plan/T23a-CANONICAL-POSITIONS.md).
 - T23b1 done: conservar metadados explícitos bruto/líquido/base/classe no cache volátil.
-- T23b2 pending: staging completo de posições/reservas, sem perder valuation.
+- T23b2 done: staging completo de posições/reservas, sem perder valuation.
 - T23c pending: adapter fornecedor e cobertura/homologação por banco após gates.
 
 T23a:476 testes/typechecks; DTO de posições/reservas preserva bruto/líquido/base/classe e relações explícitas. T23b1 próximo: cache deve conservar/validar valuation antes do staging; não afirmar cache completo por DTO apenas.
 
 T23b1:483 testes/typechecks; cache projeta quatro campos de valuation com validação conjunta e dedupe completo. Próxima T23b2 staging de investimentos/reservas usando normalizador concreto e cache com valuation.
+
+T23b2:493 testes/typechecks; engine interno compartilhado por factories concretas de contas e posições, sem função recebida por transporte. Staging de valuation/ciclos/ausência validado. Próxima T36a revisão e coordenação sintética do conjunto de produtos; fonte real T21c/T22c/T23c continua pendente.

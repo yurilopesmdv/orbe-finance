@@ -80,3 +80,7 @@ Fonte/data/ausência/autoridade explícitas, duplicatas idênticas idempotentes 
 ## PORT-09 — Valuation preservado no cache volátil (T23b1)
 
 Cache DEVE conservar os quatro campos opcionais como conjunto completo (grossCents/netCents/valueBasis/assetClass) em investimentos/reservas; campo isolado ou base incompatível com amountCents invalida lote antes de swap. Contas não recebem esse conjunto. Fixtures legadas sem os quatro continuam válidas, com valuation ausente/desconhecido; não inventar bruto/líquido/classe a partir de saldo. Saída inclui somente primitivos projetados, sem owner/extras; conflitos de valuation no mesmo ID não podem desaparecer no dedupe. Falha/guard obsoleto conserva valores e metadata anteriores, sem alterar política de ausência/reconciliação.
+
+## PORT-10 — Staging concreto de posições/reservas (T23b2)
+
+Staging de investment/reserve DEVE usar normalizador concreto T23a e contexto vinculado capturado, preservando valuation T23b1. Gates desligados não tocam conteúdo/contexto/store. Recibos locais devem mapear produto singular do cache ao plural do coordenador, somente este produto; fonte mista/desconhecida/parcial em qualquer página impede remoção por ausência. Validar todas posições/pais/ciclos entre páginas antes do swap, com guard fresco; falha conserva último snapshot do produto. Conta e posição podem compartilhar engine interno de paginação/guards, mas sem aceitar normalizador executável vindo de HTTP ou substituir validação concreta por tipo genérico. Não prometer atomicidade global entre produtos.
