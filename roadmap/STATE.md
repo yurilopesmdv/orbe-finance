@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T19a**: normalização pura de estados/capacidades e permissão de leitura por produto, sem fornecedor/rede. T60c1 composição conhecida concluída; T60c2 evolução requer snapshots, não inventados. T60b comparação/T60a cálculo/T59a filtros concluídos. T18b2 orbe-bridge v1 desligada sempre503; adapters ativos não homologados.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T20a**: spec/plan antes de migration nova com lease/cooldown/revisão de conexão e testes SQL/RLS rollback, somente metadados. T19a estados/capacidades puros concluída. T60c1 composição concluída; T60c2 evolução depende snapshots. T18b2 orbe-bridge v1 desligada sempre503, sem adapters ativos.
 
 ## Produto e limites obrigatórios
 
@@ -40,7 +40,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **320 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,6 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte,17 REST ponte,1 hostmock,6 guardas deploy,14 comparação domínio,6 comparação demo,4 apresentação percentual,13 composição. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **332 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,6 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte,17 REST ponte,1 hostmock,6 guardas deploy,14 comparação domínio,6 comparação demo,4 apresentação percentual,13 composição,12 estados/capacidades. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -48,7 +48,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T19a: spec/plan antes de estados/capacidades de conexão puros (não adapter fornecedor). Ativo exige OF comprovado e autorização não expirada; false/null de produto são distintos e nenhum produto desconhecido deve ser consultado automaticamente. Estados pausado/revogado/pendente/erro bloqueiam. T60c1320 testes/export/scan aprovados; composição countedIds/BigInt/sharemaioresrestos10000, privacyMoney/percent. T60c2 sem história suficiente não gera evolução/rentabilidade.
+1. T20a: planejar quota privada por conexão (lease120s/cooldown900s), somente serviceRole via RPCdefiner, nunca clientDML ou valores financeiros. Toda página revalida owner/active/OF/expiração/revision/lease/produto, sem novoacquire durante paginação. Rev/state/capability changes precisam fencing automático; migration nova após20261019200000, nunca editar aplicadas.332 testes T19a passaram; fonte/adapter T19b não homologados.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.

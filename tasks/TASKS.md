@@ -462,3 +462,15 @@ Comparação ligada aos filtros da demo, fonte/cobertura/null e ocultação expl
 ## T60c1 — done
 
 Composição do subtotal conhecido por banco/classe reconciliada, shares100% e sem duplicidade. TypeScript cliente/ponte e320 testes/export/scan aprovados. T60c2 evolução exige snapshots, não fabricados. Próxima T19a estados/capacidades e autorização de leitura por produto em domínio puro.
+
+## Decomposição T19
+
+T19a política/normalização pura do DTO interno; T19b mapeamento comprovado do fornecedor e integração server-side após contratos/gates. T19 integral segue pendente.
+
+## T19a — doing
+
+[Estados de conexão](../plan/T19a-CONNECTION-STATE.md), OF-11. Sem rede; produto desconhecido ou gate desligado não gera leitura.
+
+## T19a — done
+
+Estados/capacidades e política de leitura puros, sem rede, schema/projeção/gates validados. TypeScript cliente/ponte e332 testes passaram (12novos). T19b fornecedor/adapter pendente. Próxima T20a lease/cooldown/revisão no backend somente metadados.
