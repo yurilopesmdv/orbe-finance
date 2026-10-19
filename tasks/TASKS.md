@@ -346,3 +346,11 @@ Microtask de correção identificada na validação: formatter Number/100 perde 
 ## T26b — done
 
 [Precisão monetária](../plan/T26b-MONEY-DISPLAY.md): formatter exato sem Number/100 fracionário, negativo menor que1 preservado, moeda/ocultação/ausência explícitas. TypeScript/195 testes e bundle iOS aprovados. Próxima T16a de alocações virtuais, sem movimentação bancária.
+
+## Decomposição T16
+
+T16a: metas/alocações voláteis sobre orçamento explícito, depende T15a/T24. T16b: transações privadas/persistência/ligação a fonte real e validação concorrente nativa, depende T15b/gates T65+. T16 não completa pela simulação JS.
+
+## T16a — done
+
+[Metas voláteis](../plan/T16-VOLATILE-GOALS.md): TypeScript/207 testes passaram, limites/sessão/moeda/qualidade e concorrência JS cobertos. T16b privado pendente. Próxima T32a: tela demonstrativa de metas, usando orçamento inventado e labels sem movimentação bancária.

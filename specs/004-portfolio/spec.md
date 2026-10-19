@@ -50,3 +50,11 @@ Reusar guard principal/geração do ledger, sem disco/rede. Import ticket por co
 Promover somente lote completo validado; ticket anterior no mesmo escopo é stale. Snapshot não autoritativo mescla itens e mantém subtotal parcial, sem apagar ausentes. Somente evidência explícita de snapshot autoritativo permite substituir todo o produto, inclusive vazio confirmado; remover pai não transforma filho órfão em dinheiro adicional. Informações faltantes de outros produtos/fontes continuam responsabilidade do controller, e sourceComplete é false por padrão. Não inferir rendimento, liquidez ou história. T15b exige runtime/persistência protegidos.
 
 Guard T15a é verificação por operação. Controller privado futuro deverá fechar/purgar o store imediatamente ao bloquear; esta classe volátil não assina Auth por conta própria.
+
+## Recorte T16a — metas/alocações voláteis
+
+Metas têm título, moeda, alvo positivo em centavos e prazo civil opcional. Alocação é apenas associação local a raiz canônica distinta; nunca transferência, compra/resgate ou ativo extra. Orçamento por raiz traz revisão, valor alocável explícito, data e confirmação de que reservas da fonte já foram excluídas. Não inferir valor livre por diferença de campos sem prova. Raiz incluída/limite/ambígua é recusada como novo orçamento.
+
+Aumentar alocação exige orçamento conhecido/data/confirmado, moeda igual e revisão corrente. Soma entre metas não excede valor alocável; operação síncrona valida candidato antes de trocar estado. Duas chamadas concorrentes em JS são serializadas; isso não prova transação SQLite da T16b. Atualização da fonte que reduza o orçamento não apaga associações: sinalizar excesso e permitir reduções/remoções, impedir aumentos. Desvincular/excluir meta não altera posições importadas.
+
+Revisão de orçamento deve aumentar; mesma revisão divergente é conflito, data anterior é stale. Fonte desconhecida bloqueia aumento sem converter null em zero. Guard principal/geração e close iguais a T14a/T15a. Associação de meta a reserva já existente da fonte não consome novamente parte livre e será tratada na integração T32/T16b; este recorte aloca apenas valor não reservado comprovado. Sem persistência financeira real.

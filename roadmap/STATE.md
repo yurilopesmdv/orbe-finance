@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T16a**, ainda não iniciada: metas/alocações virtuais voláteis, limites explícitos por raiz/segmento e sem movimentação bancária. T26b de formatação exata concluída.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T32a**, ainda não iniciada: tela demonstrativa de metas e associações locais, usando orçamento inventado explícito e sem movimentação bancária. T16a volátil concluída.
 
 ## Produto e limites obrigatórios
 
@@ -19,6 +19,7 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57. Open Finance exclusivamente
 - T08: projeto Supabase **orbe criado pelo usuário**, ativo/saudável em us-east-1. Baseline remota aplicada por Management API, hash imutável no nome do histórico.
 - T10: proprietário criado pelo titular no Dashboard e provisionado por UUID privado; conta confirmada/não anônima, registro singleton privado e RPC orbe_is_owner booleana por auth.uid. Senha/e-mail do titular nunca consultados nas ferramentas.
 - T11a/T11b login/logout: gateway REST com origem/chave pública restritas, autorização server-side, SessionModel de token volátil, telas login/account; resultado tardio/expiração/logout não restaura sessão. **T11 integral não concluída**, recuperação T11c bloqueada.
+- T16a: metas/alocações voláteis com orçamento de raiz não reservado explícito, revisão/qualidade/moeda e concorrência JS; sem transferir fundos nem persistir. T16b nativo pendente.
 - T15a: snapshots voláteis por conexão/produto, autoritativo explícito, relações/null/moedas preservadas; MemoryScope compartilhado com ledger. T15b privado pendente.
 - T14a: ledger volátil com guard principal/geração, promoção de lote completo, categorias/regras/overrides separados; não ligado a cache privado real. T14b persistência pendente.
 - T13: metadados de conexões/contas sob RLS, IDs externos privados, FKs compostas/estado/capacidades testados em SQL real. Zero vínculos reais.
@@ -38,7 +39,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **195 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **207 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,12 metas. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -46,7 +47,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T16a: spec/plan de metas/alocações virtuais em memória, por raiz e segmentos comprovadamente disjuntos; valor desconhecido/sem confirmação bloqueia aumento, moeda e revisão explícitas; não movimenta dinheiro nem aumenta carteira. Persistência transacional privada fica T16b.
+1. T32a: spec/plan antes de UI de metas; seed inventado do orçamento Bradesco (valor não reservado explicitamente conhecido), shared DemoProvider, reset ao sair da demo. Mostrar associação virtual sem somar ao patrimônio/sem transferir; form local com parse exato BRL/prazo e erros sanitizados. T32b privado fica depois do runtime.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.
