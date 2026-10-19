@@ -189,11 +189,17 @@ def main():
             before = request('/database/query', 'POST', {'query': check_query, 'read_only': True})
             if before != [{'configured': True}]:
                 raise SafeError('provisioned_owner_required')
-            request('/database/query', 'POST', {'query': (ROOT / 'tests/admin/metadata-access.sql').read_text()})
-            residue = request('/database/query', 'POST', {'query': "select count(*)::int as count from auth.users where id in ('00000000-0000-4000-8000-000000000011','00000000-0000-4000-8000-000000000012')", 'read_only': True})
+            failure = None
+            try:
+                request('/database/query', 'POST', {'query': (ROOT / 'tests/admin/metadata-access.sql').read_text()})
+            except SafeError as error:
+                failure = error
+            residue = request('/database/query', 'POST', {'query': "select ((select count(*) from auth.users where id in ('00000000-0000-4000-8000-000000000011','00000000-0000-4000-8000-000000000012')) + (select count(*) from auth.sessions where id in ('70000000-0000-4000-8000-000000000011','70000000-0000-4000-8000-000000000012')))::int as count", 'read_only': True})
             after = request('/database/query', 'POST', {'query': check_query, 'read_only': True})
             if residue != [{'count': 0}] or after != before:
                 raise SafeError('metadata_test_rollback_failed')
+            if failure is not None:
+                raise failure
             print(json.dumps({'metadata_rls_rollback_checks_passed': True, 'temporary_identities_remaining': 0, 'owner_preserved': True}))
             return
         if sys.argv[1] == 'configure-client':

@@ -27,14 +27,14 @@ def public_configuration_fixture(keys):
             yield root
 
 @contextlib.contextmanager
-def lease_configuration_fixture(residue=0, owner_after=True, command='test-read-leases', execution_error=False):
+def sql_configuration_fixture(residue=0, owner_after=True, command='test-read-leases', execution_error=False):
     import hashlib
     from unittest.mock import Mock
     with tempfile.TemporaryDirectory() as folder:
         root = Path(folder); directory = root / 'supabase/migrations'; directory.mkdir(parents=True)
         baseline = directory / '20261016170000_bootstrap.sql'; baseline.write_text('select 1;')
         history = [{'name': 'orbe_' + baseline.stem + '_' + hashlib.sha256(baseline.read_bytes()).hexdigest()}]
-        sql = root / ('tests/admin/connection-controls.sql' if command == 'test-connection-controls' else 'tests/admin/read-leases.sql'); sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
+        sql = root / {'test-connection-controls': 'tests/admin/connection-controls.sql', 'test-metadata': 'tests/admin/metadata-access.sql', 'test-read-leases': 'tests/admin/read-leases.sql'}[command]; sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
         reads = 0
         def request(path, method='GET', body=None):
             nonlocal reads
@@ -51,23 +51,43 @@ def lease_configuration_fixture(residue=0, owner_after=True, command='test-read-
             yield lambda: reads
 
 class BackendGuards(unittest.TestCase):
+    def test_metadata_session_checks_rollback_and_owner(self):
+        with sql_configuration_fixture(command='test-metadata'):
+            admin.main()
+
+    def test_metadata_session_residue_rejected(self):
+        with sql_configuration_fixture(command='test-metadata', residue=1):
+            with self.assertRaisesRegex(admin.SafeError, 'metadata_test_rollback_failed'):
+                admin.main()
+
+    def test_metadata_session_owner_change_rejected(self):
+        with sql_configuration_fixture(command='test-metadata', owner_after=False):
+            with self.assertRaisesRegex(admin.SafeError, 'metadata_test_rollback_failed'):
+                admin.main()
+
+    def test_metadata_session_checks_owner_after_sql_failure(self):
+        with sql_configuration_fixture(command='test-metadata', execution_error=True) as owner_reads:
+            with self.assertRaisesRegex(admin.SafeError, 'management_http_400'):
+                admin.main()
+            self.assertEqual(owner_reads(), 2)
+
     def test_connection_controls_checks_owner_even_after_execution_error(self):
-        with lease_configuration_fixture(command='test-connection-controls', execution_error=True) as owner_reads:
+        with sql_configuration_fixture(command='test-connection-controls', execution_error=True) as owner_reads:
             with self.assertRaisesRegex(admin.SafeError, 'management_http_400'):
                 admin.main()
             self.assertEqual(owner_reads(), 2)
 
     def test_connection_controls_rollback_and_owner_preserved(self):
-        with lease_configuration_fixture(command='test-connection-controls'):
+        with sql_configuration_fixture(command='test-connection-controls'):
             admin.main()
 
     def test_connection_controls_residue_rejected(self):
-        with lease_configuration_fixture(residue=1, command='test-connection-controls'):
+        with sql_configuration_fixture(residue=1, command='test-connection-controls'):
             with self.assertRaisesRegex(admin.SafeError, 'connection_controls_test_rollback_failed'):
                 admin.main()
 
     def test_connection_controls_owner_change_rejected(self):
-        with lease_configuration_fixture(owner_after=False, command='test-connection-controls'):
+        with sql_configuration_fixture(owner_after=False, command='test-connection-controls'):
             with self.assertRaisesRegex(admin.SafeError, 'connection_controls_test_rollback_failed'):
                 admin.main()
 
@@ -128,16 +148,16 @@ class BackendGuards(unittest.TestCase):
                 admin.config()
 
     def test_read_lease_validation_checks_clean_rollback(self):
-        with lease_configuration_fixture():
+        with sql_configuration_fixture():
             admin.main()
 
     def test_read_lease_validation_rejects_identity_residue(self):
-        with lease_configuration_fixture(residue=1):
+        with sql_configuration_fixture(residue=1):
             with self.assertRaisesRegex(admin.SafeError, 'read_lease_test_rollback_failed'):
                 admin.main()
 
     def test_read_lease_validation_rejects_owner_change(self):
-        with lease_configuration_fixture(owner_after=False):
+        with sql_configuration_fixture(owner_after=False):
             with self.assertRaisesRegex(admin.SafeError, 'read_lease_test_rollback_failed'):
                 admin.main()
 

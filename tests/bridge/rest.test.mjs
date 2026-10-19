@@ -40,7 +40,7 @@ test('configuration mutation cannot redirect later requests', async () => {
 test('authenticated owner uses same Bearer for Auth RPC and RLS metadata without identity URLs', async () => {
   const credential = token(); const { handler, calls } = fixture([user(owner), true, []]);
   const response = await handler(req(credential)); assert.equal(response.status, 200);
-  assert.equal(calls.length, 3); assert.equal(calls[1].url, origin + '/rest/v1/rpc/orbe_is_owner');
+  assert.equal(calls.length, 3); assert.equal(calls[1].url, origin + '/rest/v1/rpc/orbe_has_session');
   assert.equal(calls[1].init.body, '{}');
   assert.ok(calls[2].url.includes('/orbe_connections?select=id,owner_id,')); assert.ok(calls[2].url.endsWith('&limit=101'));
   for (const call of calls) {
@@ -128,7 +128,7 @@ test('two simultaneous sessions never share credentials or ownership', async () 
   const ports = createSupabasePorts(config, async (url, init) => {
     const credential = init.headers.Authorization.slice(7); const index = credentials.indexOf(credential); assert.ok(index >= 0); calls.push([index, url]);
     if (url.endsWith('/user')) { arrivals++; if (arrivals === 2) release(); await rendezvous; return json(user(index === 0 ? owner : other)); }
-    if (url.endsWith('/orbe_is_owner')) return json(index === 0);
+    if (url.endsWith('/orbe_has_session')) return json(index === 0);
     assert.equal(index, 0, 'second identity must never request metadata'); return json([]);
   });
   const handler = createBridgeHandler(ports, { enabled: true });
@@ -149,4 +149,8 @@ test('origin and public key require primitive strings rather than coercible obje
 test('metadata select requests independent authorization fields after the schema migration', async () => {
   const { ports, calls } = fixture([[]]); await ports.listConnections(owner, signal(), token());
   assert.ok(calls[0].url.includes('proxy_consent_expires_at,bank_consent_expires_at')); assert.ok(!calls[0].url.includes('authorization_expires_at'));
+});
+
+test('Auth identity success cannot read metadata after session gate denies authorization',async()=>{
+ const {handler,calls}=fixture([user(owner),false]);const response=await handler(req(token()));assert.equal(response.status,403);assert.equal(calls.length,2);assert.ok(calls[1].url.endsWith('/orbe_has_session'));assert.ok(!calls.some(call=>call.url.includes('/orbe_connections?')));
 });

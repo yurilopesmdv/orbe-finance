@@ -23,7 +23,7 @@ function claims(token: string, origin: string, now: number): { subject: string; 
 }
 const columns = 'id,owner_id,institution,state,revision,accounts_available,transactions_available,investments_available,reserves_available,open_finance_verified_at,proxy_consent_expires_at,bank_consent_expires_at,source_updated_at,last_read_at';
 const endpoints = Object.freeze({
-  user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner',
+  user: '/auth/v1/user', session: '/rest/v1/rpc/orbe_has_session',
   connections: '/rest/v1/orbe_connections?select=' + columns + '&order=created_at.desc,id.desc&limit=101',
 });
 
@@ -34,7 +34,7 @@ export function createSupabasePorts(config: Configuration, transport: Transport 
   async function request(endpoint: keyof typeof endpoints, token: string, signal: AbortSignal): Promise<Response> {
     active(signal);
     try {
-      const rpc = endpoint === 'owner';
+      const rpc = endpoint === 'session';
       const response = await transport(origin + endpoints[endpoint], {
         method: rpc ? 'POST' : 'GET', body: rpc ? '{}' : undefined,
         headers: { apikey: publishableKey, Authorization: 'Bearer ' + token, Accept: 'application/json', ...(rpc ? { 'Content-Type': 'application/json' } : {}) },
@@ -54,9 +54,9 @@ export function createSupabasePorts(config: Configuration, transport: Transport 
         if (response.status !== 200) { void response.body?.cancel().catch(() => {}); unavailable(); }
         const user = await jsonResponse(response, signal); active(signal);
         if (!object(user) || user.id !== decoded.subject || user.is_anonymous !== false || decoded.expiresAt <= now()) return null;
-        const owner = await request('owner', token, signal);
-        if (owner.status !== 200) { void owner.body?.cancel().catch(() => {}); unavailable(); }
-        const allowed = await jsonResponse(owner, signal); active(signal);
+        const sessionGate = await request('session', token, signal);
+        if (sessionGate.status !== 200) { void sessionGate.body?.cancel().catch(() => {}); unavailable(); }
+        const allowed = await jsonResponse(sessionGate, signal); active(signal);
         if (typeof allowed !== 'boolean') unavailable();
         if (decoded.expiresAt <= now()) return null;
         return { subject: decoded.subject, isOwner: allowed, expiresAt: decoded.expiresAt };

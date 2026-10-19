@@ -49,3 +49,9 @@ Credenciais administrativas DEVEM ficar fora do root e dos watchFolders do Metro
 ## SEC-20 — Processo Expo segregado (T50b)
 
 Comandos suportados de start/export DEVEM criar processo com allowlist de ambiente do SO e configuração pública explícita, sem herdar tokens administrativos, proxies, NODE_OPTIONS ou credenciais Expo de outro projeto. Dotenv automático deve ser desativado depois da leitura estrita; variáveis desconhecidas em dotenv do projeto impedem execução sem mostrar valores. CLI deve usar perfil privado exclusivo, modo offline/sem telemetria, sem alterar HOME. Start admite somente LAN/localhost, porta e limpeza; túnel exige decisão posterior. O wrapper não impede que alguém execute diretamente o CLI ignorando-o.
+
+## SEC-21 — Sessão ativa nas leituras de metadados (T51d)
+
+RLS/ponte de metadata DEVE exigir proprietário registrado e sessão Auth correspondente ainda existente/não expirada, além do JWT verificado. orbe_is_owner continua sendo somente prova de identidade permitida; não equivale a sessão ativa. Função pública booleana sem argumentos pode confirmar acesso da própria sessão sem expor registros/IDs Auth, com execução só authenticated. Leitura deve funcionar em transação READONLY, sem lock de escrita em auth.sessions. Ações sensíveis preservam lock/prova recente T37a via helper segregado. Sessão apagada/claimmalformada/recovery/expirada/not_after vencido resulta em zero linhas ou negativa antes de conteúdo.
+
+Não prometer revogação remota quando logout offline falha, nem recuperar bytes já entregues: a garantia é negar novas verificações depois da remoção confirmada da sessão. Requests em curso continuam protegidas no cliente por geração/abort/guard. Nenhum grant de tabela Auth/privada ou acesso financeiro real é adicionado.

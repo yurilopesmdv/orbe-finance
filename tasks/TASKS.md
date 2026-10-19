@@ -579,3 +579,9 @@ T37a:535 testes/typechecks e SQL real com rollback/zero fakeusers+sessions/owner
 - T37b2 pending: lifecycle/purge e confirmação na UI privada depois de contratos/gates.
 
 T37b1:551 testes/typechecks/export iOS/scan aprovados. Porta cliente desligada, SessionModel.read e destino ligado à origem pública de login. Próxima T51d: fechar revogação de sessão em leituras RLS/metadata antes de UI/endpoint ativo; T37b2 continua posterior.
+
+## T51d — done
+
+[Sessão ativa na leitura](../plan/T51d-METADATA-SESSION-GATE.md), SEC-21. Nova migration7 futura; seis anteriores imutáveis. Reforçar RLS/bridge sem ativar endpoint; teste read-only positivo depois de fixtures/rollback.
+
+T51d:556 testes/typechecks e SQL real metadataREADONLY+/revogação/controls; migration7 imutável, zero fakes/owner preservado. Bridge passa a exigir RPC bool de sessão em source, endpoint publicado permaneceoffv1 (sem redeploy). Próxima T18b3a planejar runtime de metadata autenticada separado de ingestão, antes de UI privada.
