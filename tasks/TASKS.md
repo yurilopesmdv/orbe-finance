@@ -302,3 +302,7 @@ T58a: T28/T29a/T57a, acesso secundário a relatório demonstrativo com detalhe m
 ## T10b — done (provisionamento)
 
 Titular cadastrou identidade no Dashboard e forneceu UUID privado; backend conferiu confirmação/não anonimato e registrou proprietário. Login físico pelo titular permanece na validação de T11/T38. Próxima prioridade T11b, agora desbloqueada; T13 ainda não iniciada.
+
+## T11b — login/logout implementados; T11c pendente
+
+TypeScript/160 testes, bundle iOS e smoke HTTP real de negação com identidade inventada passaram; conta temporária removida. Token administrativo e UUID privado ausentes no bundle. T11c = recuperação efetiva por código, bloqueada por template/SMTP no Free; flag false, sem emails de teste ou contratação. T11 integral continua pendente. Próxima T12a liga AppState à sessão e limpa formulários.

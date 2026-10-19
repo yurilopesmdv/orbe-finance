@@ -3,11 +3,11 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const palette = { background: '#F6F8F3', surface: '#FFFFFF', ink: '#152F29', muted: '#52675D', line: '#DCE3DA', green: '#173F33' };
-export function Screen({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
+export function Screen({ title, subtitle, children, demonstration = true }: { title: string; subtitle: string; children: ReactNode; demonstration?: boolean }) {
   return <SafeAreaView style={ui.safe} edges={['top', 'left', 'right']}>
     <ScrollView contentContainerStyle={ui.page}>
       <Text style={ui.brand}>orbe</Text>
-      <Text style={ui.badge}>DEMONSTRAÇÃO · DADOS INVENTADOS</Text>
+      <Text style={ui.badge}>{demonstration ? 'DEMONSTRAÇÃO · DADOS INVENTADOS' : 'ACESSO AO ORBE · BANCOS DESCONECTADOS'}</Text>
       <Text accessibilityRole="header" style={ui.title}>{title}</Text>
       <Text style={ui.subtitle}>{subtitle}</Text>
       {children}
@@ -18,8 +18,8 @@ export function Card({ title, children }: { title: string; children: ReactNode }
   return <View style={ui.card}><Text accessibilityRole="header" style={ui.cardTitle}>{title}</Text>{children}</View>;
 }
 export function Body({ children }: { children: ReactNode }) { return <Text style={ui.body}>{children}</Text>; }
-export function Action({ title, onPress, secondary = false, selected }: { title: string; onPress: () => void; secondary?: boolean; selected?: boolean }) {
-  return <Pressable accessibilityRole="button" accessibilityState={selected === undefined ? undefined : { selected }} onPress={onPress} style={({ pressed }) => [ui.button, secondary && ui.secondary, pressed && { opacity: 0.75 }]}>
+export function Action({ title, onPress, secondary = false, selected, disabled = false }: { title: string; onPress: () => void; secondary?: boolean; selected?: boolean; disabled?: boolean }) {
+  return <Pressable accessibilityRole="button" accessibilityState={{ disabled, ...(selected === undefined ? {} : { selected }) }} disabled={disabled} onPress={onPress} style={({ pressed }) => [ui.button, secondary && ui.secondary, (pressed || disabled) && { opacity: 0.65 }]}>
     <Text style={[ui.buttonText, secondary && ui.secondaryText]}>{title}</Text>
   </Pressable>;
 }

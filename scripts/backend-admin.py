@@ -95,7 +95,7 @@ def owner_id():
     return candidate
 
 def main():
-    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner'):
+    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner', 'configure-client'):
         raise SafeError('usage_backend_admin_inspect_or_bootstrap')
     token, ref = config()
     request = client(token, ref)
@@ -103,7 +103,7 @@ def main():
     print(json.dumps({'project_confirmed': True, 'application_table_count': tables, 'migration_count': len(history), 'auth_policy_matches': all(auth.get(k) == v for k, v in AUTH_POLICY.items())}))
     if sys.argv[1] == 'inspect':
         return
-    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner'):
+    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner', 'configure-client'):
         migrations = sorted((ROOT / 'supabase/migrations').glob('*.sql'))
         baseline_prefix = 'orbe_20261016170000_bootstrap_'
         if not any((row.get('name') or '').startswith(baseline_prefix) for row in history):
@@ -131,6 +131,47 @@ def main():
                 if not any(row.get('name') == expected for row in verified):
                     raise SafeError('migration_verification_failed')
             print(json.dumps({'versioned_migrations_verified': len(migrations)}))
+            return
+        if sys.argv[1] == 'configure-client':
+            keys = request('/api-keys')
+            candidates = [entry for entry in keys if entry.get('type') == 'publishable' and entry.get('name') == 'default' and re.fullmatch(r'sb_publishable_[A-Za-z0-9_-]+', entry.get('api_key') or '')]
+            if len(candidates) != 1:
+                raise SafeError('publishable_key_missing_or_ambiguous')
+            public_file = ROOT / '.env.local'
+            origin = 'https://' + ref + '.supabase.co'
+            if public_file.is_symlink():
+                raise SafeError('public_config_symlink_rejected')
+            if public_file.exists():
+                for line in public_file.read_text().splitlines():
+                    if not line.strip() or line.lstrip().startswith('#'):
+                        continue
+                    if '=' not in line:
+                        raise SafeError('unexpected_public_config')
+                    key, value = line.split('=', 1)
+                    if key.strip() not in ('EXPO_PUBLIC_SUPABASE_URL', 'EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY', 'EXPO_PUBLIC_AUTH_RECOVERY_ENABLED'):
+                        raise SafeError('unexpected_public_config')
+                    if key.strip() == 'EXPO_PUBLIC_SUPABASE_URL' and value.strip().strip('"').strip("'") != origin:
+                        raise SafeError('different_public_project')
+            public_file.write_text('EXPO_PUBLIC_SUPABASE_URL=' + origin + '\nEXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=' + candidates[0]['api_key'] + '\n')
+            public_file.chmod(0o600)
+            template = '<p>Use este código para redefinir sua senha do Orbe:</p><p><strong>{{ .Token }}</strong></p><p>O código expira em 10 minutos. Se não solicitou, ignore esta mensagem.</p>'
+            settings = {'mailer_templates_recovery_content': template, 'mailer_subjects_recovery': 'Código para redefinir sua senha do Orbe', 'mailer_otp_exp': 600, 'mailer_otp_length': 6}
+            recovery_enabled = False
+            try:
+                request('/config/auth', 'PATCH', settings)
+                configured = request('/config/auth')
+                recovery_enabled = all(configured.get(k) == v for k, v in settings.items())
+                if not recovery_enabled:
+                    raise SafeError('recovery_template_verification_failed')
+            except SafeError as error:
+                if str(error) != 'management_http_400':
+                    raise
+                # Free tier/default SMTP rejected custom templates in the verified project.
+                # Any configuration rejection keeps recovery disabled; never pretend it works.
+            with public_file.open('a') as file:
+                file.write('EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=' + ('true' if recovery_enabled else 'false') + '\n')
+            print(json.dumps({'public_client_configured': True, 'recovery_code_template_verified': recovery_enabled, 'email_sent': False}))
+
             return
         if sys.argv[1] == 'test-owner':
             query = (ROOT / 'tests/admin/owner-access.sql').read_text()

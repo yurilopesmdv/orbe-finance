@@ -12,7 +12,7 @@
     "start": "EXPO_NO_TELEMETRY=1 expo start --lan",
     "ios": "expo start --ios",
     "typecheck": "tsc --noEmit",
-    "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs && node tests/domain/expenses.test.mjs && node tests/domain/portfolio.test.mjs && node tests/domain/classification.test.mjs && node tests/data/query.test.mjs && node tests/data/demo.test.mjs && node tests/data/overrides.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 tests/admin/backend_admin_test.py && node tests/auth/gateway.test.mjs && node tests/domain/reports.test.mjs && node tests/data/report-route.test.mjs",
+    "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs && node tests/domain/expenses.test.mjs && node tests/domain/portfolio.test.mjs && node tests/domain/classification.test.mjs && node tests/data/query.test.mjs && node tests/data/demo.test.mjs && node tests/data/overrides.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 tests/admin/backend_admin_test.py && node tests/auth/gateway.test.mjs && node tests/domain/reports.test.mjs && node tests/data/report-route.test.mjs && node tests/auth/session.test.mjs",
     "export:ios": "EXPO_NO_TELEMETRY=1 expo export --platform ios",
     "check": "npm run typecheck && npm test",
     "security:audit": "node scripts/audit-dependencies.mjs",
@@ -23,7 +23,9 @@
     "backend:cloud:bootstrap": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py bootstrap",
     "backend:cloud:migrate": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py migrate",
     "backend:cloud:test-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-owner",
-    "backend:cloud:set-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py set-owner"
+    "backend:cloud:set-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py set-owner",
+    "backend:cloud:configure-client": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py configure-client",
+    "backend:cloud:smoke-auth": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/auth-smoke.py"
   },
   "dependencies": {
     "expo": "~57.0.30",

@@ -41,10 +41,18 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação — T11b
+## Próxima ação — T12a
 
 T24/T25/T28/T27a/T29a/T30a/T31a concluídas na fatia sintética. TypeScript, 107 testes e exportação iOS passaram. Auth/ponte/persistência reais das subtasks b continuam pendentes. Checkpoint de carteira aef2db8 publicado e CI anterior aprovada.
 
 T08 cloud e T10a concluídas. Migration 20261019180000 cria registro singleton privado/função orbe_is_owner. Teste real como authenticated/anon com duas identidades fictícias passou; rollback e ausência de resíduos confirmados. TypeScript/109 testes locais aprovados. T10b aguarda ORBE_OWNER_USER_ID no arquivo privado; cadastro/senha solicitados diretamente no painel. Não acessar e-mail/senha. Ausência de dono nega acesso. T11a concluída: gateway Auth em src/features/auth/gateway.ts, 20 testes novos, total129 e TypeScript passaram. Não importado pela UI ainda; nenhum login/email real executado nas ferramentas. UUID fornecido pelo titular e T10b provisionada via set-owner, com conta confirmada/não anônima. Nenhum e-mail/senha lido. T11b desbloqueada, seguida de T12; T57a concluída: relatórios locais puros, seleção completa compartilhada com lista; TypeScript/137 testes passaram. T58a concluída: relatório secundário e detalhe por categoria com contexto, cálculo compartilhado e ocultação. TypeScript/139 testes e bundle iOS passaram. Prioridade T11b: integrar configuração pública e UI/sessão. T13 ainda não iniciada.
 
 Git reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar uma task por vez sem esperar novo pedido. Teste físico adiado ao final. Nenhum banco conectado, nenhum dado financeiro real ou recurso F1 acessado.
+
+T11b doing: contrato/plano atualizados. Preparar chave pública/template sem enviar e-mail, implementar sessão e telas. T13 ainda não iniciada.
+
+## T11b implementada — próxima T12a
+
+Login/account, AuthProvider e SessionModel implementados. Config pública em .env.local só com URL/publishable/flag recuperação false; privada permanece separada. TypeScript/160 testes e bundle iOS passaram; PAT/UUID privado ausentes no bundle. Smoke HTTP com fakeuser (confirmado administrativamente sem email) validou token válido não dono negado pelo RPC/gateway, anônimo negado e conta fake deletada. Senha/email do titular não acessados.
+
+Recovery template HTTP400: Free/defaultsender proíbe alteração; T11c bloqueada até SMTP revisado/entrega comprovada, sem contratar nada. T11 inteira não está done. Próxima T12a: assinar AppState, bloquear/cancelar sessão ao inactive/background, limpar email/senha/código do formulário e preservar negação de resultados tardios. T12b físico ao final. T13 não iniciada.

@@ -2,10 +2,12 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { runtime } from '@/config/runtime';
 import { useRouter } from 'expo-router';
+import { useAuth } from '@/features/auth/provider';
 import { Action } from '@/components/ui';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const auth = useAuth();
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.page}>
@@ -19,8 +21,10 @@ export default function WelcomeScreen() {
           <Text accessibilityRole="header" style={styles.cardTitle}>Estamos preparando seu Orbe</Text>
           <Text style={styles.body}>Explore a estrutura do aplicativo com dados demonstrativos. Login, relatórios e conexão por Open Finance continuam em desenvolvimento.</Text>
           <View style={styles.divider} />
-          <Text style={styles.body}>Nenhum banco conectado. Não informe senhas ou dados financeiros neste ambiente.</Text>
+          <Text style={styles.body}>Nenhum banco conectado. A demonstração não solicita senhas bancárias nem dados financeiros.</Text>
         </View>
+        {auth.configured && <Action title="Entrar no Orbe" onPress={() => router.push('/login')} />}
+        <View style={{ height: 12 }} />
         <Action title="Explorar demonstração" onPress={() => router.replace('/(tabs)/overview')} />
         <Text style={styles.footnote}>Orbe Finance · 0.1.0 · {runtime.dataMode === 'synthetic' ? 'Dados demonstrativos' : ''}</Text>
       </ScrollView>
