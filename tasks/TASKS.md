@@ -518,3 +518,11 @@ T20b2:381 testes, typechecks e export iOS aprovados. Coordenador metadata-only, 
 T21a:396 testes e typechecks aprovados. DTO mínimo de contas com vínculo explícito, centavos/data/null, projeção sem PII e dedupe; mapeamento Pluggy e staging ainda pendentes. Próxima T21b.
 
 T21b:412 testes/typechecks aprovados. Staging de contas de uso único integrado por fixtures ao coordenador e MemoryAssets. T21c continua pendente por fonte/OF/gates. Próxima T22a DTO canônico de movimentos, independente do fornecedor.
+
+## T22 — decomposição
+
+- T22a done: DTO interno canônico por conta/mês, [plano](../plan/T22a-CANONICAL-MOVEMENTS.md), EXP-10.
+- T22b pending: staging completo, atualizações/cancelamentos e preservação de overrides/ausentes.
+- T22c pending: adapter fornecedor, identidade estável/janela incremental/reconciliação de período e cobertura, após gates.
+
+T22a:432 testes/typechecks aprovados. Próxima T22b1: promoção atômica do ledger para várias contas do mesmo lote/mês; T22b2 staging depois. A store atual só promove uma conta por chamada e não deve ser anunciada como transação de produto multi-conta.

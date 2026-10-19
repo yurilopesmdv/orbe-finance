@@ -80,3 +80,11 @@ UI usa o mesmo label no texto e accessibilityLabel. Oculto retorna somente Valor
 ## T51a — referências canônicas escalares
 
 reversalOf ausente é undefined; quando presente deve ser objeto com exatamente source/accountId/externalId, todos strings não vazias. Null/array/número/objeto aninhado/campos extras não são referência válida e falham antes de fingerprint/cache. Referência válida ao original ainda não recebido continua parcial, não erro estrutural. Payload raw nunca pode entrar disfarçado em identificador canônico.
+
+## EXP-10 — DTO interno de movimentos por conta/mês (T22a)
+
+Normalizador DEVE ficar desligado antes de tocar conteúdo/contexto. DTO da ponte futura usa IDs internos opacos, conexão/conta vinculadas, centavos não negativos ou null, moeda/direção/status/tipo explícitos e data estrita no mês de Brasília solicitado. Não traduz payload Pluggy nem infere direção pelo sinal. Identidade local conserva campo legado externalId, mas seu conteúdo nesta fronteira é movementId interno; método estável de derivação sem persistência de payload fica no adapter futuro.
+
+Descrição mínima local limitada240caracteres, texto literal sem executar HTML/URL/instruções; extras/CPF/número/credenciais não são projetados. Categoria só se estiver no catálogo autorizado; transferência própria só com movimento no conjunto de evidência confiável, senão tipo unknown/parcial. Estorno sem referência fica parcial; referência só para conta permitida da mesma conexão, nunca correspondência por valor/descrição. Pending/cancelled permanecem explícitos, sem gasto contabilizado. Override é do ledger, não do DTO, e não é sobrescrito pela normalização.
+
+Separar fim de paginação de janela completa: nextCursornull não comprova cobertura histórica. Flags windowComplete e fonte datada determinam parcialidade; vazio/ausência não representa exclusão. Duplicata idêntica idempotente, conflito invalida página; limite1000 registros/cursor512, contexto limitado. T22a não move registros entre meses, cria vínculo nem promove cache. Atualização/cancelamento e staging serão T22b; fonte real e política incremental T22c. Origem/convenção monetária só podem ser documentadas em metadata do adapter revisado; não autorizar retenção de payload bruto pelo requisito anterior.
