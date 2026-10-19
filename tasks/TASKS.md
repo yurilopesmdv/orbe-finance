@@ -330,3 +330,11 @@ T14a: ledger volátil com guard principal/geração, promoção de lote completo
 ## T14a — done
 
 [Ledger volátil](../plan/T14-VOLATILE-LEDGER.md): TypeScript/179 testes aprovados. Promoção atômica escopada, preservação de overrides/moedas e purga por sessão testados. T14b persistente/real permanece pendente; T14 integral não concluída. Próxima T15a: snapshots voláteis de ativos/posições e relações, sem persistir finanças reais.
+
+## Decomposição T15
+
+T15a: snapshots de ativos voláteis com guard compartilhado, depende T13/T24/T14a. T15b: persistência privada e integração protegida depois dos gates T65+. T15 não completa por memória sintética; normalização/cobertura de fonte continua T21/T23.
+
+## T15a — done
+
+[Snapshots voláteis](../plan/T15-VOLATILE-ASSETS.md): TypeScript/189 testes aprovados; guard compartilhado preserva testes do ledger. T15b privado pendente. Encontrado arredondamento de1 centavo no formatter atual em MAX_SAFE_INTEGER; próxima microtask T26b de apresentação monetária exata antes de T16a.

@@ -2,7 +2,8 @@ import { classifyMovement, type ClassificationFields, type ClassificationRule } 
 import { occurrenceMonth } from '../../domain/money.ts';
 import type { MovementRef } from '../../domain/expenses.ts';
 import { queryMovements, selectMovements, type LocalMovement, type MovementFilters } from './query.ts';
-export interface LedgerPrincipal { subject: string; generation: number; unlocked: boolean }
+import { MemoryScope, type MemoryPrincipal } from './scope.ts';
+export type LedgerPrincipal = MemoryPrincipal;
 export interface OwnedMovement extends LocalMovement { ownerSubject: string }
 export interface OwnedCategory { ownerSubject: string; id: string; name: string }
 export interface OwnedRule extends ClassificationRule { ownerSubject: string }
@@ -13,32 +14,18 @@ const scopeKey = (s: ImportScope) => JSON.stringify([s.source, s.accountId, s.mo
 const validText = (value: unknown, max = 200): value is string => typeof value === 'string' && value.trim().length > 0 && value.length <= max;
 type Category = { id: string; name: string; archived: boolean };
 export class MemoryLedger {
-  #guard: () => LedgerPrincipal | null;
-  #principal: LedgerPrincipal;
-  #closed = false;
+  #scope: MemoryScope;
   #rows = new Map<string, LocalMovement>();
   #categories = new Map<string, Category>();
   #rules = new Map<string, ClassificationRule>();
   #overrides = new Map<string, ClassificationFields>();
   #tickets = new Map<symbol, ImportScope>();
   constructor(guard: () => LedgerPrincipal | null) {
-    this.#guard = guard;
-    let principal;
-    try { principal = guard(); } catch { throw new Error('repository_locked'); }
-    if (principal?.unlocked !== true || !validText(principal.subject) || !Number.isSafeInteger(principal.generation) || principal.generation < 0) throw new Error('repository_locked');
-    this.#principal = { ...principal };
+    this.#scope = new MemoryScope(guard, () => { this.#rows.clear(); this.#categories.clear(); this.#rules.clear(); this.#overrides.clear(); this.#tickets.clear(); });
   }
-  #authorize() {
-    let current;
-    try { current = this.#guard(); } catch { current = null; }
-    if (this.#closed || current?.unlocked !== true || current.subject !== this.#principal.subject || current.generation !== this.#principal.generation) {
-      this.close(); throw new Error('repository_locked');
-    }
-  }
-  close() {
-    this.#closed = true; this.#rows.clear(); this.#categories.clear(); this.#rules.clear(); this.#overrides.clear(); this.#tickets.clear();
-  }
-  #owned(subject: string) { if (subject !== this.#principal.subject) throw new Error('owner_mismatch'); }
+  #authorize() { this.#scope.assert(); }
+  close() { this.#scope.close(); }
+  #owned(subject: string) { this.#scope.assertOwner(subject); }
   beginImport(scope: ImportScope): ImportTicket {
     this.#authorize();
     if (!validText(scope.source) || !validText(scope.accountId) || !/^\d{4}-(?:0[1-9]|1[0-2])$/.test(scope.month)) throw new Error('invalid_import_scope');

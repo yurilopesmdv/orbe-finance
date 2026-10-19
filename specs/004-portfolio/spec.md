@@ -42,3 +42,11 @@ Componentes canônicos carregam ID, moeda, centavos ou null, data da fonte ou nu
 ## Recorte T31a — carteira demonstrativa
 
 Separar contas, investimentos e reservas; filtrar instituição mantendo componente incluído junto de seu pai. Mostrar subtotal parcial calculado, fonte/data e valores ausentes. Reserva incluída aparece como detalhe e nunca ativo adicional. Não inferir liquidez/disponível/retorno se fonte não separar. Moeda BRL explícita no cenário; nenhum câmbio implícito. Valores seguem a preferência compartilhada de ocultação. T31b exige T27b, cobertura por instituição e homologação física; T32 mantém gestão de metas/alocações fora deste recorte.
+
+## Recorte T15a — snapshots voláteis de ativos
+
+Reusar guard principal/geração do ledger, sem disco/rede. Import ticket por conexão/produto (conta/investimento/reserva), com instituição enumerada e ownerSubject da entrada igual ao principal. Cada componente mantém moeda/asOf/null/relação; campos extras são descartados. Mesmo ID não troca conexão/produto silenciosamente; inclusão entre conexões é negada. Pai ainda não recebido deixa parcial até reconciliação.
+
+Promover somente lote completo validado; ticket anterior no mesmo escopo é stale. Snapshot não autoritativo mescla itens e mantém subtotal parcial, sem apagar ausentes. Somente evidência explícita de snapshot autoritativo permite substituir todo o produto, inclusive vazio confirmado; remover pai não transforma filho órfão em dinheiro adicional. Informações faltantes de outros produtos/fontes continuam responsabilidade do controller, e sourceComplete é false por padrão. Não inferir rendimento, liquidez ou história. T15b exige runtime/persistência protegidos.
+
+Guard T15a é verificação por operação. Controller privado futuro deverá fechar/purgar o store imediatamente ao bloquear; esta classe volátil não assina Auth por conta própria.
