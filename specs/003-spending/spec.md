@@ -42,3 +42,9 @@ BRL em centavos inteiros seguros (Number.isSafeInteger), entrada monetária deci
 ## Interface pura T26
 
 Entradas canônicas incluem fonte/conta/ID externo, magnitude em centavos, moeda, direção, tipo, estado e data. Mesmo ID com conteúdo financeiro divergente é conflito, não atualização decidida pela ordem da lista; ingestão deve resolver versão antes do domínio. Estorno só reduz gasto se referência ao original efetivado de despesa puder ser confirmada no conjunto fornecido, inclusive fora do mês filtrado. Caso contrário, marcar parcial e preservar item para revisão. Tipos desconhecidos ou valores ausentes tornam a análise parcial. Pagamento de fatura classificado como liquidação não é nova despesa; relatório deve indicar sua base de cobertura.
+
+## Interface pura T25 — classificação
+
+Classificar categoria e tipo separadamente, preservando origem de cada campo: override explícito > primeira regra aplicável > provedor > fallback. Override null de categoria significa Sem categoria e bloqueia fallback; propriedade ausente significa sem override. Tipo fallback é unknown. Catálogo deve ser previamente autorizado pela camada de dados; domínio não substitui isolamento/RLS. IDs duplicados são rejeitados.
+
+Categoria arquivada permanece em override histórico; regras/provedor só podem atribuir categorias ativas. Categoria removida vira Sem categoria e exige revisão, sem descartar movimento. Regra usa trecho literal normalizado (acentos/maiúsculas/espaços), conta/direção opcionais, prioridade numérica menor primeiro e ID como desempate estável; campos ausentes não sobrescrevem outro campo. Nada de regex, IA ou rede. Regras não podem atribuir transferência própria automaticamente; provedor só pode fazê-lo com vínculo confiável entre contas próprias. Sem confirmação, tipo unknown e revisão necessária. Override explícito pode confirmar transferência própria.

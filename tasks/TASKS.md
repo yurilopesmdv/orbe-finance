@@ -51,7 +51,7 @@ Legenda de frentes: Acesso, Dados, Domínio, Backend, UI, Integração, Validaç
 | T22 | T14, T20, T21 | OF-05, EXP-01 | Integração | Importar movimentos e alterações da fonte | Repetição, cancelamento e janela incremental tratados sem apagar ausentes indevidamente |
 | T23 | T15, T20 | OF-05, PORT-02 | Integração | Importar posições de investimentos | IDs, valores null, moeda, bruto/líquido e datas preservados |
 | T24 | T04 | PORT-03, PORT-04, PORT-06 | Domínio | Reconciliar reservas e ativos canônicos | Total sem dupla contagem; ambiguidades geram subtotal parcial e não rentabilidade inventada |
-| T25 | T14, T22 | EXP-02, EXP-03, EXP-04 | Domínio | Aplicar categoria e tipo com precedência explícita | Override vence regra, que vence provedor; Sem categoria preserva valor |
+| T25 | T04, T26 | EXP-02, EXP-03, EXP-04 | Domínio | Aplicar categoria e tipo com precedência explícita | Override vence regra, que vence provedor; Sem categoria preserva valor |
 | T26 | T04 | EXP-05, EXP-06, EXP-07 | Domínio | Calcular mês, estornos, transferências e cartão | Exemplos financeiros fecham com lista; pareamento incerto não remove despesa |
 | T27 | T17, T21, T22, T23, T24, T26 | PRD-02, UX-02 | Backend | Implementar consultas locais e validar ponte autenticada | Filtros/paginação/total/data/completude consistentes e sem acesso cruzado |
 | T28 | T05, T07, T12 | UX-01, UX-03, UX-04 | UI | Criar shell, componentes e estados sintéticos | Safe area, texto dinâmico, acessibilidade e dados demonstrativos identificados |
@@ -211,3 +211,11 @@ Usuário pediu standby até amanhã, salvar progresso e atualizar Git. Execuçã
 ## T24 — done (19/10/2026)
 
 [Reconciliação da carteira](../plan/T24-PORTFOLIO-DOMAIN.md): 19 testes novos, 66 no total e TypeScript aprovados. Retomada autorizada pelo usuário; pausa anterior encerrada. Próxima T25, domínio puro de classificação; T08 continua pendente. Git local reparado com hashes verificados, conforme relatório de validação.
+
+## T25 — doing (19/10/2026)
+
+Domínio puro depende de T04/T26; T14/T22 continuam necessários à integração, sem bloquear regras sintéticas. Contrato SPEC-003 atualizado antes de código.
+
+## T25 — done
+
+[Classificação pura](../plan/T25-CLASSIFICATION-DOMAIN.md) validada: 84 testes totais e TypeScript aprovados. Próxima T28, shell exclusivamente sintético; autenticação real T12 permanece gate de integração.

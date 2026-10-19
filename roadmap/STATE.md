@@ -41,10 +41,8 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação — T25
+## Próxima ação — T28
 
-T24 concluída: reconciliação pura da carteira, 19 testes novos; TypeScript e 66 testes totais passaram. Próxima T25: especificar classificação pura (override > regra > provedor > Sem categoria), planejar, implementar e validar. Ajustar dependência para T04/T26 antes de código: ingestão T14/T22 permanece integração futura. T08 continua sem credencial própria; arquivos de env não existiam na retomada. Não acessar segredos do F1.
+T24 e T25 concluídas e validadas: TypeScript e 84 testes passaram (20 sessão, 9 auditoria, 18 gastos, 19 carteira, 18 classificação). Próxima T28: shell e componentes sintéticos, sem fingir login ou conexão. Ajustar contrato/dependências antes de código; autenticação real T12 continua obrigatória antes de dados privados. T08 sem credencial própria.
 
-Git local tinha nove objetos vazios. Backup e mirror íntegro em /tmp; restauração atômica com hashes verificados e git fsck aprovado. Ver docs/validation/2026-10-19-git-recovery.md. Nenhum reset ou substituição de arquivo de trabalho.
-
-Continuar automaticamente, validar e commitar cada task com checkpoints. Teste físico permanece adiado para a etapa final. Nenhum agente ou serviço em execução necessário para estas funções puras.
+Git local reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar automaticamente uma task por vez com commits e checkpoint. Teste físico permanece ao final.
