@@ -28,7 +28,7 @@ API54341, Postgres54342, captura de email54344, todos locais. Nenhum projeto rem
 
 ## Backend cloud próprio (19/10/2026)
 
-Projeto orbe criado pelo titular, região us-east-1, destinado apenas a desenvolvimento de Auth/metadados. Não conectado a bancos e não aprovado para dados financeiros reais. O arquivo .env.backend.local (modo0600, ignorado) contém SUPABASE_ACCESS_TOKEN e SUPABASE_PROJECT_REF; não usar esse segredo em .env.local ou EXPO_PUBLIC. Expo não precisa dele. Python3 é necessário para administração e testes das proteções; a CI não recebe credenciais.
+Projeto orbe criado pelo titular, região us-east-1, destinado apenas a desenvolvimento de Auth/metadados. Não conectado a bancos e não aprovado para dados financeiros reais. O arquivo ~/.config/orbe-finance/backend.env (modo0600, diretório0700) contém SUPABASE_ACCESS_TOKEN e SUPABASE_PROJECT_REF; .env.backend.local contém somente o ponteiro ORBE_BACKEND_ENV_FILE para ele; não usar esse segredo em .env.local ou EXPO_PUBLIC. Expo não precisa dele. Python3 é necessário para administração e testes das proteções; a CI não recebe credenciais.
 
 `npm run backend:cloud:inspect` verifica destino/metadados/política sem imprimir segredos. `npm run backend:cloud:bootstrap` é preparação idempotente de banco vazio e rejeita tabelas de aplicação existentes. Confere nome/ref/saúde, aplica baseline imutável pelo endpoint de migrations e registra nome com hash no histórico oficial. A versão remota é gerada pela API; não executar CLI db push remoto por divergência com timestamps locais. Novas migrations precisam de operação versionada própria antes de aplicar. Não editar a baseline aplicada.
 
@@ -38,7 +38,7 @@ Cadastro público, anônimo e telefone estão desligados; senha mínima12, JWT10
 
 `npm run backend:cloud:migrate` exige baseline já aplicada, verifica todos os hashes antes de aplicar novas migrations versionadas e confere o histórico. Nunca editar migration aplicada. `npm run backend:cloud:test-owner` executa somente tests/admin/owner-access.sql: identidades inventadas em transação com rollback, papéis authenticated/anon e verificação de resíduos. Não usar para homologar banco real.
 
-Para provisionar proprietário: titular cria a conta em Authentication → Users → Add user → Create new user, senha>=12 e Auto Confirm User; adiciona ORBE_OWNER_USER_ID no arquivo privado .env.backend.local. `npm run backend:cloud:set-owner` valida UUID, conta confirmada/não anônima e rejeita substituição de dono existente. Nenhuma senha/e-mail é lida pela ferramenta. Registro privado singleton não é acessível pelos clientes; função public.orbe_is_owner retorna apenas autorização da sessão atual. Ausência de proprietário nega todo acesso privado. Não concede acesso por chave pública ou e-mail enviado pelo app.
+Para provisionar proprietário: titular cria a conta em Authentication → Users → Add user → Create new user, senha>=12 e Auto Confirm User; adiciona ORBE_OWNER_USER_ID no arquivo privado ~/.config/orbe-finance/backend.env. `npm run backend:cloud:set-owner` valida UUID, conta confirmada/não anônima e rejeita substituição de dono existente. Nenhuma senha/e-mail é lida pela ferramenta. Registro privado singleton não é acessível pelos clientes; função public.orbe_is_owner retorna apenas autorização da sessão atual. Ausência de proprietário nega todo acesso privado. Não concede acesso por chave pública ou e-mail enviado pelo app.
 
 ### Configuração pública e Auth do app
 
@@ -65,3 +65,5 @@ Capacidade null é desconhecida, false é indisponibilidade confirmada. Conexão
 Ledger/ativos/metas em src/data/local são ports voláteis por principal/geração, sem disco/rede. Detectar sessão inválida numa operação purga e bloqueia; integração privada futura deve chamar close imediatamente ao lock. Não confundir guard injetado com autorização real já integrada. T14b/T15b/T16b dependem do runtime protegido.
 
 A tela Metas usa apenas createDemoGoals, com principal constante explicitamente inventado; nunca reutilizar esse seed/guard para dados reais. Orçamento Bradesco do cenário exclui reserva já incluída. Criar/alocar/excluir só muda organização da sessão; sair da demonstração fecha/reset o store, e recarregar movimentos preserva metas. Nenhuma chamada bancária. parse de formulário mantém centavos exatos e data civil DD/MM/AAAA; title/values são mascarados e campos limpos no background.
+
+Isolamento das credenciais e proteção do grafo Metro: [guia](security/DEVELOPMENT-SECRETS.md).

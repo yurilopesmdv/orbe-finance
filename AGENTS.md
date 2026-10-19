@@ -2,7 +2,7 @@
 
 **Retomado em 19/10/2026 por instrução do usuário.** Continuar automaticamente, uma task por vez, com checkpoints. Teste físico permanece adiado para a validação final. Ler roadmap/STATE.md.
 
-Direção vigente: ler [SPEC-009](specs/009-meu-pluggy/spec.md), [plano Meu Pluggy](plan/MEU-PLUGGY.md) e STATE. Automação Meu Pluggy Bradesco/MP PF é principal; Open Finance é a única origem financeira admitida. Revisão0.4 prevalece sobre arquitetura exclusivamente local. Continuar automaticamente uma task por vez; T13/T14a/T15a concluídas; T26b/T16a concluídas; T32a concluída; T51a concluída; próxima T50a, depois T18a. Login/proprietário e bloqueio implementados, somente dados financeiros sintéticos. Recuperação por código depende de SMTP (T11c); teste físico permanece ao final.
+Direção vigente: ler [SPEC-009](specs/009-meu-pluggy/spec.md), [plano Meu Pluggy](plan/MEU-PLUGGY.md) e STATE. Automação Meu Pluggy Bradesco/MP PF é principal; Open Finance é a única origem financeira admitida. Revisão0.4 prevalece sobre arquitetura exclusivamente local. Continuar automaticamente uma task por vez; T13/T14a/T15a concluídas; T26b/T16a concluídas; T32a concluída; T51a concluída; T50a concluída; próxima T50b, depois T18a. Login/proprietário e bloqueio implementados, somente dados financeiros sintéticos. Recuperação por código depende de SMTP (T11c); teste físico permanece ao final.
 
 Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa, plano, backlog e decisões. Este repositório é independente do Bolão F1; não copiar .env, chaves, banco ou pipelines daquele projeto.
 

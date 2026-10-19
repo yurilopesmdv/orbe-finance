@@ -41,3 +41,7 @@ Nenhum sistema consegue provar ausência de vazamento por toda via concebível. 
 - AC-S08: restauração de backup não reativa conexão revogada nem reenvia dados apagados; cron/jobs respeitam bloqueio de coleta.
 
 Até esses gates serem resolvidos, somente pesquisa/documentos e, em fase futura autorizada, dados sintéticos. Não abrir consentimento bancário para testar a privacidade de um fornecedor ainda não avaliado.
+
+## SEC-19 — Isolamento do ambiente de desenvolvimento (T50a)
+
+Credenciais administrativas DEVEM ficar fora do root e dos watchFolders do Metro, em diretório privado exclusivo do Orbe. O arquivo de compatibilidade no projeto contém apenas ponteiro para esse local. Helpers devem rejeitar ponteiro misturado a valores, destino inesperado e symlinks. Metro deve excluir dotenv/arquivos privados do grafo, preservando exclusões padrão. Validar o crawler real com canários inventados, sem consultar arquivos reais por HTTP. Este controle não protege contra código malicioso executado com a mesma conta do sistema; não equivale a homologar LAN, runtime ou dados financeiros reais.

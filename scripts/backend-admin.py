@@ -32,23 +32,46 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         raise SafeError('redirect_rejected')
 
-def config():
-    result = {}
-    path = ROOT / '.env.backend.local'
+PRIVATE_CONFIG = Path.home() / '.config/orbe-finance/backend.env'
+
+def read_values(path):
     if not path.is_file() or path.is_symlink():
         raise SafeError('private_config_missing')
+    result = {}
     for line in path.read_text().splitlines():
         line = line.strip()
-        if not line or line.startswith('#') or '=' not in line:
+        if not line or line.startswith('#'):
             continue
+        if '=' not in line:
+            raise SafeError('invalid_private_config')
         key, value = line.split('=', 1)
-        if key.strip() in result:
+        key = key.strip()
+        if key in result:
             raise SafeError('duplicate_config_key')
-        result[key.strip()] = value.strip().strip('"').strip("'")
+        result[key] = value.strip().strip('"').strip("'")
+    return result
+
+def private_values():
+    pointer = read_values(ROOT / '.env.backend.local')
+    if set(pointer) != {'ORBE_BACKEND_ENV_FILE'}:
+        raise SafeError('private_pointer_required')
+    target = Path(pointer['ORBE_BACKEND_ENV_FILE'])
+    if not target.is_absolute() or target != PRIVATE_CONFIG or ROOT.resolve() in target.resolve().parents:
+        raise SafeError('private_pointer_rejected')
+    if any(parent.is_symlink() for parent in (target, *target.parents)):
+        raise SafeError('private_pointer_rejected')
+    values = read_values(target)
+    if set(values) - {'SUPABASE_ACCESS_TOKEN', 'SUPABASE_PROJECT_REF', 'ORBE_OWNER_USER_ID'}:
+        raise SafeError('unexpected_private_key')
+    target.parent.chmod(0o700)
+    target.chmod(0o600)
+    return values
+
+def config():
+    result = private_values()
     token, ref = result.get('SUPABASE_ACCESS_TOKEN', ''), result.get('SUPABASE_PROJECT_REF', '')
     if not token or not re.fullmatch('[a-z]{20}', ref):
         raise SafeError('invalid_private_config')
-    path.chmod(0o600)
     return token, ref
 
 def client(token, ref):
@@ -81,11 +104,7 @@ def inspect(request):
 
 def owner_id():
     import uuid
-    values = {}
-    for line in (ROOT / '.env.backend.local').read_text().splitlines():
-        if '=' in line and not line.lstrip().startswith('#'):
-            key, value = line.split('=', 1)
-            values[key.strip()] = value.strip().strip('"').strip("'")
+    values = private_values()
     candidate = values.get('ORBE_OWNER_USER_ID', '')
     try:
         if str(uuid.UUID(candidate)) != candidate:

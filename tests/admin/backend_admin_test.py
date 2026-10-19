@@ -27,6 +27,62 @@ def public_configuration_fixture(keys):
             yield root
 
 class BackendGuards(unittest.TestCase):
+    @contextlib.contextmanager
+    def private_fixture(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / 'project'; root.mkdir()
+            private = Path(folder) / 'private/backend.env'; private.parent.mkdir()
+            private.write_text('SUPABASE_ACCESS_TOKEN=invented-token\nSUPABASE_PROJECT_REF=' + 'a' * 20 + '\nORBE_OWNER_USER_ID=00000000-0000-4000-8000-000000000001\n')
+            (root / '.env.backend.local').write_text('ORBE_BACKEND_ENV_FILE=' + str(private) + '\n')
+            with patch.object(admin, 'ROOT', root), patch.object(admin, 'PRIVATE_CONFIG', private):
+                yield root, private
+
+    def test_external_private_config_and_owner_preserved(self):
+        with self.private_fixture() as (root, private):
+            self.assertEqual(admin.config(), ('invented-token', 'a' * 20))
+            self.assertEqual(admin.owner_id(), '00000000-0000-4000-8000-000000000001')
+            self.assertEqual(private.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(private.parent.stat().st_mode & 0o777, 0o700)
+            self.assertNotIn('invented-token', (root / '.env.backend.local').read_text())
+
+    def test_pointer_mixed_with_secret_rejected(self):
+        with self.private_fixture() as (root, private):
+            with (root / '.env.backend.local').open('a') as file:
+                file.write('SUPABASE_ACCESS_TOKEN=invented\n')
+            with self.assertRaisesRegex(admin.SafeError, 'private_pointer_required'):
+                admin.config()
+
+    def test_arbitrary_pointer_rejected(self):
+        with self.private_fixture() as (root, private):
+            (root / '.env.backend.local').write_text('ORBE_BACKEND_ENV_FILE=/tmp/unrelated-project.env\n')
+            with self.assertRaisesRegex(admin.SafeError, 'private_pointer_rejected'):
+                admin.config()
+
+    def test_private_target_symlink_rejected(self):
+        with self.private_fixture() as (root, private):
+            target = private.with_name('other'); private.rename(target); private.symlink_to(target)
+            with self.assertRaisesRegex(admin.SafeError, 'private_pointer_rejected'):
+                admin.config()
+
+    def test_private_directory_symlink_rejected(self):
+        with self.private_fixture() as (root, private):
+            directory = private.parent; actual = directory.with_name('actual')
+            directory.rename(actual); directory.symlink_to(actual, target_is_directory=True)
+            with self.assertRaisesRegex(admin.SafeError, 'private_pointer_rejected'):
+                admin.config()
+
+    def test_external_duplicate_key_rejected(self):
+        with self.private_fixture() as (root, private):
+            with private.open('a') as file: file.write('SUPABASE_PROJECT_REF=duplicate\n')
+            with self.assertRaisesRegex(admin.SafeError, 'duplicate_config_key'):
+                admin.config()
+
+    def test_missing_pointer_never_falls_back_to_global(self):
+        with self.private_fixture() as (root, private):
+            (root / '.env.backend.local').unlink()
+            with self.assertRaisesRegex(admin.SafeError, 'private_config_missing'):
+                admin.config()
+
     def test_other_project_rejected_before_database_access(self):
         calls = []
         def request(*args):
@@ -91,7 +147,7 @@ class BackendGuards(unittest.TestCase):
     def test_owner_identifier_cannot_be_sql_input(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(admin, 'ROOT', Path(folder)):
             (Path(folder) / '.env.backend.local').write_text("ORBE_OWNER_USER_ID='; select secret; --\n")
-            with self.assertRaisesRegex(admin.SafeError, 'owner_uuid_missing_or_invalid'):
+            with patch.object(admin, 'private_values', return_value={'ORBE_OWNER_USER_ID': "'; select secret; --"}), self.assertRaisesRegex(admin.SafeError, 'owner_uuid_missing_or_invalid'):
                 admin.owner_id()
 
     def test_only_publishable_key_enters_client_and_rejected_recovery_stays_off(self):

@@ -370,3 +370,11 @@ T51a: referências escalares canônicas em runtime, depende de T24/T26/T14a/T15a
 ## T51a — done
 
 [Referências escalares](../plan/T51a-SCALAR-REFERENCES.md): TypeScript/216 testes passaram, incluindo canários que não são promovidos/retornados em lotes inválidos. T51b SSRF/URLs segue pendente. Próxima T50a de isolamento de credenciais do root Metro; depois T18a.
+
+## T50a — doing
+
+[Isolamento de segredos](../plan/T50a-DEVELOPMENT-SECRETS.md), SEC-19, depende T08/T51a. Integrador único, paths e aceite no plano. Separar credenciais do grafo Metro e provar com crawler/canários. T50b será launcher/perfil Expo antes de qualquer LAN; T50 integral segue pendente.
+
+## T50a — done
+
+Credenciais preservadas fora do root Expo, ponteiro estrito e exclusões do grafo comprovadas pelo crawler real com canários. TypeScript/224 testes/export iOS/scan privado passaram. Próxima T50b: ambiente e perfil do CLI separados antes de LAN; depois T18a.
