@@ -58,3 +58,13 @@ Cálculo de despesas pode receber evidências de originais separadas dos movimen
 ## Recorte T30a — lista demonstrativa
 
 Lista usa consulta T27a, com período, instituição, tipo, categoria e busca. Resumo acompanha todos os filtros, independentemente da página. Detalhe informa estado, origem e data; permite categoria/tipo de exemplo em memória, sem editar lançamento original. Correções são armazenadas separadas da origem e reaplicadas ao recarregar o lote demonstrativo na sessão. Reiniciar/sair encerra a demonstração; persistência privada e sincronização real ficam T30b/T27b/T14. A UI explica essa limitação. Filtro ativo não é perdido ao abrir/fechar detalhe; Sem categoria é seleção explícita. Valores obedecem ocultação compartilhada.
+
+## Recorte T14a — ledger volátil por sessão
+
+Repositório em memória, sem SQLite/AsyncStorage/arquivo/rede; principal e geração vêm de guard injetado, nunca owner_id escolhido por filtro. Cada operação exige sessão desbloqueada igual ao principal/geração inicial. Troca de usuário/geração ou bloqueio invalida e purga o repositório; fechamento explícito também impede novos acessos. Registros de entrada declaram ownerSubject e são recusados se divergem. Isso é contrato sintético e não prova integração privada com Auth/runtime.
+
+Importação tem escopo fonte/conta/mês e ticket opaco em memória. Apenas o último ticket iniciado nesse escopo pode promover lote explicitamente completo (máximo10.000 entradas, sem truncar). Validar todo lote antes de trocar estado; página incompleta/conflito/erro preserva versão anterior. Mesma identidade pode mudar em novo lote completo; ausentes não são apagados por inferência. Duplicatas conflitantes dentro do lote são erro. Paginação/normalização/datas de leitura reais continuam T20/T22.
+
+Categorias/regras/overrides ficam separados dos fatos da fonte. Override por identidade canônica permanece após promoção; categoria arquivada permanece histórica, porém não pode receber novas regras/atribuições. Nenhum patch pode referenciar categoria inexistente/registro de outro escopo. Leitura retorna cópia e aplica precedência T25; Sem categoria mantém valor. Tipo canonical own_transfer pressupõe confirmação pelo normalizador, nunca texto Pix. Persistência privada e principal Auth real ficam T14b após gate de runtime; não usar este ledger para finanças reais em Expo Go.
+
+Promoção T14a preserva todas as moedas, validando cada conjunto sem converter nem filtrar entradas estrangeiras. Mesmo ID já confirmado em outro mês gera conflito de período, sem decidir por ordem de chegada; remanejamento real de data exigirá reconciliação explícita/versionada T22.

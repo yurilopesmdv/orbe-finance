@@ -322,3 +322,11 @@ Contrato SPEC-002/009 e [plano de metadados](../plan/T13-CONNECTION-METADATA.md)
 ## T13 — done
 
 [Metadados sob RLS](../plan/T13-CONNECTION-METADATA.md): migration aplicada e SQL real com duas identidades/anon/CRUD/FKs/join/agregados aprovado. Rollback sem resíduos e dono preservado; reexecução de três migrations conferiu hashes sem duplicar. TypeScript/165 testes locais passaram. Nenhum item bancário real. Próxima T14a, repositório volátil com escopo de sessão e overrides; persistência privada permanece gate de runtime.
+
+## Decomposição T14
+
+T14a: ledger volátil com guard principal/geração, promoção de lote completo e classificação separada; depende T13/T07/T25/T26/T27a. T14b: persistência privada/runtime e principal Auth real, depende dos gates de armazenamento (T65+) e integração. T14 não completa por memória sintética. Contrato/plano definidos antes de código.
+
+## T14a — done
+
+[Ledger volátil](../plan/T14-VOLATILE-LEDGER.md): TypeScript/179 testes aprovados. Promoção atômica escopada, preservação de overrides/moedas e purga por sessão testados. T14b persistente/real permanece pendente; T14 integral não concluída. Próxima T15a: snapshots voláteis de ativos/posições e relações, sem persistir finanças reais.

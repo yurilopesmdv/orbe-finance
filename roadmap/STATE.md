@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T14a**, ainda não iniciada: repositório volátil de movimentos/categorias/overrides com escopo de sessão; persistência privada depois do gate de runtime.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T15a**, ainda não iniciada: snapshots voláteis de ativos/posições/relações por sessão; persistência privada depois do gate de runtime.
 
 ## Produto e limites obrigatórios
 
@@ -18,6 +18,7 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57. Open Finance exclusivamente
 - T08: projeto Supabase **orbe criado pelo usuário**, ativo/saudável em us-east-1. Baseline remota aplicada por Management API, hash imutável no nome do histórico.
 - T10: proprietário criado pelo titular no Dashboard e provisionado por UUID privado; conta confirmada/não anônima, registro singleton privado e RPC orbe_is_owner booleana por auth.uid. Senha/e-mail do titular nunca consultados nas ferramentas.
 - T11a/T11b login/logout: gateway REST com origem/chave pública restritas, autorização server-side, SessionModel de token volátil, telas login/account; resultado tardio/expiração/logout não restaura sessão. **T11 integral não concluída**, recuperação T11c bloqueada.
+- T14a: ledger volátil com guard principal/geração, promoção de lote completo, categorias/regras/overrides separados; não ligado a cache privado real. T14b persistência pendente.
 - T13: metadados de conexões/contas sob RLS, IDs externos privados, FKs compostas/estado/capacidades testados em SQL real. Zero vínculos reais.
 - T12a: AppState bloqueia/aborta/limpa sessão em inactive/background/desconhecido; retorno exige senha; formulário limpa email/senha/código. T12b físico pendente.
 
@@ -35,7 +36,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **165 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **179 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -43,7 +44,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T14a: contrato/plano de repositório volátil por principal/geração, promoção atômica de lote completo e overrides separados; T14 persistente depende do runtime privado (não gravar finanças reais em Expo Go).
+1. T15a: contrato/plano de snapshots voláteis de ativos por conexão/produto e relações de inclusão, com guard de sessão reutilizável; T15 persistente depende de runtime privado. Não gravar finanças reais em Expo Go.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.
