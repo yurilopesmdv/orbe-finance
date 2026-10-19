@@ -68,3 +68,11 @@ DemoProvider compartilha metas na sessão e reset ao sair descarta o store anter
 Títulos livres de metas podem conter valores; no modo oculto, o título salvo e o rótulo acessível que o repete também usam nome genérico. Erro de formulário deve aparecer na meta correspondente e ser anunciado sem repetir dados digitados.
 
 T51a: includedIn quando presente deve ser string não vazia. Null/número/array/objeto não são identificadores, mesmo que truthy; recusar antes de manter o componente no cache. Pai escalar válido ausente continua parcial como antes.
+
+## PORT-08 — Posições e reservas canônicas (T23a)
+
+Normalizador interno DEVE ficar desligado antes de tocar conteúdo/contexto e aceitar somente IDs internos vinculados à conexão/produto do contexto confiável. Posição preserva grossCents/netCents separados e valueBasis explícito gross/net/unknown; amountCents deriva apenas da base declarada, sem preferência automática, soma dos dois ou promessa de liquidez. Unknown produz amountCentsnull mesmo com bruto/líquido disponíveis. Sem centavos falsos por conversão/arredondamento; negativos preservados e fora do subtotal de ativos.
+
+Produto investment/reserve, classe e natureza asset/allocation são explícitos. Alocação nunca aumenta ativos; investimento deve ser asset. Relação distinct/included/unknown e pai interno autorizado(product,id) são obrigatórios como evidência do adapter futuro, sem inferência por nome de caixinha. Included exige pai na mesma conexão, sem self/ciclo; pai permitido ainda ausente deixa subtotal parcial. Extras/nomes/CPF/números/payload externo não são projetados. Chave namespaceada compatível com contas T21a.
+
+Fonte/data/ausência/autoridade explícitas, duplicatas idênticas idempotentes e divergentes rejeitadas; limites1000linhas/cursor512/10000vínculos. DTO canônico não comprova semântica do fornecedor, consentimento, liquidez ou cobertura de cofrinho. T23a devolve OwnedPosition com metadados de valuation, mas MemoryAssets ainda não os conserva: T23b1 fará retenção explícita antes do staging T23b2. Não declarar posição completa após cache que descarte bruto/líquido.

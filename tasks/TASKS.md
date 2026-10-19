@@ -535,3 +535,12 @@ T22a:432 testes/typechecks aprovados. Próxima T22b1: promoção atômica do led
 T22b1:443 testes/typechecks, promoção multi-conta atômica implementada. Próxima T22b2 staging de movimentos por conexão/mês com manifesto explícito de contas e paginação global; ausência de conta/página não comprova cobertura.
 
 T22b2:461 testes/typechecks aprovados; manifesto de contas e paginação global/porconta separados, publicação única protegida. Comprovação de transferência vinculada ao par conta/movimento. Próxima T23a contrato canônico de investimentos/reservas com fixtures; T22c fornecedor/janela real permanece futuro.
+
+## T23 — decomposição
+
+- T23a done: normalizar posições/reservas internas, [plano](../plan/T23a-CANONICAL-POSITIONS.md).
+- T23b1 pending: conservar metadados explícitos bruto/líquido/base/classe no cache volátil.
+- T23b2 pending: staging completo de posições/reservas, sem perder valuation.
+- T23c pending: adapter fornecedor e cobertura/homologação por banco após gates.
+
+T23a:476 testes/typechecks; DTO de posições/reservas preserva bruto/líquido/base/classe e relações explícitas. T23b1 próximo: cache deve conservar/validar valuation antes do staging; não afirmar cache completo por DTO apenas.
