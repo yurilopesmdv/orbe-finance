@@ -5,9 +5,9 @@ export interface MovementFilters { month: string; currency?: string; accountId?:
 const identity = (m: Movement) => JSON.stringify([m.source, m.accountId, m.externalId]);
 const normalize = (value: string) => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 const sortDate = (date: string) => /^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T00:00:00` : new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).format(new Date(date)).replace(' ', 'T');
-export function queryMovements(input: readonly LocalMovement[], filters: MovementFilters, sourceComplete: boolean) {
-  const currency = filters.currency ?? 'BRL', offset = filters.offset ?? 0, limit = filters.limit ?? 25;
-  if (!Number.isSafeInteger(offset) || offset < 0 || !Number.isSafeInteger(limit) || limit < 1 || limit > 100 || typeof sourceComplete !== 'boolean') throw new Error('invalid_query');
+export function selectMovements(input: readonly LocalMovement[], filters: Omit<MovementFilters, 'offset' | 'limit'>, sourceComplete: boolean) {
+  const currency = filters.currency ?? 'BRL';
+  if (typeof sourceComplete !== 'boolean') throw new Error('invalid_query');
   if (typeof currency !== 'string' || !currency.length || (filters.search !== undefined && typeof filters.search !== 'string')) throw new Error('invalid_query');
   for (const value of [filters.accountId, filters.institutionId, filters.type, filters.categoryId]) if (value !== undefined && value !== null && (typeof value !== 'string' || !value.length)) throw new Error('invalid_query');
   // Validate the complete canonical batch before filtering can hide corrupt records.
@@ -26,5 +26,12 @@ export function queryMovements(input: readonly LocalMovement[], filters: Movemen
     return aDate < bDate ? 1 : aDate > bDate ? -1 : identity(a) < identity(b) ? -1 : identity(a) > identity(b) ? 1 : 0;
   });
   const summary = calculateExpenses(matches, filters.month, currency, [...canonical.values()]);
-  return { items: matches.slice(offset, offset + limit).map(m => ({ ...m, ...(m.reversalOf ? { reversalOf: { ...m.reversalOf } } : {}) })), totalCount: matches.length, nextOffset: offset + limit < matches.length ? offset + limit : null, summary: { ...summary, partial: summary.partial || !sourceComplete } };
+  return { items: matches.map(m => ({ ...m, ...(m.reversalOf ? { reversalOf: { ...m.reversalOf } } : {}) })), totalCount: matches.length, summary: { ...summary, partial: summary.partial || !sourceComplete } };
+}
+
+export function queryMovements(input: readonly LocalMovement[], filters: MovementFilters, sourceComplete: boolean) {
+  const offset = filters.offset ?? 0, limit = filters.limit ?? 25;
+  if (!Number.isSafeInteger(offset) || offset < 0 || !Number.isSafeInteger(limit) || limit < 1 || limit > 100) throw new Error('invalid_query');
+  const selected = selectMovements(input, filters, sourceComplete);
+  return { ...selected, items: selected.items.slice(offset, offset + limit), nextOffset: offset + limit < selected.totalCount ? offset + limit : null };
 }

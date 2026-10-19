@@ -282,3 +282,11 @@ T11a (T07/T10a): gateway REST Auth com testes de transporte sintético. T11b (T1
 ## T11a — done
 
 [Gateway Auth](../plan/T11-AUTH-GATEWAY.md): origem/chave pública restritas, verificação do proprietário server-side, token volátil, recuperação/logout e20 testes de transporte inventado. TypeScript/129 testes passaram. T11b depende de T10b (UUID do dono ainda ausente). Continuar T57a local enquanto aguarda, sem bloquear execução inteira.
+
+## Decomposição T57
+
+T57a: T24/T26/T27a, agregações locais puras compartilhadas com a lista. T57b: mantém T27b, integração privada/autorização e teste de saídas. T57 completa somente com ambas. Contrato SPEC-007 definido antes de código; próxima T58a integra relatório demonstrativo à navegação.
+
+## T57a — done
+
+[Relatórios locais puros](../plan/T57-LOCAL-REPORTS.md): TypeScript/137 testes aprovados, incluindo8 cenários de reconciliação e paginação>100. T57b pendente. Próxima T58a, navegação de relatório demonstrativo e detalhe mantendo filtros.

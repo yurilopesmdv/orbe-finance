@@ -33,3 +33,9 @@ Gastos por categoria; fluxo mensal de consumo; comparação de meses; composiç�
 - AC-R04: falta um banco: visão geral, relatório e detalhe comunicam a mesma parcialidade; histórico inicia no primeiro snapshot válido.
 - AC-R05: ocultar valores vale para títulos, gráfico, lista e leitor de tela; relatório não solicita domínios externos para gerar imagem/gráfico.
 - AC-R06: leitor de tela consegue chegar de resumo a transações e voltar; filtros têm rótulos e não exigem memorizar uma legenda de cores.
+
+## Recorte T57a — agregações locais puras
+
+Relatório usa seleção canônica T27a sem paginação para agregados; página da lista não limita o total. Categoria inclui Sem categoria e usa exatamente o filtro da lista detalhada, incluindo vínculo de estorno fora do filtro. Soma dos líquidos por categoria deve fechar com líquido geral na mesma moeda. Parcialidade global acompanha cada aprofundamento.
+
+Tipos financeiros são apresentados separadamente por entradas/saídas efetivadas e contagens pendentes/canceladas, sem somar duas pernas de transferência como consumo. Valores desconhecidos permanecem contagem de ausência e subtotal parcial. Fonte/moeda/período são explícitos; sem câmbio, previsão ou histórico inventado. T57b exige repositório privado/autorização T27b; a função pura não prova isolamento de usuário.
