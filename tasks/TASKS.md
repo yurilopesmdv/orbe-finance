@@ -238,3 +238,11 @@ T29–T31 podem ter demonstração com T27a; integração real continua exigindo
 ## T27a — done
 
 [Consultas locais](../plan/T27-LOCAL-QUERIES.md): TypeScript e 95 testes aprovados. T27b pendente; T27 não concluída integralmente. Próxima T29a: visão geral demonstrativa com dados inventados, sem persistência financeira.
+
+## Decomposição T29
+
+T29a (T24/T26/T27a/T28): resumo sintético com fonte/data/parcialidade e ocultação visual/acessível. T29b mantém T27b e autenticação, preferência persistente e homologação física. T29 só completa com ambas. Próxima implementação T29a, paths src/data/demo, src/components/privacy.tsx, overview e root layout.
+
+## T29a — done
+
+[Resumo demonstrativo](../plan/T29-OVERVIEW.md): cálculos compartilhados, fontes/datas/parcialidade, valores ocultos por padrão e ao background. TypeScript, 97 testes e exportação iOS passaram. T29b pendente. Próxima T30a, lista e revisão volátil dos exemplos.

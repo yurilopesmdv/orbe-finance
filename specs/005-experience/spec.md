@@ -41,3 +41,9 @@ Quatro abas: Visão geral, Movimentações, Carteira, Ajustes. Relatórios acess
 Quatro abas com rotas reais, safe area, texto escalável e sinalização permanente de dados inventados. Componentes reutilizáveis para cartão, botão e estados (carregando, vazio, sem conexão, parcial, desatualizado, erro e bloqueado). Uma galeria explicitamente demonstrativa em Ajustes permite inspecionar os estados sem representar consultas reais.
 
 Não coletar senha nem simular autenticação, Face ID ou conexão bancária. Dependência T12 permanece gate para integrar dados privados; shell sintético depende apenas de T05/T07. Telas de dados completos são T29–T33. Estado de ocultar valores/persistência pertence à T29 e não fica falsamente apresentado como concluído. Validar typecheck, suíte e exportação iOS; acessibilidade/gestos no aparelho ficam para T38/T45 por decisão do usuário.
+
+## Recorte T29a — resumo demonstrativo
+
+Visão geral usa cenário fixo inteiramente inventado, com Bradesco/MP identificados como exemplos, período outubro/2026 e datas da fonte. Totais calculados pelos mesmos domínios de lista/carteira, não números independentes. Fonte incompleta gera subtotal parcial e explica o que falta. Reservas incluídas não são somadas novamente.
+
+Ocultação começa ativada, mascara texto visual e acessível, é compartilhada entre abas e volta a ocultar ao sair do primeiro plano. Nesta etapa a escolha é apenas em memória; persistência de preferência fica T29b junto à integração. A ocultação não substitui autenticação. T29 completa exige T27b, persistência e validação física. Botões abrem telas existentes sem fingir relatório implementado.
