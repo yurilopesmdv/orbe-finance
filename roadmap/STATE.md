@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T33a**: guia/tela de conexões desconectadas e clareza de login nos Ajustes; fatia independente sem rede. T18b1 portas REST concluídas localmente; T18b2 runtime/deploy desativado pendente, Deno ausente. Nenhum endpoint publicado. T50a/b e T51a concluídas.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T18b2**: revisar contrato oficial e validar runtime/deploy exclusivamente desligado do núcleo da ponte. T33a guia desconectado concluído. T18b1 portas REST concluídas localmente; Deno ainda ausente. Nenhum endpoint publicado até este checkpoint. T50a/b e T51a concluídas.
 
 ## Produto e limites obrigatórios
 
@@ -48,7 +48,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T33a: spec/plan antes do guia/tela desconectada. Ajustes ainda diz incorretamente login não integrado/não solicita senha, enquanto login proprietário existe; corrigir em conjunto com guia bancário sem conexão real. T18b1 usa token explícito por requisição, sem cache de sessão; verificou concorrência Auth+RPC+RLS simulados. T18b2 runtime/HTTP/deploy desativado futura, Deno ausente.
+1. T18b2: revisar API/CLI oficial e decidir validação runtime/deploy sempre desligado, sem segredo de provedor/dados bancários. T33a UI/272 testes/export/scan aprovados; documentação docs/PRODUTO.md. T18b1 usa token explícito por requisição, sem cache compartilhado, validado por concorrência simulada.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.

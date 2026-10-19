@@ -19,7 +19,7 @@ export default function WelcomeScreen() {
         <Text style={styles.description}>Contas, gastos e investimentos em uma visão simples, com os detalhes que você precisa.</Text>
         <View style={styles.card}>
           <Text accessibilityRole="header" style={styles.cardTitle}>Estamos preparando seu Orbe</Text>
-          <Text style={styles.body}>Explore a estrutura do aplicativo com dados demonstrativos. Login, relatórios e conexão por Open Finance continuam em desenvolvimento.</Text>
+          <Text style={styles.body}>Explore resumo, gastos, carteira, metas e relatórios com dados inventados. O acesso por senha é separado; a conexão por Open Finance ainda está em preparação.</Text>
           <View style={styles.divider} />
           <Text style={styles.body}>Nenhum banco conectado. A demonstração não solicita senhas bancárias nem dados financeiros.</Text>
         </View>

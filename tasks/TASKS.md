@@ -406,3 +406,15 @@ Núcleo desligado por padrão, status autorizado/projeção estrita,16KiB/20s e 
 ## T18b1 — done
 
 Portas REST sem estado de sessão compartilhado, Auth+RPC e select RLS de origem fixa. TypeScript cliente/ponte e272 testes aprovados,17REST novos. Sem endpoint/consulta de usuário real. T18b2 runtime/deploy desligado pendente; próxima T33a guia e estados desconectados, independente da integração.
+
+## Decomposição T33
+
+T33a (T28/T11b): tela informativa desconectada e acesso/guia sem rede. T33b (T19/T20/gates): status reais, retorno/consulta/cooldown e ações de pausa. T33 integral segue pendente.
+
+## T33a — doing
+
+[Guia desconectado](../plan/T33a-DISCONNECTED-CONNECTIONS.md), OF-10. Preservar abas e corrigir mensagens desatualizadas de acesso na interface.
+
+## T33a — done
+
+Guia/tela desconectada e mensagens de acesso corrigidas sem mudar abas. TypeScript cliente/ponte,272 testes existentes/export iOS/scan privado aprovados. T33b conexões reais pendente; próxima T18b2 runtime/deploy desligado, começando pela revisão do contrato oficial.
