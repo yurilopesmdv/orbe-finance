@@ -79,14 +79,86 @@ def inspect(request):
         raise SafeError('unexpected_management_schema')
     return tables[0]['count'], history, auth
 
+def owner_id():
+    import uuid
+    values = {}
+    for line in (ROOT / '.env.backend.local').read_text().splitlines():
+        if '=' in line and not line.lstrip().startswith('#'):
+            key, value = line.split('=', 1)
+            values[key.strip()] = value.strip().strip('"').strip("'")
+    candidate = values.get('ORBE_OWNER_USER_ID', '')
+    try:
+        if str(uuid.UUID(candidate)) != candidate:
+            raise ValueError()
+    except ValueError:
+        raise SafeError('owner_uuid_missing_or_invalid') from None
+    return candidate
+
 def main():
-    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap'):
+    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner'):
         raise SafeError('usage_backend_admin_inspect_or_bootstrap')
     token, ref = config()
     request = client(token, ref)
     tables, history, auth = inspect(request)
     print(json.dumps({'project_confirmed': True, 'application_table_count': tables, 'migration_count': len(history), 'auth_policy_matches': all(auth.get(k) == v for k, v in AUTH_POLICY.items())}))
     if sys.argv[1] == 'inspect':
+        return
+    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner'):
+        migrations = sorted((ROOT / 'supabase/migrations').glob('*.sql'))
+        baseline_prefix = 'orbe_20261016170000_bootstrap_'
+        if not any((row.get('name') or '').startswith(baseline_prefix) for row in history):
+            raise SafeError('baseline_required')
+        pending = []
+        for migration in migrations:
+            if not re.fullmatch(r'\d{14}_[a-z0-9_]+', migration.stem):
+                raise SafeError('invalid_migration_filename')
+            content = migration.read_text()
+            prefix = 'orbe_' + migration.stem + '_'
+            name = prefix + hashlib.sha256(content.encode()).hexdigest()
+            existing = [row for row in history if (row.get('name') or '').startswith(prefix)]
+            if existing and any(row.get('name') != name for row in existing):
+                raise SafeError('applied_migration_hash_mismatch')
+            if not existing:
+                if sys.argv[1] != 'migrate':
+                    raise SafeError('pending_migration')
+                pending.append({'name': name, 'query': content})
+        for body in pending:
+            request('/database/migrations', 'POST', body)
+        if sys.argv[1] == 'migrate':
+            verified = request('/database/migrations')
+            for migration in migrations:
+                expected = 'orbe_' + migration.stem + '_' + hashlib.sha256(migration.read_bytes()).hexdigest()
+                if not any(row.get('name') == expected for row in verified):
+                    raise SafeError('migration_verification_failed')
+            print(json.dumps({'versioned_migrations_verified': len(migrations)}))
+            return
+        if sys.argv[1] == 'test-owner':
+            query = (ROOT / 'tests/admin/owner-access.sql').read_text()
+            request('/database/query', 'POST', {'query': query})
+            residue = request('/database/query', 'POST', {'query': "select count(*)::int as count from auth.users where id in ('00000000-0000-4000-8000-000000000001','00000000-0000-4000-8000-000000000002')", 'read_only': True})
+            if residue != [{'count': 0}]:
+                raise SafeError('test_rollback_verification_failed')
+            print(json.dumps({'owner_authorization_rollback_checks_passed': True, 'temporary_identities_remaining': 0}))
+            return
+        owner = owner_id()
+        # UUID is validated before interpolation; no email/password is read or transmitted.
+        query = """begin;
+        select pg_advisory_xact_lock(1749362501);
+        do $owner$ begin
+          if not exists(select 1 from auth.users where id = '%s'::uuid and email_confirmed_at is not null and is_anonymous = false) then
+            raise exception 'owner_identity_not_confirmed';
+          end if;
+          if exists(select 1 from orbe_private.app_owner where user_id <> '%s'::uuid) then
+            raise exception 'owner_replacement_rejected';
+          end if;
+          insert into orbe_private.app_owner(singleton,user_id) values(true,'%s'::uuid) on conflict(singleton) do nothing;
+        end $owner$;
+        commit;""" % (owner, owner, owner)
+        request('/database/query', 'POST', {'query': query})
+        check = request('/database/query', 'POST', {'query': "select exists(select 1 from orbe_private.app_owner where user_id='%s'::uuid) as configured" % owner, 'read_only': True})
+        if check != [{'configured': True}]:
+            raise SafeError('owner_verification_failed')
+        print(json.dumps({'owner_configured': True}))
         return
     # Bootstrap operates only on the empty development project, never an existing app database.
     if tables != 0:

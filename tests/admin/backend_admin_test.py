@@ -60,5 +60,24 @@ class BackendGuards(unittest.TestCase):
             with self.assertRaisesRegex(admin.SafeError, 'private_config_missing'):
                 admin.config()
 
+    def test_all_hashes_are_checked_before_applying_pending_migrations(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); directory = root / 'supabase/migrations'; directory.mkdir(parents=True)
+            baseline = directory / '20261016170000_bootstrap.sql'; baseline.write_text('select 1;')
+            (directory / '20261017180000_new.sql').write_text('select 2;')
+            (directory / '20261019180000_changed.sql').write_text('select 3;')
+            history = [{'name': 'orbe_' + baseline.stem + '_' + hashlib.sha256(baseline.read_bytes()).hexdigest()}, {'name': 'orbe_20261019180000_changed_wrong-hash'}]
+            with patch.object(admin, 'ROOT', root), patch.object(admin, 'config', return_value=('fake', 'a' * 20)), patch.object(admin, 'client') as client, patch.object(admin, 'inspect', return_value=(0, history, {})), patch.object(admin.sys, 'argv', ['admin', 'migrate']), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(admin.SafeError, 'applied_migration_hash_mismatch'):
+                    admin.main()
+                client.return_value.assert_not_called()
+
+    def test_owner_identifier_cannot_be_sql_input(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(admin, 'ROOT', Path(folder)):
+            (Path(folder) / '.env.backend.local').write_text("ORBE_OWNER_USER_ID='; select secret; --\n")
+            with self.assertRaisesRegex(admin.SafeError, 'owner_uuid_missing_or_invalid'):
+                admin.owner_id()
+
 if __name__ == '__main__':
     unittest.main()

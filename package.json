@@ -20,7 +20,10 @@
     "backend:stop": "node scripts/local-backend.mjs stop",
     "backend:status": "node scripts/local-backend.mjs status",
     "backend:cloud:inspect": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py inspect",
-    "backend:cloud:bootstrap": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py bootstrap"
+    "backend:cloud:bootstrap": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py bootstrap",
+    "backend:cloud:migrate": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py migrate",
+    "backend:cloud:test-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-owner",
+    "backend:cloud:set-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py set-owner"
   },
   "dependencies": {
     "expo": "~57.0.30",

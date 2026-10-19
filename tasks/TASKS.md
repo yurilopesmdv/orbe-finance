@@ -266,3 +266,11 @@ T31a: T24/T27a/T28/T29a, carteira demonstrativa por instituição e componente, 
 ## T08 — done via cloud (19/10/2026)
 
 [Backend próprio](../plan/T08-LOCAL-BACKEND.md): projeto novo do usuário confirmado vazio, baseline aplicada uma vez, política Auth restrita e schema privado negado aos papéis clientes. Reexecução idempotente aprovada; TypeScript/107 testes/bundle iOS passaram; token administrativo ausente no bundle. Alternativa local continua bloqueada. Prioridade passou à T10 porque o usuário forneceu credenciais; T57a ainda não iniciada.
+
+## T10 — doing
+
+[Plano de proprietário](../plan/T10-OWNER-ACCESS.md), contrato SPEC-001 definido antes de SQL. Cadastro da identidade/senha solicitado diretamente no painel; continuar deny-by-default e testes sintéticos enquanto aguarda UUID privado.
+
+## T10a — done; T10b pendente
+
+Registro privado/função de autorização aplicados; testes reais com rollback e dois usuários inventados passaram, nenhum resíduo. TypeScript/109 testes locais aprovados. T10b = cadastrar usuário no painel e provisionar UUID privado; solicitado ao titular. T11a cliente de autenticação pode ser preparado contra contrato fail-closed; T11b login efetivo exige T10b.
