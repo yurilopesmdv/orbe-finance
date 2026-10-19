@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
+import { fetch as expoFetch } from 'expo/fetch';
 import { AppState } from 'react-native';
 import { observeActivity } from './lifecycle';
 import { publicAuthConfig } from '@/config/auth';
@@ -11,7 +12,7 @@ const subscribe = () => () => {};
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [model] = useState(() => {
     if (!publicAuthConfig) return null;
-    try { return new SessionModel(createAuthGateway(publicAuthConfig)); } catch { return null; }
+    try { return new SessionModel(createAuthGateway(publicAuthConfig,expoFetch)); } catch { return null; }
   });
   useEffect(() => {
     if (!model) return;

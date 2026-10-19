@@ -1,3 +1,4 @@
+import { readBoundedJson } from '../../lib/bounded-json.ts';
 export type AuthCode = 'invalid_configuration' | 'invalid_credentials' | 'rate_limited' | 'unavailable' | 'cancelled' | 'expired_code' | 'weak_password';
 export class AuthFailure extends Error {
   readonly code: AuthCode;
@@ -5,14 +6,20 @@ export class AuthFailure extends Error {
 }
 export interface AuthSession { readonly accessToken: string; readonly expiresAt: number }
 export interface AuthConfig { origin: string; publishableKey: string }
-type Transport = (url: string, init: RequestInit) => Promise<Response>;
+type Transport = (url: string, init: RequestInit) => Promise<Pick<Response,'ok'|'status'|'redirected'|'headers'|'body'>>;
 type Payload = Record<string, unknown>;
 const isPayload = (value: unknown): value is Payload => typeof value === 'object' && value !== null && !Array.isArray(value);
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const validEmail = (value: string) => typeof value === 'string' && value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 export function createAuthGateway(config: AuthConfig, transport: Transport = fetch, now: () => number = Date.now, timeoutMs = 20000) {
-  if (!/^https:\/\/[a-z]{20}\.supabase\.co$/.test(config.origin) || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(config.publishableKey) || !Number.isSafeInteger(timeoutMs) || timeoutMs <= 0 || timeoutMs > 20000) throw new AuthFailure('invalid_configuration');
+  let origin: string, publishableKey: string;
+  try {
+    if (!config || !Object.hasOwn(config,'origin') || !Object.hasOwn(config,'publishableKey')) throw new Error();
+    const candidateOrigin = config.origin, candidateKey = config.publishableKey;
+    if (typeof candidateOrigin !== 'string' || typeof candidateKey !== 'string' || !/^https:\/\/[a-z]{20}\.supabase\.co$/.test(candidateOrigin) || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(candidateKey) || !Number.isSafeInteger(timeoutMs) || timeoutMs <= 0 || timeoutMs > 20000) throw new Error();
+    origin = candidateOrigin; publishableKey = candidateKey;
+  } catch { throw new AuthFailure('invalid_configuration'); }
   // Only literal internal operations can choose destinations. No arbitrary URL enters the gateway.
   type Operation = 'login' | 'user' | 'owner' | 'logout' | 'recover' | 'verify' | 'update';
   const routes: Record<Operation, string> = { login: '/auth/v1/token?grant_type=password', user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner', logout: '/auth/v1/logout?scope=local', recover: '/auth/v1/recover', verify: '/auth/v1/verify', update: '/auth/v1/user' };
@@ -28,27 +35,30 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
     });
     try {
       const operationResult = (async () => {
-        const response = await transport(config.origin + routes[operation], {
+        const response = await transport(origin + routes[operation], {
           method: operation === 'user' ? 'GET' : operation === 'update' ? 'PUT' : 'POST',
-          headers: { apikey: config.publishableKey, 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+          headers: { apikey: publishableKey, 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
           ...(body === undefined ? {} : { body: JSON.stringify(body) }),
           signal: controller.signal, redirect: 'error', cache: 'no-store', credentials: 'omit',
         });
-        if (signal?.aborted) throw new AuthFailure('cancelled');
-        if (response.redirected) throw new AuthFailure('unavailable');
-        if (response.status === 429) throw new AuthFailure('rate_limited');
-        if (!response.ok) throw new AuthFailure(response.status >= 500 ? 'unavailable' : operation === 'verify' ? 'expired_code' : 'invalid_credentials');
-        if (response.status === 204) return null;
-        const data: unknown = await response.json();
-        if (signal?.aborted) throw new AuthFailure('cancelled');
-        return data;
+        const discardBody = () => { try { void response.body?.cancel().catch(() => {}); } catch { /* No raw provider errors. */ } };
+        try {
+          if (controller.signal.aborted || signal?.aborted) throw new AuthFailure(signal?.aborted ? 'cancelled' : 'unavailable');
+          if (response.redirected) throw new AuthFailure('unavailable');
+          if (response.status === 429) throw new AuthFailure('rate_limited');
+          if (!response.ok) throw new AuthFailure(response.status >= 500 ? 'unavailable' : operation === 'verify' ? 'expired_code' : 'invalid_credentials');
+          if (response.status === 204) { discardBody(); return null; }
+          const data: unknown = await readBoundedJson(response,controller.signal);
+          if (signal?.aborted) throw new AuthFailure('cancelled');
+          return data;
+        } catch (error) { discardBody(); throw error; }
       })();
       return await Promise.race([operationResult, stopped]);
     } catch (error) {
       if (error instanceof AuthFailure) throw error;
       throw new AuthFailure(signal?.aborted ? 'cancelled' : 'unavailable');
     } finally {
-      clearTimeout(timeout); signal?.removeEventListener('abort', cancel);
+      clearTimeout(timeout); signal?.removeEventListener('abort', cancel); controller.abort();
     }
   }
 

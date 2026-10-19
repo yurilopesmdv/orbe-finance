@@ -5,7 +5,7 @@ const config = { origin: `https://${'a'.repeat(20)}.supabase.co`, publishableKey
 const login = { access_token: 'invented-access-token', refresh_token: 'never-retain-this', expires_in: 600, token_type: 'bearer' };
 const user = { id: '00000000-0000-4000-8000-000000000001', is_anonymous: false };
 const email = 'invented@example.invalid', password = 'invented-password-only';
-const response = (body, status = 200) => new Response(status === 204 ? null : JSON.stringify(body), { status });
+const response = (body, status = 200) => new Response(status === 204 ? null : JSON.stringify(body), { status, headers: { 'Content-Type':'application/json' } });
 function fixture(steps, now = () => 1000) {
   const calls = [];
   const gateway = createAuthGateway(config, async (url, init) => {
@@ -101,4 +101,28 @@ test('deadline also rejects when transport ignores abort', async () => {
 test('malformed JSON does not expose provider data', async () => {
   const { gateway } = fixture([new Response('private invalid json', { status: 200 })]);
   await assert.rejects(gateway.signIn(email, password), code('unavailable'));
+});
+
+test('origin and key remain captured after caller mutates the validated configuration',async()=>{
+ const mutable={...config},calls=[],steps=[login,user,true];const gateway=createAuthGateway(mutable,async(url,init)=>{calls.push({url,init});return response(steps.shift());},()=>1000);
+ mutable.origin='https://attacker.invalid';mutable.publishableKey='sb_publishable_changed';await gateway.signIn(email,password);
+ for(const call of calls){assert.ok(call.url.startsWith(config.origin+'/'));assert.equal(call.init.headers.apikey,config.publishableKey);}
+});
+test('object string coercion inherited or throwing configuration never creates a gateway',()=>{
+ let coerced=0;const boxed={toString(){coerced++;return config.origin;}};
+ for(const input of [{...config,origin:boxed},{...config,publishableKey:new String(config.publishableKey)},Object.create(config),{get origin(){throw new Error('PRIVATE_SYNTHETIC');},publishableKey:config.publishableKey}])assert.throws(()=>createAuthGateway(input),code('invalid_configuration'));
+ assert.equal(coerced,0);
+});
+test('successful HTTP oversized JSON is rejected before session parsing with no error echo',async()=>{
+ const {gateway}=fixture([new Response(JSON.stringify({...login,padding:'x'.repeat(131072)}),{headers:{'Content-Type':'application/json'}})]);await assert.rejects(gateway.signIn(email,password),code('unavailable'));
+});
+test('Auth deadline also interrupts a pending response body',async()=>{
+ let cancelled=false;const stream=new ReadableStream({pull(){return new Promise(()=>{});},cancel(){cancelled=true;}},{highWaterMark:0});
+ const gateway=createAuthGateway(config,async()=>new Response(stream,{headers:{'Content-Type':'application/json'}}),()=>1000,5);
+ await assert.rejects(gateway.signIn(email,password),code('unavailable'));assert.equal(cancelled,true);
+});
+
+test('non-success response body is cancelled without reading private provider errors',async()=>{
+ let reads=0,cancelled=false;const stream=new ReadableStream({pull(){reads++;},cancel(){cancelled=true;}},{highWaterMark:0});
+ const {gateway,calls}=fixture([new Response(stream,{status:429,headers:{'Content-Type':'application/json'}})]);await assert.rejects(gateway.signIn(email,password),code('rate_limited'));assert.equal(reads,0);assert.equal(cancelled,true);assert.equal(calls[0].init.signal.aborted,true);
 });

@@ -548,3 +548,9 @@ T23a:476 testes/typechecks; DTO de posições/reservas preserva bruto/líquido/b
 T23b1:483 testes/typechecks; cache projeta quatro campos de valuation com validação conjunta e dedupe completo. Próxima T23b2 staging de investimentos/reservas usando normalizador concreto e cache com valuation.
 
 T23b2:493 testes/typechecks; engine interno compartilhado por factories concretas de contas e posições, sem função recebida por transporte. Staging de valuation/ciclos/ausência validado. Próxima T36a revisão e coordenação sintética do conjunto de produtos; fonte real T21c/T22c/T23c continua pendente.
+
+## T51c — done (achado antes de T36a)
+
+[Transporte Auth](../plan/T51c-AUTH-TRANSPORT.md), AUTH-10. Fechar cap de JSON/configuração mutável; transporte Expo streaming em Provider. T36a coordenação de produtos continua posterior. Não há evidência de vazamento.
+
+T51c:506 testes/typechecks, export iOS e scan de segredos aprovados. Config Auth capturada, JSON limitado antes do parse, Provider expo/fetch e body rejeitado cancelado. Teste físico/redirect/cookies/cache nativo seguem pendentes. Retomar T36a.

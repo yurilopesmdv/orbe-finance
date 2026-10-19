@@ -75,3 +75,7 @@ Formulário limpa e-mail/senha/código/avisos ao perder active e volta ao modo l
 ## AUTH-09 — Guard de operação síncrona
 
 Sessão DEVE permitir assertUnlocked sem devolver token/identidade, validando expiração mesmo se timer ficou suspenso. Controller privado futuro combina esse guard com principal/geração e revisão da conexão; stores recebem guard opcional de commit imediatamente antes do swap. Guard expirado não troca cache nem transforma resultado tardio em acesso válido. Isso não habilita dados reais no Expo Go.
+
+## AUTH-10 — Transporte Auth limitado e configuração capturada (T51c)
+
+Gateway DEVE exigir origem/publishable strings primitivas e capturá-las antes de qualquer await, sem reconsultar objeto mutável para compor destino/cabeçalhos. Respostas JSON bem-sucedidas só podem ser interpretadas após validação de Content-Type, tamanho declarado e leitura limitada128KiB de bytes UTF-8 estritos. Ausência de stream não admite fallback ilimitado via json/text; erro genérico, cancelamento/20s continuam. App iOS usa transporte expo/fetch do SDK instalado para body stream/redirecterror/credentialsomit; leitura local de implementação não substitui teste físico final. Não afirmar cache nativo bloqueado só pela opção RequestInit.cache. Nenhum token/erro bruto em logs, fixtures ou documentos.
