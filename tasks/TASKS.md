@@ -362,3 +362,11 @@ T32a (T16a/T24/T31a): tela/seed demonstrativos de metas com parser exato e reset
 ## T32a — done
 
 [Metas demonstrativas](../plan/T32-DEMO-GOALS-UI.md): criar/alocar/desvincular/excluir por tela secundária da Carteira, contexto/reset da sessão, orçamento explícito sem alterar patrimônio. TypeScript/212 testes e bundle iOS aprovados; valores privados ausentes nos artefatos. T32b/físico pendentes. Próxima T51a: endurecer tipos escalares de referências antes da ponte, depois T18a.
+
+## Decomposição T51
+
+T51a: referências escalares canônicas em runtime, depende de T24/T26/T14a/T15a. T51b mantém dependências T18/T49 e valida URLs/redirects/conteúdo da ponte. T51 completa somente com ambas. Spec/plano definidos antes da correção.
+
+## T51a — done
+
+[Referências escalares](../plan/T51a-SCALAR-REFERENCES.md): TypeScript/216 testes passaram, incluindo canários que não são promovidos/retornados em lotes inválidos. T51b SSRF/URLs segue pendente. Próxima T50a de isolamento de credenciais do root Metro; depois T18a.

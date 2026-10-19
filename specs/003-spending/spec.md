@@ -76,3 +76,7 @@ O guard de memória é verificado em cada operação; ao detectar perda de sess�
 Formatter não divide centavos Number por100 para produzir fração em ponto flutuante. Separar parte inteira e resto por BigInt; formatar apenas unidade inteira segura com Intl e inserir os dois dígitos originais no campo fraction, inclusive negativos menores que1 unidade. Preservar moeda explícita sem conversão. MAX_SAFE_INTEGER centavos termina em ,91, nunca ,90.
 
 UI usa o mesmo label no texto e accessibilityLabel. Oculto retorna somente Valor oculto sem formatar valor; null é Não informado; entrada inválida não arredonda nem imprime conteúdo, recebe Valor indisponível na UI. Helper estrito lança código genérico para integração/teste. Não alterar layout.
+
+## T51a — referências canônicas escalares
+
+reversalOf ausente é undefined; quando presente deve ser objeto com exatamente source/accountId/externalId, todos strings não vazias. Null/array/número/objeto aninhado/campos extras não são referência válida e falham antes de fingerprint/cache. Referência válida ao original ainda não recebido continua parcial, não erro estrutural. Payload raw nunca pode entrar disfarçado em identificador canônico.

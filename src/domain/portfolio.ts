@@ -13,6 +13,7 @@ export function reconcilePortfolio(components: readonly AssetComponent[], curren
   const items = new Map<string, AssetComponent>(), signatures = new Map<string, string>();
   for (const component of components) {
     if (![component.id, component.currency].every(value => typeof value === 'string' && value.length > 0) || !['asset', 'allocation', 'credit_limit'].includes(component.kind) || !['distinct', 'included', 'unknown'].includes(component.relation)) throw new Error('invalid_component');
+    if (component.includedIn !== undefined && (typeof component.includedIn !== 'string' || !component.includedIn.length)) throw new Error('invalid_inclusion_reference');
     if (component.amountCents !== null) assertCents(component.amountCents);
     if (component.asOf !== null) occurrenceMonth(component.asOf);
     if (component.kind === 'asset' && component.relation === 'included' && !component.includedIn) throw new Error('missing_inclusion_reference');

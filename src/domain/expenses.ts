@@ -19,6 +19,10 @@ export function calculateExpenses(movements: readonly Movement[], month: string,
   for (const movement of [...evidence, ...movements]) {
     if (!types.has(movement.type) || !['credit', 'debit'].includes(movement.direction) || !['posted', 'pending', 'cancelled'].includes(movement.status)) throw new Error('invalid_movement');
     if (![movement.source, movement.accountId, movement.externalId, movement.currency].every(v => typeof v === 'string' && v.length > 0)) throw new Error('invalid_movement');
+    if (movement.reversalOf !== undefined) {
+      const ref = movement.reversalOf;
+      if (typeof ref !== 'object' || ref === null || Array.isArray(ref) || Object.keys(ref).length !== 3 || !Object.keys(ref).every(field => ['source', 'accountId', 'externalId'].includes(field)) || ![ref.source, ref.accountId, ref.externalId].every(value => typeof value === 'string' && value.length > 0)) throw new Error('invalid_reversal_reference');
+    }
     if (movement.amountCents !== null) {
       assertCents(movement.amountCents);
       if (movement.amountCents < 0) throw new Error('negative_movement_magnitude');

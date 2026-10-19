@@ -66,3 +66,5 @@ Destino secundário /goals pela Carteira, sem nova aba. Criar meta com título, 
 DemoProvider compartilha metas na sessão e reset ao sair descarta o store anterior. Recarregar movimentos não apaga metas. Seed: raiz Bradesco inventada, orçamento não reservado explicitamente conhecido; investimento/MP desconhecido não viram orçamento. Vinculação a reserva existente da fonte e persistência real continuam T32b/T16b. A integração deve validar também soma segura de alocações por meta antes de promover candidato, não só por raiz.
 
 Títulos livres de metas podem conter valores; no modo oculto, o título salvo e o rótulo acessível que o repete também usam nome genérico. Erro de formulário deve aparecer na meta correspondente e ser anunciado sem repetir dados digitados.
+
+T51a: includedIn quando presente deve ser string não vazia. Null/número/array/objeto não são identificadores, mesmo que truthy; recusar antes de manter o componente no cache. Pai escalar válido ausente continua parcial como antes.
