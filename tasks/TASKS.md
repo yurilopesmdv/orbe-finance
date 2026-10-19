@@ -398,3 +398,11 @@ T18a: núcleo HTTP/ports sintéticos e gate desligado, depende T13/T50a/b. T18b:
 ## T18a — done
 
 Núcleo desligado por padrão, status autorizado/projeção estrita,16KiB/20s e cancelamento validados. Typecheck cliente/ponte e255 testes aprovados (21HTTP novos). Sem deploy/adapters externos. T18b decomposta em T18b1 REST Auth/metadados local e T18b2 runtime Edge/deploy desligado; T18c segue bloqueada pelos gates.
+
+## T18b1 — doing
+
+[Portas REST](../plan/T18b1-REST-PORTS.md): origem/projeção fixas, token explícito por requisição, Auth/RPC/RLS simulados. Sem deploy/Deno/bancos.
+
+## T18b1 — done
+
+Portas REST sem estado de sessão compartilhado, Auth+RPC e select RLS de origem fixa. TypeScript cliente/ponte e272 testes aprovados,17REST novos. Sem endpoint/consulta de usuário real. T18b2 runtime/deploy desligado pendente; próxima T33a guia e estados desconectados, independente da integração.

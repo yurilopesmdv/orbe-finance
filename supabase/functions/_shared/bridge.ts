@@ -1,7 +1,7 @@
 // Transport-independent core. No deployed entrypoint or provider adapter in T18a.
 export interface BridgePorts {
   authenticate(token: string, signal: AbortSignal): Promise<unknown>;
-  listConnections(subject: string, signal: AbortSignal): Promise<unknown>;
+  listConnections(subject: string, signal: AbortSignal, token: string): Promise<unknown>;
 }
 export interface BridgeClock {
   now(): number;
@@ -127,7 +127,7 @@ export function createBridgeHandler(ports: BridgePorts, options: { enabled?: boo
         const expiresAt = principal.expiresAt;
         await emptyBody(request, controller.signal); active(controller.signal);
         if (expiresAt <= clock.now()) fail(401, 'unauthorized');
-        const rows = await ports.listConnections(subject, controller.signal);
+        const rows = await ports.listConnections(subject, controller.signal, bearer[1]!);
         active(controller.signal);
         if (expiresAt <= clock.now()) fail(401, 'unauthorized');
         return json(200, { connections: projectConnections(rows, subject) });
