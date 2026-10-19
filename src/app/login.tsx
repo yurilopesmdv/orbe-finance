@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { AppState, StyleSheet, Text, TextInput } from 'react-native';
 import { Redirect, useRouter } from 'expo-router';
 import { Action, Body, Card, Screen, palette } from '@/components/ui';
+import { observeActivity } from '@/features/auth/lifecycle';
 import { useAuth } from '@/features/auth/provider';
 import { recoveryEnabled } from '@/config/auth';
 import type { AuthCode } from '@/features/auth/gateway';
@@ -23,6 +24,9 @@ export default function LoginScreen() {
   const [notice, setNotice] = useState('');
   const busy = ['authenticating', 'sending_code', 'recovering'].includes(auth.snapshot.state);
   useEffect(() => () => { if (auth.model?.getSnapshot().state !== 'unlocked') auth.model?.lock(); }, [auth.model]);
+  useEffect(() => observeActivity(AppState, active => {
+    if (!active) { setEmail(''); setPassword(''); setCode(''); setNotice(''); setMode('login'); }
+  }), []);
   if (auth.snapshot.state === 'unlocked') return <Redirect href="/account" />;
   if (!auth.configured) return <Screen title="Login indisponível" subtitle="O acesso ainda está em configuração." demonstration={false}><Action title="Voltar ao início" onPress={() => router.replace('/')} /></Screen>;
   const changeMode = (next: typeof mode) => { auth.model?.lock(); setPassword(''); setCode(''); setNotice(''); setMode(next); };

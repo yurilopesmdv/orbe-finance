@@ -10,7 +10,7 @@ npm run export:ios
 npm start
 ```
 
-Abrir pelo Expo Go no iPhone da mesma LAN privada usando QR/URL exibido pelo Metro. Não usar npm run ios em Linux esperando que ele abra simulador iOS; não há Xcode. Não habilitar túnel por padrão. Primeira tela deve mostrar AMBIENTE DE DEMONSTRAÇÃO e informar que nenhum banco está conectado. Reiniciar o processo não deve apresentar login ou finanças reais.
+Abrir pelo Expo Go no iPhone da mesma LAN privada usando QR/URL exibido pelo Metro. Não usar npm run ios em Linux esperando que ele abra simulador iOS; não há Xcode. Não habilitar túnel por padrão. Primeira tela deve mostrar AMBIENTE DE DEMONSTRAÇÃO e informar que nenhum banco está conectado. Reiniciar o processo inicia sem sessão; login aparece se a configuração pública estiver disponível. A demonstração sempre é inventada e finanças reais permanecem desligadas.
 
 T07 valida typecheck/testes/exportação no host; abertura no iPhone e acessibilidade física precisam de registro separado. Se o Expo Go atualizar seu supported SDK, revisar runtime antes de migrar. Face ID e armazenamento financeiro real continuam fora do ambiente inicial.
 
@@ -47,3 +47,9 @@ Para provisionar proprietário: titular cria a conta em Authentication → Users
 O projeto Free/remetente padrão recusou customizar template (HTTP400). EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false mantém a recuperação por código indisponível. Nenhum SMTP contratado/email de teste enviado por ferramenta. Recuperação T11c exige SMTP próprio revisado, template Token e entrega comprovada; não ativar apenas mudando flag no cliente.
 
 `npm run backend:cloud:smoke-auth` é opt-in e nunca roda na CI: cria uma identidade inventada com confirmação administrativa (sem email), valida negação do gateway/RPC/anônimo no backend e a remove em finally. Apenas configuração pública/credenciais inventadas chegam ao filho Node por stdin. Não usar conta/senha real do titular nesse comando. O teste positivo do titular e o fluxo físico ficam ao final conforme combinado.
+
+### Bloqueio de sessão
+
+AppState somente active permite autenticar/receber resultados; inactive/background/estado desconhecido limpam sessão e abortam consultas. Voltar active exige novo login. Formulário limpa email/senha/código ao perder active. Expiração usa timer e conferência antes/depois de operações; snapshots React não contêm tokens. Tentativa de logout remoto é best effort, e JWT já emitido pode durar até a expiração; não equivale a revogação instantânea universal.
+
+Teste de ciclo de vida é sintético. Alternador/captura/VoiceOver/gerenciador de senhas e retorno de autorização no iPhone serão validados no final; Expo Go não foi aprovado para finanças reais. Face ID continua indisponível, sem botão falso.

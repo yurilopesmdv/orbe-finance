@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
+import { AppState } from 'react-native';
+import { observeActivity } from './lifecycle';
 import { publicAuthConfig } from '@/config/auth';
 import { createAuthGateway } from './gateway';
 import { SessionModel, type SessionSnapshot } from './session';
@@ -11,7 +13,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!publicAuthConfig) return null;
     try { return new SessionModel(createAuthGateway(publicAuthConfig)); } catch { return null; }
   });
-  useEffect(() => () => model?.lock(), [model]);
+  useEffect(() => {
+    if (!model) return;
+    const stop = observeActivity(AppState, active => model.setActive(active));
+    return () => { stop(); model.setActive(false); };
+  }, [model]);
   return <Context.Provider value={model}>{children}</Context.Provider>;
 }
 export function useAuth() {

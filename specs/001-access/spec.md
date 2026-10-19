@@ -65,3 +65,9 @@ Sessão de aplicação mantém access token apenas em campo privado de uma máqu
 T12 conecta AppState e limpeza visual ao estado da sessão antes de expor finanças; enquanto isso, a tela autenticada mostra somente confirmação de acesso/limite demonstrativo. Não declarar login físico/entrega de recuperação concluídos sem titular.
 
 Observação em19/10/2026: Management API recusou alteração de template no Free com remetente padrão (HTTP400). Recuperação por código fica desabilitada por EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false; não enviar pedido de código que não pode ser entregue. Não fazer upgrade/contratar SMTP automaticamente. Preparar telas/gateway com testes, mas recuperação efetiva continua bloqueada até SMTP próprio revisado e entrega comprovada. Login por senha independe disso.
+
+## Recorte T12a — ciclo de vida
+
+Provider observa estado inicial e mudanças de AppState. Somente active permite iniciar/receber sessão; inactive/background/estado desconhecido bloqueiam, abortam operações e tentam encerrar sessão, sem depender do sucesso remoto. Retornar active nunca desbloqueia automaticamente. Remover assinatura no unmount e ignorar eventos já enfileirados após remoção.
+
+Formulário limpa e-mail/senha/código/avisos ao perder active e volta ao modo login. Tela protegida renderiza Redirect se sessão bloqueada; não cobrir conteúdo privado apenas com modal. Preferência demonstrativa de ocultação também volta a oculta. Expo Go não prova proteção contra captura/gravação/alternador nativo: T12b/T53/T38/T45 permanecem validação física e runtime. Face ID continua ausente.

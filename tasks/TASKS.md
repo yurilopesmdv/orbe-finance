@@ -306,3 +306,11 @@ Titular cadastrou identidade no Dashboard e forneceu UUID privado; backend confe
 ## T11b — login/logout implementados; T11c pendente
 
 TypeScript/160 testes, bundle iOS e smoke HTTP real de negação com identidade inventada passaram; conta temporária removida. Token administrativo e UUID privado ausentes no bundle. T11c = recuperação efetiva por código, bloqueada por template/SMTP no Free; flag false, sem emails de teste ou contratação. T11 integral continua pendente. Próxima T12a liga AppState à sessão e limpa formulários.
+
+## Decomposição T12
+
+T12a: integração AppState e limpeza de formulário, depende de login T11b (não do SMTP T11c). T12b: homologação física de bloqueio/alternador/retorno, permanece final T38/T45/T53. Face ID deferred conforme runtime; T12 não é prova de proteção nativa completa.
+
+## T12a — done
+
+[Ciclo de vida](../plan/T12-APP-LIFECYCLE.md): AppState bloqueia/cancela e limpa campos; voltar active exige senha. TypeScript/165 testes e bundle iOS aprovados; sem PAT/UUID privado no bundle. T12b físico pendente ao final. Próxima T13: conexões/contas, RLS e vínculo privado, sem valores bancários.

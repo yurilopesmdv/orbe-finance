@@ -2,7 +2,7 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual: execução retomada em 19/10/2026.** Bootstrap Expo, domínio de gastos e reconciliação de carteira implementados; 160 testes passaram. Backend próprio preparado; login implementado para validação final; recuperação por e-mail pendente; teste no iPhone reservado à validação final.
+**Estado atual: execução retomada em 19/10/2026.** Interface demonstrativa com carteira, gastos e relatórios; backend próprio com proprietário restrito, login e bloqueio por segundo plano implementados. TypeScript, 165 testes e exportação iOS aprovados. Recuperação por e-mail e teste físico pendentes. Nenhum banco conectado; finanças reais continuam desligadas.
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 
