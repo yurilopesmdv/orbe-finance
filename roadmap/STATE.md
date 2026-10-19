@@ -1,6 +1,6 @@
 # Estado de retomada —19/10/2026
 
-Execução ativa por ordem do usuário, reiterada “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar confirmação. Repo /home/yurilopesm/projects/orbe-finance, main. T20b2/T21a/b/T22a/b1/b2/T23a/b1/b2 e T51c concluídas em fixtures. Última T51c limitou resposta Auth/config capturada e injetou expo/fetch;506 testes/typechecks, export iOS2.5MB e scan PAT/ownerUUID aprovados. T36a concluída: quatro produtos roteados em fixtures,518 testes/typechecks. T36b concluída: controller de caches por sessão/escopo local,531 testes/typechecks. Próxima **T37a** revisar/spec controles de pausa/remoção no backend, sem banco real. Teste no iPhone fica final por instrução do usuário; gates financeiros false.
+Execução ativa por ordem do usuário, reiterada “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar confirmação. Repo /home/yurilopesm/projects/orbe-finance, main. T20b2/T21a/b/T22a/b1/b2/T23a/b1/b2 e T51c concluídas em fixtures. Última T51c limitou resposta Auth/config capturada e injetou expo/fetch;506 testes/typechecks, export iOS2.5MB e scan PAT/ownerUUID aprovados. T36a concluída: quatro produtos roteados em fixtures,518 testes/typechecks. T36b concluída: controller de caches por sessão/escopo local,531 testes/typechecks. T37a concluída: migration6 aplicada/imutável, pausa/fence e remoção de metadata com sessão/senha recente;535 testes/typechecks e SQL real com rollback/zero fakeusers+sessions/owner preservado. Próxima **T37b1** porta cliente de comandos em fixtures/desligada. Teste no iPhone fica final por instrução do usuário; gates financeiros false.
 
 ## Produto, limites e gate
 
@@ -32,7 +32,7 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57, Node22.23.2/npm12.2.0. Open
 
 ## Backend e segredos
 
-Projeto próprio Orbe saudável(us-east-1),6tabelas app metadata/Auth,5migrations imutáveis: 20261016170000_bootstrap,20261019180000_owner_access,20261019200000_connection_metadata,20261019210000_read_leases,20261019220000_split_consents. Não editar aplicadas. ManagementAPI atribui versão remota diferente; nome orbe_<stem>_<sha256>, helper verifica hashes. Não usar CLI dbpush remoto.
+Projeto próprio Orbe saudável(us-east-1),6tabelas app metadata/Auth,6migrations imutáveis: 20261016170000_bootstrap,20261019180000_owner_access,20261019200000_connection_metadata,20261019210000_read_leases,20261019220000_split_consents,20261019230000_connection_controls. Não editar aplicadas. ManagementAPI atribui versão remota diferente; nome orbe_<stem>_<sha256>, helper verifica hashes. Não usar CLI dbpush remoto.
 
 ~/.config/orbe-finance/backend.env(0600/diretório0700) guarda PAT/ref/ownerUUID; .env.backend.local ignorado contém só ORBE_BACKEND_ENV_FILE para destino fixo. Nunca imprimir valores. .env.local somente publicURL/publishable/recoveryfalse. Perfil Expo exclusivo ~/.config/orbe-finance/expo-cli; CLI offline não bloqueia login HTTP do app. Metro permanece parado, sem LAN/túnel/teste físico novo.
 
@@ -42,7 +42,7 @@ Docker Orbe parado: launcher anterior detectou Mailpit wildcard54344 e parou som
 
 ## Validação e bloqueios
 
-TypeScript cliente/ponte e **531 testes locais** passaram até T36b. Export Hermes iOS2.5MB T51c aprovado; PAT/UUID ausentes. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI6b90662 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39289486505; não declarar HEADCI aprovada sem conferir.
+TypeScript cliente/ponte e **535 testes locais** passaram até T37a. Export Hermes iOS2.5MB T51c aprovado; PAT/UUID ausentes. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI6b90662 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39289486505; não declarar HEADCI aprovada sem conferir.
 
 Auditoria18high em2raízes sem patch, exceção somente sintética até23/10(cutoff24/10UTC);10moderados corrigidos por overrides. Não auditfixforce nem liberar dados reais. CI sem secrets/testes sintéticos/audit/export; SQL/smokes remotos opt-in.
 
@@ -50,7 +50,7 @@ SMTPFree/default recusou template OTP HTTP400; recoveryflagfalse/sem envioemail.
 
 ## Próximos passos
 
-1. T37a: investigar specs/SQL/admin helper e referências Supabase antes de implementar pause/remove metadata. Manter migrations aplicadas imutáveis, teste transacional com identidades inventadas e owner real preservado. Não confundir pausa/desvínculo com revogação/exclusão no fornecedor. Remoção deve exigir reautenticação recente comprovada no servidor (ver claims oficiais), não apenas iat/flag cliente; sem pedir senha ao usuário nas ferramentas. Retomada real de pausa depende status/consentimento atual do fornecedor.
+1. T37b1: spec/plan de porta cliente de pausa/remove com SessionModel.read (JWT privado), origem/RPC fixas, IDs/revisão no corpo, configuração pública primitiva capturada, JSONbounded16KiB/20s/cancel/sem erro bruto. Gatesoff zeroacesso e literalbool de confirmação, sem presumir reauth por cliente. Não ligar UI ou prometer purge por conexão nesta fatia; T37b2 lifecycle/UI depois. Migrations6 aplicadas, não editar. Nenhuma operação de banco/fornecedor.
 2. T18b3/T18c/T19b2/T21–T23: adapters/source/OF/gates. Não mapear status empresarial para proxy pessoal sem comprovar contrato. Nenhum banco real aprovado.
 3. T14b–T17/T29b–T33b dependem runtime privado/segurança; T65+ decidir FaceID/cache/SDK além de ExpoGo. Não tratar devbuild como prova de segurança.
 4. T60c2 só evolução de snapshots existentes. T11c recuperação depende SMTP. Testes físicos/VoiceOver/loginpositivo ficam finais por ordem do usuário.

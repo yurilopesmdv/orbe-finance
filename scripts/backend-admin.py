@@ -114,7 +114,7 @@ def owner_id():
     return candidate
 
 def main():
-    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases'):
+    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases', 'test-connection-controls'):
         raise SafeError('usage_backend_admin_inspect_or_bootstrap')
     token, ref = config()
     request = client(token, ref)
@@ -122,7 +122,7 @@ def main():
     print(json.dumps({'project_confirmed': True, 'application_table_count': tables, 'migration_count': len(history), 'auth_policy_matches': all(auth.get(k) == v for k, v in AUTH_POLICY.items())}))
     if sys.argv[1] == 'inspect':
         return
-    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases'):
+    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases', 'test-connection-controls'):
         migrations = sorted((ROOT / 'supabase/migrations').glob('*.sql'))
         baseline_prefix = 'orbe_20261016170000_bootstrap_'
         if not any((row.get('name') or '').startswith(baseline_prefix) for row in history):
@@ -150,6 +150,25 @@ def main():
                 if not any(row.get('name') == expected for row in verified):
                     raise SafeError('migration_verification_failed')
             print(json.dumps({'versioned_migrations_verified': len(migrations)}))
+            return
+        if sys.argv[1] == 'test-connection-controls':
+            owner = owner_id()
+            check_query = "select exists(select 1 from orbe_private.app_owner where user_id='%s'::uuid) as configured" % owner
+            before = request('/database/query', 'POST', {'query': check_query, 'read_only': True})
+            if before != [{'configured': True}]:
+                raise SafeError('provisioned_owner_required')
+            failure = None
+            try:
+                request('/database/query', 'POST', {'query': (ROOT / 'tests/admin/connection-controls.sql').read_text()})
+            except SafeError as error:
+                failure = error
+            residue = request('/database/query', 'POST', {'query': "select ((select count(*) from auth.users where id in ('00000000-0000-4000-8000-000000000071','00000000-0000-4000-8000-000000000072')) + (select count(*) from auth.sessions where id in ('70000000-0000-4000-8000-000000000071','70000000-0000-4000-8000-000000000072')))::int as count", 'read_only': True})
+            after = request('/database/query', 'POST', {'query': check_query, 'read_only': True})
+            if residue != [{'count': 0}] or after != before:
+                raise SafeError('connection_controls_test_rollback_failed')
+            if failure is not None:
+                raise failure
+            print(json.dumps({'connection_controls_sql_rollback_checks_passed': True, 'temporary_identities_remaining': 0, 'owner_preserved': True}))
             return
         if sys.argv[1] == 'test-read-leases':
             owner = owner_id()

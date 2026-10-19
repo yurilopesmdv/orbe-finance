@@ -27,27 +27,50 @@ def public_configuration_fixture(keys):
             yield root
 
 @contextlib.contextmanager
-def lease_configuration_fixture(residue=0, owner_after=True):
+def lease_configuration_fixture(residue=0, owner_after=True, command='test-read-leases', execution_error=False):
     import hashlib
     from unittest.mock import Mock
     with tempfile.TemporaryDirectory() as folder:
         root = Path(folder); directory = root / 'supabase/migrations'; directory.mkdir(parents=True)
         baseline = directory / '20261016170000_bootstrap.sql'; baseline.write_text('select 1;')
         history = [{'name': 'orbe_' + baseline.stem + '_' + hashlib.sha256(baseline.read_bytes()).hexdigest()}]
-        sql = root / 'tests/admin/read-leases.sql'; sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
+        sql = root / ('tests/admin/connection-controls.sql' if command == 'test-connection-controls' else 'tests/admin/read-leases.sql'); sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
         reads = 0
         def request(path, method='GET', body=None):
             nonlocal reads
-            if body.get('query') == 'fixed-rollback-fixture': return []
+            if body.get('query') == 'fixed-rollback-fixture':
+                if execution_error:
+                    raise admin.SafeError('management_http_400')
+                return []
             if body.get('query', '').startswith('select exists'):
                 reads += 1
                 return [{'configured': True if reads == 1 else owner_after}]
             if 'count(*)' in body.get('query', ''): return [{'count': residue}]
             raise AssertionError('unexpected lease test operation')
-        with patch.object(admin, 'ROOT', root), patch.object(admin, 'config', return_value=('invented', 'a' * 20)), patch.object(admin, 'client', return_value=Mock(side_effect=request)), patch.object(admin, 'inspect', return_value=(6, history, {})), patch.object(admin, 'owner_id', return_value='00000000-0000-4000-8000-000000000031'), patch.object(admin.sys, 'argv', ['admin', 'test-read-leases']), contextlib.redirect_stdout(io.StringIO()):
-            yield
+        with patch.object(admin, 'ROOT', root), patch.object(admin, 'config', return_value=('invented', 'a' * 20)), patch.object(admin, 'client', return_value=Mock(side_effect=request)), patch.object(admin, 'inspect', return_value=(6, history, {})), patch.object(admin, 'owner_id', return_value='00000000-0000-4000-8000-000000000031'), patch.object(admin.sys, 'argv', ['admin', command]), contextlib.redirect_stdout(io.StringIO()):
+            yield lambda: reads
 
 class BackendGuards(unittest.TestCase):
+    def test_connection_controls_checks_owner_even_after_execution_error(self):
+        with lease_configuration_fixture(command='test-connection-controls', execution_error=True) as owner_reads:
+            with self.assertRaisesRegex(admin.SafeError, 'management_http_400'):
+                admin.main()
+            self.assertEqual(owner_reads(), 2)
+
+    def test_connection_controls_rollback_and_owner_preserved(self):
+        with lease_configuration_fixture(command='test-connection-controls'):
+            admin.main()
+
+    def test_connection_controls_residue_rejected(self):
+        with lease_configuration_fixture(residue=1, command='test-connection-controls'):
+            with self.assertRaisesRegex(admin.SafeError, 'connection_controls_test_rollback_failed'):
+                admin.main()
+
+    def test_connection_controls_owner_change_rejected(self):
+        with lease_configuration_fixture(owner_after=False, command='test-connection-controls'):
+            with self.assertRaisesRegex(admin.SafeError, 'connection_controls_test_rollback_failed'):
+                admin.main()
+
     @contextlib.contextmanager
     def private_fixture(self):
         with tempfile.TemporaryDirectory() as folder:

@@ -564,3 +564,11 @@ T51c:506 testes/typechecks, export iOS e scan de segredos aprovados. Config Auth
 T36a:518 testes/typechecks; roteamento concreto dos produtos e publishedProducts explícito validados. Nenhum módulo novo conectado à UI/Auth/fornecedor. Próxima T36b ciclo de vida dos caches.
 
 T36b:531 testes/typechecks; controller privado de caches por sessão, cancel/purge/novo escopo e concorrência validados com SessionModel inventado. Gerador real/integração UI/runtime/fornecedor continuam futuros. Próxima T37a revisar/spec operações server-side de pausa/remoção de metadata.
+
+## T37 — decomposição
+
+- T37a done: controles server-side de metadata com sessão/reautenticação, [plano](../plan/T37a-CONNECTION-CONTROLS.md), OF-19.
+- T37b pending: comandos locais/cancelamento/cachepurge e UI privada depois dos gates.
+- T37c pending: retomada com status fresco e revogação/exclusão no fornecedor, sem confundir operações.
+
+T37a:535 testes/typechecks e SQL real com rollback/zero fakeusers+sessions/owner preservado. Migration6 imutável; pausa/fence e remoção com revisão/sessão/senha recente somente metadata. Próxima T37b1 porta cliente fechada para RPCs, em fixtures/desligada; UI/cachepurge T37b2 posterior.
