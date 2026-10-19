@@ -9,6 +9,7 @@ export interface OwnedCategory { ownerSubject: string; id: string; name: string 
 export interface OwnedRule extends ClassificationRule { ownerSubject: string }
 export interface ImportScope { source: string; accountId: string; month: string }
 export interface ImportTicket { readonly token: symbol }
+export interface LedgerBatch { readonly ticket: ImportTicket; readonly items: readonly OwnedMovement[]; readonly complete: boolean }
 const identity = (m: MovementRef) => JSON.stringify([m.source, m.accountId, m.externalId]);
 const scopeKey = (s: ImportScope) => JSON.stringify([s.source, s.accountId, s.month]);
 const validText = (value: unknown, max = 200): value is string => typeof value === 'string' && value.trim().length > 0 && value.length <= max;
@@ -35,37 +36,52 @@ export class MemoryLedger {
   }
   abortImport(ticket: ImportTicket) { this.#authorize(); this.#tickets.delete(ticket.token); }
   promote(ticket: ImportTicket, items: readonly OwnedMovement[], complete: boolean, beforeCommit?: () => undefined) {
+    this.promoteBatches([{ ticket, items, complete }], beforeCommit);
+  }
+  promoteBatches(batches: readonly LedgerBatch[], beforeCommit?: () => undefined) {
     this.#authorize();
-    const scope = this.#tickets.get(ticket?.token);
-    if (!scope) throw new Error('stale_import');
-    if (complete !== true) throw new Error('incomplete_batch');
-    if (!Array.isArray(items) || items.length > 10000) throw new Error('invalid_batch_size');
-    const clean = items.map(item => {
-      if (!item || typeof item !== 'object') throw new Error('invalid_movement');
-      this.#owned(item.ownerSubject);
-      if (item.source !== scope.source || item.accountId !== scope.accountId || occurrenceMonth(item.occurredAt) !== scope.month) throw new Error('out_of_scope_movement');
-      const movement: LocalMovement = {
-        source: item.source, accountId: item.accountId, externalId: item.externalId, amountCents: item.amountCents, currency: item.currency,
-        direction: item.direction, type: item.type, status: item.status, occurredAt: item.occurredAt, institutionId: item.institutionId, description: item.description, categoryId: item.categoryId,
-        ...(item.reversalOf ? { reversalOf: { source: item.reversalOf.source, accountId: item.reversalOf.accountId, externalId: item.reversalOf.externalId } } : {}),
-      };
-      return movement;
-    });
-    const currencies = [...new Set(clean.map(movement => movement.currency))];
-    const canonical = currencies.flatMap(currency => selectMovements(clean, { month: scope.month, currency }, true).items);
-    const candidate = new Map(this.#rows);
-    for (const movement of canonical) {
-      const previous = candidate.get(identity(movement));
-      if (previous && occurrenceMonth(previous.occurredAt) !== scope.month) throw new Error('movement_period_conflict');
-      candidate.set(identity(movement), movement);
+    if (!Array.isArray(batches) || batches.length < 1 || batches.length > 1000) throw new Error('invalid_batch_size');
+    const candidate = new Map(this.#rows), scopes = new Set<string>(), currencies = new Set<string>();
+    const prepared: { token: symbol; scope: ImportScope }[] = [];
+    let source: string | undefined, month: string | undefined, receivedRows = 0;
+    for (const batch of batches) {
+      if (!batch || typeof batch !== 'object') throw new Error('invalid_batch_size');
+      const token = batch.ticket?.token, scope = this.#tickets.get(token);
+      if (!scope) throw new Error('stale_import');
+      if (batch.complete !== true) throw new Error('incomplete_batch');
+      const items = batch.items;
+      if (!Array.isArray(items) || items.length > 10000 || (receivedRows += items.length) > 10000) throw new Error('invalid_batch_size');
+      if (source !== undefined && (scope.source !== source || scope.month !== month) || scopes.has(scopeKey(scope))) throw new Error('inconsistent_batch_scope');
+      source = scope.source; month = scope.month; scopes.add(scopeKey(scope)); prepared.push({ token, scope });
+      const clean = items.map(item => {
+        if (!item || typeof item !== 'object') throw new Error('invalid_movement');
+        this.#owned(item.ownerSubject);
+        if (item.source !== scope.source || item.accountId !== scope.accountId || occurrenceMonth(item.occurredAt) !== scope.month) throw new Error('out_of_scope_movement');
+        const movement: LocalMovement = {
+          source: item.source, accountId: item.accountId, externalId: item.externalId, amountCents: item.amountCents, currency: item.currency,
+          direction: item.direction, type: item.type, status: item.status, occurredAt: item.occurredAt, institutionId: item.institutionId, description: item.description, categoryId: item.categoryId,
+          ...(item.reversalOf ? { reversalOf: { source: item.reversalOf.source, accountId: item.reversalOf.accountId, externalId: item.reversalOf.externalId } } : {}),
+        };
+        return movement;
+      });
+      const batchCurrencies = [...new Set(clean.map(movement => movement.currency))];
+      const canonical = batchCurrencies.flatMap(currency => selectMovements(clean, { month: scope.month, currency }, true).items);
+      for (const currency of batchCurrencies) currencies.add(currency);
+      for (const movement of canonical) {
+        const previous = candidate.get(identity(movement));
+        if (previous && occurrenceMonth(previous.occurredAt) !== scope.month) throw new Error('movement_period_conflict');
+        candidate.set(identity(movement), movement);
+      }
     }
-    // Validate the merged view before one atomic pointer swap; preserve rows absent from a read.
-    for (const currency of currencies) selectMovements([...candidate.values()], { month: scope.month, currency }, true);
+    // Validate every account before one pointer swap; absence never implies deletion.
+    for (const currency of currencies) selectMovements([...candidate.values()], { month: month!, currency }, true);
     if (beforeCommit !== undefined && (typeof beforeCommit !== 'function' || beforeCommit() !== undefined)) throw new Error('invalid_commit_guard');
     this.#authorize();
-    if (this.#tickets.get(ticket.token) !== scope) throw new Error('stale_import');
-    this.#rows = candidate; this.#tickets.delete(ticket.token);
+    if (prepared.some(({ token, scope }) => this.#tickets.get(token) !== scope)) throw new Error('stale_import');
+    this.#rows = candidate;
+    for (const { token } of prepared) this.#tickets.delete(token);
   }
+
   createCategory(input: OwnedCategory) {
     this.#authorize(); this.#owned(input.ownerSubject);
     if (!validText(input.id, 80) || !validText(input.name, 80) || this.#categories.has(input.id)) throw new Error('invalid_category');

@@ -526,3 +526,10 @@ T21b:412 testes/typechecks aprovados. Staging de contas de uso único integrado 
 - T22c pending: adapter fornecedor, identidade estável/janela incremental/reconciliação de período e cobertura, após gates.
 
 T22a:432 testes/typechecks aprovados. Próxima T22b1: promoção atômica do ledger para várias contas do mesmo lote/mês; T22b2 staging depois. A store atual só promove uma conta por chamada e não deve ser anunciada como transação de produto multi-conta.
+
+### T22b — subdivisão por atomicidade
+
+- T22b1 done: promoção multi-conta atômica no MemoryLedger, [plano](../plan/T22b1-ATOMIC-LEDGER.md).
+- T22b2 pending: staging de produto paginado usando publicação atômica; nenhuma sequência de commits por conta é considerada atomicidade de produto.
+
+T22b1:443 testes/typechecks, promoção multi-conta atômica implementada. Próxima T22b2 staging de movimentos por conexão/mês com manifesto explícito de contas e paginação global; ausência de conta/página não comprova cobertura.
