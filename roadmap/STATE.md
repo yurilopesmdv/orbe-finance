@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T60a**: comparação pura de períodos com base zero/negativa, mês aberto/parcial/sem histórico e precisão explícitos. T59a filtros por conta/tipo/categoria e contexto pai concluídos. T18b2 runtime gerenciado desligado orbe-bridge v1 sempre503; adapters ativos ainda não homologados. T33a guia desconectado e T18b1 portas REST locais concluídas.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T60b**: UI de comparação mensal com observações explicitamente fictícias, sem fabricar histórico. T60a comparação pura concluída; T59a filtros avançados/contexto pai concluídos. T18b2 orbe-bridge v1 desligada sempre503; adapters ativos não homologados. T33a guia desconectado concluído.
 
 ## Produto e limites obrigatórios
 
@@ -40,7 +40,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **283 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,6 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte,17 REST ponte,1 hostmock,6 guardas deploy. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **297 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,6 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte,17 REST ponte,1 hostmock,6 guardas deploy,14 comparação. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -48,7 +48,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T60a: spec/plan antes de comparações puras com meses/observações explícitos e BigInt. T59a passou283 testes/export/scan: contexto por conta/tipo/categoria preservado; scopeCategory da rota recomputa parcialidade pai sem confiar em flag do cliente. T60b UI será posterior, sem inventar histórico.
+1. T60b: spec/plan antes de UI/fixtures de comparação mensal. compareMonths usa duas observações canônicas de meses consecutivos/moeda única, centavos/BigInt, cobertura/observedAt, null não zero; percentual só fechado/completo/base positiva/current>=0.297 testes passaram,14novos. Roteiro ROADMAP atualizadoativo.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.

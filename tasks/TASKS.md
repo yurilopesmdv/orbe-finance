@@ -434,3 +434,15 @@ Runtime gerenciado desligado validado em três HTTP anônimos503; função próp
 ## T59a — done
 
 Filtros por conta/tipo/categoria e resumo visível, contexto/pai preservado no detalhe. TypeScript cliente/ponte e283 testes/export iOS/scan passaram. T59b privado/físico pendente. Próxima T60a comparação pura com base zero/período aberto/parcial/sem histórico explícitos.
+
+## Decomposição T60
+
+T60a comparação mensal pura de observações explícitas; T60b UI/fixtures e avisos por estado; T60c composição/evolução por snapshots existentes sem inventar rentabilidade. Privado depende gates.
+
+## T60a — doing
+
+[Comparação mensal](../plan/T60a-MONTH-COMPARISON.md), RPT-10, depende T26/T57a. Sem histórico ou UI inventados nesta task.
+
+## T60a — done
+
+Comparação mensal pura de observações explícitas, BigInt e razão/partialidade honesta. TypeScript cliente/ponte e297 testes aprovados (14novos). Roadmap ativo atualizado. Próxima T60b UI/fixtures de comparação; T60c evolução/composição e privado seguem pendentes.
