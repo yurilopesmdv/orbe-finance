@@ -59,3 +59,7 @@ Comparação DEVE usar observações de dois meses consecutivos da mesma moeda, 
 ## RPT-11 — Comparação na demo (T60b)
 
 Relatórios DEVE abrir comparação com os mesmos filtros e voltar preservando contexto. Setembro2026 é definido explicitamente como cenário vazio conhecido; outubro2026 é observação parcial em19/10; agosto ou mês sem fixture permanece ausente, sem saldo inventado. Valores da comparação derivam da seleção local completa, nunca de histórico gerado. Diferença e percentual usam ocultação visual/acessível compartilhada; motivos não contêm valores. Rota aceita somente filtros conhecidos, sem texto livre/valores. Não é evolução de patrimônio nem rentabilidade.
+
+## RPT-12 — Composição do subtotal conhecido (T60c1)
+
+Composição DEVE agrupar somente countedIds da reconciliação por instituição e classe explícitas. Reserva incluída, alocação de meta e limite de crédito não acrescentam valor. Valor sem classificação fica em grupo não classificado, sem inferir por nome/ID. Cada agrupamento deve somar exatamente o subtotal reconciliado; percentuais referem-se somente a esse subtotal conhecido e devem fechar100,00% via maiores restos e desempate estável. Base zero tem percentual indisponível. Outras moedas ficam separadas, cobertura parcial/datas distintas permanecem visíveis. Valor, percentual e eventual visual proporcional obedecem à ocultação compartilhada. Não gerar evolução/rentabilidade sem snapshots.

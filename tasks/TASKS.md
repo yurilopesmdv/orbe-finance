@@ -454,3 +454,11 @@ Comparação mensal pura de observações explícitas, BigInt e razão/partialid
 ## T60b — done
 
 Comparação ligada aos filtros da demo, fonte/cobertura/null e ocultação explícitos. TypeScript cliente/ponte e307 testes/export iOS/scan passaram. T60c decomposta em c1 composição por fonte/classe sem duplicidade e c2 evolução apenas com snapshots existentes. Próxima T60c1.
+
+## T60c1 — doing
+
+[Composição conhecida](../plan/T60c1-PORTFOLIO-COMPOSITION.md), RPT-12, depende T24/T31a. T60c2 evolução por snapshots existentes fica separada; sem inventar histórico.
+
+## T60c1 — done
+
+Composição do subtotal conhecido por banco/classe reconciliada, shares100% e sem duplicidade. TypeScript cliente/ponte e320 testes/export/scan aprovados. T60c2 evolução exige snapshots, não fabricados. Próxima T19a estados/capacidades e autorização de leitura por produto em domínio puro.

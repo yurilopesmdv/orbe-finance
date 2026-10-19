@@ -21,6 +21,7 @@ export default function PortfolioScreen() {
       <Body>{summary.mixedDates ? 'Fontes com datas diferentes: 18 e 19/10/2026.' : 'Fonte inventada de 19/10/2026.'} {summary.partial ? 'Investimentos do Mercado Pago não informados; patrimônio incompleto.' : 'Total apenas dos componentes inventados selecionados.'}</Body>
       <Body>Reservas incluídas são detalhe do saldo, não dinheiro adicional. Rentabilidade e valor disponível não foram informados pela fonte deste exemplo.</Body>
     </Card>
+    <Action title="Ver composição por instituição e classe" secondary onPress={() => router.push({ pathname: '/composition', params: { institution: institution ?? 'all' } })} />
     {sections.map(section => {
       const assets = components.filter(asset => demoAssetLabels[asset.id]?.section === section.id);
       return <Card key={section.id} title={section.label}>
