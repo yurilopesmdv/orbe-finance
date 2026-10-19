@@ -502,3 +502,9 @@ Portas REST de lease lazy/server-only, deadline/cancel/schema/sem segredo emURL,
 ## T19b1 — done
 
 Consentimentos distintos e gate de proxy desconhecido/vencido aplicados em migration5.359 testes/typecheck e SQL lease/metadados/proprietário reais aprovados com rollback/zero fakes/owner preservado. Nenhum fornecedor acessado. Retomar T20b2; T19b2 adapter originalOF e revisão SEC05/upstreamURL ainda pendentes.
+
+## T20b2 — done
+
+[Coordenação com fixtures](../plan/T20b2-BATCH-COORDINATION.md), OF-15/AUTH-09. Recibos metadata/staging local, guard no commit, sem normalizador real/endpoint/segredo.
+
+T20b2:381 testes, typechecks e export iOS aprovados. Coordenador metadata-only, deadline/cancelamento e guard de commit preservam último lote válido; normalizadores T21–23 e transporte financeiro continuam futuros.

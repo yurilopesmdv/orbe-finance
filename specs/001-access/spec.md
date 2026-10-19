@@ -71,3 +71,7 @@ Observação em19/10/2026: Management API recusou alteração de template no Fre
 Provider observa estado inicial e mudanças de AppState. Somente active permite iniciar/receber sessão; inactive/background/estado desconhecido bloqueiam, abortam operações e tentam encerrar sessão, sem depender do sucesso remoto. Retornar active nunca desbloqueia automaticamente. Remover assinatura no unmount e ignorar eventos já enfileirados após remoção.
 
 Formulário limpa e-mail/senha/código/avisos ao perder active e volta ao modo login. Tela protegida renderiza Redirect se sessão bloqueada; não cobrir conteúdo privado apenas com modal. Preferência demonstrativa de ocultação também volta a oculta. Expo Go não prova proteção contra captura/gravação/alternador nativo: T12b/T53/T38/T45 permanecem validação física e runtime. Face ID continua ausente.
+
+## AUTH-09 — Guard de operação síncrona
+
+Sessão DEVE permitir assertUnlocked sem devolver token/identidade, validando expiração mesmo se timer ficou suspenso. Controller privado futuro combina esse guard com principal/geração e revisão da conexão; stores recebem guard opcional de commit imediatamente antes do swap. Guard expirado não troca cache nem transforma resultado tardio em acesso válido. Isso não habilita dados reais no Expo Go.

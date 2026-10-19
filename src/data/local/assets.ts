@@ -26,7 +26,8 @@ export class MemoryAssets {
     for (const [token, prior] of this.#tickets) if (scopeKey(prior) === scopeKey(scope)) this.#tickets.delete(token);
     const token = Symbol('asset-import'); this.#tickets.set(token, { ...scope }); return Object.freeze({ token });
   }
-  promote(ticket: AssetTicket, items: readonly OwnedAsset[], complete: boolean, authoritative = false) {
+  abortImport(ticket: AssetTicket) { this.#guard.assert(); this.#tickets.delete(ticket.token); }
+  promote(ticket: AssetTicket, items: readonly OwnedAsset[], complete: boolean, authoritative = false, beforeCommit?: () => undefined) {
     this.#guard.assert();
     const scope = this.#tickets.get(ticket?.token);
     if (!scope) throw new Error('stale_import');
@@ -53,7 +54,10 @@ export class MemoryAssets {
     }
     const currencies = [...new Set([...candidate.values()].map(asset => asset.currency))];
     for (const currency of currencies) reconcilePortfolio([...candidate.values()], currency);
-    this.#guard.assert(); this.#rows = candidate; this.#institutions.set(scope.connectionId, scope.institutionId); this.#tickets.delete(ticket.token);
+    if (beforeCommit !== undefined && (typeof beforeCommit !== 'function' || beforeCommit() !== undefined)) throw new Error('invalid_commit_guard');
+    this.#guard.assert();
+    if (this.#tickets.get(ticket.token) !== scope) throw new Error('stale_import');
+    this.#rows = candidate; this.#institutions.set(scope.connectionId, scope.institutionId); this.#tickets.delete(ticket.token);
     if (authoritative) this.#unconfirmed.delete(scopeKey(scope)); else this.#unconfirmed.set(scopeKey(scope), scope);
   }
   list(filters: { connectionId?: string; institutionId?: string; currency?: string } = {}, sourceComplete = false) {

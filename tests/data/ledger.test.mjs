@@ -47,3 +47,18 @@ test('cross-period duplicate requires explicit reconciliation, never last arriva
   const f = fixture(); f.promote(); const ticket = f.ledger.beginImport({ ...scope, month: '2026-09' });
   assert.throws(() => f.ledger.promote(ticket, [{ ...movement, occurredAt: '2026-09-30' }], true), /movement_period_conflict/); assert.equal(list(f.ledger).summary.netCents, 10000);
 });
+
+test('failed fresh commit guard preserves the last valid movement batch', () => {
+  const f = fixture(); f.promote(); const ticket = f.ledger.beginImport(scope);
+  assert.throws(() => f.ledger.promote(ticket, [{ ...movement, amountCents: 1 }], true, () => { throw new Error('lease_expired'); }), /lease_expired/);
+  assert.equal(list(f.ledger).summary.netCents, 10000); f.ledger.abortImport(ticket);
+  assert.throws(() => f.ledger.promote(ticket, [movement], true), /stale_import/);
+});
+
+test('newer reentrant movement ticket and async guard never overwrite the confirmed batch', () => {
+  const f = fixture(); f.promote(); const ticket = f.ledger.beginImport(scope);
+  assert.throws(() => f.ledger.promote(ticket, [{ ...movement, amountCents: 1 }], true, () => { f.ledger.beginImport(scope); }), /stale_import/);
+  const newer = f.ledger.beginImport(scope);
+  assert.throws(() => f.ledger.promote(newer, [{ ...movement, amountCents: 1 }], true, () => Promise.resolve()), /invalid_commit_guard/);
+  assert.equal(list(f.ledger).summary.netCents, 10000);
+});

@@ -34,7 +34,7 @@ export class MemoryLedger {
     const token = Symbol('ledger-import'); this.#tickets.set(token, { ...scope }); return Object.freeze({ token });
   }
   abortImport(ticket: ImportTicket) { this.#authorize(); this.#tickets.delete(ticket.token); }
-  promote(ticket: ImportTicket, items: readonly OwnedMovement[], complete: boolean) {
+  promote(ticket: ImportTicket, items: readonly OwnedMovement[], complete: boolean, beforeCommit?: () => undefined) {
     this.#authorize();
     const scope = this.#tickets.get(ticket?.token);
     if (!scope) throw new Error('stale_import');
@@ -61,7 +61,10 @@ export class MemoryLedger {
     }
     // Validate the merged view before one atomic pointer swap; preserve rows absent from a read.
     for (const currency of currencies) selectMovements([...candidate.values()], { month: scope.month, currency }, true);
-    this.#authorize(); this.#rows = candidate; this.#tickets.delete(ticket.token);
+    if (beforeCommit !== undefined && (typeof beforeCommit !== 'function' || beforeCommit() !== undefined)) throw new Error('invalid_commit_guard');
+    this.#authorize();
+    if (this.#tickets.get(ticket.token) !== scope) throw new Error('stale_import');
+    this.#rows = candidate; this.#tickets.delete(ticket.token);
   }
   createCategory(input: OwnedCategory) {
     this.#authorize(); this.#owned(input.ownerSubject);

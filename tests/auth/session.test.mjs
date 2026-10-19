@@ -28,3 +28,9 @@ test('inactive app refuses login and recovery operations', async () => { let cal
 test('recovery completion requires a new password login', async () => { const { session } = fixture(); assert.equal(await session.requestRecovery(''), true); assert.equal(session.getSnapshot().state, 'recovery_pending'); assert.equal(await session.resetPassword('', '', ''), true); assert.equal(session.getSnapshot().state, 'locked'); await assert.rejects(session.read(async () => 'invented'), /invalid_credentials/); });
 test('late recovery after lock does not change state', async () => { const pending = deferred(); const { session } = fixture({ resetPassword: () => pending.promise }); const reset = session.resetPassword('', '', ''); session.lock(); pending.resolve(); assert.equal(await reset, false); assert.equal(session.getSnapshot().state, 'locked'); });
 test('unreasonable or expired gateway session is rejected', async () => { for (const expiresAt of [NaN, 999, 9000000]) { const { session } = fixture({ signIn: async () => ({ accessToken: 'fake', expiresAt }) }); assert.equal(await session.login('', ''), false); } });
+
+test('synchronous authorization guard expires without exposing credentials when timer was suspended', async () => {
+  const { session, setTime } = fixture(); assert.throws(session.assertUnlocked, /invalid_credentials/);
+  await session.login('', ''); assert.equal(session.assertUnlocked(), undefined); setTime(3000);
+  assert.throws(session.assertUnlocked, /invalid_credentials/); assert.deepEqual(session.getSnapshot(), { state: 'locked', error: null });
+});

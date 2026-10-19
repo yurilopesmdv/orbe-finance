@@ -33,3 +33,17 @@ test('currencies and unknown values stay explicit and copies omit owner/extra da
   assert.equal('ownerSubject' in result.items[0], false); assert.equal('unusedPII' in result.items.find(a => a.id === 'usd'), false); result.items[0].amountCents = 1; assert.equal(list(f.repository).summary.subtotalCents, 100000);
 });
 test('unknown source completeness defaults partial and closed store exposes nothing', () => { const f = fixture(); f.promote(); assert.equal(f.repository.list().summary.partial, true); f.repository.close(); assert.throws(() => list(f.repository), /repository_locked/); });
+
+test('commit guard failure or aborted ticket cannot replace the prior asset snapshot', () => {
+  const f = fixture(); f.promote(); const ticket = f.repository.beginImport(scope);
+  assert.throws(() => f.repository.promote(ticket, [{ ...asset, amountCents: 1 }], true, true, () => { throw new Error('lease_expired'); }), /lease_expired/);
+  assert.equal(list(f.repository).summary.subtotalCents, 100000); f.repository.abortImport(ticket);
+  assert.throws(() => f.repository.promote(ticket, [asset], true), /stale_import/);
+});
+
+test('reentrant newer ticket or non-synchronous guard never commits an old asset import', () => {
+  const f = fixture(); f.promote(); const ticket = f.repository.beginImport(scope);
+  assert.throws(() => f.repository.promote(ticket, [{ ...asset, amountCents: 1 }], true, true, () => { f.repository.beginImport(scope); }), /stale_import/);
+  const newer = f.repository.beginImport(scope);
+  assert.throws(() => f.repository.promote(newer, [{ ...asset, amountCents: 1 }], true, true, () => Promise.resolve()), /invalid_commit_guard/); assert.equal(list(f.repository).summary.subtotalCents, 100000);
+});

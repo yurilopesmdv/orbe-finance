@@ -63,10 +63,14 @@ export class SessionModel {
     } finally { this.#controllers.delete(controller); }
   }
   async logout() { const previous = this.#clear(false); await this.#discard(previous); }
-  async read<T>(operation: (token: string, signal: AbortSignal) => Promise<T>): Promise<T> {
+  #requireSession(): AuthSession {
     if (this.#session && this.#session.expiresAt <= this.#now()) this.lock();
     if (!this.#active || !this.#session || this.#snapshot.state !== 'unlocked') throw new AuthFailure('invalid_credentials');
-    const session = this.#session, epoch = this.#epoch, controller = this.#controller();
+    return this.#session;
+  }
+  assertUnlocked = (): void => { this.#requireSession(); };
+  async read<T>(operation: (token: string, signal: AbortSignal) => Promise<T>): Promise<T> {
+    const session = this.#requireSession(), epoch = this.#epoch, controller = this.#controller();
     try {
       const result = await operation(session.accessToken, controller.signal);
       if (session.expiresAt <= this.#now()) this.lock();
