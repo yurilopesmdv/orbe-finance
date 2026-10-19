@@ -2,8 +2,8 @@ import { occurrenceMonth } from '../../domain/money.ts';
 import { reconcilePortfolio } from '../../domain/portfolio.ts';
 import type { OwnedAsset, AssetProduct } from '../../data/local/assets.ts';
 export type PositionProduct = 'investment' | 'reserve';
-export type ValueBasis = 'gross' | 'net' | 'unknown';
-export type PositionClass = 'fixed_income' | 'equity' | 'fund' | 'other' | 'unknown';
+import type { ValueBasis, PositionClass } from '../../domain/valuation.ts';
+export type { ValueBasis, PositionClass } from '../../domain/valuation.ts';
 export interface OwnedPosition extends OwnedAsset { readonly grossCents: number | null; readonly netCents: number | null; readonly valueBasis: ValueBasis; readonly assetClass: PositionClass }
 export interface PositionPageContext {
   readonly ownerSubject: string; readonly connectionId: string; readonly institutionId: string; readonly product: PositionProduct;

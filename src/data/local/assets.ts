@@ -1,8 +1,9 @@
 import { reconcilePortfolio, type AssetComponent } from '../../domain/portfolio.ts';
+import { projectPositionValuation, type PositionValuation } from '../../domain/valuation.ts';
 import { MemoryScope, type MemoryPrincipal } from './scope.ts';
 export type AssetProduct = 'account' | 'investment' | 'reserve';
 export interface AssetScope { connectionId: string; institutionId: string; product: AssetProduct }
-export interface LocalAsset extends AssetComponent, AssetScope {}
+export interface LocalAsset extends AssetComponent, AssetScope, Partial<PositionValuation> {}
 export interface OwnedAsset extends LocalAsset { ownerSubject: string }
 export interface AssetTicket { readonly token: symbol }
 const scopeKey = (scope: AssetScope) => JSON.stringify([scope.connectionId, scope.product]);
@@ -39,11 +40,17 @@ export class MemoryAssets {
       if (!item || typeof item !== 'object') throw new Error('invalid_asset');
       this.#guard.assertOwner(item.ownerSubject);
       if (!sameScope(item, scope) || item.institutionId !== scope.institutionId || !/^[A-Z]{3}$/.test(item.currency)) throw new Error('out_of_scope_asset');
-      const asset: LocalAsset = { id: item.id, currency: item.currency, amountCents: item.amountCents, asOf: item.asOf, kind: item.kind, relation: item.relation, connectionId: scope.connectionId, institutionId: scope.institutionId, product: scope.product, ...(item.includedIn === undefined ? {} : { includedIn: item.includedIn }) };
+      const asset: LocalAsset = { id: item.id, currency: item.currency, amountCents: item.amountCents, asOf: item.asOf, kind: item.kind, relation: item.relation, connectionId: scope.connectionId, institutionId: scope.institutionId, product: scope.product, ...(item.includedIn === undefined ? {} : { includedIn: item.includedIn }), ...projectPositionValuation(item,scope.product,item.amountCents) };
       return asset;
     });
     // Validate conflicts within the incoming batch before Map deduplication.
     reconcilePortfolio(clean);
+    const signatures = new Map<string,string>();
+    for (const asset of clean) {
+      const signature = JSON.stringify(asset);
+      if (signatures.has(asset.id) && signatures.get(asset.id) !== signature) throw new Error('conflicting_component');
+      signatures.set(asset.id,signature);
+    }
     const candidate = new Map(this.#rows);
     for (const asset of clean) { const old = candidate.get(asset.id); if (old && !sameScope(old, scope)) throw new Error('asset_identity_conflict'); }
     if (authoritative) for (const [id, asset] of candidate) if (sameScope(asset, scope)) candidate.delete(id);
