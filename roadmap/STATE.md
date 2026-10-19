@@ -1,6 +1,6 @@
 # Estado de retomada —19/10/2026
 
-Execução ativa por ordem do usuário, reiterada “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar confirmação. Repo /home/yurilopesm/projects/orbe-finance, main. T20b2/T21a/b/T22a/b1/b2/T23a/b1/b2 e T51c concluídas em fixtures. Última T51c limitou resposta Auth/config capturada e injetou expo/fetch;506 testes/typechecks, export iOS2.5MB e scan PAT/ownerUUID aprovados. Próxima **T36a**: spec/plan de coordenação sintética dos produtos e ciclo de vida, sem transporte real. Teste no iPhone fica final por instrução do usuário; gates financeiros false.
+Execução ativa por ordem do usuário, reiterada “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar confirmação. Repo /home/yurilopesm/projects/orbe-finance, main. T20b2/T21a/b/T22a/b1/b2/T23a/b1/b2 e T51c concluídas em fixtures. Última T51c limitou resposta Auth/config capturada e injetou expo/fetch;506 testes/typechecks, export iOS2.5MB e scan PAT/ownerUUID aprovados. T36a concluída: quatro produtos roteados em fixtures,518 testes/typechecks. Próxima **T36b** ciclo de vida imediato de caches por sessão sem expor subject/JWT Auth. Teste no iPhone fica final por instrução do usuário; gates financeiros false.
 
 ## Produto, limites e gate
 
@@ -42,7 +42,7 @@ Docker Orbe parado: launcher anterior detectou Mailpit wildcard54344 e parou som
 
 ## Validação e bloqueios
 
-TypeScript cliente/ponte e **506 testes locais** passaram até T51c. Export Hermes iOS2.5MB T51c aprovado; PAT/UUID ausentes. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI6b90662 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39289486505; não declarar HEADCI aprovada sem conferir.
+TypeScript cliente/ponte e **518 testes locais** passaram até T36a. Export Hermes iOS2.5MB T51c aprovado; PAT/UUID ausentes. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI6b90662 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39289486505; não declarar HEADCI aprovada sem conferir.
 
 Auditoria18high em2raízes sem patch, exceção somente sintética até23/10(cutoff24/10UTC);10moderados corrigidos por overrides. Não auditfixforce nem liberar dados reais. CI sem secrets/testes sintéticos/audit/export; SQL/smokes remotos opt-in.
 
@@ -50,7 +50,7 @@ SMTPFree/default recusou template OTP HTTP400; recoveryflagfalse/sem envioemail.
 
 ## Próximos passos
 
-1. T36a: investigar contratos Auth/DemoProvider/MemoryScope e pipeline de produtos antes de spec/plan. Coordenador usa portas agregadas e factories de estágio estão isoladas; falta router/stager por produto e ciclo de vida. Preservar gates false, zero rede, limpeza no lock, parcialidade por produto e sem promessa de transação global. Evitar exigir segredo/consentimento para tarefas sintéticas. T21c/T22c/T23c reais continuam condicionadas.
+1. T36b: spec/plan de controller de cache por sessão, gatesoff, principal local opaco UUID de fixture (não AuthUUID/JWT), assinatura SessionModel e close/purge imediato no lock. Uma execução por controller; cancelamento de busca preserva cache e close de sessão purga. Não conectar UI/finanças reais. Router deve validar ownerSubject local esperado antes de acquire, sem confiar no contexto recebido. Teste físico final continua adiado.
 2. T18b3/T18c/T19b2/T21–T23: adapters/source/OF/gates. Não mapear status empresarial para proxy pessoal sem comprovar contrato. Nenhum banco real aprovado.
 3. T14b–T17/T29b–T33b dependem runtime privado/segurança; T65+ decidir FaceID/cache/SDK além de ExpoGo. Não tratar devbuild como prova de segurança.
 4. T60c2 só evolução de snapshots existentes. T11c recuperação depende SMTP. Testes físicos/VoiceOver/loginpositivo ficam finais por ordem do usuário.

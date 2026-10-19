@@ -554,3 +554,11 @@ T23b2:493 testes/typechecks; engine interno compartilhado por factories concreta
 [Transporte Auth](../plan/T51c-AUTH-TRANSPORT.md), AUTH-10. Fechar cap de JSON/configuração mutável; transporte Expo streaming em Provider. T36a coordenação de produtos continua posterior. Não há evidência de vazamento.
 
 T51c:506 testes/typechecks, export iOS e scan de segredos aprovados. Config Auth capturada, JSON limitado antes do parse, Provider expo/fetch e body rejeitado cancelado. Teste físico/redirect/cookies/cache nativo seguem pendentes. Retomar T36a.
+
+## T36 — decomposição
+
+- T36a done: roteamento concreto de produtos com fixtures, [plano](../plan/T36a-PRODUCT-ROUTING.md), OF-18.
+- T36b pending: ciclo de vida de caches/geração e bloqueio imediato sob sessão, sem expor credenciais.
+- T36c pending: transporte real e política de retomada/backoff após gates/fonte homologada.
+
+T36a:518 testes/typechecks; roteamento concreto dos produtos e publishedProducts explícito validados. Nenhum módulo novo conectado à UI/Auth/fornecedor. Próxima T36b ciclo de vida dos caches.
