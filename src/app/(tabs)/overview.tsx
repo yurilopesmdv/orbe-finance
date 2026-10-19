@@ -22,6 +22,7 @@ export default function OverviewScreen() {
       <Money cents={expenses.netCents} />
       <Body>Despesas efetivadas menos estornos vinculados. Transferências próprias ficam fora. Base: movimentações inventadas de conta; compras de cartão não integradas.</Body>
       <Body>Exemplos Bradesco + Mercado Pago · dados até {demoSourceDate}. Cobertura de consumo parcial sem compras de cartão.</Body>
+      <Action title="Ver relatório de gastos" secondary onPress={() => router.push('/reports')} />
       <Action title="Ver movimentações do período" onPress={() => router.navigate('/(tabs)/movements')} />
     </Card>
     <Card title="Conexões"><Body>Nenhum banco conectado. Os números acima são inventados para explorar o produto.</Body><Action title="Segurança e conexões" secondary onPress={() => router.navigate('/(tabs)/settings')} /></Card>

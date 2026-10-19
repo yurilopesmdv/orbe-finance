@@ -6,12 +6,7 @@ import { useDemo } from '@/data/demo/store';
 import { categoryOptions, movementKey } from '@/data/demo/overrides';
 import { queryMovements } from '@/data/local/query';
 import type { FinancialType } from '@/domain/expenses';
-const types: { id: FinancialType; label: string }[] = [
-  { id: 'expense', label: 'Despesa' }, { id: 'income', label: 'Receita' }, { id: 'own_transfer', label: 'Transferência própria' },
-  { id: 'contribution', label: 'Aporte' }, { id: 'redemption', label: 'Resgate' }, { id: 'yield', label: 'Rendimento' },
-  { id: 'refund', label: 'Estorno' }, { id: 'card_settlement', label: 'Pagamento de fatura' }, { id: 'unknown', label: 'Desconhecido' },
-];
-const categoryLabel = (id: string | null) => categoryOptions.find(c => c.id === id)?.label ?? 'Sem categoria';
+import { financialTypes as types, categoryLabel } from '@/data/demo/labels';
 export default function MovementsScreen() {
   const demo = useDemo();
   const [month, setMonth] = useState('2026-10');

@@ -290,3 +290,11 @@ T57a: T24/T26/T27a, agregações locais puras compartilhadas com a lista. T57b: 
 ## T57a — done
 
 [Relatórios locais puros](../plan/T57-LOCAL-REPORTS.md): TypeScript/137 testes aprovados, incluindo8 cenários de reconciliação e paginação>100. T57b pendente. Próxima T58a, navegação de relatório demonstrativo e detalhe mantendo filtros.
+
+## Decomposição T58
+
+T58a: T28/T29a/T57a, acesso secundário a relatório demonstrativo com detalhe mantendo contexto. T58b exige T29b/T57b e testes privados/físicos. T58 não completa por demonstração; T59/T60 continuam separadas.
+
+## T58a — done
+
+[Relatório demonstrativo](../plan/T58-REPORTS-UI.md): resumo → relatório → categoria, contexto preservado por pilha, filtros permitidos validados, valores ocultos e cálculo compartilhado. TypeScript/139 testes e bundle iOS passaram. T58b/físico pendentes. Próxima T13, vínculos de metadados sob RLS, enquanto T10b aguarda UUID privado.

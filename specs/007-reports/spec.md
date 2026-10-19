@@ -39,3 +39,9 @@ Gastos por categoria; fluxo mensal de consumo; comparação de meses; composiç�
 Relatório usa seleção canônica T27a sem paginação para agregados; página da lista não limita o total. Categoria inclui Sem categoria e usa exatamente o filtro da lista detalhada, incluindo vínculo de estorno fora do filtro. Soma dos líquidos por categoria deve fechar com líquido geral na mesma moeda. Parcialidade global acompanha cada aprofundamento.
 
 Tipos financeiros são apresentados separadamente por entradas/saídas efetivadas e contagens pendentes/canceladas, sem somar duas pernas de transferência como consumo. Valores desconhecidos permanecem contagem de ausência e subtotal parcial. Fonte/moeda/período são explícitos; sem câmbio, previsão ou histórico inventado. T57b exige repositório privado/autorização T27b; a função pura não prova isolamento de usuário.
+
+## Recorte T58a — relatório demonstrativo
+
+Destino secundário /reports a partir da visão geral, sem quinta aba. Período/instituição da demonstração e categorias calculados por T57a; categoria abre /report-detail por IDs de filtros conhecidos, sem valores/descrições/tokens em URL. Detalhe usa T27a e retorna à mesma instância do relatório, preservando filtros. Parâmetros desconhecidos falham de forma explícita, sem ampliar consulta silenciosamente.
+
+Mostrar fonte/data/base de conta sem cartão, fórmula e tipos separados; cada valor segue ocultação compartilhada. Lista textual acessível inicial, sem dependência de cor, imagem remota/exportação. T58b/T61 ainda exigem repositório privado e validação física; T59/T60 continuam filtros avançados/comparações e não ficam marcados completos por esta demonstração.
