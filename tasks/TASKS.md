@@ -508,3 +508,11 @@ Consentimentos distintos e gate de proxy desconhecido/vencido aplicados em migra
 [Coordenação com fixtures](../plan/T20b2-BATCH-COORDINATION.md), OF-15/AUTH-09. Recibos metadata/staging local, guard no commit, sem normalizador real/endpoint/segredo.
 
 T20b2:381 testes, typechecks e export iOS aprovados. Coordenador metadata-only, deadline/cancelamento e guard de commit preservam último lote válido; normalizadores T21–23 e transporte financeiro continuam futuros.
+
+## T21 — decomposição
+
+- T21a done: normalizador de DTO interno de contas com fixtures; [plano](../plan/T21a-CANONICAL-ACCOUNTS.md), OF-16.
+- T21b pending: staging completo com coordenador/MemoryAssets, sem backend ativo.
+- T21c pending: adapter fornecedor, vínculos administrativos e cobertura por banco, após gates. T21 só completa depois das três.
+
+T21a:396 testes e typechecks aprovados. DTO mínimo de contas com vínculo explícito, centavos/data/null, projeção sem PII e dedupe; mapeamento Pluggy e staging ainda pendentes. Próxima T21b.
