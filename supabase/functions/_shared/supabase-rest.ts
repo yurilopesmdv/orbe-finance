@@ -1,3 +1,4 @@
+import { readJsonResponse as jsonResponse } from './http-json.ts';
 import type { BridgePorts } from './bridge.ts';
 
 type Configuration = { origin: string; publishableKey: string };
@@ -20,24 +21,6 @@ function claims(token: string, origin: string, now: number): { subject: string; 
     return { subject: payload.sub, expiresAt };
   } catch { return null; }
 }
-async function jsonResponse(response: Response, signal: AbortSignal): Promise<unknown> {
-  if (!/^application\/json(?:\s*;.*)?$/i.test(response.headers.get('content-type') ?? '') || !response.body) unavailable();
-  const reader = response.body.getReader(); const chunks: Uint8Array[] = []; let length = 0;
-  const cancel = () => { void reader.cancel().catch(() => {}); };
-  signal.addEventListener('abort', cancel, { once: true });
-  try {
-    active(signal);
-    while (true) {
-      const { value, done } = await reader.read(); active(signal); if (done) break;
-      length += value.byteLength;
-      if (length > 131072) { cancel(); unavailable(); }
-      chunks.push(value);
-    }
-    const bytes = new Uint8Array(length); let offset = 0;
-    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
-    try { return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); } catch { return unavailable(); }
-  } finally { signal.removeEventListener('abort', cancel); reader.releaseLock(); }
-}
 const columns = 'id,owner_id,institution,state,revision,accounts_available,transactions_available,investments_available,reserves_available,open_finance_verified_at,authorization_expires_at,source_updated_at,last_read_at';
 const endpoints = Object.freeze({
   user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner',
@@ -47,7 +30,7 @@ const endpoints = Object.freeze({
 export function createSupabasePorts(config: Configuration, transport: Transport = fetch, now: () => number = Date.now): BridgePorts {
   // Snapshot configuration; a later mutation must not change the destination.
   const { origin, publishableKey } = config;
-  if (!/^https:\/\/[a-z]{20}\.supabase\.co$/.test(origin) || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(publishableKey)) throw new Error('bridge_configuration_invalid');
+  if (typeof origin !== 'string' || typeof publishableKey !== 'string' || !/^https:\/\/[a-z]{20}\.supabase\.co$/.test(origin) || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(publishableKey)) throw new Error('bridge_configuration_invalid');
   async function request(endpoint: keyof typeof endpoints, token: string, signal: AbortSignal): Promise<Response> {
     active(signal);
     try {

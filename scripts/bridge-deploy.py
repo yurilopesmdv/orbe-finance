@@ -23,7 +23,7 @@ const ports = {
 };
 Deno.serve(createBridgeHandler(ports, { enabled: false }));
 """
-ALLOWED = {'_shared/bridge.ts', '_shared/supabase-rest.ts', 'orbe-bridge/index.mjs'}
+ALLOWED = {'_shared/bridge.ts', '_shared/supabase-rest.ts', '_shared/http-json.ts', '_shared/lease-rest.ts', 'orbe-bridge/index.mjs'}
 
 def artifacts(root, private):
     directory = root / 'supabase/functions'

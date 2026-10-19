@@ -140,3 +140,8 @@ test('two simultaneous sessions never share credentials or ownership', async () 
 test('disabled bridge does not perform any adapter requests', async () => {
   const { ports, calls } = fixture([]); assert.equal((await createBridgeHandler(ports)(req(token()))).status, 503); assert.equal(calls.length, 0);
 });
+
+test('origin and public key require primitive strings rather than coercible objects', () => {
+  assert.throws(() => createSupabasePorts({ ...config, origin: { toString: () => config.origin } }), /bridge_configuration_invalid/);
+  assert.throws(() => createSupabasePorts({ ...config, publishableKey: { toString: () => config.publishableKey } }), /bridge_configuration_invalid/);
+});

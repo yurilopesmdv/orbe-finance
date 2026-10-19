@@ -486,3 +486,11 @@ T20a lease/cooldown/fencing somente metadata no banco; T20b coordenação/pagina
 ## T20a — done
 
 Migration4 de lease/cooldown/fencing aplicada, SQL service/auth/anon e regressões reais passaram com rollback/zero fakes/owner preservado.335 testes locais/TypeScript aprovados,3guardas runner novos. T20b subdividida em b1 portas REST lease e b2 coordenação/paginação com fixtures. Próxima T20b1; T20 integral não completa.
+
+## T20b1 — doing
+
+[Portas REST lease](../plan/T20b1-LEASE-REST.md), OF-13. Modern secret somente backend/fixtures, lazygate e transporte limitado; sem buscar chave real ou redeploy.
+
+## T20b1 — done
+
+Portas REST de lease lazy/server-only, deadline/cancel/schema/sem segredo emURL,353 testes/typecheck aprovados (18novos). JSONbounded compartilhado e origemprimitiva rígida; allowlist5fontes. Nenhum segredo real lido/redeploy; próxima T20b2 coordenação/paginação com fixtures.

@@ -1,6 +1,6 @@
 # Estado de retomada —19/10/2026
 
-Execução ativa, retomada pelo usuário, inclusive novo “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar nova confirmação. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T20b1**: portas REST de lease server-side com origem/chave adequadas e rede simulada, após rever docs oficiais de API keys. Depois T20b2 coordenação/paginação. T20a concluída. Não usar env/DB/infra do F1. Nenhum agente trabalhando.
+Execução ativa, retomada pelo usuário, inclusive novo “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar nova confirmação. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T20b2**: spec/plan de coordenação de lote/paginação com fixtures, preservando último válido e descartando staged após lock/expiração/erro. T20b1 portas REST server-only/lazy concluída, sem chave real ou redeploy. T20a SQL aplicada/validada.
 
 ## Produto, limites e gate
 
@@ -31,13 +31,13 @@ Projeto próprio Orbe saudável(us-east-1),6tabelas app metadata/Auth,4migration
 
 ~/.config/orbe-finance/backend.env(0600/diretório0700) guarda PAT/ref/ownerUUID; .env.backend.local ignorado contém só ORBE_BACKEND_ENV_FILE para destino fixo. Nunca imprimir valores. .env.local somente publicURL/publishable/recoveryfalse. Perfil Expo exclusivo ~/.config/orbe-finance/expo-cli; CLI offline não bloqueia login HTTP do app. Metro permanece parado, sem LAN/túnel/teste físico novo.
 
-scripts/backend-admin.py: inspect/migrate/set-owner/test-owner/test-metadata/test-read-leases/configure-client, sem SQL arbitrário. Bridge deploy helper confirma projeto/fontes/entrypointfalse, recusa função alheia; log/manifest privados em ~/.config/orbe-finance/bridge-deploy.log/json. ALLOWED fonte functions atualmente3files: _shared/bridge.ts,_shared/supabase-rest.ts,orbe-bridge/index.mjs; nova fonte compartilhada exige atualizar allowlist/testes antes de redeploy. Não redeploy só por sourcefixture novo; endpoint continuaoff.
+scripts/backend-admin.py: inspect/migrate/set-owner/test-owner/test-metadata/test-read-leases/configure-client, sem SQL arbitrário. Bridge deploy helper confirma projeto/fontes/entrypointfalse, recusa função alheia; log/manifest privados em ~/.config/orbe-finance/bridge-deploy.log/json. ALLOWED functions atualmente5files: _shared/bridge.ts,_shared/supabase-rest.ts,_shared/http-json.ts,_shared/lease-rest.ts,orbe-bridge/index.mjs; nova fonte compartilhada exige atualizar allowlist/testes antes de redeploy. Não redeploy só por sourcefixture novo; endpoint continuaoff.
 
 Docker Orbe parado: launcher anterior detectou Mailpit wildcard54344 e parou somente Orbe, sem apagar volumes. Não reabrir diagnóstico/tocar outros containers/firewall.
 
 ## Validação e bloqueios
 
-TypeScript cliente/ponte e **335 testes locais** passaram até T20a. Último export Hermes iOS2.5MB T60c1 aprovado; PAT/UUID ausentes. T19a/T20a puros/backend não alteram UI/imports e não repetiram export. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI últimos commits ainda em fila/andamento na última observação; cf64abe e1f2b6a6 aprovados, não declarar HEADCI aprovada sem conferir.
+TypeScript cliente/ponte e **353 testes locais** passaram até T20b1. Último export Hermes iOS2.5MB T60c1 aprovado; PAT/UUID ausentes. T19a/T20a puros/backend não alteram UI/imports e não repetiram export. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI últimos commits ainda em fila/andamento na última observação; cf64abe e1f2b6a6 aprovados, não declarar HEADCI aprovada sem conferir.
 
 Auditoria18high em2raízes sem patch, exceção somente sintética até23/10(cutoff24/10UTC);10moderados corrigidos por overrides. Não auditfixforce nem liberar dados reais. CI sem secrets/testes sintéticos/audit/export; SQL/smokes remotos opt-in.
 
@@ -45,7 +45,7 @@ SMTPFree/default recusou template OTP HTTP400; recoveryflagfalse/sem envioemail.
 
 ## Próximos passos
 
-1. T20b1: docs oficiais APIkeys, spec/plan antes de portas REST begin/check/finish. Segredo server-only nunca pubkey/PAT; origem/UUIDs/funções fixos, response schemas/limites/abort, fixtures apenas. Não buscar chave real por conveniência. T20b2 coordenação por página e cancelamento, depois T21+ normalizadores/lotes.
+1. T20b2: planejar antes de código coordenação/paginação com fixtures, sem novo endpoint/fornecedor. Diferenciar lease120s por conexão de requestdeadline20s; checar owner/generation/expiry antes/depois de awaits, somente produtos true, descartar estágio em erro e preservar lote anterior. Promoção só completa, não confiar typeT genérico sem normalizador real (T21–23). Definir separação entre portas lease server-only e transporte cliente da ponte; nunca importar lease-rest no Expo. SessionModel mantém JWT privado, inspecionar API antes de integrar transporte. T20b1 passou353 testes:17lease+1cfg; secret apenas apikey, nenhum segredo real lido. Modelo SQLpágina/revisão disponível, provider/audit/runtime gates fechados.
 2. T18b3/T18c/T19b/T21–T23: adapters/source/OF/gates. Não mapear status empresarial para proxy pessoal sem comprovar contrato. Nenhum banco real aprovado.
 3. T14b–T17/T29b–T33b dependem runtime privado/segurança; T65+ decidir FaceID/cache/SDK além de ExpoGo. Não tratar devbuild como prova de segurança.
 4. T60c2 só evolução de snapshots existentes. T11c recuperação depende SMTP. Testes físicos/VoiceOver/loginpositivo ficam finais por ordem do usuário.
