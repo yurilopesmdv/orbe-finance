@@ -45,3 +45,7 @@ Até esses gates serem resolvidos, somente pesquisa/documentos e, em fase futura
 ## SEC-19 — Isolamento do ambiente de desenvolvimento (T50a)
 
 Credenciais administrativas DEVEM ficar fora do root e dos watchFolders do Metro, em diretório privado exclusivo do Orbe. O arquivo de compatibilidade no projeto contém apenas ponteiro para esse local. Helpers devem rejeitar ponteiro misturado a valores, destino inesperado e symlinks. Metro deve excluir dotenv/arquivos privados do grafo, preservando exclusões padrão. Validar o crawler real com canários inventados, sem consultar arquivos reais por HTTP. Este controle não protege contra código malicioso executado com a mesma conta do sistema; não equivale a homologar LAN, runtime ou dados financeiros reais.
+
+## SEC-20 — Processo Expo segregado (T50b)
+
+Comandos suportados de start/export DEVEM criar processo com allowlist de ambiente do SO e configuração pública explícita, sem herdar tokens administrativos, proxies, NODE_OPTIONS ou credenciais Expo de outro projeto. Dotenv automático deve ser desativado depois da leitura estrita; variáveis desconhecidas em dotenv do projeto impedem execução sem mostrar valores. CLI deve usar perfil privado exclusivo, modo offline/sem telemetria, sem alterar HOME. Start admite somente LAN/localhost, porta e limpeza; túnel exige decisão posterior. O wrapper não impede que alguém execute diretamente o CLI ignorando-o.

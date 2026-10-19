@@ -378,3 +378,11 @@ T51a: referências escalares canônicas em runtime, depende de T24/T26/T14a/T15a
 ## T50a — done
 
 Credenciais preservadas fora do root Expo, ponteiro estrito e exclusões do grafo comprovadas pelo crawler real com canários. TypeScript/224 testes/export iOS/scan privado passaram. Próxima T50b: ambiente e perfil do CLI separados antes de LAN; depois T18a.
+
+## T50b — doing
+
+[Processo Expo](../plan/T50b-EXPO-PROCESS.md), depende T50a; SEC-20. Sanitizar ambiente, dotenv estrito/perfil exclusivo/offline; validar por sentinelas e export, sem abrir LAN.
+
+## T50b — done
+
+Launcher e export passam por processo com allowlist, public dotenv estrito, perfil exclusivo e CLI offline/sem telemetria. TypeScript/234 testes/export iOS/scan aprovados. T50 não homologa runtime/dados reais; próxima T18a, handler HTTP sintético desligado.

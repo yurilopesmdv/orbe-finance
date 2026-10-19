@@ -67,3 +67,5 @@ Ledger/ativos/metas em src/data/local são ports voláteis por principal/geraç�
 A tela Metas usa apenas createDemoGoals, com principal constante explicitamente inventado; nunca reutilizar esse seed/guard para dados reais. Orçamento Bradesco do cenário exclui reserva já incluída. Criar/alocar/excluir só muda organização da sessão; sair da demonstração fecha/reset o store, e recarregar movimentos preserva metas. Nenhuma chamada bancária. parse de formulário mantém centavos exatos e data civil DD/MM/AAAA; title/values são mascarados e campos limpos no background.
 
 Isolamento das credenciais e proteção do grafo Metro: [guia](security/DEVELOPMENT-SECRETS.md).
+
+Comandos Expo passam por scripts/expo-safe.mjs: perfil exclusivo, ambiente sanitizado, CLI offline/sem telemetria e dotenv público estrito. Para alterar host/porta use `npm start -- --localhost --port 8083`; não executar CLI direto ou túnel. Offline do CLI não desativa o login HTTP no app.
