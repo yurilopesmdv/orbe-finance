@@ -82,6 +82,7 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
     }
   }
   return Object.freeze({
+    origin,
     async signIn(email: string, password: string, signal?: AbortSignal): Promise<AuthSession> {
       if (!validEmail(email) || typeof password !== 'string' || !password) throw new AuthFailure('invalid_credentials');
       const startedAt = now();

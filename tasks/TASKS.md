@@ -572,3 +572,10 @@ T36b:531 testes/typechecks; controller privado de caches por sessão, cancel/pur
 - T37c pending: retomada com status fresco e revogação/exclusão no fornecedor, sem confundir operações.
 
 T37a:535 testes/typechecks e SQL real com rollback/zero fakeusers+sessions/owner preservado. Migration6 imutável; pausa/fence e remoção com revisão/sessão/senha recente somente metadata. Próxima T37b1 porta cliente fechada para RPCs, em fixtures/desligada; UI/cachepurge T37b2 posterior.
+
+### T37b — subdivisão
+
+- T37b1 done: porta cliente de comandos em fixtures/desligada, [plano](../plan/T37b1-CONNECTION-COMMANDS.md), OF-20.
+- T37b2 pending: lifecycle/purge e confirmação na UI privada depois de contratos/gates.
+
+T37b1:551 testes/typechecks/export iOS/scan aprovados. Porta cliente desligada, SessionModel.read e destino ligado à origem pública de login. Próxima T51d: fechar revogação de sessão em leituras RLS/metadata antes de UI/endpoint ativo; T37b2 continua posterior.

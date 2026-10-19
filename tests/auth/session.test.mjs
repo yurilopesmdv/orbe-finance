@@ -34,3 +34,10 @@ test('synchronous authorization guard expires without exposing credentials when 
   await session.login('', ''); assert.equal(session.assertUnlocked(), undefined); setTime(3000);
   assert.throws(session.assertUnlocked, /invalid_credentials/); assert.deepEqual(session.getSnapshot(), { state: 'locked', error: null });
 });
+
+test('public origin is captured separately from mutable gateway and never exposes credentials',()=>{
+ const gateway={origin:'https://aaaaaaaaaaaaaaaaaaaa.supabase.co'};const session=new SessionModel(gateway);gateway.origin='https://bbbbbbbbbbbbbbbbbbbb.supabase.co';assert.equal(session.getPublicOrigin(),'https://aaaaaaaaaaaaaaaaaaaa.supabase.co');assert.deepEqual(session.getSnapshot(),{state:'locked',error:null});
+});
+test('legacy fixture without public origin cannot supply a destination for authenticated commands',()=>{
+ const {session}=fixture();assert.throws(()=>session.getPublicOrigin(),error=>error instanceof AuthFailure&&error.code==='invalid_configuration');
+});

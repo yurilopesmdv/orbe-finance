@@ -10,6 +10,7 @@ const schedule: Schedule = (callback, delay) => { const timer = setTimeout(callb
 /** Session credentials never enter the observable snapshot or persistent storage. */
 export class SessionModel {
   #gateway: Gateway;
+  #origin: string | undefined;
   #now: () => number;
   #schedule: Schedule;
   #cancelExpiry: (() => void) | null = null;
@@ -19,7 +20,8 @@ export class SessionModel {
   #controllers = new Set<AbortController>();
   #listeners = new Set<() => void>();
   #snapshot: SessionSnapshot = Object.freeze({ state: 'locked', error: null });
-  constructor(gateway: Gateway, now = Date.now, scheduler = schedule) { this.#gateway = gateway; this.#now = now; this.#schedule = scheduler; }
+  constructor(gateway: Gateway, now = Date.now, scheduler = schedule) { this.#gateway = gateway; const origin = gateway.origin; this.#origin = typeof origin === 'string' ? origin : undefined; this.#now = now; this.#schedule = scheduler; }
+  getPublicOrigin = (): string => { if (!this.#origin) throw new AuthFailure('invalid_configuration'); return this.#origin; };
   getSnapshot = () => this.#snapshot;
   subscribe = (listener: () => void) => { this.#listeners.add(listener); return () => { this.#listeners.delete(listener); }; };
   #emit(state: SessionState, error: AuthCode | null = null) {
