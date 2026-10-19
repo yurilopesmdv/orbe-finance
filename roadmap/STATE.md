@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T26b**, ainda não iniciada: corrigir apresentação monetária exata. Formatter cents/100 atual perde1 centavo em MAX_SAFE_INTEGER (mostra final ,90 em vez de ,91). Depois T16a de alocações virtuais.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T16a**, ainda não iniciada: metas/alocações virtuais voláteis, limites explícitos por raiz/segmento e sem movimentação bancária. T26b de formatação exata concluída.
 
 ## Produto e limites obrigatórios
 
@@ -10,6 +10,7 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57. Open Finance exclusivamente
 
 - T74/T01/T02/T03/T04/T05/T47/T48/T49/T06: contratos, runtime, spike, pesquisa/fixtures/wireframe e gates documentados.
 - T07/T09: bootstrap SDK57 e CI por lockfile/SHAs oficiais; sem deploy automático do app.
+- T26b: formatter exato por unidades/centavos BigInt e Intl.parts; extremo seguro termina ,91; Money usa mesmo label visual/acessível.
 - T26: dinheiro/datas/despesas/estornos; T24: carteira sem duplicar reserva, null/overlap parcial; T25: classificação por campo override > regra > provedor.
 - T28: welcome/quatro abas, componentes e sete estados demonstrativos.
 - T27a: consulta local pura compartilhada (filtros, dedup, paginação, evidência de estorno); T27b privada/autenticada pendente.
@@ -37,7 +38,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **189 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **195 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -45,7 +46,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T26b: spec/plan antes do helper de formatação para evitar float na fração; teste MAX_SAFE_INTEGER, negativos, centavos e moeda; ligar ao Money e exportar iOS. Depois T16a alocações virtuais. Não gravar finanças reais em Expo Go.
+1. T16a: spec/plan de metas/alocações virtuais em memória, por raiz e segmentos comprovadamente disjuntos; valor desconhecido/sem confirmação bloqueia aumento, moeda e revisão explícitas; não movimenta dinheiro nem aumenta carteira. Persistência transacional privada fica T16b.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.

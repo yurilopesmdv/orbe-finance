@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { AppState, Text } from 'react-native';
+import { moneyLabel } from './money-label';
 import { palette } from './ui';
 const Context = createContext<{ hidden: boolean; toggle: () => void }>({ hidden: true, toggle: () => {} });
 export function PrivacyProvider({ children }: { children: ReactNode }) {
@@ -11,8 +12,8 @@ export function PrivacyProvider({ children }: { children: ReactNode }) {
   return <Context.Provider value={{ hidden, toggle: () => setHidden(value => !value) }}>{children}</Context.Provider>;
 }
 export const usePrivacy = () => useContext(Context);
-export function Money({ cents, prominent = false }: { cents: number | null; prominent?: boolean }) {
+export function Money({ cents, prominent = false, currency = 'BRL' }: { cents: number | null; prominent?: boolean; currency?: string }) {
   const { hidden } = usePrivacy();
-  const text = hidden ? 'Valor oculto' : cents === null ? 'Não informado' : new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
+  const text = moneyLabel(cents, hidden, currency);
   return <Text style={{ fontSize: prominent ? 32 : 22, fontWeight: '600', color: palette.ink }} accessibilityLabel={text}>{text}</Text>;
 }

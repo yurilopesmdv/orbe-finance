@@ -70,3 +70,9 @@ Categorias/regras/overrides ficam separados dos fatos da fonte. Override por ide
 Promoção T14a preserva todas as moedas, validando cada conjunto sem converter nem filtrar entradas estrangeiras. Mesmo ID já confirmado em outro mês gera conflito de período, sem decidir por ordem de chegada; remanejamento real de data exigirá reconciliação explícita/versionada T22.
 
 O guard de memória é verificado em cada operação; ao detectar perda de sessão, invalida/purga o store. A integração T14b deverá chamar close imediatamente no evento de bloqueio; o port síncrono sozinho não assina eventos de Auth. Não apresentar essa checagem sob demanda como prova de purge imediato da UI/cache real.
+
+## T26b — apresentação monetária exata
+
+Formatter não divide centavos Number por100 para produzir fração em ponto flutuante. Separar parte inteira e resto por BigInt; formatar apenas unidade inteira segura com Intl e inserir os dois dígitos originais no campo fraction, inclusive negativos menores que1 unidade. Preservar moeda explícita sem conversão. MAX_SAFE_INTEGER centavos termina em ,91, nunca ,90.
+
+UI usa o mesmo label no texto e accessibilityLabel. Oculto retorna somente Valor oculto sem formatar valor; null é Não informado; entrada inválida não arredonda nem imprime conteúdo, recebe Valor indisponível na UI. Helper estrito lança código genérico para integração/teste. Não alterar layout.
