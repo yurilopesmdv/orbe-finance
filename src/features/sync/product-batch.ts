@@ -24,7 +24,7 @@ const contextFields = {
 } as const;
 const object = (value: unknown): value is Record<string,unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 function invalid(): never { throw new Error('invalid_product_batch'); }
-export async function runProductBatch(rawMetadata: unknown, contexts: unknown, stores: ProductStores, transport: ProductTransport, options: { enabled?: boolean; privateDataApproved?: boolean; assertCurrent?: () => void; signal?: AbortSignal; clock?: BatchClock } = {}): Promise<ProductBatchResult> {
+export async function runProductBatch(rawMetadata: unknown, contexts: unknown, stores: ProductStores, transport: ProductTransport, options: { enabled?: boolean; privateDataApproved?: boolean; assertCurrent?: () => void; signal?: AbortSignal; clock?: BatchClock; expectedOwnerSubject?: string } = {}): Promise<ProductBatchResult> {
   const published: ConnectionProduct[] = [];
   const result = (value: BatchResult): ProductBatchResult => Object.freeze({ ...value,publishedProducts:Object.freeze([...published]) });
   if (options.enabled !== true || options.privateDataApproved !== true) return result({ status:'disabled' });
@@ -35,12 +35,13 @@ export async function runProductBatch(rawMetadata: unknown, contexts: unknown, s
   const stagers = new Map<ConnectionProduct,AssetStager>(); let cleared = false;
   const clear = (): undefined => { if (cleared) return; cleared = true; for (const stager of stagers.values()) { try { stager.clear(); } catch { /* No raw errors or cache deletion. */ } } };
   try {
-    const clock = options.clock;
+    const clock = options.clock, expectedOwnerSubject = options.expectedOwnerSubject;
     const metadata = normalizeConnection(rawMetadata,{ integrationEnabled:true,privateDataApproved:true,now:clock ? clock.now() : Date.now() });
     if (metadata.kind !== 'connection' || metadata.readableProducts.length === 0) return result({ status:'unavailable' });
     if (!object(contexts) || !Object.hasOwn(contexts,'ownerSubject')) return invalid();
     const ownerSubject = contexts.ownerSubject;
     if (typeof ownerSubject !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(ownerSubject)) return invalid();
+    if (expectedOwnerSubject !== undefined && ownerSubject !== expectedOwnerSubject) return invalid();
     const approved = { enabled:true,privateDataApproved:true };
     for (const product of metadata.readableProducts) {
       if (!Object.hasOwn(contexts,product)) return invalid();

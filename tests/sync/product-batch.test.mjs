@@ -62,3 +62,7 @@ test('busy acquisition cleans unused stages and a later execution can start with
 test('partial window preserves manual category correction and exposes product coverage',async()=>{
  const f=fixture();f.stores.ledger.createCategory({ownerSubject,id:'health',name:'Saúde'});const ref={source,accountId,externalId:movementId};f.stores.ledger.setOverride(ref,{categoryId:'health'});f.data.transactions.page.windowComplete=false;const result=await f.run();assert.equal(result.status,'complete');assert.equal(result.products.find(product=>product.product==='transactions').partial,true);assert.equal(f.stores.ledger.classificationFor(ref).categoryId,'health');
 });
+
+test('expected local owner scope is checked before transport rather than inferred from contexts',async()=>{
+ const f=fixture();const result=await runProductBatch(f.metadata,f.contexts,f.stores,f.transport,{...f.options,expectedOwnerSubject:accountId});assert.equal(result.status,'failed');assert.deepEqual(f.calls,[]);
+});

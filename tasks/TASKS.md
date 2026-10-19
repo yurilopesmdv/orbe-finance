@@ -558,7 +558,9 @@ T51c:506 testes/typechecks, export iOS e scan de segredos aprovados. Config Auth
 ## T36 — decomposição
 
 - T36a done: roteamento concreto de produtos com fixtures, [plano](../plan/T36a-PRODUCT-ROUTING.md), OF-18.
-- T36b pending: ciclo de vida de caches/geração e bloqueio imediato sob sessão, sem expor credenciais.
+- T36b done: ciclo de vida de caches/geração e bloqueio imediato sob sessão, sem expor credenciais.
 - T36c pending: transporte real e política de retomada/backoff após gates/fonte homologada.
 
 T36a:518 testes/typechecks; roteamento concreto dos produtos e publishedProducts explícito validados. Nenhum módulo novo conectado à UI/Auth/fornecedor. Próxima T36b ciclo de vida dos caches.
+
+T36b:531 testes/typechecks; controller privado de caches por sessão, cancel/purge/novo escopo e concorrência validados com SessionModel inventado. Gerador real/integração UI/runtime/fornecedor continuam futuros. Próxima T37a revisar/spec operações server-side de pausa/remoção de metadata.
