@@ -25,7 +25,8 @@
     "backend:cloud:test-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-owner",
     "backend:cloud:set-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py set-owner",
     "backend:cloud:configure-client": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py configure-client",
-    "backend:cloud:smoke-auth": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/auth-smoke.py"
+    "backend:cloud:smoke-auth": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/auth-smoke.py",
+    "backend:cloud:test-metadata": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-metadata"
   },
   "dependencies": {
     "expo": "~57.0.30",

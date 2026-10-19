@@ -53,3 +53,9 @@ O projeto Free/remetente padrão recusou customizar template (HTTP400). EXPO_PUB
 AppState somente active permite autenticar/receber resultados; inactive/background/estado desconhecido limpam sessão e abortam consultas. Voltar active exige novo login. Formulário limpa email/senha/código ao perder active. Expiração usa timer e conferência antes/depois de operações; snapshots React não contêm tokens. Tentativa de logout remoto é best effort, e JWT já emitido pode durar até a expiração; não equivale a revogação instantânea universal.
 
 Teste de ciclo de vida é sintético. Alternador/captura/VoiceOver/gerenciador de senhas e retorno de autorização no iPhone serão validados no final; Expo Go não foi aprovado para finanças reais. Face ID continua indisponível, sem botão falso.
+
+### Metadados de conexão (T13)
+
+public.orbe_connections/orbe_accounts permitem apenas SELECT do proprietário permitido e da própria linha, sob RLS; clientes não cadastram/alteram/apagam vínculos. Campos são IDs internos, instituição/estado/capacidades/moeda/datas; sem valores, números de conta, CPF ou payload. IDs externos ficam em orbe_private.connection_bindings/account_bindings, sem USAGE de anon/authenticated. FKs compostas impedem relação entre donos; service_role só existe no backend.
+
+Capacidade null é desconhecida, false é indisponibilidade confirmada. Conexão active exige data de verificação original de Open Finance; essa coluna não é prova por si e só poderá ser preenchida após homologação. Nenhum item real cadastrado. `npm run backend:cloud:test-metadata` verifica duas identidades inventadas, papéis reais, CRUD proibido, joins/agregados/FKs e rollback; exige dono provisionado, preserva-o e confere zero identidades temporárias. Não roda automaticamente na CI nem requer dados financeiros reais.

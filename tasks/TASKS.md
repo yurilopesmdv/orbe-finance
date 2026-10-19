@@ -314,3 +314,11 @@ T12a: integração AppState e limpeza de formulário, depende de login T11b (nã
 ## T12a — done
 
 [Ciclo de vida](../plan/T12-APP-LIFECYCLE.md): AppState bloqueia/cancela e limpa campos; voltar active exige senha. TypeScript/165 testes e bundle iOS aprovados; sem PAT/UUID privado no bundle. T12b físico pendente ao final. Próxima T13: conexões/contas, RLS e vínculo privado, sem valores bancários.
+
+## T13 — doing
+
+Contrato SPEC-002/009 e [plano de metadados](../plan/T13-CONNECTION-METADATA.md) definidos antes da migration. Só relações/capacidades/datas sob RLS; IDs externos privados, zero payload financeiro.
+
+## T13 — done
+
+[Metadados sob RLS](../plan/T13-CONNECTION-METADATA.md): migration aplicada e SQL real com duas identidades/anon/CRUD/FKs/join/agregados aprovado. Rollback sem resíduos e dono preservado; reexecução de três migrations conferiu hashes sem duplicar. TypeScript/165 testes locais passaram. Nenhum item bancário real. Próxima T14a, repositório volátil com escopo de sessão e overrides; persistência privada permanece gate de runtime.

@@ -26,3 +26,5 @@ Senha/sessão continuam no escopo. Expo Go permanece ambiente sintético enquant
 ## Contrato de arquitetura T74
 
 A ponte é de leitura sob sessão e não persiste saldos, movimentos, posições ou relatórios. Atualização automática bancária ocorre no fornecedor mesmo com app fechado; o Orbe recebe e promove novos lotes ao abrir/retomar desbloqueado ou solicitar busca. Não prometer sincronização do cache local com o app fechado. Credenciais, vínculos e limites ficam no servidor, relatórios/categorias/metas no aparelho. [Contrato T74](../../plan/T74-BRIDGE-CONTRACT.md).
+
+T13 materializa apenas metadados mínimos e vínculos sob RLS; ids externos privados, sem valores financeiros. Permissão de leitura de metadata exige proprietário global e dono da linha, não só sessão válida. Estado active exige evidência de Open Finance; nenhum item real será provisionado antes dos gates.

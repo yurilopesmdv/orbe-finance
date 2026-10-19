@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T13**, ainda não iniciada: vínculos de conexões/contas e RLS de metadados.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T14a**, ainda não iniciada: repositório volátil de movimentos/categorias/overrides com escopo de sessão; persistência privada depois do gate de runtime.
 
 ## Produto e limites obrigatórios
 
@@ -18,13 +18,14 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57. Open Finance exclusivamente
 - T08: projeto Supabase **orbe criado pelo usuário**, ativo/saudável em us-east-1. Baseline remota aplicada por Management API, hash imutável no nome do histórico.
 - T10: proprietário criado pelo titular no Dashboard e provisionado por UUID privado; conta confirmada/não anônima, registro singleton privado e RPC orbe_is_owner booleana por auth.uid. Senha/e-mail do titular nunca consultados nas ferramentas.
 - T11a/T11b login/logout: gateway REST com origem/chave pública restritas, autorização server-side, SessionModel de token volátil, telas login/account; resultado tardio/expiração/logout não restaura sessão. **T11 integral não concluída**, recuperação T11c bloqueada.
+- T13: metadados de conexões/contas sob RLS, IDs externos privados, FKs compostas/estado/capacidades testados em SQL real. Zero vínculos reais.
 - T12a: AppState bloqueia/aborta/limpa sessão em inactive/background/desconhecido; retorno exige senha; formulário limpa email/senha/código. T12b físico pendente.
 
 ## Backend e arquivos privados
 
 .env.backend.local contém PAT/ref/UUID do dono (modo0600, Git ignorado). Nunca imprimir conteúdo, pôr em Expo/EXPO_PUBLIC ou copiar do F1. .env.local contém somente URL/publishable/flag recuperação false, também ignorado; .env.example é modelo público. Reiniciar Metro após mudar env. Não consultar saldo/transações reais nas ferramentas.
 
-Migrations remotas: 20261016170000_bootstrap.sql e20261019180000_owner_access.sql. API atribui versão remota; nome é orbe_<stem>_<sha256>. Não usar CLI db push remoto, pois timestamps diferem; helper Management API confere hashes antes de aplicar. Não editar migration aplicada. scripts/backend-admin.py: inspect/bootstrap (somente banco vazio)/migrate/set-owner/test-owner/configure-client; npm scripts correspondentes. Não aceita SQL arbitrário por argumento, não segue redirects nem imprime respostas brutas.
+Migrations remotas: 20261016170000_bootstrap.sql , 20261019180000_owner_access.sql e20261019200000_connection_metadata.sql. API atribui versão remota; nome é orbe_<stem>_<sha256>. Não usar CLI db push remoto, pois timestamps diferem; helper Management API confere hashes antes de aplicar. Não editar migration aplicada. scripts/backend-admin.py: inspect/bootstrap (somente banco vazio)/migrate/set-owner/test-owner/test-metadata/configure-client; npm scripts correspondentes. Não aceita SQL arbitrário por argumento, não segue redirects nem imprime respostas brutas.
 
 Docker local segue parado: Mailpit publicou wildcard54344 apesar da rede loopback e launcher parou somente Orbe. Não reabrir esse diagnóstico ou tocar outros containers/firewall. Nenhum projeto F1 acessado. Metro permanece parado; não iniciar túnel/novo teste físico agora.
 
@@ -42,9 +43,11 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T13: atualizar SPEC-002/009 e plano antes de migration nova: metadados mínimos públicos autorizados sob RLS, IDs externos privados, FKs compostas owner/conexão/conta e sem valores financeiros. Testar duas identidades/anon/escritas indevidas e rollback no backend próprio.
+1. T14a: contrato/plano de repositório volátil por principal/geração, promoção atômica de lote completo e overrides separados; T14 persistente depende do runtime privado (não gravar finanças reais em Expo Go).
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.
 
 Git local foi reparado em19/10: nove objetos vazios recuperados de mirror remoto, hashes/fsck conferidos, sem reset de arquivos. Backups em /tmp/orbe-git-backup-20261019 e /tmp/orbe-git-recovery-20261019.git; relatório docs/validation/2026-10-19-git-recovery.md. Identidade Yuri Lopes, Conventional Commits em português, main/push autorizados. Nenhum agente ou instalação pendente.
+
+T13 validada: test-metadata real passou para dono/segunda identidade/anon, escrita e ids externos negados, FKs/active sem verificação negados. Rollback sem fakeusers e dono preservado; três migrations reexecutadas sem duplicar. CI do348a2e7 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39243268152.

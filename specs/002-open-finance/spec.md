@@ -44,3 +44,9 @@ Webhooks e cron de coleta ficam desligados nesta primeira versão: não há arma
 - AC-O06: revogar enquanto um job está em execução impede promoção de dados posteriores à revogação; evento atrasado não recria conexão.
 - AC-O07: app fechado não recebe lote local incompleto como concluído; atualização bancária continua no fornecedor e reabertura autenticada refaz consulta/promove lote completo.
 - AC-O08: rotina pessoal não chama listagem global indisponível nem atualização manual proibida; botão informa o que fez.
+
+## Metadados T13
+
+Persistir somente relações internas/conexão/conta, instituição enumerada, estado/capacidades nullable, moeda e datas. Tabelas públicas de metadados têm RLS select apenas se auth.uid é o proprietário permitido e coincide com owner_id da linha; sem DML pelo cliente. Identificadores externos ficam em tabelas privadas, sem USAGE para anon/authenticated. Segredos não vão para essas tabelas.
+
+FKs compostas impõem conexão/conta/dono consistentes inclusive para writes administrativos. Item externo único na aplicação pessoal; conta externa única por conexão. Cadastro pending não comprova Open Finance; estado active exige data de verificação original, inserida somente pela administração/backend. Campos de capacidade null = desconhecida, false = indisponível confirmado. Sem coluna de saldo/movimento/posição/payload/descrição/CPF/número de conta. T20 adicionará leases/cooldown; nenhum acesso bancário nesta task.
