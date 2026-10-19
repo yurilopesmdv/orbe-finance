@@ -1,6 +1,6 @@
 # Núcleo da ponte — T18a
 
-`supabase/functions/_shared/bridge.ts` é um núcleo sem entrypoint publicado e sem SDK/adapter externo. Não existe função acessível remotamente por essa implementação. `createBridgeHandler(ports)` permanece desligado:503 genérico, sem tocar request/body/auth/metadados/clock. Habilitação explícita nos testes é somente sintética. Flags do app continuam false.
+`supabase/functions/_shared/bridge.ts` é um núcleo sem SDK externo. T18a foi validada localmente; T18b2 publicou depois somente o entrypoint permanentemente desligado, descrito abaixo. `createBridgeHandler(ports)` permanece desligado:503 genérico, sem tocar request/body/auth/metadados/clock. Habilitação explícita nos testes é somente sintética. Flags do app continuam false.
 
 Única rota local POST /connections/status, JSON {}, Bearer em header; query/IDs/URL externa/campos livres recusados. O token é opaco para o núcleo: porta authenticate deve verificar sessão no projeto correto, autorização orbe_is_owner e expiração. Identidade é fixada em escalares antes de awaits. Não há confiança em owner fornecido pelo cliente. Este teste de porta não prova JWT real; adapter deve ser homologado separadamente.
 
@@ -16,4 +16,12 @@ Validação:21 cenários HTTP locais, `npm run typecheck:bridge` separado do cli
 
 Transport exige redirect error/credentials omit/no-store. URLs são constantes por enum de endpoints; IDs/JWT não entram em query. JSON/UTF8 upstream limitado128KiB, signal e expiração rechecados entre etapas.17 testes novos simulam rede, inclusive Auth recusando token com claims válidas, RPC false, owner divergente, duas sessões concorrentes, abort, limite e erros. Total272 testes/TypeScript cliente+ponte passaram. Nenhum usuário real consultado nesta task, nem runtime Deno/deploy validado.
 
-Base documental e distinção entre garantia externa e decisão própria em [plano T18b1](../../plan/T18b1-REST-PORTS.md). T18b2 permanece para HTTP/runtime/deploy desativado; antes dela pode avançar UI desconectada T33a sem depender de servidor.
+Base documental e distinção entre garantia externa e decisão própria em [plano T18b1](../../plan/T18b1-REST-PORTS.md). T18b2 abaixo valida somente runtime desligado; T33a guia desconectado também foi concluída.
+
+## T18b2 — Runtime gerenciado, permanentemente desligado
+
+Função `orbe-bridge` publicada no projeto próprio Orbe, versão1, ACTIVE. Entrypoint index.mjs chama Deno.serve com enabled:false literal. Nenhuma variável habilita acesso, e nenhuma configuração/credencial/env/Auth/DB/Pluggy é lida pelo entrypoint. verify_jwt=false deixa o kill switch503 observável sem sessão; não existe endpoint financeiro público. Habilitação futura exige nova revisão/entrypoint com autenticação e gates, nunca apenas mudar configuração remota.
+
+CLI2.121.0 via API, sem Docker/link/prune/secretset. Helper confirma Orbe, fontes conhecidas sem dados privados, entrypoint exato desligado e ausência de função alheia; manifest de versão/hash impede overwrite desconhecido. PAT somente no env administrativo do filho, saída em ~/.config/orbe-finance/bridge-deploy.log (0600), manifest bridge-deploy.json privado. Nenhum log bruto é publicado.
+
+279 testes locais (6 guardas deploy +1hostmock novos) e typecheck cliente/ponte passaram. O mock do host não é Deno; HTTP real no runtime gerenciado confirmou503/exato erro genérico/no-store em três casos anônimos POST{}, GET e query inventada. Deno local continua ausente. Isso valida somente execução desligada; não autenticação end-to-end, adapters ativos, ausência de logs do fornecedor ou integração bancária. Nenhum usuário/valor bancário foi consultado.

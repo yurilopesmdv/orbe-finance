@@ -36,3 +36,7 @@ A ponte desligada DEVE responder indisponível sem consultar autenticação, met
 ## MPG-10 — Portas REST isoladas por requisição (T18b1)
 
 Autenticação DEVE consultar o servidor Auth do projeto fixo e a RPC de proprietário com o mesmo Bearer. Decodificar claims localmente não comprova assinatura; só usar identidade após resposta autenticada e correspondência de subject/issuer/aud/role/expiração. Porta de metadados recebe explicitamente o mesmo token validado da requisição, sem estado global/cache de sessão; RLS continua sob o JWT do usuário, sem service role. URLs/select/order/limit são constantes, sem IDs pessoais em query. Recusar redirects, cookies, resposta excessiva ou inválida; nenhuma resposta de erro bruta é publicada. Duas requisições concorrentes não podem trocar sessão. Habilitar adapter somente em testes locais nesta fatia, sem deploy ou fornecedor.
+
+## MPG-11 — Validação de runtime desligado (T18b2)
+
+Uma função de desenvolvimento PODERÁ ser publicada somente no projeto próprio Orbe com gate literal false, sem consultar env, Auth, DB ou provedor. Endpoint público sem sessão serve exclusivamente resposta503 genérica/no-store, independentemente de rota/corpo/token; não é rota financeira pública. Alterar esse gate exige task/gates próprios. Deploy não deve receber arquivos privados ou ler infraestrutura alheia; recusar função existente sem manifest local correspondente e não apagar funções. Validar runtime por HTTP sintético sem token real; não declarar adapters/fluxos reais homologados a partir de503.

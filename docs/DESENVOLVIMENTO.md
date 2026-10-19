@@ -69,3 +69,7 @@ A tela Metas usa apenas createDemoGoals, com principal constante explicitamente 
 Isolamento das credenciais e proteção do grafo Metro: [guia](security/DEVELOPMENT-SECRETS.md).
 
 Comandos Expo passam por scripts/expo-safe.mjs: perfil exclusivo, ambiente sanitizado, CLI offline/sem telemetria e dotenv público estrito. Para alterar host/porta use `npm start -- --localhost --port 8083`; não executar CLI direto ou túnel. Offline do CLI não desativa o login HTTP no app.
+
+## Ponte desligada em desenvolvimento
+
+`npm run backend:bridge:deploy-disabled` confirma projeto/fontes/manifest e publica somente orbe-bridge com gate literal false via API, sem Docker. `npm run backend:bridge:smoke-disabled` valida três respostas503 anônimas. Logs/manifest ficam no diretório privado fora do Metro, nunca no Git. verify_jwt=false vale somente para essa resposta sem dados; não habilitar função ou adicionar operação protegida sem nova task/gates. Detalhes e limites em [ponte](security/BRIDGE-CORE.md).

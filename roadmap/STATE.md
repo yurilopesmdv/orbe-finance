@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T18b2**: revisar contrato oficial e validar runtime/deploy exclusivamente desligado do núcleo da ponte. T33a guia desconectado concluído. T18b1 portas REST concluídas localmente; Deno ainda ausente. Nenhum endpoint publicado até este checkpoint. T50a/b e T51a concluídas.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T59a**: filtros avançados por conta/tipo, resumo visível e preservação no detalhe da demo. T18b2 runtime gerenciado desligado concluída: orbe-bridge versão1 sempre503, sem env/Auth/DB/provedor. T33a guia desconectado e T18b1 portas REST locais concluídas; Deno local ausente. Adapters ativos ainda não homologados.
 
 ## Produto e limites obrigatórios
 
@@ -40,7 +40,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **272 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte,17 REST ponte. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **279 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte,17 REST ponte,1 hostmock,6 guardas deploy. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -48,7 +48,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T18b2: revisar API/CLI oficial e decidir validação runtime/deploy sempre desligado, sem segredo de provedor/dados bancários. T33a UI/272 testes/export/scan aprovados; documentação docs/PRODUTO.md. T18b1 usa token explícito por requisição, sem cache compartilhado, validado por concorrência simulada.
+1. T59a: spec/plan antes de UI filtros por conta/tipo e contexto preservado. T18b2 terminou: deployorbe-bridge v1/ACTIVE/verify_jwtfalse, literalenabledfalse; HTTPanônimoPOST/GET/query inventada503/no-store/exatoerro. Logs/manifest ~/.config/orbe-finance/bridge-deploy.log/json privados fora Metro. Nenhum adapter ativo/gate real liberado.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.
@@ -62,3 +62,5 @@ T32a bundle iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos
 T51a concluída: referências opcionais agora estritas em runtime, payloads/objetos inválidos recusados antes da promoção. Valores reais bancários continuam ausentes; nenhum request de leitura ao .env pelo Metro foi feito.
 
 T18a: máximo100 status metadata, prazo20s/body16KiB, auth e owner expiração em porta ainda abstrata. Sem imports do cliente. CI d62e27b aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39252717540.
+
+T18b2 helper scripts/bridge-deploy.py usa API/CLI2.121.0 offline, sem Docker/link/prune. Recusa fontes extras/privadas e função existente sem manifest/id/versão correspondente. Configtoml novoentrypoint index.mjs; UI continua livefalse. CIcf64abe aprovada.

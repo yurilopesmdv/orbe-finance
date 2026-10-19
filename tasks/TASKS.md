@@ -418,3 +418,11 @@ T33a (T28/T11b): tela informativa desconectada e acesso/guia sem rede. T33b (T19
 ## T33a — done
 
 Guia/tela desconectada e mensagens de acesso corrigidas sem mudar abas. TypeScript cliente/ponte,272 testes existentes/export iOS/scan privado aprovados. T33b conexões reais pendente; próxima T18b2 runtime/deploy desligado, começando pela revisão do contrato oficial.
+
+## T18b2 — doing
+
+[Runtime desligado](../plan/T18b2-DISABLED-RUNTIME.md), MPG-11. Publicar somente503 sem ler env/metadata/Auth; sem Deno local/Docker/fornecedor. Validar guardas/HTTP gerenciado.
+
+## T18b2 — done
+
+Runtime gerenciado desligado validado em três HTTP anônimos503; função própria versão1, gate literalfalse, sem env/dados.279 testes/typecheck passaram. Adapters ativos/ponte completa continuam pendentes (T18b3/T18c/gates). Próxima T59a filtros avançados/conta e preservação do contexto na demo.

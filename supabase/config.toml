@@ -70,3 +70,8 @@ enable_signup = false
 enabled = false
 [analytics]
 enabled = false
+
+# Development kill switch only: public response is always 503, no data access.
+[functions.orbe-bridge]
+verify_jwt = false
+entrypoint = "./functions/orbe-bridge/index.mjs"
