@@ -494,3 +494,11 @@ Migration4 de lease/cooldown/fencing aplicada, SQL service/auth/anon e regressõ
 ## T20b1 — done
 
 Portas REST de lease lazy/server-only, deadline/cancel/schema/sem segredo emURL,353 testes/typecheck aprovados (18novos). JSONbounded compartilhado e origemprimitiva rígida; allowlist5fontes. Nenhum segredo real lido/redeploy; próxima T20b2 coordenação/paginação com fixtures.
+
+## T19b1 — doing (antes de T20b2)
+
+[Autorizações independentes](../plan/T19b1-SEPARATE-CONSENTS.md): revisão oficial identificou guarda necessária contra coleções vazias por expiração. Decomposição T19b1 metadata/gates; T19b2 adapter fornecedor/OF comprovado continua futura. Não inicia banco real ou usa credenciais novas.
+
+## T19b1 — done
+
+Consentimentos distintos e gate de proxy desconhecido/vencido aplicados em migration5.359 testes/typecheck e SQL lease/metadados/proprietário reais aprovados com rollback/zero fakes/owner preservado. Nenhum fornecedor acessado. Retomar T20b2; T19b2 adapter originalOF e revisão SEC05/upstreamURL ainda pendentes.

@@ -145,3 +145,8 @@ test('origin and public key require primitive strings rather than coercible obje
   assert.throws(() => createSupabasePorts({ ...config, origin: { toString: () => config.origin } }), /bridge_configuration_invalid/);
   assert.throws(() => createSupabasePorts({ ...config, publishableKey: { toString: () => config.publishableKey } }), /bridge_configuration_invalid/);
 });
+
+test('metadata select requests independent authorization fields after the schema migration', async () => {
+  const { ports, calls } = fixture([[]]); await ports.listConnections(owner, signal(), token());
+  assert.ok(calls[0].url.includes('proxy_consent_expires_at,bank_consent_expires_at')); assert.ok(!calls[0].url.includes('authorization_expires_at'));
+});

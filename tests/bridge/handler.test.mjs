@@ -7,7 +7,7 @@ const connection = '00000000-0000-4000-8000-000000000003';
 const principal = () => ({ subject: owner, isOwner: true, expiresAt: Date.now() + 60000 });
 const row = () => ({ id: connection, owner_id: owner, institution: 'bradesco', state: 'pending', revision: 1,
   accounts_available: true, transactions_available: null, investments_available: false, reserves_available: null,
-  open_finance_verified_at: null, authorization_expires_at: null, source_updated_at: '2026-10-19T10:00:00-03:00', last_read_at: null,
+  open_finance_verified_at: null, proxy_consent_expires_at: null, bank_consent_expires_at: null, source_updated_at: '2026-10-19T10:00:00-03:00', last_read_at: null,
   external_item_id: 'invented-private-item', bank_account: 'invented-private-account', secret: 'invented-private-token',
 });
 function fixture(overrides = {}, options = {}) {
@@ -168,4 +168,12 @@ test('invalid UTF-8 is rejected without replacement or metadata read', async () 
   const { handler, calls } = fixture();
   assert.equal((await handler(request(new Uint8Array([0xff, 0xfe])))).status, 400);
   assert.equal(calls.filter(c => c[0] === 'metadata').length, 0);
+});
+
+test('status projects proxy and bank deadlines separately and derives rather than trusts the legacy alias', async () => {
+  const metadata = { ...row(), proxy_consent_expires_at: '2026-12-19T12:00:00Z', bank_consent_expires_at: '2026-11-19T12:00:00Z', authorization_expires_at: '2030-01-01T00:00:00Z' };
+  const { handler } = fixture({ listConnections: async () => [metadata] });
+  const response = await handler(request()); assert.equal(response.status, 200);
+  const projected = (await response.json()).connections[0];
+  assert.equal(projected.proxyConsentExpiresAt, '2026-12-19T12:00:00.000Z'); assert.equal(projected.bankConsentExpiresAt, '2026-11-19T12:00:00.000Z'); assert.equal(projected.authorizationExpiresAt, projected.bankConsentExpiresAt);
 });

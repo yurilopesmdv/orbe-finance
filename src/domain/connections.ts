@@ -26,7 +26,8 @@ export function normalizeConnection(raw: unknown, policy: ConnectionPolicy = {})
     return [product, value ?? null];
   })) as Record<ConnectionProduct, boolean | null>;
   const field = (key: string) => Object.hasOwn(raw, key) ? raw[key] : undefined;
-  const verifiedAt = timestamp(field('openFinanceVerifiedAt')), expiresAt = timestamp(field('authorizationExpiresAt')), sourceUpdatedAt = timestamp(field('sourceUpdatedAt')), lastReadAt = timestamp(field('lastReadAt'));
+  const verifiedAt = timestamp(field('openFinanceVerifiedAt')), proxyExpiry = timestamp(field('proxyConsentExpiresAt')), bankExpiry = timestamp(field('bankConsentExpiresAt')), sourceUpdatedAt = timestamp(field('sourceUpdatedAt')), lastReadAt = timestamp(field('lastReadAt'));
+  const expiresAt = [proxyExpiry, bankExpiry].filter((value): value is string => value !== null).sort((a, b) => Date.parse(a) - Date.parse(b))[0] ?? null;
   if ([verifiedAt, sourceUpdatedAt, lastReadAt].some(value => value !== null && Date.parse(value) > now + 60000)) return invalid();
   let state = raw.state as 'pending' | 'active' | 'paused' | 'renewal_required' | 'revoked' | 'error' | 'unsupported' | 'partial';
   let blockedReason: string | null = state === 'active' ? null : state;
@@ -34,6 +35,7 @@ export function normalizeConnection(raw: unknown, policy: ConnectionPolicy = {})
   if (state === 'active') {
     if (verifiedAt === null) { state = 'unsupported'; blockedReason = 'open_finance_unverified'; }
     else if (expiresAt !== null && Date.parse(expiresAt) <= now) { state = 'renewal_required'; blockedReason = 'authorization_expired'; }
+    else if (proxyExpiry === null) { state = 'partial'; blockedReason = 'proxy_authorization_unknown'; }
     else {
       readable = connectionProducts.filter(product => capabilities[product] === true);
       if (readable.length === 0 && connectionProducts.every(product => capabilities[product] === false)) { state = 'unsupported'; blockedReason = 'products_unavailable'; }
@@ -43,6 +45,6 @@ export function normalizeConnection(raw: unknown, policy: ConnectionPolicy = {})
   return Object.freeze({
     kind: 'connection' as const, id: raw.id, institution: raw.institution as string, revision: raw.revision as number,
     state, blockedReason, capabilities: Object.freeze(capabilities), readableProducts: Object.freeze(readable),
-    openFinanceVerifiedAt: verifiedAt, authorizationExpiresAt: expiresAt, sourceUpdatedAt, lastReadAt,
+    openFinanceVerifiedAt: verifiedAt, proxyConsentExpiresAt: proxyExpiry, bankConsentExpiresAt: bankExpiry, authorizationExpiresAt: expiresAt, sourceUpdatedAt, lastReadAt,
   });
 }

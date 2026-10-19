@@ -31,3 +31,9 @@ Prioridade informada: Mercado Pago, Bradesco, Inter e Nubank. Uso pessoal gratui
 Banco só recebe homologado após comparação privada com saldo/extrato na fonte, identidade/ownership, repetição de sync sem duplicidade e comportamento seguro de revogação. Diferenças temporais precisam de justificativa de data, não tolerância numérica genérica. Não anexar extratos reais ao repositório. R2 exige as fichas Bradesco/Mercado Pago e cobertura por produto explicitamente aceita; um banco ausente não deve ser marcado como concluído.
 
 Pesquisa T03 concluída: [evidência e limitações](../../plan/T03-PERSONAL-FEASIBILITY.md). Origem Open Finance dos bancos no Meu Pluggy pessoal não comprovada por tabela comercial; não habilitar dados reais antes dessa prova.
+
+## Revisão19/10/2026 — autorização antes de coleções
+
+O [guia pessoal](https://docs.pluggy.ai/en/docs/guides/meu-pluggy-personal-use) distingue prazo anual do proxy e consentimento do banco: proxy expirado pode retornar listas vazias com último status UPDATED, e renovação pode alterar itemId. Evidência documental, sem testar dados do titular. Controles próprios e migration estão no [plano T19b1](../../plan/T19b1-SEPARATE-CONSENTS.md); cobertura original Open Finance por banco continua não comprovada.
+
+Pendência SEC-05/T51b: o [guia da API](https://meu.pluggy.ai/api-guide) usa IDs opacos de recurso em path/query upstream. Antes do adapter real, fechar ADR sobre esse limite necessário somente no destinatário fixo aprovado, sem credenciais/PII/valores em URLs nem propagação ao app/logs/terceiros; confirmar retenção do fornecedor. Isso não autoriza exceção automática à política atual. A página pública também referencia Google Tag Manager; isso não prova conteúdo bancário enviado, e o fluxo autenticado ainda precisa de revisão. Nenhuma conta/conexão foi aberta nas ferramentas.

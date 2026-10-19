@@ -53,6 +53,9 @@ function projectConnections(value: unknown, subject: string): unknown[] {
       !Number.isSafeInteger(row.revision) || (row.revision as number) < 1) return fail(503, 'unavailable');
     seen.add(row.id);
     const verifiedAt = timestamp(row.open_finance_verified_at);
+    const proxyExpiry = timestamp(row.proxy_consent_expires_at ?? null);
+    const bankExpiry = timestamp(row.bank_consent_expires_at ?? null);
+    const knownExpiry = [proxyExpiry, bankExpiry].filter((value): value is string => value !== null).sort((a, b) => Date.parse(a) - Date.parse(b));
     if (row.state === 'active' && verifiedAt === null) return fail(503, 'unavailable');
     return {
       id: row.id, institution: row.institution, state: row.state, revision: row.revision,
@@ -60,7 +63,7 @@ function projectConnections(value: unknown, subject: string): unknown[] {
         accounts: nullableBoolean(row.accounts_available), transactions: nullableBoolean(row.transactions_available),
         investments: nullableBoolean(row.investments_available), reserves: nullableBoolean(row.reserves_available),
       },
-      openFinanceVerifiedAt: verifiedAt, authorizationExpiresAt: timestamp(row.authorization_expires_at),
+      openFinanceVerifiedAt: verifiedAt, proxyConsentExpiresAt: proxyExpiry, bankConsentExpiresAt: bankExpiry, authorizationExpiresAt: knownExpiry[0] ?? null,
       sourceUpdatedAt: timestamp(row.source_updated_at), lastReadAt: timestamp(row.last_read_at),
     };
   });

@@ -1,6 +1,6 @@
 # Estado de retomada —19/10/2026
 
-Execução ativa, retomada pelo usuário, inclusive novo “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar nova confirmação. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T20b2**: spec/plan de coordenação de lote/paginação com fixtures, preservando último válido e descartando staged após lock/expiração/erro. T20b1 portas REST server-only/lazy concluída, sem chave real ou redeploy. T20a SQL aplicada/validada.
+Execução ativa, retomada pelo usuário, inclusive novo “pode continuar”. Continuar automaticamente uma microtask por vez: spec → plan → tasks → código → validação → commit/push, sem esperar nova confirmação. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T20b2**: spec/plan de coordenação de lote/paginação com fixtures, preservando último válido e descartando estágio após lock/expiração/erro. T19b1 concluída antes dela: proxy/banco têm campos distintos, migration5 aplicada/imutável,359 testes e regressões SQL passaram. Último caminho de integração continua desligado e sem fornecedor real.
 
 ## Produto, limites e gate
 
@@ -22,12 +22,12 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57, Node22.23.2/npm12.2.0. Open
 - T50a/b: credenciais fora Metro, dotenv excluído do grafo(crawler real/canários); launcher start/export com allowlist, perfil exclusivo/offline/sem telemetria, sem herdar tokens. Nunca executar CLI Expo diretamente/túnel.
 - T18a/b1/b2: core/RESTAuth+RPC+metadata testados localmente, token explícito por request sem lastToken; entrypoint orbe-bridge v1 ACTIVE publicado **literal enabledfalse**, sempre503/no-store sem env/Auth/DB/Pluggy. verify_jwtfalse serve somente essa indisponibilidade, não endpoint financeiro público. Deno local ausente; hostmock não é Deno, HTTP real validou só desligado. T18b3 adapter ativo/end-to-end e T18c fornecedor pendentes.
 - T33a: Ajustes→Conexões, bancos desconectados/guia sem rede e mensagens de login corrigidas.
-- T19a: normalizador DTO puro, gates desligados sem tocar raw/clock, estados/capacidades/expiração/projeção; não verifica Auth/owner nem integra supplier. T19b fonte pendente.
+- T19a: normalizador DTO puro, gates desligados sem tocar raw/clock, estados/capacidades/expiração/projeção; não verifica Auth/owner nem integra supplier. T19b1 prazos proxy/banco concluída; T19b2 fornecedor/OF pendente.
 - **T20a**: lease privado120s/cooldown900s, RPC begin/check/finish só service_role, tabela ACL negada inclusive service, trigger revisão para state/capability/OF/auth/owner. Paginação revalida produto true/owner/revision/nonce/TTL. Sem adapter ativo ou chamada bancária.
 
 ## Backend e segredos
 
-Projeto próprio Orbe saudável(us-east-1),6tabelas app metadata/Auth,4migrations imutáveis: 20261016170000_bootstrap,20261019180000_owner_access,20261019200000_connection_metadata,20261019210000_read_leases. Não editar aplicadas. ManagementAPI atribui versão remota diferente; nome orbe_<stem>_<sha256>, helper verifica hashes. Não usar CLI dbpush remoto.
+Projeto próprio Orbe saudável(us-east-1),6tabelas app metadata/Auth,5migrations imutáveis: 20261016170000_bootstrap,20261019180000_owner_access,20261019200000_connection_metadata,20261019210000_read_leases,20261019220000_split_consents. Não editar aplicadas. ManagementAPI atribui versão remota diferente; nome orbe_<stem>_<sha256>, helper verifica hashes. Não usar CLI dbpush remoto.
 
 ~/.config/orbe-finance/backend.env(0600/diretório0700) guarda PAT/ref/ownerUUID; .env.backend.local ignorado contém só ORBE_BACKEND_ENV_FILE para destino fixo. Nunca imprimir valores. .env.local somente publicURL/publishable/recoveryfalse. Perfil Expo exclusivo ~/.config/orbe-finance/expo-cli; CLI offline não bloqueia login HTTP do app. Metro permanece parado, sem LAN/túnel/teste físico novo.
 
@@ -37,7 +37,7 @@ Docker Orbe parado: launcher anterior detectou Mailpit wildcard54344 e parou som
 
 ## Validação e bloqueios
 
-TypeScript cliente/ponte e **353 testes locais** passaram até T20b1. Último export Hermes iOS2.5MB T60c1 aprovado; PAT/UUID ausentes. T19a/T20a puros/backend não alteram UI/imports e não repetiram export. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI últimos commits ainda em fila/andamento na última observação; cf64abe e1f2b6a6 aprovados, não declarar HEADCI aprovada sem conferir.
+TypeScript cliente/ponte e **359 testes locais** passaram até T19b1. Último export Hermes iOS2.5MB T60c1 aprovado; PAT/UUID ausentes. T19a/T20a puros/backend não alteram UI/imports e não repetiram export. Doctor21/21 e dependências SDK validados T07, sem novos packages desde então. SQL real: owner/metadata/read-leases passaram com papéis reais e rollback, zero2identidades fake por cenário e owner real preservado. Teste lease é sequencial, não multissessão; FORUPDATE usa semântica PG. Smoke Auth antigo fakeuser HTTP negado/destruído; sem senha do titular. Runtimeoff3HTTP503 passou. CI6b90662 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39289486505; não declarar HEADCI aprovada sem conferir.
 
 Auditoria18high em2raízes sem patch, exceção somente sintética até23/10(cutoff24/10UTC);10moderados corrigidos por overrides. Não auditfixforce nem liberar dados reais. CI sem secrets/testes sintéticos/audit/export; SQL/smokes remotos opt-in.
 
@@ -46,8 +46,10 @@ SMTPFree/default recusou template OTP HTTP400; recoveryflagfalse/sem envioemail.
 ## Próximos passos
 
 1. T20b2: planejar antes de código coordenação/paginação com fixtures, sem novo endpoint/fornecedor. Diferenciar lease120s por conexão de requestdeadline20s; checar owner/generation/expiry antes/depois de awaits, somente produtos true, descartar estágio em erro e preservar lote anterior. Promoção só completa, não confiar typeT genérico sem normalizador real (T21–23). Definir separação entre portas lease server-only e transporte cliente da ponte; nunca importar lease-rest no Expo. SessionModel mantém JWT privado, inspecionar API antes de integrar transporte. T20b1 passou353 testes:17lease+1cfg; secret apenas apikey, nenhum segredo real lido. Modelo SQLpágina/revisão disponível, provider/audit/runtime gates fechados.
-2. T18b3/T18c/T19b/T21–T23: adapters/source/OF/gates. Não mapear status empresarial para proxy pessoal sem comprovar contrato. Nenhum banco real aprovado.
+2. T18b3/T18c/T19b2/T21–T23: adapters/source/OF/gates. Não mapear status empresarial para proxy pessoal sem comprovar contrato. Nenhum banco real aprovado.
 3. T14b–T17/T29b–T33b dependem runtime privado/segurança; T65+ decidir FaceID/cache/SDK além de ExpoGo. Não tratar devbuild como prova de segurança.
 4. T60c2 só evolução de snapshots existentes. T11c recuperação depende SMTP. Testes físicos/VoiceOver/loginpositivo ficam finais por ordem do usuário.
 
 Git Yuri Lopes, Conventional Commits português/main/push autorizados. .git reparado19/10(noveobjetos vazios) com mirror/hashes/fsck, sem reset; backups /tmp/orbe-git-backup-20261019 e /tmp/orbe-git-recovery-20261019.git. Não repetir reparo sem evidência.
+
+T19b1: schema proxy_consent_expires_at/bank_consent_expires_at, antigo authorization_expires_at foi renomeado com tabela vazia; helper/trigger/mapeamento DTO atualizados, alias authorizationExpiresAt só derivado. Guia pessoal tem proxy anual que pode produzir vazio com status velho; checar prazos antes de coleções/renovação não assumeitemID. Plano T19b1 e BANK-COVERAGE descrevem evidências. SEC05/T51b pendente: API exige opaqueIDs upstreamURL; fechar ADR/logretention antes de implementar fornecedor, sem exceção automática. Site público referenciaGTM, fluxo autenticado não auditado. Não acessar conta/banco real nas ferramentas.

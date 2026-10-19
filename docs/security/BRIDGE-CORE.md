@@ -28,7 +28,7 @@ CLI2.121.0 via API, sem Docker/link/prune/secretset. Helper confirma Orbe, fonte
 
 ## T19a — Política pura de estados/capacidades
 
-`src/domain/connections.ts` normaliza somente DTO interno, sem rede ou vínculo direto ao endpoint publicado. Com integrationEnabled/privateDataApproved diferentes de true retorna desligado sem ler metadata/clock. Quando explicitamente aprovado por fixture, valida ID/revisão/enums/timestamps/clock; active sem OF comprovado não lê, expiração conhecida vira renewal_required, paused/revoked/pending/error bloqueiam. Produto true é elegível; false e null permanecem distintos e ambos não são consultados. Datas futuras inesperadas são rejeitadas; expiração ausente permanece null e não comprova consentimento atual.
+`src/domain/connections.ts` normaliza somente DTO interno, sem rede ou vínculo direto ao endpoint publicado. Com integrationEnabled/privateDataApproved diferentes de true retorna desligado sem ler metadata/clock. Quando explicitamente aprovado por fixture, valida ID/revisão/enums/timestamps/clock; active sem OF comprovado não lê, expiração conhecida vira renewal_required, paused/revoked/pending/error bloqueiam. Produto true é elegível; false e null permanecem distintos e ambos não são consultados. Datas futuras inesperadas são rejeitadas; prazo bancário ausente permanece null; prazo do proxy passa a ser obrigatório pela T19b1 abaixo.
 
 Este modelo não verifica identidade/titularidade nem substitui Auth/RLS da ponte. Flags são política interna confiável, nunca parâmetros HTTP. Fonte e autorização bancária precisam de revalidação no adapter futuro. Campos privados/extras não são projetados e propriedades herdadas não dão capacidade.332 testes passaram,12novos de gates/estado/capacidade/expiração/projeção. Nenhum import da UI ou adapter ativo foi acrescentado; domínio puro não altera a função desligada.
 
@@ -47,3 +47,11 @@ Acquire trava conexão e impõe120s de lease/900s de cooldown por relógio do se
 POSTs fixos begin/check/finish transportam somente contexto/nonce/produto/outcome canônicos. JSON/UTF8 de resposta limitado16KiB, schemas projetados, grant precisa corresponder revisão/TTL/política120/900; erros brutos nunca retornam. Prazo20s/abort limpa recursos e libera caller mesmo se transporte ignorar signal. Config/contexto são copiados, sem sessão global entre requisições.
 
 Leitor JSON bounded compartilhado extraído de supabase-rest para http-json.ts mantém limite128KiB de Auth; configuração de origem/chave pública agora exige strings primitivas.353 testes e typecheck cliente/ponte passaram (17lease+1config novos). Allowlist de upload agora inclui5fontes conhecidas; não houve redeploy, HTTP real com secret ou ativação do adapter. Função publicada continua v1 desligada, manifest remoto ainda corresponde àquele deploy. T20b2 coordenação/paginação/descartar parcial é próxima.
+
+## T19b1 — Prazos distintos, sem tratar expiração como zero
+
+Migration20261019220000_split_consents aplicada como quinta, com guard de connections vazia; não reinterpretou registros existentes. Coluna genérica renomeada proxy_consent_expires_at, bank_consent_expires_at separada. Helpers de elegibilidade/revisão usam os dois prazos: proxy desconhecido/vencido ou banco sabidamente vencido negam lease; alterar qualquer um invalida revisão anterior. Prazos não são estimados.
+
+DTO da ponte expõe os dois campos explícitos; authorizationExpiresAt é apenas derivação do menor prazo conhecido, ordenando instantes e não strings. Normalizador não confia nesse alias de entrada e não concede acesso por ele. Metadata deve ser revalidada antes de qualquer coleção; vínculo renovado exige verificação administrativa própria. Contexto e fonte externa em [T19b1](../../plan/T19b1-SEPARATE-CONSENTS.md).
+
+359 testes cliente/ponte passaram (6novos), e SQL de leases/metadados/proprietário passou após migration com rollback, zero fakes/owner preservado. Função publicada continua v1 false, sem redeploy/fornecedor/chave real. Nenhuma alegação de OpenFinance real, cobertura de banco ou segurança do runtime foi aprovada com isso.

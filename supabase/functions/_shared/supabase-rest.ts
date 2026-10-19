@@ -21,7 +21,7 @@ function claims(token: string, origin: string, now: number): { subject: string; 
     return { subject: payload.sub, expiresAt };
   } catch { return null; }
 }
-const columns = 'id,owner_id,institution,state,revision,accounts_available,transactions_available,investments_available,reserves_available,open_finance_verified_at,authorization_expires_at,source_updated_at,last_read_at';
+const columns = 'id,owner_id,institution,state,revision,accounts_available,transactions_available,investments_available,reserves_available,open_finance_verified_at,proxy_consent_expires_at,bank_consent_expires_at,source_updated_at,last_read_at';
 const endpoints = Object.freeze({
   user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner',
   connections: '/rest/v1/orbe_connections?select=' + columns + '&order=created_at.desc,id.desc&limit=101',
