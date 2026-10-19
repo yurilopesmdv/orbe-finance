@@ -298,3 +298,7 @@ T58a: T28/T29a/T57a, acesso secundário a relatório demonstrativo com detalhe m
 ## T58a — done
 
 [Relatório demonstrativo](../plan/T58-REPORTS-UI.md): resumo → relatório → categoria, contexto preservado por pilha, filtros permitidos validados, valores ocultos e cálculo compartilhado. TypeScript/139 testes e bundle iOS passaram. T58b/físico pendentes. Próxima T13, vínculos de metadados sob RLS, enquanto T10b aguarda UUID privado.
+
+## T10b — done (provisionamento)
+
+Titular cadastrou identidade no Dashboard e forneceu UUID privado; backend conferiu confirmação/não anonimato e registrou proprietário. Login físico pelo titular permanece na validação de T11/T38. Próxima prioridade T11b, agora desbloqueada; T13 ainda não iniciada.
