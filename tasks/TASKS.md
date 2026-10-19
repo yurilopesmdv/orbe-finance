@@ -354,3 +354,11 @@ T16a: metas/alocações voláteis sobre orçamento explícito, depende T15a/T24.
 ## T16a — done
 
 [Metas voláteis](../plan/T16-VOLATILE-GOALS.md): TypeScript/207 testes passaram, limites/sessão/moeda/qualidade e concorrência JS cobertos. T16b privado pendente. Próxima T32a: tela demonstrativa de metas, usando orçamento inventado e labels sem movimentação bancária.
+
+## Decomposição T32
+
+T32a (T16a/T24/T31a): tela/seed demonstrativos de metas com parser exato e reset de sessão. T32b: fonte real, vínculo a reserva existente, persistência/autorização privada e físico, depende T16b/T31b/gates. T32 integral continua pendente.
+
+## T32a — done
+
+[Metas demonstrativas](../plan/T32-DEMO-GOALS-UI.md): criar/alocar/desvincular/excluir por tela secundária da Carteira, contexto/reset da sessão, orçamento explícito sem alterar patrimônio. TypeScript/212 testes e bundle iOS aprovados; valores privados ausentes nos artefatos. T32b/físico pendentes. Próxima T51a: endurecer tipos escalares de referências antes da ponte, depois T18a.

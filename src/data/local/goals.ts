@@ -54,6 +54,7 @@ export class MemoryGoals {
     if (amountCents === 0) candidate.delete(id); else candidate.set(id, { goalId, rootId, amountCents });
     const total = this.#assigned(rootId, candidate);
     if (knownBudget(budget) && total > budget.allocatableCents! && amountCents > previous) throw new Error('allocation_exceeds_budget');
+    sumCents([...candidate.values()].filter(value => value.goalId === goalId).map(value => value.amountCents));
     this.#scope.assert(); this.#allocations = candidate;
   }
   deleteGoal(id: string) {

@@ -36,3 +36,9 @@ test('deleting goal releases association without changing imported asset', () =>
 test('another owner or generation cannot read aggregate or write', () => { const f = fixture(); assert.throws(() => f.goals.createGoal({ ownerSubject: 'other', id: 'x', title: 'Other', currency: 'BRL', targetCents: 1 }), /owner_mismatch/); f.principal({ subject: 'owner', generation: 2, unlocked: true }); assert.throws(() => f.goals.list(), /repository_locked/); });
 test('returned state cannot mutate budgets or allocations', () => { const { goals } = fixture(); goals.allocate('a','root',1000,1); const result = goals.list(); result.goals[0].allocations[0].amountCents = 1; result.budgets[0].allocatableCents = 999999; assert.equal(goals.list().goals[0].allocatedCents,1000); assert.equal(goals.list().budgets[0].allocatableCents,80000); });
 test('negative and unsafe amounts invalid goals and inferred budget overflow are refused', () => { const { goals } = fixture(); assert.throws(() => goals.allocate('a','root',-1,1), /negative_allocation/); assert.throws(() => goals.allocate('a','root',Number.MAX_SAFE_INTEGER + 1,1), /invalid_cents/); assert.throws(() => goals.setBudget({ ...budget, revision: 2, allocatableCents: 100001 }), /invalid_goal_budget/); assert.throws(() => goals.createGoal({ ownerSubject: 'owner', id: 'bad', title: 'Bad', currency: 'BRL', targetCents: 0 }), /invalid_goal/); });
+
+test('sum across roots cannot overflow a goal after candidate promotion', () => {
+  const { goals } = fixture(); goals.setBudget({ ...budget, revision: 2, root: { ...root, amountCents: Number.MAX_SAFE_INTEGER }, allocatableCents: Number.MAX_SAFE_INTEGER }); goals.allocate('a','root',Number.MAX_SAFE_INTEGER,2);
+  goals.setBudget({ ...budget, root: { ...root, id: 'other', amountCents: 1 }, allocatableCents: 1 });
+  assert.throws(() => goals.allocate('a','other',1,1), /money_overflow/); assert.equal(goals.list().goals[0].allocatedCents,Number.MAX_SAFE_INTEGER);
+});

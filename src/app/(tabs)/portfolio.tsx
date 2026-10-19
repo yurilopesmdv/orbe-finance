@@ -1,9 +1,11 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Action, Body, Card, Screen } from '@/components/ui';
 import { Money, usePrivacy } from '@/components/privacy';
 import { demoAssetLabels, demoPortfolio } from '@/data/demo/scenario';
 const sections = [{ id: 'account', label: 'Contas' }, { id: 'investment', label: 'Investimentos' }, { id: 'reserve', label: 'Reservas incluídas' }] as const;
 export default function PortfolioScreen() {
+  const router = useRouter();
   const [institution, setInstitution] = useState<'bradesco' | 'mercado-pago'>();
   const { components, summary } = demoPortfolio(institution);
   const privacy = usePrivacy();
@@ -30,6 +32,7 @@ export default function PortfolioScreen() {
         </Card>)}
       </Card>;
     })}
+    <Card title="Metas locais"><Body>Associe parte do exemplo a objetivos, sem transferir dinheiro ou aumentar o patrimônio.</Body><Action title="Ver metas demonstrativas" secondary onPress={() => router.push('/goals')} /></Card>
     <Card title="Cofrinhos do Mercado Pago"><Body>A cobertura real ainda não foi confirmada. Não estamos inferindo cofrinhos a partir do saldo ou do nome de uma transação.</Body></Card>
   </Screen>;
 }

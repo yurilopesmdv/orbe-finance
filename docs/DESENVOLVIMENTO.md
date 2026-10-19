@@ -59,3 +59,9 @@ Teste de ciclo de vida é sintético. Alternador/captura/VoiceOver/gerenciador d
 public.orbe_connections/orbe_accounts permitem apenas SELECT do proprietário permitido e da própria linha, sob RLS; clientes não cadastram/alteram/apagam vínculos. Campos são IDs internos, instituição/estado/capacidades/moeda/datas; sem valores, números de conta, CPF ou payload. IDs externos ficam em orbe_private.connection_bindings/account_bindings, sem USAGE de anon/authenticated. FKs compostas impedem relação entre donos; service_role só existe no backend.
 
 Capacidade null é desconhecida, false é indisponibilidade confirmada. Conexão active exige data de verificação original de Open Finance; essa coluna não é prova por si e só poderá ser preenchida após homologação. Nenhum item real cadastrado. `npm run backend:cloud:test-metadata` verifica duas identidades inventadas, papéis reais, CRUD proibido, joins/agregados/FKs e rollback; exige dono provisionado, preserva-o e confere zero identidades temporárias. Não roda automaticamente na CI nem requer dados financeiros reais.
+
+### Dados e metas demonstrativos
+
+Ledger/ativos/metas em src/data/local são ports voláteis por principal/geração, sem disco/rede. Detectar sessão inválida numa operação purga e bloqueia; integração privada futura deve chamar close imediatamente ao lock. Não confundir guard injetado com autorização real já integrada. T14b/T15b/T16b dependem do runtime protegido.
+
+A tela Metas usa apenas createDemoGoals, com principal constante explicitamente inventado; nunca reutilizar esse seed/guard para dados reais. Orçamento Bradesco do cenário exclui reserva já incluída. Criar/alocar/excluir só muda organização da sessão; sair da demonstração fecha/reset o store, e recarregar movimentos preserva metas. Nenhuma chamada bancária. parse de formulário mantém centavos exatos e data civil DD/MM/AAAA; title/values são mascarados e campos limpos no background.

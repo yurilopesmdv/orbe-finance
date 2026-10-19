@@ -1,0 +1,10 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { createDemoGoals } from '../../src/data/demo/goals.ts';
+import { demoAssets } from '../../src/data/demo/scenario.ts';
+import { reconcilePortfolio } from '../../src/domain/portfolio.ts';
+import { parseGoalAmount, parseGoalDeadline } from '../../src/components/goal-input.ts';
+test('goal amount input is exact and rejects ambiguous or invalid representations', () => { assert.equal(parseGoalAmount('500,01'),50001); assert.equal(parseGoalAmount(' 0.10 '),10); assert.equal(parseGoalAmount('0'),0); for (const text of ['1.000,00','-1','1e3','0.001','']) assert.throws(() => parseGoalAmount(text)); });
+test('civil deadline preserves day and rejects calendar rollover', () => { assert.equal(parseGoalDeadline('29/02/2028'),'2028-02-29'); assert.equal(parseGoalDeadline(''),null); assert.throws(() => parseGoalDeadline('31/02/2026'),/invalid_goal_deadline/); });
+test('seeded goal uses explicit non-reserved budget and never increases assets', () => { const store = createDemoGoals(); assert.equal(store.list().budgets[0].allocatableCents,600000); assert.equal(store.list().goals[0].allocatedCents,100000); assert.equal(reconcilePortfolio([...demoAssets,...store.virtualComponents()]).subtotalCents,1550000); });
+test('reset creates a fresh goal store and old closed store cannot expose values', () => { const old = createDemoGoals(); old.deleteGoal('example-emergency'); old.close(); assert.throws(() => old.list(),/repository_locked/); assert.equal(createDemoGoals().list().goals.length,1); });

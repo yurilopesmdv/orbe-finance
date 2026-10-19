@@ -58,3 +58,11 @@ Metas têm título, moeda, alvo positivo em centavos e prazo civil opcional. Alo
 Aumentar alocação exige orçamento conhecido/data/confirmado, moeda igual e revisão corrente. Soma entre metas não excede valor alocável; operação síncrona valida candidato antes de trocar estado. Duas chamadas concorrentes em JS são serializadas; isso não prova transação SQLite da T16b. Atualização da fonte que reduza o orçamento não apaga associações: sinalizar excesso e permitir reduções/remoções, impedir aumentos. Desvincular/excluir meta não altera posições importadas.
 
 Revisão de orçamento deve aumentar; mesma revisão divergente é conflito, data anterior é stale. Fonte desconhecida bloqueia aumento sem converter null em zero. Guard principal/geração e close iguais a T14a/T15a. Associação de meta a reserva já existente da fonte não consome novamente parte livre e será tratada na integração T32/T16b; este recorte aloca apenas valor não reservado comprovado. Sem persistência financeira real.
+
+## Recorte T32a — metas na demonstração
+
+Destino secundário /goals pela Carteira, sem nova aba. Criar meta com título, alvo e prazo opcional, associar valor não reservado do exemplo Bradesco e remover associação/meta com confirmação. Labels explicam organização local, sem resgate/transferência; fonte/data e orçamento inventado explícitos. Money compartilhado mascara valores e acessibilidade. Formulário usa parse exato de centavos e data civil brasileira; limpar campos no background.
+
+DemoProvider compartilha metas na sessão e reset ao sair descarta o store anterior. Recarregar movimentos não apaga metas. Seed: raiz Bradesco inventada, orçamento não reservado explicitamente conhecido; investimento/MP desconhecido não viram orçamento. Vinculação a reserva existente da fonte e persistência real continuam T32b/T16b. A integração deve validar também soma segura de alocações por meta antes de promover candidato, não só por raiz.
+
+Títulos livres de metas podem conter valores; no modo oculto, o título salvo e o rótulo acessível que o repete também usam nome genérico. Erro de formulário deve aparecer na meta correspondente e ser anunciado sem repetir dados digitados.

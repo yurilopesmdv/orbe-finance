@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T32a**, ainda não iniciada: tela demonstrativa de metas e associações locais, usando orçamento inventado explícito e sem movimentação bancária. T16a volátil concluída.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T51a**, ainda não iniciada: validar referências escalares de inclusão/estorno antes da ponte; tipos opcionais não devem aceitar objetos carregando payload inesperado. Depois T18a, contrato/handler HTTP desativado por padrão, sem API bancária real.
 
 ## Produto e limites obrigatórios
 
@@ -19,6 +19,7 @@ Orbe pessoal, iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57. Open Finance exclusivamente
 - T08: projeto Supabase **orbe criado pelo usuário**, ativo/saudável em us-east-1. Baseline remota aplicada por Management API, hash imutável no nome do histórico.
 - T10: proprietário criado pelo titular no Dashboard e provisionado por UUID privado; conta confirmada/não anônima, registro singleton privado e RPC orbe_is_owner booleana por auth.uid. Senha/e-mail do titular nunca consultados nas ferramentas.
 - T11a/T11b login/logout: gateway REST com origem/chave pública restritas, autorização server-side, SessionModel de token volátil, telas login/account; resultado tardio/expiração/logout não restaura sessão. **T11 integral não concluída**, recuperação T11c bloqueada.
+- T32a: tela de metas demonstrativas pela Carteira, formulário exato/seed/reset, guard inventado somente na demo, título livre oculto junto do valor; T32b privado pendente.
 - T16a: metas/alocações voláteis com orçamento de raiz não reservado explícito, revisão/qualidade/moeda e concorrência JS; sem transferir fundos nem persistir. T16b nativo pendente.
 - T15a: snapshots voláteis por conexão/produto, autoritativo explícito, relações/null/moedas preservadas; MemoryScope compartilhado com ledger. T15b privado pendente.
 - T14a: ledger volátil com guard principal/geração, promoção de lote completo, categorias/regras/overrides separados; não ligado a cache privado real. T14b persistência pendente.
@@ -39,7 +40,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **207 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,12 metas. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **212 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,12 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -47,7 +48,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T32a: spec/plan antes de UI de metas; seed inventado do orçamento Bradesco (valor não reservado explicitamente conhecido), shared DemoProvider, reset ao sair da demo. Mostrar associação virtual sem somar ao patrimônio/sem transferir; form local com parse exato BRL/prazo e erros sanitizados. T32b privado fica depois do runtime.
+1. T51a: spec/plan de referências escalares. AssetComponent.includedIn e Movement.reversalOf precisam rejeitar tipos/objetos inválidos; hoje tipos TS não validam todo opcional em runtime. Testar rejeição de payload aninhado sem promover/cachear. Depois T18a handler/port de ponte desligado por padrão.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.
@@ -55,3 +56,5 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 Git local foi reparado em19/10: nove objetos vazios recuperados de mirror remoto, hashes/fsck conferidos, sem reset de arquivos. Backups em /tmp/orbe-git-backup-20261019 e /tmp/orbe-git-recovery-20261019.git; relatório docs/validation/2026-10-19-git-recovery.md. Identidade Yuri Lopes, Conventional Commits em português, main/push autorizados. Nenhum agente ou instalação pendente.
 
 T13 validada: test-metadata real passou para dono/segunda identidade/anon, escrita e ids externos negados, FKs/active sem verificação negados. Rollback sem fakeusers e dono preservado; três migrations reexecutadas sem duplicar. CI do348a2e7 aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39243268152.
+
+T32a bundle iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Confirmação/interação/VoiceOver nativos ainda não testados, conforme pedido de deixar aparelho ao final.
