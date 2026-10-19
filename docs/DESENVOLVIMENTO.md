@@ -73,3 +73,5 @@ Comandos Expo passam por scripts/expo-safe.mjs: perfil exclusivo, ambiente sanit
 ## Ponte desligada em desenvolvimento
 
 `npm run backend:bridge:deploy-disabled` confirma projeto/fontes/manifest e publica somente orbe-bridge com gate literal false via API, sem Docker. `npm run backend:bridge:smoke-disabled` valida três respostas503 anônimas. Logs/manifest ficam no diretório privado fora do Metro, nunca no Git. verify_jwt=false vale somente para essa resposta sem dados; não habilitar função ou adicionar operação protegida sem nova task/gates. Detalhes e limites em [ponte](security/BRIDGE-CORE.md).
+
+T20a adicionou quarta migration de metadata, lease privado por conexão e fencing de revisão. `npm run backend:cloud:test-read-leases` executa cenários SQL fictícios em rollback e verifica zero identidades residuais/owner preservado. Não imprimir respostas SQL cruas nem editar migration aplicada. Serviço público orbe-bridge continua desligado; RPCs de lease somente service_role, sem ACL direta na tabela.

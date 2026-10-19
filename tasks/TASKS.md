@@ -474,3 +474,15 @@ T19a política/normalização pura do DTO interno; T19b mapeamento comprovado do
 ## T19a — done
 
 Estados/capacidades e política de leitura puros, sem rede, schema/projeção/gates validados. TypeScript cliente/ponte e332 testes passaram (12novos). T19b fornecedor/adapter pendente. Próxima T20a lease/cooldown/revisão no backend somente metadados.
+
+## Decomposição T20
+
+T20a lease/cooldown/fencing somente metadata no banco; T20b coordenação/paginação no adapter com fixtures; integração real depende contratos/gates. T20 integral segue pendente.
+
+## T20a — doing
+
+[Lease privado](../plan/T20a-READ-LEASES.md), OF-12. Migration nova e testes rollback sem banco conectado/valor financeiro.
+
+## T20a — done
+
+Migration4 de lease/cooldown/fencing aplicada, SQL service/auth/anon e regressões reais passaram com rollback/zero fakes/owner preservado.335 testes locais/TypeScript aprovados,3guardas runner novos. T20b subdividida em b1 portas REST lease e b2 coordenação/paginação com fixtures. Próxima T20b1; T20 integral não completa.

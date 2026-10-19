@@ -29,7 +29,8 @@
     "backend:cloud:test-metadata": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-metadata",
     "typecheck:bridge": "tsc -p tsconfig.bridge.json",
     "backend:bridge:deploy-disabled": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/bridge-deploy.py deploy-disabled",
-    "backend:bridge:smoke-disabled": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/bridge-deploy.py smoke-disabled"
+    "backend:bridge:smoke-disabled": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/bridge-deploy.py smoke-disabled",
+    "backend:cloud:test-read-leases": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-read-leases"
   },
   "dependencies": {
     "expo": "~57.0.30",
