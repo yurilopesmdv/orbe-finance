@@ -38,3 +38,7 @@ Meta local: título, valor-alvo, prazo opcional e alocações em ativos. Soma de
 ## Contrato puro T24
 
 Componentes canônicos carregam ID, moeda, centavos ou null, data da fonte ou null e natureza explícita: ativo, alocação ou limite. Ativos têm relação distinct/included/unknown; relação included precisa de pai comprovado na mesma moeda. Ciclos, IDs conflitantes e referências de inclusão inconsistentes falham; pai ausente, valores ausentes e sobreposição desconhecida produzem subtotal parcial. Alocações/limites nunca acrescentam patrimônio. Valores negativos de ativo ficam fora do subtotal de ativos e sinalizam parcialidade, sem apagá-los da origem ou convertê-los em zero. Datas diferentes são sinalizadas. Variação entre snapshots não recebe nome de rentabilidade, mesmo descontando fluxos.
+
+## Recorte T31a — carteira demonstrativa
+
+Separar contas, investimentos e reservas; filtrar instituição mantendo componente incluído junto de seu pai. Mostrar subtotal parcial calculado, fonte/data e valores ausentes. Reserva incluída aparece como detalhe e nunca ativo adicional. Não inferir liquidez/disponível/retorno se fonte não separar. Moeda BRL explícita no cenário; nenhum câmbio implícito. Valores seguem a preferência compartilhada de ocultação. T31b exige T27b, cobertura por instituição e homologação física; T32 mantém gestão de metas/alocações fora deste recorte.

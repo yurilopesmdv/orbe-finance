@@ -254,3 +254,11 @@ T30a (T25/T26/T27a/T28/T29a): filtros, páginas e detalhe dos exemplos com overr
 ## T30a — done
 
 [Lista demonstrativa](../plan/T30-MOVEMENTS.md): filtros, paginação, detalhe e correção em memória compartilhada. TypeScript, 99 testes e bundle iOS aprovados. T30b continua pendente; próxima T31a, carteira sintética.
+
+## Decomposição T31
+
+T31a: T24/T27a/T28/T29a, carteira demonstrativa por instituição e componente, sem inventar disponível/retorno. T31b: T27b e integração real de contas/posições, autenticação e validação física. T31 só completa após ambas. Paths carteira, metadados inventados do cenário, testes e checkpoints.
+
+## T31a — done
+
+[Carteira demonstrativa](../plan/T31-PORTFOLIO-UI.md): filtros por instituição, contas/investimentos/reservas separados, datas e valor desconhecido explícitos. TypeScript, 100 testes e bundle iOS passaram. T31b pendente. Próxima T57a: relatório local puro, depois T58a acesso demonstrativo.

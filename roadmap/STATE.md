@@ -41,8 +41,12 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação — T31a
+## Próxima ação — T57a
 
-T24 e T25 concluídas e validadas: TypeScript e 84 testes passaram (20 sessão, 9 auditoria, 18 gastos, 19 carteira, 18 classificação). T28 concluída: quatro abas, componentes e galeria demonstrativa; TypeScript, testes e exportação iOS passaram. T27a concluída: consultas locais com filtros, paginação e estornos consistentes. TypeScript e 95 testes passaram. T29a concluída: visão geral com cálculos e privacidade de apresentação; TypeScript, 97 testes e bundle iOS aprovados. T30a concluída: lista, filtros, paginação, detalhe e overrides compartilhados em memória. TypeScript, 99 testes e bundle iOS passaram. Próxima T31a: carteira sintética; T27b (ponte autenticada) exige backend. Autenticação real T12 continua obrigatória antes de dados privados. T08 sem credencial própria.
+T24 e T25 concluídas e validadas: TypeScript e 84 testes passaram (20 sessão, 9 auditoria, 18 gastos, 19 carteira, 18 classificação). T28 concluída: quatro abas, componentes e galeria demonstrativa; TypeScript, testes e exportação iOS passaram. T27a concluída: consultas locais com filtros, paginação e estornos consistentes. TypeScript e 95 testes passaram. T29a concluída: visão geral com cálculos e privacidade de apresentação; TypeScript, 97 testes e bundle iOS aprovados. T30a concluída: lista, filtros, paginação, detalhe e overrides compartilhados em memória. TypeScript, 99 testes e bundle iOS passaram. T31a concluída: carteira sintética por instituição, reserva incluída e valor desconhecido explícitos. TypeScript, 100 testes e bundle iOS passaram. Próxima T57a: relatórios locais puros; T27b (ponte autenticada) exige backend. Autenticação real T12 continua obrigatória antes de dados privados. T08 sem credencial própria.
 
 Git local reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar automaticamente uma task por vez com commits e checkpoint. Teste físico permanece ao final.
+
+## Backend próprio informado pelo usuário
+
+Usuário criou projeto Supabase novo em 19/10; usar esse projeto, não criar outro. Foi orientado a gerar PAT com escopo só do Orbe. .env.backend.local criado com modo0600, ignorado pelo Git, contendo somente nomes das variáveis vazias SUPABASE_ACCESS_TOKEN e SUPABASE_PROJECT_REF. Aguardar preenchimento; nunca imprimir conteúdo. Não ler/copy .env do F1.

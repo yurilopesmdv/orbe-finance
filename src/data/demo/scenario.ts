@@ -20,3 +20,14 @@ export const demoMovements: readonly LocalMovement[] = [
 export function demoOverview() {
   return { portfolio: reconcilePortfolio(demoAssets), expenses: queryMovements(demoMovements, { month: demoMonth }, true).summary };
 }
+export const demoAssetLabels: Record<string, { name: string; institution: 'bradesco' | 'mercado-pago'; section: 'account' | 'investment' | 'reserve' }> = {
+  'bradesco-account': { name: 'Conta corrente · Bradesco', institution: 'bradesco', section: 'account' },
+  'mp-account': { name: 'Conta de pagamento · Mercado Pago', institution: 'mercado-pago', section: 'account' },
+  'bradesco-investment': { name: 'Investimento · Bradesco', institution: 'bradesco', section: 'investment' },
+  'bradesco-reserve': { name: 'Reserva incluída na conta · Bradesco', institution: 'bradesco', section: 'reserve' },
+  'mp-investment': { name: 'Investimentos · Mercado Pago', institution: 'mercado-pago', section: 'investment' },
+};
+export function demoPortfolio(institution?: 'bradesco' | 'mercado-pago') {
+  const components = demoAssets.filter(asset => institution === undefined || demoAssetLabels[asset.id]?.institution === institution);
+  return { components, summary: reconcilePortfolio(components) };
+}
