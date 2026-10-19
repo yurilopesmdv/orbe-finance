@@ -12,9 +12,9 @@
     "start": "node scripts/expo-safe.mjs start",
     "ios": "node scripts/expo-safe.mjs start",
     "typecheck": "tsc --noEmit",
-    "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs && node tests/domain/expenses.test.mjs && node tests/domain/portfolio.test.mjs && node tests/domain/classification.test.mjs && node tests/data/query.test.mjs && node tests/data/demo.test.mjs && node tests/data/overrides.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 tests/admin/backend_admin_test.py && node tests/auth/gateway.test.mjs && node tests/domain/reports.test.mjs && node tests/data/report-route.test.mjs && node tests/auth/session.test.mjs && node tests/auth/lifecycle.test.mjs && node tests/data/ledger.test.mjs && node tests/data/assets.test.mjs && node tests/presentation/money.test.mjs && node tests/data/goals.test.mjs && node tests/data/demo-goals.test.mjs && node tests/domain/references.test.mjs && node tests/security/metro-secrets.test.mjs && node tests/security/expo-environment.test.mjs",
+    "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs && node tests/domain/expenses.test.mjs && node tests/domain/portfolio.test.mjs && node tests/domain/classification.test.mjs && node tests/data/query.test.mjs && node tests/data/demo.test.mjs && node tests/data/overrides.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 tests/admin/backend_admin_test.py && node tests/auth/gateway.test.mjs && node tests/domain/reports.test.mjs && node tests/data/report-route.test.mjs && node tests/auth/session.test.mjs && node tests/auth/lifecycle.test.mjs && node tests/data/ledger.test.mjs && node tests/data/assets.test.mjs && node tests/presentation/money.test.mjs && node tests/data/goals.test.mjs && node tests/data/demo-goals.test.mjs && node tests/domain/references.test.mjs && node tests/security/metro-secrets.test.mjs && node tests/security/expo-environment.test.mjs && node tests/bridge/handler.test.mjs",
     "export:ios": "node scripts/expo-safe.mjs export",
-    "check": "npm run typecheck && npm test",
+    "check": "npm run typecheck && npm run typecheck:bridge && npm test",
     "security:audit": "node scripts/audit-dependencies.mjs",
     "backend:start": "node scripts/local-backend.mjs start",
     "backend:stop": "node scripts/local-backend.mjs stop",
@@ -26,7 +26,8 @@
     "backend:cloud:set-owner": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py set-owner",
     "backend:cloud:configure-client": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py configure-client",
     "backend:cloud:smoke-auth": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/auth-smoke.py",
-    "backend:cloud:test-metadata": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-metadata"
+    "backend:cloud:test-metadata": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py test-metadata",
+    "typecheck:bridge": "tsc -p tsconfig.bridge.json"
   },
   "dependencies": {
     "expo": "~57.0.30",

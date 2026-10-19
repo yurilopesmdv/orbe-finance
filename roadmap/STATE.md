@@ -1,6 +1,6 @@
 # Estado de retomada — 19/10/2026
 
-Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T18a**: contrato e núcleo HTTP da ponte desativado por padrão, sem deploy/API bancária. T50a/b concluídas: credenciais fora do root e launcher Expo segregado; T51a concluída.
+Execução ativa, retomada expressamente pelo usuário. Continuar automaticamente, uma task por vez com spec → plan → tasks → código → validação → commit/push. Não aguardar novo “pode continuar” após tarefa. Repositório /home/yurilopesm/projects/orbe-finance, main. Próxima **T18b1**: adapters REST Auth/metadados de origem fixa, rede simulada; depois T18b2 runtime/deploy desativado. T18a núcleo HTTP concluída, nenhum endpoint publicado. T50a/b e T51a concluídas.
 
 ## Produto e limites obrigatórios
 
@@ -40,7 +40,7 @@ Supabase Free/default sender recusou customizar template OTP (HTTP400). configur
 
 ## Validações e limites
 
-TypeScript e **234 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
+TypeScript e **255 testes** passaram:20 spike,9 audit,18 gastos,19 carteira,18 classificação,11 query,3 cenário,2 overrides,19 guardas admin,20 gateway,18 sessão,8 relatórios,2 rotas,5 lifecycle,14 ledger,10 assets,6 apresentação,13 metas,4 demo-goals,4 referências,1 crawler Metro,10 ambiente/CLI,21 HTTP ponte. Bundle Hermes iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Doctor21/21 e compatibilidade SDK passaram na T07.
 
 SQL real test-owner: dono permitido, segunda identidade/sem sessão/registro ausente negados, papéis authenticated/anon reais, schema/tabela privados inacessíveis; rollback/zero identidades temporárias conferidos. Smoke HTTP opt-in (scripts/auth-smoke.py + tests/auth/live-denial.mjs): fakeuser confirmado sem email, token válido não proprietário negado por RPC/gateway, anônimo negado, fakeuser deletado em finally. Nenhuma senha do titular usada; login positivo/recuperação/gestos/VoiceOver/snapshot iOS ainda não homologados fisicamente.
 
@@ -48,7 +48,7 @@ Auditoria:18 high em duas raízes sem patch, exceção somente sintética até23
 
 ## Próximos passos
 
-1. T18a: spec/plan antes do núcleo HTTP puro desativado por padrão. Deno não instalado (command -v vazio), não alegar validação Edge/deploy. Node Request/Response e typecheck separado podem validar contrato local. T50a/b passaram: sem PAT/UUID nos bundles; configuração pública preservada; perfil CLI exclusivo/allowlist/offline/sem telemetria. Nenhum Metro LAN aberto.
+1. T18b1: primeiro revisar documentação oficial Auth getUser/RPC/RLS; spec/plan antes dos adapters REST de origem fixa, tokens por request/headers, sem secrets de provedor. T18a núcleo validado em Node22 Request/Response/typecheck separado, sem Deno ou deploy. T18b2 runtime futuro não pode ser declarado validado por testes Node.
 2. T14–T17: repositório privado/runtime e testes, respeitando Expo Go sintético/segurança. Não promover cache financeiro real sem decisão de runtime.
 3. Integração ponte T18+, cobertura Open Finance/termos por banco T77/gates; relatórios/filtros avançados T59/T60 e restante UI conforme backlog.
 4. Resolver T11c/SMTP sem custo/fornecedor novo não revisado. Teste físico T38/T45/T53/T61 somente ao final conforme usuário.
@@ -60,3 +60,5 @@ T13 validada: test-metadata real passou para dono/segunda identidade/anon, escri
 T32a bundle iOS final exportado (2,5MB), PAT/UUID privado ausentes nos artefatos. Confirmação/interação/VoiceOver nativos ainda não testados, conforme pedido de deixar aparelho ao final.
 
 T51a concluída: referências opcionais agora estritas em runtime, payloads/objetos inválidos recusados antes da promoção. Valores reais bancários continuam ausentes; nenhum request de leitura ao .env pelo Metro foi feito.
+
+T18a: máximo100 status metadata, prazo20s/body16KiB, auth e owner expiração em porta ainda abstrata. Sem imports do cliente. CI d62e27b aprovada: https://github.com/yurilopesmdv/orbe-finance/actions/runs/39252717540.

@@ -386,3 +386,15 @@ Credenciais preservadas fora do root Expo, ponteiro estrito e exclusões do graf
 ## T50b — done
 
 Launcher e export passam por processo com allowlist, public dotenv estrito, perfil exclusivo e CLI offline/sem telemetria. TypeScript/234 testes/export iOS/scan aprovados. T50 não homologa runtime/dados reais; próxima T18a, handler HTTP sintético desligado.
+
+## Decomposição T18
+
+T18a: núcleo HTTP/ports sintéticos e gate desligado, depende T13/T50a/b. T18b: adapters reais Auth/metadados/RLS, runtime Deno e deploy desligado validado. T18c: provedor/provisionamento privado e OF comprovado, depende T03/T63. Não marcar T18 completa pela fatia sintética.
+
+## T18a — doing
+
+[Contrato do núcleo](../plan/T18a-BRIDGE-CORE.md), MPG-09. Implementar e validar sem endpoint publicado nem API externa.
+
+## T18a — done
+
+Núcleo desligado por padrão, status autorizado/projeção estrita,16KiB/20s e cancelamento validados. Typecheck cliente/ponte e255 testes aprovados (21HTTP novos). Sem deploy/adapters externos. T18b decomposta em T18b1 REST Auth/metadados local e T18b2 runtime Edge/deploy desligado; T18c segue bloqueada pelos gates.
