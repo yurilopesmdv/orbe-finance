@@ -1,6 +1,6 @@
-# Estado de retomada — PAUSADO pelo usuário
+# Estado de retomada — execução retomada em19/10/2026
 
-Checkpoint de 16/10/2026, America/Sao_Paulo. Usuário pediu standby, salvar tudo/atualizar Git e não continuar hoje; intenção de retomar amanhã17/10. Nenhuma retomada automática agendada. Aguardar nova instrução do usuário antes de retomar tasks. Repositório /home/yurilopesm/projects/orbe-finance, main.
+Checkpoint atualizado em 19/10/2026, America/Sao_Paulo. Usuário autorizou retomada. Continuar uma task por vez sem aguardar novo pedido. Repositório /home/yurilopesm/projects/orbe-finance, main.
 
 ## Estado salvo
 
@@ -23,7 +23,7 @@ TypeScript passou.47 testes passaram (20 sessão+9 política de audit+18 domíni
 
 ## Processos parados
 
-Metro sessão13056 encerrado com SIGINT; porta8083 sem listener na última inspeção. Nenhum container Orbe em execução. Stack Supabase local foi parada preservando volumes/imagens/rede próprios. Nenhum firewall alterado, túnel criado, outro projeto parado ou recurso F1 reutilizado. Não iniciar serviços antes de o usuário retomar.
+Metro sessão13056 encerrado com SIGINT; porta8083 sem listener na última inspeção. Nenhum container Orbe em execução. Stack Supabase local foi parada preservando volumes/imagens/rede próprios. Nenhum firewall alterado, túnel criado, outro projeto parado ou recurso F1 reutilizado. Serviços permanecem parados enquanto não necessários.
 
 ## T08 — configuração preparada, execução bloqueada
 
@@ -41,8 +41,10 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação após autorização de retomada
+## Próxima ação — T25
 
-Conferir git status e ler AGENTS, tasks/TASKS.md, plan/T74-BRIDGE-CONTRACT.md e contratos T01/T04. T24 é a próxima task local: reconciliação pura de conta/investimento/cofrinho, sem dupla contagem ou rentabilidade inventada. Dependências de T24/T26 foram ajustadas a T04 antes do código por serem funções puras independentes da ingestão. T24 ainda NÃO iniciada; não existe código de carteira parcial a recuperar. T08 retoma quando houver credencial própria/alternativa local resolvida, sem bloquear domínio/UI independentes.
+T24 concluída: reconciliação pura da carteira, 19 testes novos; TypeScript e 66 testes totais passaram. Próxima T25: especificar classificação pura (override > regra > provedor > Sem categoria), planejar, implementar e validar. Ajustar dependência para T04/T26 antes de código: ingestão T14/T22 permanece integração futura. T08 continua sem credencial própria; arquivos de env não existiam na retomada. Não acessar segredos do F1.
 
-Ao voltar a trabalhar: seguir automaticamente uma task por vez, validar, atualizar checkpoint e commitar com identidade/convenção existentes. A pausa atual prevalece sobre a continuidade automática até nova mensagem de retomada. Nenhum agente ou path reservado; nenhum processo de instalação/start pendente.
+Git local tinha nove objetos vazios. Backup e mirror íntegro em /tmp; restauração atômica com hashes verificados e git fsck aprovado. Ver docs/validation/2026-10-19-git-recovery.md. Nenhum reset ou substituição de arquivo de trabalho.
+
+Continuar automaticamente, validar e commitar cada task com checkpoints. Teste físico permanece adiado para a etapa final. Nenhum agente ou serviço em execução necessário para estas funções puras.

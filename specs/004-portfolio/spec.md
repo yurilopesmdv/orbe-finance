@@ -34,3 +34,7 @@ Meta local: título, valor-alvo, prazo opcional e alocações em ativos. Soma de
 - AC-P04: meta aloca R$ 100 de um ativo de R$ 150; segunda meta tenta R$ 100: impedir excesso, inclusive em duas gravações concorrentes.
 - AC-P05: saldo cai R$ 100 após resgate; a tela não declara prejuízo de R$ 100 sem analisar fluxos.
 - AC-P06: saldo reservado sem natureza conhecida fica “Reservado pela instituição”; não recebe rótulo de caixinha inferido.
+
+## Contrato puro T24
+
+Componentes canônicos carregam ID, moeda, centavos ou null, data da fonte ou null e natureza explícita: ativo, alocação ou limite. Ativos têm relação distinct/included/unknown; relação included precisa de pai comprovado na mesma moeda. Ciclos, IDs conflitantes e referências de inclusão inconsistentes falham; pai ausente, valores ausentes e sobreposição desconhecida produzem subtotal parcial. Alocações/limites nunca acrescentam patrimônio. Valores negativos de ativo ficam fora do subtotal de ativos e sinalizam parcialidade, sem apagá-los da origem ou convertê-los em zero. Datas diferentes são sinalizadas. Variação entre snapshots não recebe nome de rentabilidade, mesmo descontando fluxos.

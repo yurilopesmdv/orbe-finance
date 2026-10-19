@@ -207,3 +207,7 @@ CLI publica Mailpit fora do loopback nesta instalação; launcher detecta e para
 ## Pausa solicitada —16/10/2026
 
 Usuário pediu standby até amanhã, salvar progresso e atualizar Git. Execução pausada; nenhuma retomada automática.47 testes e CI do29640f8 aprovados. T24 ainda não iniciada e é próxima local após nova autorização; T08 depende de credencial/configuração pendente. Serviços Orbe parados; teste físico adiado para T38/T45. Estado consolidado em roadmap/STATE.md.
+
+## T24 — done (19/10/2026)
+
+[Reconciliação da carteira](../plan/T24-PORTFOLIO-DOMAIN.md): 19 testes novos, 66 no total e TypeScript aprovados. Retomada autorizada pelo usuário; pausa anterior encerrada. Próxima T25, domínio puro de classificação; T08 continua pendente. Git local reparado com hashes verificados, conforme relatório de validação.
