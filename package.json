@@ -12,13 +12,15 @@
     "start": "EXPO_NO_TELEMETRY=1 expo start --lan",
     "ios": "expo start --ios",
     "typecheck": "tsc --noEmit",
-    "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs && node tests/domain/expenses.test.mjs && node tests/domain/portfolio.test.mjs && node tests/domain/classification.test.mjs && node tests/data/query.test.mjs && node tests/data/demo.test.mjs && node tests/data/overrides.test.mjs",
+    "test": "node spikes/access/session.test.mjs && node tests/security/audit-policy.test.mjs && node tests/domain/expenses.test.mjs && node tests/domain/portfolio.test.mjs && node tests/domain/classification.test.mjs && node tests/data/query.test.mjs && node tests/data/demo.test.mjs && node tests/data/overrides.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 tests/admin/backend_admin_test.py",
     "export:ios": "EXPO_NO_TELEMETRY=1 expo export --platform ios",
     "check": "npm run typecheck && npm test",
     "security:audit": "node scripts/audit-dependencies.mjs",
     "backend:start": "node scripts/local-backend.mjs start",
     "backend:stop": "node scripts/local-backend.mjs stop",
-    "backend:status": "node scripts/local-backend.mjs status"
+    "backend:status": "node scripts/local-backend.mjs status",
+    "backend:cloud:inspect": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py inspect",
+    "backend:cloud:bootstrap": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/backend-admin.py bootstrap"
   },
   "dependencies": {
     "expo": "~57.0.30",

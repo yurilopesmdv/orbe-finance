@@ -25,3 +25,11 @@ Nunca instalar SDK Pluggy ou chave privilegiada no cliente. Ponte futura é de l
 Requer Docker acessível e CLI2.121.0 resolvido pelo npm. npm run backend:start cria somente a rede orbe-finance-local com bind127.0.0.1 e inicia os serviços desse projeto. npm run backend:status consulta o estado sem imprimir chaves; npm run backend:stop para somente esse projeto, sem apagar seus dados/volumes. Saída completa contém chaves locais e fica em .supabase-local-*.log ignorado pelo Git; não enviar esses arquivos ao chat/CI.
 
 API54341, Postgres54342, captura de email54344, todos locais. Nenhum projeto remoto vinculado; helper rejeita referência cloud. Cloud e teste final no iPhone exigirão destino próprio e TLS/configuração aprovados, sem usar banco F1. Não usar --no-backup, db reset ou remoção de volume em outro projeto para limpar esse ambiente.
+
+## Backend cloud próprio (19/10/2026)
+
+Projeto orbe criado pelo titular, região us-east-1, destinado apenas a desenvolvimento de Auth/metadados. Não conectado a bancos e não aprovado para dados financeiros reais. O arquivo .env.backend.local (modo0600, ignorado) contém SUPABASE_ACCESS_TOKEN e SUPABASE_PROJECT_REF; não usar esse segredo em .env.local ou EXPO_PUBLIC. Expo não precisa dele. Python3 é necessário para administração e testes das proteções; a CI não recebe credenciais.
+
+`npm run backend:cloud:inspect` verifica destino/metadados/política sem imprimir segredos. `npm run backend:cloud:bootstrap` é preparação idempotente de banco vazio e rejeita tabelas de aplicação existentes. Confere nome/ref/saúde, aplica baseline imutável pelo endpoint de migrations e registra nome com hash no histórico oficial. A versão remota é gerada pela API; não executar CLI db push remoto por divergência com timestamps locais. Novas migrations precisam de operação versionada própria antes de aplicar. Não editar a baseline aplicada.
+
+Cadastro público, anônimo e telefone estão desligados; senha mínima12, JWT10min e rotação configurados. Nenhuma identidade proprietária provisionada por ferramenta até esta etapa; T10 usa cadastro administrativo do titular e allowlist server-side. SMTP/recuperação e retenção do provedor continuam pendentes. Stack Docker local segue parada pelo problema de bind já documentado.

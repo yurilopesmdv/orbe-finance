@@ -1,0 +1,64 @@
+import contextlib
+import importlib.util
+import io
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import patch
+import urllib.error
+
+spec = importlib.util.spec_from_file_location('backend_admin', Path(__file__).resolve().parents[2] / 'scripts/backend-admin.py')
+admin = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(admin)
+
+class BackendGuards(unittest.TestCase):
+    def test_other_project_rejected_before_database_access(self):
+        calls = []
+        def request(*args):
+            calls.append(args)
+            return {'name': 'different-project', 'status': 'ACTIVE_HEALTHY'}
+        with self.assertRaisesRegex(admin.SafeError, 'unexpected_project'):
+            admin.inspect(request)
+        self.assertEqual(len(calls), 1)
+
+    def test_redirect_never_forwards_authorization(self):
+        with self.assertRaisesRegex(admin.SafeError, 'redirect_rejected'):
+            admin.NoRedirect().redirect_request(None, None, 302, '', {}, 'https://untrusted.invalid')
+
+    def test_provider_error_excludes_body_and_url(self):
+        class Opener:
+            def open(self, *args, **kwargs):
+                raise urllib.error.HTTPError('https://untrusted.invalid/private', 403, 'private-message', {}, io.BytesIO(b'private-payload'))
+        with patch.object(admin.urllib.request, 'build_opener', return_value=Opener()):
+            with self.assertRaises(admin.SafeError) as raised:
+                admin.client('invented-token', 'a' * 20)()
+        self.assertEqual(str(raised.exception), 'management_http_403')
+
+    def test_nonempty_database_rejected_before_mutation(self):
+        with patch.object(admin, 'config', return_value=('fake', 'a' * 20)), patch.object(admin, 'client') as client, patch.object(admin, 'inspect', return_value=(1, [], {})), patch.object(admin.sys, 'argv', ['admin', 'bootstrap']), contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(admin.SafeError, 'bootstrap_requires_empty'):
+                admin.main()
+            client.return_value.assert_not_called()
+
+    def test_applied_migration_content_drift_rejected(self):
+        history = [{'name': 'orbe_20261016170000_bootstrap_changed-hash'}]
+        with patch.object(admin, 'config', return_value=('fake', 'a' * 20)), patch.object(admin, 'client') as client, patch.object(admin, 'inspect', return_value=(0, history, {})), patch.object(admin.sys, 'argv', ['admin', 'bootstrap']), contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(admin.SafeError, 'applied_migration_hash_mismatch'):
+                admin.main()
+            client.return_value.assert_not_called()
+
+    def test_duplicate_private_config_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(admin, 'ROOT', Path(folder)):
+            (Path(folder) / '.env.backend.local').write_text('SUPABASE_ACCESS_TOKEN=first\nSUPABASE_ACCESS_TOKEN=second\n')
+            with self.assertRaisesRegex(admin.SafeError, 'duplicate_config_key'):
+                admin.config()
+
+    def test_symlink_private_config_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder, patch.object(admin, 'ROOT', Path(folder)):
+            target = Path(folder) / 'other'; target.write_text('invented')
+            (Path(folder) / '.env.backend.local').symlink_to(target)
+            with self.assertRaisesRegex(admin.SafeError, 'private_config_missing'):
+                admin.config()
+
+if __name__ == '__main__':
+    unittest.main()

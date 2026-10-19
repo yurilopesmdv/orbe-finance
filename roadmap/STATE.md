@@ -25,11 +25,11 @@ TypeScript passou.47 testes passaram (20 sessão+9 política de audit+18 domíni
 
 Metro sessão13056 encerrado com SIGINT; porta8083 sem listener na última inspeção. Nenhum container Orbe em execução. Stack Supabase local foi parada preservando volumes/imagens/rede próprios. Nenhum firewall alterado, túnel criado, outro projeto parado ou recurso F1 reutilizado. Serviços permanecem parados enquanto não necessários.
 
-## T08 — configuração preparada, execução bloqueada
+## T08 — done via cloud próprio
 
-Commit e73e788: supabase/config.toml, migration20261016170000_bootstrap.sql e scripts/local-backend.mjs. CLI2.121.0 iniciou stack nova, mas Mailpit publicou54344 em0.0.0.0/:: apesar de rede Docker própria orbe-finance-local com host_binding_ipv4=127.0.0.1. Launcher detecta portas fora de127.0.0.1/::1 e para somente Orbe automaticamente; backend permanece parado. Não declarar loopback ou backend concluídos.
+Usuário criou projeto orbe e forneceu PAT/ref no .env.backend.local privado. Management API confirmou ativo/saudável, us-east-1, sem tabelas antes da baseline. Migration aplicada uma vez por API oficial com nome contendo arquivo+sha256; reexecução não duplicou. Política Auth restrita e schema privado sem USAGE cliente conferidos. Helper scripts/backend-admin.py não imprime respostas brutas. CLI local não vinculado e parado; não usar db push remoto com esse histórico.
 
-Foi solicitado SUPABASE_ACCESS_TOKEN próprio no .env.local para preparar projeto separado de desenvolvimento. Usuário adiou isso para amanhã; não insistir nem acessar credenciais F1. Nenhum projeto cloud/conta paga/consentimento bancário criado. Quando retomar e houver credencial, mover somente segredo administrativo para .env.backend.local (Expo carrega .env.local), manter privado/ignorado e nunca imprimir valor. Toda criação/configuração precisa ser no projeto Orbe próprio; nenhum token privilegiado no cliente.
+TypeScript e107 testes passaram (100 anteriores+7 guardas administrativos). Bundle iOS exportado com arquivo privado preenchido; token administrativo ausente nos artefatos. Não habilita dados reais; nenhuma conexão bancária.
 
 ## Teste físico adiado
 
@@ -41,12 +41,10 @@ PC no cabo/iPhone Wi-Fi, endereços da mesma sub-rede. QR do Metro enviado, mas 
 
 Origem exclusiva Open Finance via Meu Pluggy; Bradesco/MercadoPago PF prioritários, Inter/Nubank expansão. Cobertura original Open Finance e cofrinhos por banco ainda não homologados. Sem importação de extratos. Pluggy/ponte podem ler durante processamento; não prometer E2EE ou risco zero. Ferramentas/IA/Git recebem apenas código/documentação pública e dados inventados.
 
-## Próxima ação — T57a
+## Próxima ação — T10
 
-T24 e T25 concluídas e validadas: TypeScript e 84 testes passaram (20 sessão, 9 auditoria, 18 gastos, 19 carteira, 18 classificação). T28 concluída: quatro abas, componentes e galeria demonstrativa; TypeScript, testes e exportação iOS passaram. T27a concluída: consultas locais com filtros, paginação e estornos consistentes. TypeScript e 95 testes passaram. T29a concluída: visão geral com cálculos e privacidade de apresentação; TypeScript, 97 testes e bundle iOS aprovados. T30a concluída: lista, filtros, paginação, detalhe e overrides compartilhados em memória. TypeScript, 99 testes e bundle iOS passaram. T31a concluída: carteira sintética por instituição, reserva incluída e valor desconhecido explícitos. TypeScript, 100 testes e bundle iOS passaram. Próxima T57a: relatórios locais puros; T27b (ponte autenticada) exige backend. Autenticação real T12 continua obrigatória antes de dados privados. T08 sem credencial própria.
+T24/T25/T28/T27a/T29a/T30a/T31a concluídas na fatia sintética. TypeScript, 107 testes e exportação iOS passaram. Auth/ponte/persistência reais das subtasks b continuam pendentes. Checkpoint de carteira aef2db8 publicado e CI anterior aprovada.
 
-Git local reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar automaticamente uma task por vez com commits e checkpoint. Teste físico permanece ao final.
+Usuário forneceu token/ref e T08 concluída; prioridade T10: allowlist de proprietário e testes de autorização antes de integrar login. Foi solicitado cadastro do proprietário diretamente em Authentication/Users/Create new user com senha>=12/Auto Confirm e ORBE_OWNER_USER_ID no arquivo privado. Não ver e-mail/senha nas ferramentas; UUID não deve ser impresso. Enquanto aguarda, criar schema/função de autorização com padrão negado e testes rollback sintéticos. T57a ainda não iniciada e continua frente independente posterior.
 
-## Backend próprio informado pelo usuário
-
-Usuário criou projeto Supabase novo em 19/10; usar esse projeto, não criar outro. Foi orientado a gerar PAT com escopo só do Orbe. .env.backend.local criado com modo0600, ignorado pelo Git, contendo somente nomes das variáveis vazias SUPABASE_ACCESS_TOKEN e SUPABASE_PROJECT_REF. Aguardar preenchimento; nunca imprimir conteúdo. Não ler/copy .env do F1.
+Git reparado, hashes e fsck aprovados; relatório docs/validation/2026-10-19-git-recovery.md. Continuar uma task por vez sem esperar novo pedido. Teste físico adiado ao final. Nenhum banco conectado, nenhum dado financeiro real ou recurso F1 acessado.

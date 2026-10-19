@@ -262,3 +262,7 @@ T31a: T24/T27a/T28/T29a, carteira demonstrativa por instituição e componente, 
 ## T31a — done
 
 [Carteira demonstrativa](../plan/T31-PORTFOLIO-UI.md): filtros por instituição, contas/investimentos/reservas separados, datas e valor desconhecido explícitos. TypeScript, 100 testes e bundle iOS passaram. T31b pendente. Próxima T57a: relatório local puro, depois T58a acesso demonstrativo.
+
+## T08 — done via cloud (19/10/2026)
+
+[Backend próprio](../plan/T08-LOCAL-BACKEND.md): projeto novo do usuário confirmado vazio, baseline aplicada uma vez, política Auth restrita e schema privado negado aos papéis clientes. Reexecução idempotente aprovada; TypeScript/107 testes/bundle iOS passaram; token administrativo ausente no bundle. Alternativa local continua bloqueada. Prioridade passou à T10 porque o usuário forneceu credenciais; T57a ainda não iniciada.
