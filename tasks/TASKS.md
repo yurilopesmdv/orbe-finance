@@ -738,3 +738,9 @@ T65b1 aceite físico recebido20/10/2026: titular confirmou captura e multitarefa
 MPG-16/[plano](../plan/T51b2c1-ACCOUNT-TRANSPORT.md), integrador único. Porta de contas com chave privada e transporte literal, dados fictícios; composição owner/sessão/lease a seguir. Titular pediu priorizar fechamento do acesso às contas e executar todas as tarefas sem pendências pessoais antes de teste conjunto.
 
 T51b2c1 evidência:747 testes/typechecks/12 novos casos aprovados. Auth antiga mantém authenticate/close; factory de contas mantém chave privada, destino literal e contexto capturado, deadline total20s/abort/close/busy/401purge/429semretry. Decoder+projeção antes de devolver DTO mínimo; sem rede real/deploy/cliente. Próxima T51b2c2 coordenador owner/sessão/lease e composição fixture.
+
+## T51b2c2 — done
+
+MPG-17/[plano](../plan/T51b2c2-AUTHORIZED-ACCOUNTS.md), integrador único. Handler fixture autenticado com owner/vínculo/revisão/lease antes/depois da leitura e revalidação de sessão. Resolver privilegiado e composição de entrypoint seguem separados.
+
+T51b2c2 evidência:759 testes/typechecks/12 casos aprovados; Auth→resolver owner/conexão/revisão→lease→provedor→Auth novamente→lease, DTO mínimo/no-store. Nonowner/IDOR/sessão revogada/lease perdido/abort/deadline descartam resposta. Allowlist12files, entrypoints inativos intactos. Transporte T51b2c1 CI39464639948 success. Próxima T51b2c3 resolver privado service-only de vínculo sob lease, ainda sem conexão real.
