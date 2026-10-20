@@ -898,3 +898,9 @@ T51b2c26 evidência:901testes/typechecks (810Node+91Python),4novoscasos e cenár
 MPG-42/[plano](../plan/T51b2c27-DISCOVERY-HANDLER.md). Handlerprepared com entrada interna/statuswhitelist/timeout/cancel/1inflight, nenhum entrypoint publicado.
 
 T51b2c27 evidência:909testes/typechecks (818Node+91Python),8casosnovos. Handlerfixtures valida entrada/token/método/query/oversize/statuswhitelist/contagem/PIInão refletida/close/abort/busy/off. Não foi importado/publicado no entrypoint e não houve chamada real. Próxima c28 composiçãoprepared e configuraçãoúnica para contas/descoberta.
+
+## T51b2c28 — done
+
+MPG-43/[plano](../plan/T51b2c28-INVENTORY-RUNTIME.md). Configuraçãoúnica e composição HTTPAuth→lease→inventário→commit com rede restrita e fixtures, sem entrypointfinanceiro.
+
+T51b2c28 evidência:914testes/typechecks (823Node+91Python),5casosnovos. Configuração centralizada preserva gatesoff/host/chaves/decoderprobe antes de privados; composiçãoHTTP inteira via fronteiraderede/Auth/revalidações/lease/consentimento/inventáriomínimo/commit com fixtures aprovada. Nonowner/path/configmalformada/close/preparedfalse falham semprovedor. CI39511853244(c26)success. Nenhum entrypoint/QR/flag/financeiroreal alterado. Próxima c29 contrato de execução fixture/live para preparar bootreal sem disfarçar produção comofixture, mantendo aprovação e gates fechados.

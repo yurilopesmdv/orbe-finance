@@ -1,23 +1,21 @@
-import { createExactJsonDecoder } from './exact-json.ts';
+import { readPreparedAccountConfiguration, type AccountConfigurationReader } from './account-configuration.ts';
 import { createSupabasePorts } from './supabase-rest.ts';
 import { createLeasePorts } from './lease-rest.ts';
 import { createAccountBindingResolver } from './account-binding-rest.ts';
 import { createPluggyAccountsPort } from './pluggy-auth.ts';
 import { createAccountRouter } from './account-router.ts';
-type ConfigurationName='ORBE_BRIDGE_ENABLED'|'ORBE_ACCOUNT_READS_ENABLED'|'ORBE_PRIVATE_DATA_APPROVED'|'SUPABASE_URL'|'ORBE_PUBLISHABLE_KEY'|'ORBE_BACKEND_SECRET_KEY'|'PLUGGY_CLIENT_ID'|'PLUGGY_CLIENT_SECRET';
 type Transport=(url:string,init:RequestInit)=>Promise<Response>;
-const ORIGIN='https://vvaufaoahotmaocrcyij.supabase.co';
 const result=(status:number,error:string)=>new Response(JSON.stringify({error}),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store',Pragma:'no-cache','X-Content-Type-Options':'nosniff'}});
 /** Fixture boot only. Published entrypoint remains literal false and imports none of this. */
-export function createAccountBackendRuntime(read:(name:ConfigurationName)=>unknown,options:{fixtureOnly?:boolean;transport?:Transport}={}){
+export function createAccountBackendRuntime(read:AccountConfigurationReader,options:{fixtureOnly?:boolean;transport?:Transport}={}){
  const disabled=Object.freeze({handler:async(_request:Request)=>result(503,'unavailable'),close(){}});
  if(options.fixtureOnly!==true)return disabled;
  let provider:ReturnType<typeof createPluggyAccountsPort>|undefined;
  try{
-  if(read('ORBE_BRIDGE_ENABLED')!=='true'||read('ORBE_ACCOUNT_READS_ENABLED')!=='true'||read('ORBE_PRIVATE_DATA_APPROVED')!=='true')return disabled;
-  createExactJsonDecoder();
-  const origin=read('SUPABASE_URL'),publishableKey=read('ORBE_PUBLISHABLE_KEY'),secretKey=read('ORBE_BACKEND_SECRET_KEY'),clientId=read('PLUGGY_CLIENT_ID'),clientSecret=read('PLUGGY_CLIENT_SECRET'),transport=options.transport;
-  if(origin!==ORIGIN||typeof publishableKey!=='string'||!/^sb_publishable_[A-Za-z0-9_-]+$/.test(publishableKey)||typeof secretKey!=='string'||!/^sb_secret_[A-Za-z0-9_-]{1,512}$/.test(secretKey)||typeof clientId!=='string'||!/^[A-Za-z0-9_-]{1,256}$/.test(clientId)||typeof clientSecret!=='string'||!/^[A-Za-z0-9._~/-]{16,512}$/.test(clientSecret)||typeof transport!=='function')return disabled;
+  const configuration=readPreparedAccountConfiguration(read,'ORBE_ACCOUNT_READS_ENABLED');
+  if(!configuration)return disabled;
+  const transport=options.transport;if(typeof transport!=='function')return disabled;
+  const {origin,publishableKey,secretKey,clientId,clientSecret}=configuration;
   const auth=createSupabasePorts({origin,publishableKey},transport),lease=createLeasePorts(()=>({origin,secretKey}),{enabled:true,privateDataApproved:true,transport}),resolve=createAccountBindingResolver(()=>({origin,secretKey}),{enabled:true,fixtureOnly:true,transport});
   provider=createPluggyAccountsPort(()=>({clientId,clientSecret}),{enabled:true,fixtureOnly:true,transport});
   const router=createAccountRouter({authenticate:auth.authenticate,resolve,check:lease.check,acquire:lease.acquire,finish:lease.finish,readAccounts:provider.readAccounts},{enabled:true,fixtureOnly:true});
