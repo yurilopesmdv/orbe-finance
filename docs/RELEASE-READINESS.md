@@ -15,7 +15,7 @@
 
 ## Evidência
 
-827 testes/typechecks aprovados até c11, incluindo quatro guardas do probe. Export iOSHermes2.7MB e scan de valores privados aprovados no cliente c8. Inspeção privada1201fontes/56instâncias sem duas raízes de advisories no JS, mapas fora Metro e sem upload. Audit ainda19pacotes afetados/duasraízes sempatch, exceção **somente sintética até23/10/2026**; bloqueia liberação financeira, não usar auditfixforce.
+834 testes/typechecks aprovados até c13, incluindo guardas do probe e do perfil privado. Export iOSHermes2.7MB e scan de valores privados aprovados no cliente c8. Inspeção privada1201fontes/56instâncias sem duas raízes de advisories no JS, mapas fora Metro e sem upload. Audit ainda19pacotes afetados/duasraízes sempatch, exceção **somente sintética até23/10/2026**; bloqueia liberação financeira, não usar auditfixforce.
 
 Migration8/hash verificados no Supabase próprio. SQL de vínculos testado com identidades fictícias e rollback: grants/IDOR/revisão/lease expirado/ausência/pausa, zero resíduos e owner preservado. Probe no Edge real confirmou decimaloriginal com números inventados e função temporária removida; nenhuma chamada ao fornecedor.
 
@@ -30,3 +30,5 @@ Testes de iPhone ficam reunidos para o final conforme pedido, sem bloquear traba
 Operação20/10: versão remota da ponte confirmada3, recibo antigo1 reconciliado somente após download read-only e hashes de index/core idênticos ao manifest histórico (coregit1f2b6a6832a1). Nenhuma alteração remota; metadata v3 ACTIVE,5negativos e financeiro3off503 aprovados. Probe temporário removido.
 
 Prévia de contas publicada20/10: update01a15a72-7573-7ea8-a2e6-e45df58e640a/commit239c7c1, CI39469588156 success, manifesto/hash/QR conferidos. [Acesso remoto](EXPO-PREVIEW.md).827 testes confirmados por contagem764Node+63Python.
+
+Perfil privado do fornecedor preparado vazio/0600 foraMetro por c13, sem chamada ao fornecedor nem solicitação de credenciais.834 testes atuais; a prévia publicada foi validada com827 testes antes deste helper administrativo não embarcado no app.

@@ -810,3 +810,9 @@ T51b2c11 evidência:827 testes/typechecks (4guardas novos), Edgegerenciado exact
 MPG-24/AUTH-16/SEC-25/[plano](../plan/T51b2c12-ACCOUNT-PREVIEW-RELEASE.md), integrador único. Publicar prévia remota da tela contasoff após CI, conferirmanifest/hash/QR e checkpoint final sem pedir teste agora.
 
 T51b2c12 publicada:827 testes/typechecks/SDK/export/audit/runtimeaudit/scan, CI39469588156 success. Update01a15a72-7573-7ea8-a2e6-e45df58e640a/grupo260de9bf-5ad0-460d-870a-d2a69a356e47/commit239c7c1, iospreview/exposdk57.0.0; manifesto schemeorbe/hashHBC/linkQRoficial conferidos, PNG atualizado. Nenhum token/mapa financeiro publicado; banco real segueoff.Links locais:146 verificados semquebra antes da publicação. Titular testa restante depois, sem nova pergunta. Pendências/gates e roteiro conjunto emACCOUNT-ACTIVATION; não chamar produto bancário de concluído.
+
+## T51b2c13 — done
+
+MPG-28/[plano](../plan/T51b2c13-PRIVATE-PROVIDER-PROFILE.md), integrador único. Preparar perfil privado vazio e preflight redigido semrede, não pedir credenciais agora. Titular recebeu status:5blocos antes de saldosreais, produtos restantes posteriores.
+
+T51b2c13 evidência:834 testes/typechecks (7guardas novos), perfil privado pluggy.env vazio/0600/dir0700 criado; initneveroverwrite/checkredacted/symlink/hardlink/owner/mode/strictkeys/8KiB testados, providercalls0. Guia atualizado, nenhuma credencial solicitada nem flag/rede/backend alterados. Publicação c12 update01a15a72-7573-7ea8-a2e6-e45df58e640a preservada; CI39470127974 da documentação de release success. Faltam5blocos para saldosreais conformeACCOUNT-ACTIVATION: segurança, autorizações/credenciais, bindings, deployreal, aceiteiPhone; não confundir com produtosbancários posteriores.
