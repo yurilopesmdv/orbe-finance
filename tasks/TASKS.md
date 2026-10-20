@@ -610,3 +610,9 @@ T18b3b2a:567 testes/typechecks passaram. Runtime metadata aceita caminho interno
 T18b3b2b responsável integrador único; [plano](../plan/T18b3b2b-METADATA-DEPLOY.md); aceite guards/check/HTTP negativo e financeirooff, sem prova HTTP positiva do titular.
 
 T18b3b2b:577 testes/typechecks; orbe-metadata v3 ACTIVE publicado, cinco HTTP negativos/no-store passaram e orbe-bridge continua503 nos três casos. Manifest/log separados privados, config temporária removida; nenhum ownerJWT/saldo/banco consultado. Próxima T33b1 cliente autenticado de status em fixtures; ownerHTTP positivo fica físico final.
+
+## T33b1 — done
+
+Porta cliente de status autenticado OF-21; [plano](../plan/T33b1-CONNECTION-STATUS.md), integrador único; depende T18b3b2b/T51c/T51d; aceite check/projeção/abort sem financeiro ou UI nesta fatia.
+
+T33b1:591 testes/typechecks passaram; porta status desligada por padrão com projeção canonical/limite/ownorigin/cancel/busy. Nenhum HTTP proprietário nem tela ativada. Próxima T37b2a lifecycle de status/controles antes da UI.
