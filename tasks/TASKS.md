@@ -756,3 +756,9 @@ T51b2c3 evidência:768 testes/typechecks aprovados (7 REST+2 runner novos), migr
 MPG-19/[plano](../plan/T51b2c4-READ-LIFECYCLE.md), integrador único. Contrato HTTP acquire/read/finalize autenticado, integração fixture e nenhum entrypoint ativo.
 
 T51b2c4 evidência:778 testes/typechecks/10 novos casos. Ciclo HTTP fixture acquire/read/finalize integrado, Auth antes/depois/RPCscopeownerderivado, confirmaçãofinalize, busy/cooldown explícitos, body/IDOR/abort/timeout/erro genérico. Lease perdido após cancelamento expira pelo TTL, sem falsa promessa de cleanup. Allowlist15files; sem deploy/financeiroreal. Próxima T51b2c5 gateway client restrito e integração do lote/cache em memória; contextos de IDs internos precisam de registry autenticado separado.
+
+## T51b2c5 — done
+
+MPG-20/[plano](../plan/T51b2c5-CLIENT-ACCOUNT-GATEWAY.md), integrador único. Gateway client restrito do lote de contas e prova HTTP→cachevolátil, sem ativar integração real. Registry/readiness compõem a seguir.
+
+T51b2c5 evidência:786 testes/typechecks/8 novos casos. Integração HTTPfixture provider→router→gateway→SyncSession publica29centavos exatos e purga ao lock; falha de finalize preserva snapshot29. IDs/receipt/origem/401lock/429/no-retry/redirect/abort/deadline validados. Nenhum segredo/provedor no cliente; gateway não importado pelo runtime/sem publicação. C4 CI39465784180 e C3 CI39465452627 success. Próxima T51b2c6 registry autenticado de IDs internos para contexto, depois composição readiness/cache e checklist de ativação.
