@@ -744,3 +744,9 @@ T51b2c1 evidência:747 testes/typechecks/12 novos casos aprovados. Auth antiga m
 MPG-17/[plano](../plan/T51b2c2-AUTHORIZED-ACCOUNTS.md), integrador único. Handler fixture autenticado com owner/vínculo/revisão/lease antes/depois da leitura e revalidação de sessão. Resolver privilegiado e composição de entrypoint seguem separados.
 
 T51b2c2 evidência:759 testes/typechecks/12 casos aprovados; Auth→resolver owner/conexão/revisão→lease→provedor→Auth novamente→lease, DTO mínimo/no-store. Nonowner/IDOR/sessão revogada/lease perdido/abort/deadline descartam resposta. Allowlist12files, entrypoints inativos intactos. Transporte T51b2c1 CI39464639948 success. Próxima T51b2c3 resolver privado service-only de vínculo sob lease, ainda sem conexão real.
+
+## T51b2c3 — done
+
+MPG-18/[plano](../plan/T51b2c3-PRIVATE-BINDINGS.md), integrador único. Resolver RPC privado sob lease e porta REST em fixtures, nova migration/SQL rollback. Sem vínculo ou conexão bancária real.
+
+T51b2c3 evidência:768 testes/typechecks aprovados (7 REST+2 runner novos), migration8 aplicada/hash verificado no projeto próprio, SQL positivo/IDOR/revisão/nonce/lease expirado/binding ausente/permissões/pausa com identidades fictícias e rollback. Zero identidades restantes/owner preservado. RPCservice-only retorna apenas bindings e evidência conservadora; sem coleta/segredoPluggy/deploy. Handler transmite leaseId ao resolver, allowlist13files. T51b2c2 CI39465045891 success. Próxima T51b2c4 endpoints autenticados acquire/finalize e composição do lote; financeiro real continuaoff.

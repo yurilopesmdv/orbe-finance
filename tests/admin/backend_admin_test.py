@@ -33,7 +33,7 @@ def sql_configuration_fixture(residue=0, owner_after=True, command='test-read-le
         root = Path(folder); directory = root / 'supabase/migrations'; directory.mkdir(parents=True)
         baseline = directory / '20261016170000_bootstrap.sql'; baseline.write_text('select 1;')
         history = [{'name': 'orbe_' + baseline.stem + '_' + hashlib.sha256(baseline.read_bytes()).hexdigest()}]
-        sql = root / {'test-connection-controls': 'tests/admin/connection-controls.sql', 'test-metadata': 'tests/admin/metadata-access.sql', 'test-read-leases': 'tests/admin/read-leases.sql'}[command]; sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
+        sql = root / {'test-account-bindings': 'tests/admin/account-bindings.sql', 'test-connection-controls': 'tests/admin/connection-controls.sql', 'test-metadata': 'tests/admin/metadata-access.sql', 'test-read-leases': 'tests/admin/read-leases.sql'}[command]; sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
         reads = 0
         def request(path, method='GET', body=None):
             nonlocal reads
@@ -50,6 +50,16 @@ def sql_configuration_fixture(residue=0, owner_after=True, command='test-read-le
             yield lambda: reads
 
 class BackendGuards(unittest.TestCase):
+    def test_account_bindings_rollback_and_owner(self):
+        with sql_configuration_fixture(command='test-account-bindings'):
+            admin.main()
+
+    def test_account_bindings_checks_owner_after_error(self):
+        with sql_configuration_fixture(command='test-account-bindings', execution_error=True) as reads:
+            with self.assertRaisesRegex(admin.SafeError, 'management_http_400'):
+                admin.main()
+            self.assertEqual(reads(), 2)
+
     def test_configure_client_never_changes_auth_or_enables_recovery(self):
         with public_configuration_fixture([{'type':'publishable','name':'default','api_key':'sb_publishable_invented'}]) as root:
             # Fixture rejects every API call except publishing-key read: successful

@@ -7,7 +7,7 @@ import { projectPluggyAccounts } from './pluggy-accounts.ts';
 import { readJsonResponse } from './http-json.ts';
 export interface AccountReadPorts {
   authenticate(token: string, signal: AbortSignal): Promise<unknown>;
-  resolve(subject: string, connectionId: string, revision: number, signal: AbortSignal): Promise<unknown>;
+  resolve(subject: string, connectionId: string, revision: number, leaseId: string, signal: AbortSignal): Promise<unknown>;
   check: LeasePorts['check'];
   readAccounts(context: AccountProjectionContext, signal: AbortSignal): Promise<AccountReadResult>;
 }
@@ -52,7 +52,7 @@ export function createAccountReadHandler(ports: AccountReadPorts, options: { ena
         fresh(first.expiresAt);
         if (!record(body) || Object.keys(body).sort().join(',') !== 'connectionId,cursor,leaseId,revision' || !uuid(body.connectionId) || !uuid(body.leaseId) || !Number.isSafeInteger(body.revision) || (body.revision as number) < 1 || body.cursor !== null) fail(400, 'invalid_request');
         const scope: Readonly<ReadScope> = Object.freeze({ ownerId: first.subject, connectionId: body.connectionId, revision: body.revision as number }), leaseId = body.leaseId;
-        const resolved = await ports.resolve(scope.ownerId, scope.connectionId, scope.revision, controller.signal); fresh(first.expiresAt);
+        const resolved = await ports.resolve(scope.ownerId, scope.connectionId, scope.revision, leaseId, controller.signal); fresh(first.expiresAt);
         if (!record(resolved) || !['ownerId','connectionId','revision','projection'].every(key => Object.hasOwn(resolved,key)) || resolved.ownerId !== scope.ownerId || resolved.connectionId !== scope.connectionId || resolved.revision !== scope.revision || !record(resolved.projection)) fail(404, 'not_found');
         const raw = resolved.projection as unknown as AccountProjectionContext;
         const decode = createExactJsonDecoder(), empty = decode('{"page":1,"total":0,"totalPages":0,"results":[]}');
