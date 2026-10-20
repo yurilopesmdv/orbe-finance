@@ -1,10 +1,20 @@
 # Ativação conjunta das contas
 
-20/10/2026. Este roteiro fica preparado para a próxima etapa com o titular. Não precisa executar enquanto as pendências técnicas/privacidade abaixo não forem fechadas. Nunca enviar senha, token, número de conta, CPF, itemId ou dados bancários pelo chat.
+20/10/2026. Você já pode preparar seu cadastro vazio e as credenciais técnicas, sem conectar bancos. Autorizações bancárias e leitura pelo Orbe continuam aguardando os bloqueios abaixo. Nunca enviar senha, token, número de conta, CPF, itemId ou dados bancários pelo chat.
 
 ## Entrega preparada
 
 Login lembrado e proteção de captura/multitarefa confirmados no iPhone. Tela Minhas contas e cadeia técnica de leitura de saldos implementadas com dados inventados: sessão/owner → vínculo privado → lease → chave técnica privada → consentimento atual do proxy → contas exatas → revalidação → cache em memória. Contas correntes/pagamento são a primeira fatia; movimentos, investimentos e cofrinhos reais ainda não estão integrados por esta cadeia. Nada foi conectado ou consentido automaticamente.
+
+## Você pode preparar agora, sem bancos
+
+1. Acesse [Meu Pluggy](https://meu.pluggy.ai/) e crie sua conta pessoal ou faça login. Por enquanto não escolha conectar/autorizar banco.
+2. Abra o [Dashboard Pluggy](https://dashboard.pluggy.ai/) com a mesma conta. Entre em **Applications** e abra a aplicação que será usada para o Orbe. Se precisar criar uma aplicação, use nome Orbe e mantenha o caminho pessoal/gratuito; não contrate plano.
+3. Copie o **Client ID** mostrado em Applications. O **Client Secret** aparece apenas ao criar a aplicação ou em **Generate new secret** na página dela. Guarde-o no momento em que for exibido; gerar outro invalida o anterior. [Instrução oficial de credenciais](https://docs.pluggy.ai/en/docs/guides/dashboard-connectors).
+4. Preencha somente os dois campos que já estão no arquivo privado `/home/yurilopesm/.config/orbe-finance/pluggy.env`: `PLUGGY_CLIENT_ID=` e `PLUGGY_CLIENT_SECRET=`. Cole os valores depois do sinal de igual, sem aspas, preservando o restante. Não envie nenhum deles no chat, não use EXPO_PUBLIC e não coloque no .env do app.
+5. Pare nessa preparação. Ainda não selecione **Connect Account**, não autorize banco e não ative integração com IA/MCP. O preflight local verifica formato/permissões, sem consultar o fornecedor ou saldos.
+
+Essa etapa não ativa a leitura no Orbe. Os bloqueios atuais e fontes reconferidas estão em [revisão objetiva](security/ACTIVATION-BLOCKERS-20261020.md).
 
 ## O que depende do titular e do fornecedor
 

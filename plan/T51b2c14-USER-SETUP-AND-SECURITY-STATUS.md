@@ -1,0 +1,5 @@
+# T51b2c14 — preparação do titular e bloqueios concretos
+
+20/10/2026 MPG-29; responsável integrador único. Paths docs/ACCOUNT-ACTIVATION.md, security/ACTIVATION-BLOCKERS-20261020.md, docssecurityreview/TASKS/STATE. Sem mudança de código/runtime/flags. Reconferir fontes primárias personalguide/dashboardcredentials/legal/advisories e audit real. Separar preparação cadastro/ClientIDSecret sem bancos (permitida) de autorização real (gatespendentes). Perfil privado jápronto/0600 e preflightfalse semrede. Escrever roteirocliques/secretonce e perguntas aplicáveis ao plano pessoal, sem enviarcontato/nãoautorizarbancos.
+
+Aceite evidência local audit19/2raízes/compatchNone nas fontes, JSausente nãohomologatoolchain; política pública e marketing pessoal não fecham operadores/IA/logs/backups. Roteiro atual exato Applications/Generate new secret, perfilprivado, sem compra/MCP/IA, autorização bancária explicitamente posterior. Validar links/preflight/diff/scan, commit/push. Nenhum novo teste de implementação necessário para edição documental. Não chamar resultado de aprovação bancária.

@@ -43,3 +43,7 @@ As perguntas estão registradas para investigação posterior; nenhum contato fo
 ## O que foi e não foi enviado nesta investigação
 
 Foram consultados documentos e termos públicos usando buscas técnicas. Nomes dos bancos e contexto de arquitetura podem constar nas consultas; isso também é metadado a minimizar. Não foram fornecidos extratos, saldos pessoais, CPF, números de conta, senhas bancárias ou tokens do Orbe. Não há banco/conta de produção do Orbe disponível nesta etapa. Esta constatação tem escopo da investigação, não audita todas as ferramentas ou sessões anteriores de outros projetos.
+
+## Revisão20/10/2026 — preparação sem bancos
+
+[Revisão objetiva de ativação](ACTIVATION-BLOCKERS-20261020.md) registra auditoria atual e fontes oficiais reconferidas. Cadastro vazio/credenciais técnicas podem ser preparados sem banco; autorização real continua condicionada. Não há resposta externa recebida nem consentimento executado.
