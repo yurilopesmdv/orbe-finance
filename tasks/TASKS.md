@@ -941,6 +941,8 @@ MPG-49/[plano](../plan/T51b2c34-TECHNICAL-AUTH-CHECK.md). Autenticação adminis
 
 T51b2c34 evidência:958testes/typechecks (859Node+99Python),4novoscasos de Auth. Perfil0600/rotaliteral/bodyTLS/NOproxy/NOredirect/20s/4096/redação testados; somente POSTauth real respondeu credenciaisautenticadas,providerCalls1/financialReads0. APIkey não salva/exibida/usadaemGET. Não comprova item/cobertura/OForiginal nem libera flags. Próxima c35 publicarprévia consolidada apósCI958/scan/runtimeaudit, sem testeintermediário.
 
-## T51b2c35 — publicação em preparação
+## T51b2c35 — done
 
 [Plano](../plan/T51b2c35-DISCOVERY-PREVIEW-RELEASE.md).958testes/typechecks/exportiOS/runtimeaudit1204/56 aprovados; publicar somente apósCI/scan. Flags cliente/backend off, sem testeintermediário.
+
+T51b2c35 publicada:958testes/typechecks/export/runtimeaudit1204/56/scan todosperfis e CI39514871905 success. Update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/grupo41095d0a-c262-4850-a4ab-122bdce6caf0/commitbe80325, iospreviewSDK57; manifesto scheme/hashHBC/linkQR conferidos, PNG atualizado. Nenhumflagfinanceiro ou teste solicitado. Próxima c36 configurar segredos backend exclusivamente desativados, preservando metadata/Auth e sem dados bancários.

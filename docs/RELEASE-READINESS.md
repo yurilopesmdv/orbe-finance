@@ -36,3 +36,5 @@ Perfil privado do fornecedor preparado vazio/0600 foraMetro por c13, sem chamada
 Estado atual c31: orbe-bridgev4ACTIVE com liveApprovedfalse no entrypoint;7rotas sintéticas retornam503/no-store. Allowlist26fontes e scans de todos os perfis privados aprovados. Backend publicado sem carregar chavesPluggy ou consultar bancos; metadata/client/QR preservados. Perfil de credenciais técnicas preenchido e1bindingMPpending; nenhum accountbindingreal. Os parágrafos c11/c13 acima registram evidências históricas e não o estado atual de versão/preenchimento.
 
 Estado c34:958testes/typechecks; cliente/UI descoberta sobflagfalse, exportiOS/runtimeaudit1204fontes56instâncias aprovados. Credenciais técnicas locais autenticadas somente em1POSTAuth, semdadosfinanceiros ouAPIkeypersistida. Próxima prévia consolidada apósCI; leitura/descobertafinanceira real continuamoff.
+
+Prévia consolidada c35 publicada: update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/commitbe80325,958testes/CI39514871905 success/runtimeaudit1204/56/scan todosperfis. Manifesto/hashHBC/QRoficial verificados, flags financeirasfalse e nenhumtesteintermediário solicitado. [QR atual](EXPO-PREVIEW.md).

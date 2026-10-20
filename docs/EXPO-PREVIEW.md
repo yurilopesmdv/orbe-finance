@@ -1,17 +1,19 @@
 # Abrir o Orbe no Expo Go
 
-Prévia iOS publicada20/10/2026, SDK57, sem PC/Metro/rede local. Entre no Expo Go com a conta proprietária e escaneie quando formos testar:
+Prévia iOS publicada20/10/2026, SDK57, sem PC/Metro/rede local. O QR está preparado para o teste final; não é necessário testar durante as tasks.
 
-![QR do Orbe com tela de contas preparada](assets/orbe-expo-go-20261020.png)
+![QR remoto do Orbe](assets/orbe-expo-go-20261020.png)
 
-Link direto: exp://u.expo.dev/update/01a15a72-7573-7ea8-a2e6-e45df58e640a
+Link direto: exp://u.expo.dev/update/01a15ba3-efdc-7ce4-b328-fa16a89c0e12
 
-Projeto EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0 · update01a15a72-7573-7ea8-a2e6-e45df58e640a · grupo260de9bf-5ad0-460d-870a-d2a69a356e47 · commit239c7c1.
+Projeto EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0 · update01a15ba3-efdc-7ce4-b328-fa16a89c0e12 · grupo41095d0a-c262-4850-a4ab-122bdce6caf0 · commitbe80325.
 
-**Seu acesso já existe:** não recrie a conta nem gere outro código. A sessão lembrada no mesmo iPhone/origem é preservada conforme [Manter meu acesso](REMEMBERED-ACCESS.md). O titular já confirmou retomada sem senha e captura/multitarefa protegidas; não inferir cold restart/logout/gravação ou outras versões.
+**Seu acesso já existe:** não recrie a conta nem gere outro código. Sessão lembrada e proteção de captura/multitarefa foram confirmadas pelo titular e são preservadas. Coldrestart/logout/gravação/VoiceOver seguem no roteiro final, sem inferir aceite de outras versões.
 
-**Novidade:** Meu acesso → Ver minhas contas. A tela está preparada e protegida, mas informa que a conexão bancária ainda não foi ativada. Nenhum saldo real será buscado. Cadastro de terceiros/OpenFinance real/FaceID/recuperação por e-mail continuam desabilitados; demonstração de gastos/carteira/metas/relatórios e status de conexões disponíveis. Nenhum serviço contratado; Expo Go/orçamento zero mantidos, identidade visual depois.
+Esta prévia inclui a infraestrutura cliente de preparação das conexões e a tela Minhas contas, mantendo a interface existente. **Leitura e descoberta bancárias reais continuam desativadas**: inventoryDiscoveryEnabled/accountReadsEnabled/liveIntegrationEnabled/privateFinancialDataApprovedfalse. A ação Prepararconexão fica oculta até a liberação. Status autenticado de conexões e demonstração de gastos/carteira/metas/relatórios continuam disponíveis. O backendv4 também tem liveApprovedfalse; a publicação não busca saldos nem movimentações.
 
-827 testes/typechecks, SDKcheck, audit da exceção sintética, exportHermes2.7MB e inspeção privada1201fontes/56instâncias aprovados; [CI39469588156](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39469588156). Manifesto remoto schemeorbe/hashlaunchAsset igual ao HBC local e linkQRoficial conferidos. Mapas privados não enviados. Sem chamada financeira real por ferramentas.
+958testes/typechecks, exportHermes e runtimeaudit1204fontes/56instâncias aprovados; [CI39514871905](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39514871905) success. Todos os perfis privados comparados contra fonte/export antes do upload. Manifesto remoto schemeorbe/hashlaunchAsset igual aoHBC local/linkQRoficial conferidos; mapas privados não enviados.
 
-O decoder foi comprovado no Edge com números inventados/probe removido. Gates reais e configuração do titular continuam separados: [Acesso às contas](ACCOUNT-ACCESS.md), [Ativação conjunta](ACCOUNT-ACTIVATION.md), [prontidão](RELEASE-READINESS.md). Não pedir teste intermediário: roteiro físico restante fica reunido para o final conforme pedido do titular. Não enviar senha/token/CPF/número de conta/itemId ou imagens privadas pelo chat.
+Credenciais técnicas Pluggy autenticadas somente em1POST/auth, semGETfinanceiro/APIkeypersistida. Um vínculoMPpending cadastrado; Bradesco confirmado na origem, item na aplicação ainda não identificado. Não confundir o item selecionado noDashboard com a contagem de bancos no portal pessoal. [Acesso](ACCOUNT-ACCESS.md), [ativação](ACCOUNT-ACTIVATION.md), [prontidão](RELEASE-READINESS.md).
+
+ExpoGo/orçamentozero/cores/identidade mantidos. Cadastro de terceiros, FaceID e recuperação por e-mail continuam desabilitados. Nenhuma contratação, nenhuma leitura financeira pelas ferramentas e nenhuma solicitação de teste intermediário.

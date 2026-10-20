@@ -38,7 +38,7 @@ Reais ainda nãoaprovados: origemOFporbanco, revisãofornecedor/subprocessadores
 
 ## Publicação, segredos e continuidade
 
-ÚltimoExpo permanece update01a15a72-7573-7ea8-a2e6-e45df58e640a/grupo260de9bf-5ad0-460d-870a-d2a69a356e47/commit239c7c1, iospreview/runtimeexposdk57.0.0/schemeorbe. QR docs/assets/orbe-expo-go-20261020.png e docs/EXPO-PREVIEW.md; link exp://u.expo.dev/update/01a15a72-7573-7ea8-a2e6-e45df58e640a. Manifesto/hashHBC/linkQRconferidos, recibosprivados. Backend-only nãoexigeQRnovo.
+ÚltimoExpo permanece update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/grupo41095d0a-c262-4850-a4ab-122bdce6caf0/commitbe80325, iospreview/runtimeexposdk57.0.0/schemeorbe. QR docs/assets/orbe-expo-go-20261020.png e docs/EXPO-PREVIEW.md; link exp://u.expo.dev/update/01a15ba3-efdc-7ce4-b328-fa16a89c0e12. Manifesto/hashHBC/linkQRconferidos, recibosprivados. Backend-only nãoexigeQRnovo.
 
 SandboxcwdF1; writesOrbe/Git/npm/network usam require_escalated/auto-review. GitYuriLopes/ConventionalCommitsemportuguês/main/pushautorizado, sem mençãoaagente. PushOrbeexecutaCI, nãoEASautomático. Usar check→exportiOS/runtimeauditquandoafetarcliente→scan→Git/CI→publishwrapper→manifest/hash/QR→docs. Não usarMetro/LAN/túnel/firewall; Metro/DockerOrbeparados, não mexeroutrosprojetos.
 
@@ -57,3 +57,5 @@ c33/MPG-48 concluída: discoverycontroller/runtime exigemScreenreadyactive/sess�
 c34/MPG-49 concluída: provider-profile.py authenticate validou credenciais em1POSTAuthreal, sem qualquerGETitem/conta/identidade/valores e semsalvar/exibirAPIkey.958testes/typechecks aprovados; init/checkcontinuamoffline. Não inferir titularidade/cobertura/OF/privacidade. Próxima c35 publicaçãoExpo consolidada usandoexport/UI c33 e runtimeaudit1204/56 jáaprovados, apósCI/scan, atualizarmanifest/hash/QR/docs sem pedirteste.
 
 c35 emandamento: publicarprévia consolidada da descoberta protegida apósCI do commitderelease e scan detodosperfis. Distclienteexportado c33, runtimeaudit1204/56,958testes/typechecks e authfinal completo aprovados. Não repetirAuth real; total1Auth/0financeiros. Próxima apóspublicação: configuração backend desativada/revisão, semaçõesmanuais do titular.
+
+c35 concluída: prévia remota update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/grupo41095d0a-c262-4850-a4ab-122bdce6caf0/commitbe80325, CI39514871905success/manifestscheme/hashHBC/QRoficial conferidos;docs/QRatualizados.958testes/runtimeaudit1204/56/mapasprivados/scantodosperfis aprovado. Não pedir testeintermediário; flagsfinanceiras/descobertafalse. Próxima c36 configuração backend desativada com secretemmemória/transmissãoTLS/SupabaseSecrets sem logs, validar por digests e manter código/envfalse.
