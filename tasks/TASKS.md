@@ -676,3 +676,9 @@ T10c entregue: commit794f307/CI39420200892 success; update01a15939-90d3-7433-880
 MPG-13/SEC-05/12; [plano](../plan/T51b1-PLUGGY-AUTH.md). Integrador único; autenticação server-side isolada, fixtures e chave em memória sem retorno. T51b/T18c inteiras seguem abertas. Titular confirmou orçamento zero e preferência por manter Expo Go; avaliar modo somente memória/senha em T65a, sem prometer FaceID nem aprovar dados reais.
 
 T51b1 evidência: 657 testes/typechecks passaram;19 casos novos de autenticação/isolamento. Nenhuma chamada Pluggy real, SDK financeiro, alteração de entrypoint ou publicação remota. Chave não sai da porta e cache expira119min. Próxima T54a: inventário verificável do bundle e dependências; depois T65a avaliação Expo Go sem custo.
+
+## T54a — done
+
+SEC-23/[plano](../plan/T54a-RUNTIME-DEPENDENCIES.md), integrador único; inventariar grafo do export iOS e separar alcance cliente/ferramentas, sem relaxar audit nem aprovar dados reais.
+
+T54a evidência:664 testes/typechecks passaram. Export JS iOS real privado:1162 fontes/53 pacotes, braces/node-forge ausentes do grafo. Relatório/hashes em ~/.config/orbe-finance/runtime-audit/report.json; mapas privados não publicados. Três nomes virtuais NUL conhecidos do Metro aceitos explicitamente; demais recusados. Não corrige os19 afetados do toolchain nem prova o binário Expo Go. Próxima prioridade do titular: T12b sessão persistida segura sem salvar senha, mantendo Expo Go/orçamento zero.

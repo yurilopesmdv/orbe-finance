@@ -27,3 +27,9 @@ Exceção explícita somente para os dois URLs de advisory acima, válida até23
 ## Atualização T44a —20/10/2026
 
 Publicação hospedada em ExpoGo exige expo-updates57.0.26 na CLI EAS. Instalado explicitamente sem credencial/ignore-scripts, lockfile atualizado; Expo installcheck compatível e620 testes/typechecks aprovados. Auditoria agora19 pacotes afetados pelas mesmas duas raízes altas, sem advisory novo/crítico; a exceção continua somente sintética e não libera banco real. Publisher verifica a versão instalada antes de iniciar EAS autenticado, evitando autoinstalação no processo que recebe token.
+
+## Alcance observado T54a —20/10/2026
+
+Export production iOS JS/Metro com mapa externo em diretório0700 privado:1162 fontes/53 pacotes. braces/node-forge não constam nesse grafo; política automatizada falha se entrarem em uma próxima exportação. `npm run security:runtime` reproduz export e inspeção sem credenciais; CI também executa. Hashes e inventário em ~/.config/orbe-finance/runtime-audit/report.json0600, sem sourcesContent no relatório. Mapas/código de inspeção não vão à publicação/artefatos GitHub.
+
+Dois typechecks/664 testes passaram. Esta prova é do export JS auditado, não certifica binário nativo Expo Go, CLI/EAS global, caminhos de build ou inexistência de riscos de cadeia. Os19 pacotes/duas raízes continuam na auditoria das ferramentas e a exceção sintética NÃO foi estendida. T54 integral e gate de dados reais permanecem abertos.

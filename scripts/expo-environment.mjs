@@ -58,6 +58,7 @@ export function ensurePrivateProfile(profile, root) {
 }
 
 export function expoArguments(args) {
+  if (args[0] === 'export-audit' && args.length === 1) return ['export', '--platform', 'ios', '--no-bytecode', '--source-maps', 'external', '--output-dir', path.join(homedir(), '.config/orbe-finance/runtime-audit')];
   if (args[0] === 'export' && args.length === 1) return ['export', '--platform', 'ios'];
   if (args[0] !== 'start') throw new Error('expo_command_rejected');
   let host = '--lan'; let hostSet = false; const rest = [];

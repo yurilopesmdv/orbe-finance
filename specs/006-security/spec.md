@@ -59,3 +59,9 @@ Não prometer revogação remota quando logout offline falha, nem recuperar byte
 ## SEC-22 — Publicação EAS segregada
 
 Por autorização explícita20/10/2026, somente o EXPO_TOKEN já existente do titular pode ser reutilizado para publicação Orbe. Credencial copiada para arquivo privado fora Metro; nenhuma configuração Supabase/F1 é reutilizada. EAS recebe token em ambiente somente no processo de publicação, nunca em export/bundle/argv/log/EXPO_PUBLIC. Ferramenta CLI fixada e cacheada sem scripts/credenciais antes do uso; comandos limitados a conta/projeto/publicação iOS preview, sem build pago ou prune. Validar projeto/runtime/gates/artefatos e scan de canários antes de upload; não upload de source maps.
+
+## SEC-23 — Evidência de alcance no bundle (T54a)
+
+Exportar para inspeção somente em diretório privado fora do projeto/Metro, com o mesmo ambiente público restrito/sem tokens. Sourcemaps não são artefato de publicação nem vão ao Git/CI artifacts. Inspeção deve usar mapa emitido pelo Metro, esquema/tamanho limitados e grafo de sources; não procurar somente nomes em bytecode para alegar ausência. Falhar se braces/node-forge entrarem no grafo cliente ou dotenv/arquivo privado virar source. Não baixar/executar fontes apontadas no mapa.
+
+Relatório público limitado a quantidades/versões de pacotes e hashes do JS/map inspecionados, sem conteúdo de fontes/caminhos privados/identidade. Evidência aplica-se ao export JavaScript auditado, não a todo binário nativo Expo Go, grafo EAS global ou prova de ausência de vulnerabilidades. Auditoria npm/duas raízes altas continuam separadas e bloqueios de runtime/fornecedor não são removidos pelo relatório.

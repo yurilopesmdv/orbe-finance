@@ -9,6 +9,8 @@ try {
   const args = expoArguments(process.argv.slice(2));
   const env = buildExpoEnvironment(root, process.env, args[0] === 'export' ? 'production' : 'development');
   ensurePrivateProfile(env.__UNSAFE_EXPO_HOME_DIRECTORY, path.resolve(root));
+  const outputIndex = args.indexOf('--output-dir');
+  if (outputIndex >= 0) ensurePrivateProfile(args[outputIndex + 1], path.resolve(root));
   const require = createRequire(import.meta.url);
   const cli = path.join(path.dirname(require.resolve('expo/package.json')), 'bin/cli');
   const child = spawn(process.execPath, [cli, ...args], { cwd: root, env, stdio: 'inherit' });

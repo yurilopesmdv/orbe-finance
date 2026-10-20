@@ -81,3 +81,9 @@ test('installed Expo CLI honors isolated profile and disables automatic dotenv/n
   const observed = JSON.parse(execFileSync(process.execPath, ['-e', script], { env, encoding: 'utf8' }));
   assert.deepEqual(observed, { profile: join(home, '.config/orbe-finance/expo-cli'), offline: true, telemetryOff: true, dotenvEnabled: false });
 }));
+
+test('audit export has a fixed private destination and cannot accept arbitrary flags',()=>{
+  const args=expoArguments(['export-audit']);assert.deepEqual(args.slice(0,7),['export','--platform','ios','--no-bytecode','--source-maps','external','--output-dir']);
+  assert.ok(args[7].endsWith('/.config/orbe-finance/runtime-audit'));
+  assert.throws(()=>expoArguments(['export-audit','--output-dir','dist']));
+});
