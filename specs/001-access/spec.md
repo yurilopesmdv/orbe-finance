@@ -105,3 +105,15 @@ Formulário limpa credenciais ao enviar, ao perder foco ou ficar inativo. Senha>
 ## AUTH-15 — Preparação de cadastro futuro, sem habilitação
 
 Cliente poderá ter porta de signup por e-mail/senha somente com gate explícito false por padrão, sem rede/config/entrada consultados quando off. Resposta exige confirmação e nunca entrega sessão/autorização implícita; qualquer sessão emitida inesperadamente deve ser encerrada. Este preparo NÃO habilita multiusuário: backend continua disable_signuptrue e allowlist de proprietário. Antes de ativar: nova spec/ADR de admissão, confirmação de e-mail/SMTP e isolamento SQL/ponte por usuário. UI não mostra cadastro aberto como funcional.
+
+## AUTH-16 — Manter acesso no iPhone sem salvar senha (T12b)
+
+20/10/2026: titular solicitou reaproveitar login e entrada rápida, sem repetição de senha a cada retorno, mantendo Expo Go e orçamento zero. Este requisito evolui o bloqueio anterior que exigia senha sempre: AppState continua ocultando conteúdo/abortando consultas/retirando access token da memória, mas uma sessão lembrada pode ser retomada online por refresh validado. Não persistir senha, e-mail, access token, UUID ou dados financeiros para isso.
+
+Oferecer “Manter meu acesso neste iPhone” no login, ligado inicialmente conforme pedido do titular, com opção de desligar/sair. Persistir exclusivamente refresh token, origem pública e prazo local máximo30dias desde login por senha em SecureStore/Keychain do próprio projeto, acessibilidade WHEN_PASSCODE_SET_THIS_DEVICE_ONLY, sem requireAuthentication (FaceID não suportado no Expo Go iOS), sem fallback para AsyncStorage/arquivo. Se armazenamento indisponível ou aparelho sem código, login pode funcionar apenas na sessão atual com aviso; não alegar acesso salvo.
+
+Retomada somente em primeiro plano: POST/token?grant_type=refresh_token no projeto próprio, token apenas no corpo, renovar token rotativo, validar Authuser/owner/orbe_has_session e prazo antes de unlock. Sem acesso offline por token salvo e sem tratar refresh como senha recente; ações sensíveis mantêm reautenticação por senha/RLS existente. Renovação serial por instância; abort/epoch e fila de storage impedem que resultado tardio recrie acesso após sair. Access token continua curto, renovação quando expirar enquanto ativo, sem polling/background para manter conta.
+
+Ao sair explicitamente, limpar token salvo e revogar sessão remotamente em best effort; expiração30dias, identidade indevida ou refresh recusado limpam token e exigem senha. Falha temporária de rede mantém token protegido para nova tentativa, conteúdo bloqueado. Falha de storage/revogação não pode ser ocultada como eliminação remota comprovada. Recuperação/ativação nunca persistem sessão. QR/URL/Git/logs não contêm tokens.
+
+T12b não habilita banco real, FaceID ou cache financeiro privado; comprovar retomada/reabertura/logout no iPhone ao final. A posse do iPhone desbloqueado passa a permitir retomar o acesso sem nova senha: explicitar esse limite, sem chamar isso de autenticação biométrica do Orbe.

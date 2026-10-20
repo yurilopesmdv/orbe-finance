@@ -4,6 +4,8 @@ import { AppState } from 'react-native';
 import { observeActivity } from './lifecycle';
 import { publicAuthConfig } from '@/config/auth';
 import { createAuthGateway } from './gateway';
+import { runtime } from '@/config/runtime';
+import { createNativeRefreshVault } from './native-vault';
 import { SessionModel, type SessionSnapshot } from './session';
 const Context = createContext<SessionModel | null>(null);
 const locked: SessionSnapshot = Object.freeze({ state: 'locked', error: null });
@@ -12,7 +14,7 @@ const subscribe = () => () => {};
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [model] = useState(() => {
     if (!publicAuthConfig) return null;
-    try { return new SessionModel(createAuthGateway(publicAuthConfig,expoFetch)); } catch { return null; }
+    try { return new SessionModel(createAuthGateway(publicAuthConfig,expoFetch), Date.now, undefined, runtime.rememberedLoginEnabled ? createNativeRefreshVault(publicAuthConfig.origin) : undefined); } catch { return null; }
   });
   useEffect(() => {
     if (!model) return;

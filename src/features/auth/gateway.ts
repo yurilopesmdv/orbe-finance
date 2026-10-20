@@ -1,10 +1,11 @@
 import { readBoundedJson } from '../../lib/bounded-json.ts';
-export type AuthCode = 'invalid_configuration' | 'invalid_credentials' | 'rate_limited' | 'unavailable' | 'cancelled' | 'expired_code' | 'weak_password';
+export type AuthCode = 'invalid_configuration' | 'invalid_credentials' | 'rate_limited' | 'unavailable' | 'cancelled' | 'expired_code' | 'weak_password' | 'secure_storage';
 export class AuthFailure extends Error {
   readonly code: AuthCode;
   constructor(code: AuthCode) { super(code); this.name = 'AuthFailure'; this.code = code; }
 }
 export interface AuthSession { readonly accessToken: string; readonly expiresAt: number }
+export interface RememberedSession extends AuthSession { readonly refreshToken: string }
 export interface AuthConfig { origin: string; publishableKey: string }
 type Transport = (url: string, init: RequestInit) => Promise<Pick<Response,'ok'|'status'|'redirected'|'headers'|'body'>>;
 type Payload = Record<string, unknown>;
@@ -22,8 +23,8 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
     origin = candidateOrigin; publishableKey = candidateKey;
   } catch { throw new AuthFailure('invalid_configuration'); }
   // Only literal internal operations can choose destinations. No arbitrary URL enters the gateway.
-  type Operation = 'login' | 'user' | 'owner' | 'logout' | 'recover' | 'verify' | 'update' | 'signup';
-  const routes: Record<Operation, string> = { login: '/auth/v1/token?grant_type=password', user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner', logout: '/auth/v1/logout?scope=local', recover: '/auth/v1/recover', verify: '/auth/v1/verify', update: '/auth/v1/user', signup: '/auth/v1/signup' };
+  type Operation = 'login' | 'user' | 'owner' | 'logout' | 'recover' | 'verify' | 'update' | 'signup' | 'refresh' | 'active';
+  const routes: Record<Operation, string> = { login: '/auth/v1/token?grant_type=password', user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner', logout: '/auth/v1/logout?scope=local', recover: '/auth/v1/recover', verify: '/auth/v1/verify', update: '/auth/v1/user', signup: '/auth/v1/signup', refresh: '/auth/v1/token?grant_type=refresh_token', active: '/rest/v1/rpc/orbe_has_session' };
   async function request(operation: Operation, body?: Payload, token?: string, signal?: AbortSignal): Promise<unknown> {
     if (signal?.aborted) throw new AuthFailure('cancelled');
     const controller = new AbortController();
@@ -82,8 +83,27 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
       throw error instanceof AuthFailure ? error : new AuthFailure('unavailable');
     }
   }
+  async function remembered(data: unknown, startedAt: number, signal?: AbortSignal, requireActive = false): Promise<RememberedSession> {
+    const session = await authorize(data, startedAt, signal);
+    try {
+      const refreshToken = isPayload(data) ? data.refresh_token : null;
+      if (typeof refreshToken !== 'string' || !/^[A-Za-z0-9._~-]{8,512}$/.test(refreshToken)) throw new AuthFailure('invalid_credentials');
+      if (requireActive && await request('active', {}, session.accessToken, signal) !== true) throw new AuthFailure('invalid_credentials');
+      return Object.freeze({ ...session, refreshToken });
+    } catch (error) { await discard(session.accessToken); throw error; }
+  }
   return Object.freeze({
     origin,
+    async signInRemembered(email: string, password: string, signal?: AbortSignal): Promise<RememberedSession> {
+      if (!validEmail(email) || typeof password !== 'string' || !password) throw new AuthFailure('invalid_credentials');
+      const startedAt = now();
+      return remembered(await request('login', { email, password }, undefined, signal), startedAt, signal);
+    },
+    async refresh(refreshToken: string, signal?: AbortSignal): Promise<RememberedSession> {
+      if (typeof refreshToken !== 'string' || !/^[A-Za-z0-9._~-]{8,512}$/.test(refreshToken)) throw new AuthFailure('invalid_credentials');
+      const startedAt = now();
+      return remembered(await request('refresh', { refresh_token: refreshToken }, undefined, signal), startedAt, signal, true);
+    },
     async signIn(email: string, password: string, signal?: AbortSignal): Promise<AuthSession> {
       if (!validEmail(email) || typeof password !== 'string' || !password) throw new AuthFailure('invalid_credentials');
       const startedAt = now();

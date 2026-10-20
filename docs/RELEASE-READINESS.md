@@ -60,3 +60,5 @@ Histórico: a falha LAN foi substituída por publicação remota conforme pedido
 Próxima ação: criar a senha pessoal com **Criar meu acesso** no novo QR e validar login/status/VoiceOver/bloqueio no aparelho, sem banco real. As tarefas financeiras futuras permanecem registradas, não concluídas por fixtures. [Checkpoint operacional](../roadmap/STATE.md) e [backlog](../tasks/TASKS.md).
 
 T10c: acesso inicial pessoal publicado/638 testes e smoke OTP fictício aprovado; [instruções privadas](OWNER-ACCESS.md). Cadastro público permanece fechado. Identidade visual fica para próxima etapa por decisão do titular.
+
+T12b em validação/publicação: [sessão lembrada sem senha salva](REMEMBERED-ACCESS.md), com SecureStore, rotação e owner/sessão verificados. Titular manteve Expo Go/orçamento zero; runtime privado financeiro será reavaliado em T65a com modo volátil, sem contratação nem supressão silenciosa dos controles.

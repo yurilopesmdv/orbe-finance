@@ -89,3 +89,9 @@ configure-client grava somente origem/chave pública e recoveryfalse; não alter
 Direção atual do titular: atualização hospedada e QR, sem Metro. Projeto EAS próprio Orbe associado; app.json substitui configuração TypeScript estática, SDK57/runtime sdkVersion explícitos. O EXPO_TOKEN existente foi reutilizado por autorização expressa, guardado em ~/.config/orbe-finance/expo-publish.env0600; nenhum Supabase/F1 reutilizado. Não colocar token em dotenv raiz/EXPO_PUBLIC.
 
 EAS CLI25.2.0 é cacheado sem credenciais/sem scripts antes do uso. scripts/eas-safe.mjs limita operações, isola XDG e introduz token somente no publicador. npm run export:ios continua offline/sem token. npm run publish:expo publica dist já exportado/escaneado em iOS/preview, sem source maps, e grava recibo privado fora Metro. Exige associação atual e gates financeirosfalse. Não executar build/submit/updateconfigure por conveniência. QR só deve ser informado após confirmação do update remoto.
+
+## Sessão lembrada —T12b
+
+SecureStore57.0.4 do SDK57 guarda somente refresh token/origem/prazo local em Keychain passcode/device-only. Não usar AsyncStorage, senha salva, requireAuthentication/FaceID no Expo Go. Gateway REST renova e verifica owner/sessão ativa; SessionModel mantém access token só em memória e serializa gravação/limpeza, sem restaurar resposta tardia após sair. Force-password para ações sensíveis suprime retomada automática até login por senha. [Contrato e teste físico](REMEMBERED-ACCESS.md). Não alterar migrations/RLS para aceitar refresh como senha recente.
+
+`npm run security:runtime` exporta JS/mapas para ~/.config/orbe-finance/runtime-audit, nunca dist. Mapas não são publicados. CLI inspeciona grafo/pacotes/hashes, sem conteúdo de fontes no relatório. O export publicado continua Hermes e sem sourcemaps. Alertas do toolchain seguem documentados separadamente.

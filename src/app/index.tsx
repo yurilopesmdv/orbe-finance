@@ -1,13 +1,14 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { runtime } from '@/config/runtime';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { useAuth } from '@/features/auth/provider';
 import { Action } from '@/components/ui';
 
 export default function WelcomeScreen() {
   const router = useRouter();
   const auth = useAuth();
+  if (auth.snapshot.state === 'unlocked') return <Redirect href="/account" />;
   return (
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.page}>

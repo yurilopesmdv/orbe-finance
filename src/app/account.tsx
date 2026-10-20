@@ -8,7 +8,7 @@ export default function AccountScreen() {
     <Card title="Bancos ainda desconectados"><Body>Seu acesso foi confirmado. A integração bancária continua em preparação; nenhum saldo ou movimento real será buscado nesta versão.</Body></Card>
     <Action title="Ver minhas conexões" onPress={() => router.push('/my-connections')} />
     <Action title="Explorar os dados demonstrativos" onPress={() => router.push('/(tabs)/overview')} />
-    <Card title="Sua sessão"><Body>A senha não é salva no aplicativo. Ao sair do primeiro plano, sua sessão é bloqueada. Ao voltar, entre novamente. O acesso exige conexão e a senha não é salva pelo aplicativo.</Body></Card>
+    <Card title="Sua sessão"><Body>{auth.model?.hasRememberedAccess() ? 'Seu acesso será retomado automaticamente neste iPhone por até 30 dias, com internet. Sua senha não é salva. Ao ir para segundo plano, o conteúdo é bloqueado; ao voltar, o Orbe valida a sessão novamente.' : 'Seu acesso não está salvo neste iPhone. Ao sair do primeiro plano, entre novamente com sua senha. A senha não é salva pelo aplicativo.'}</Body><Body>Face ID não está disponível no Expo Go. Use Sair da conta para remover o acesso salvo deste aparelho.</Body>{auth.snapshot.error === 'secure_storage' && <Body>Não foi possível salvar o acesso no armazenamento seguro. Esta sessão funciona sem memorização.</Body>}</Card>
     <Action title="Sair da conta" secondary onPress={() => { void auth.model?.logout(); }} />
   </Screen>;
 }

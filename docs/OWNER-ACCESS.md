@@ -22,3 +22,5 @@ Recuperação por e-mail continua desligada até entrega comprovada. O helper pr
 Validação20/10/2026: typechecks/638 testes locais e export iOS passaram. Smoke remoto com identidade fictícia confirmou formato OTP, verificação, atualização de senha, logout e login novo; não proprietário permaneceu negado e identidade foi removida. A senha do titular não foi acessada nem alterada. Teste positivo do titular depende da etapa no iPhone.
 
 Retorno20/10/2026: titular confirmou criação do acesso pelo aplicativo. Senha permanece somente com ele; confirmação não equivale à homologação de login/status/FaceID ou conexão bancária. Não renovar códigos sem solicitação.
+
+T12b evolui o uso após ativar: entre uma vez com **Manter meu acesso neste iPhone** para retomada por token protegido, sem salvar senha. [Como funciona](REMEMBERED-ACCESS.md). Não precisa gerar novo código de ativação para aproveitar a sessão.

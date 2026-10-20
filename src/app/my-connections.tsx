@@ -57,7 +57,7 @@ export default function MyConnectionsScreen() {
       {connection.state === 'active' && <Action title="Pausar buscas no Orbe" secondary onPress={() => { void controller?.pause({ connectionId: connection.id, revision: connection.revision }); }} />}
       <Action title="Remover conexão do Orbe" secondary onPress={() => setSelection({ connectionId: connection.id, revision: connection.revision, institution: connection.institution })} />
     </Card>)}
-    {(snapshot.phase === 'uncertain' || snapshot.phase === 'error') && <Action title="Entrar novamente com minha senha" secondary onPress={() => { setSelection(null); controller?.close(); auth.model?.lock(); router.replace('/login'); }} />}
+    {(snapshot.phase === 'uncertain' || snapshot.phase === 'error') && <Action title="Entrar novamente com minha senha" secondary onPress={() => { setSelection(null); controller?.close(); auth.model?.requirePassword(); router.replace('/login'); }} />}
     <Card title="Sobre pausa e remoção"><Body>Pausar impede novas buscas pelo Orbe. Remover apaga o vínculo e os metadados da conexão no Orbe. Nenhuma dessas ações revoga sozinha o consentimento no banco ou elimina os dados mantidos pelo fornecedor.</Body><Body>Para remover, o servidor exige um login recente com senha. Se não confirmar, atualize o status e, se necessário, entre novamente. O aplicativo não repete a remoção sozinho.</Body></Card>
     <Modal visible={selection !== null && snapshot.phase === 'ready'} animationType="slide" onRequestClose={() => setSelection(null)}>
       <Screen title="Remover esta conexão?" subtitle={selection ? institutionLabels[selection.institution] : 'Conexão do Orbe'} demonstration={false}>

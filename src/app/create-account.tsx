@@ -18,7 +18,7 @@ export default function CreateAccountScreen() {
   const [email, setEmail] = useState(''), [code, setCode] = useState('');
   const [password, setPassword] = useState(''), [confirmation, setConfirmation] = useState('');
   const [notice, setNotice] = useState(''), [complete, setComplete] = useState(false);
-  const busy = auth.snapshot.state === 'recovering';
+  const busy = ['recovering', 'restoring'].includes(auth.snapshot.state);
   const clear = useCallback(() => { setEmail(''); setCode(''); setPassword(''); setConfirmation(''); setNotice(''); setComplete(false); }, []);
   useFocusEffect(useCallback(() => {
     auth.model?.lock();
