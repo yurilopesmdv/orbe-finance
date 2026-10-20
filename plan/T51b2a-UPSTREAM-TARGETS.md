@@ -1,0 +1,9 @@
+# T51b2a — destinos upstream e cursor controlados
+
+20/10/2026; SEC-24/ADR-015/MPG-02/04; integrador único. Depende T51b1/contrato T74. Paths supabase/functions/_shared/pluggy-targets.ts, tests/bridge/pluggy-targets.test.mjs, allowlist fonte/package scripts e docs. Sem deploy, segredo, rede, migration ou flag real.
+
+Builder puro captura UUID item/contas de binding interno já resolvido. Só produz HTTPS hostliteral api.pluggy.ai e quatro leituras: /items/UUID, /accounts?itemId, /investments?itemId&page&pageSize100 e /v2/transactions?accountId&dateFrom&dateTo. Contas do binding, período válido <=31dias, páginas investimentos1..1000 como limite próprio; não inventar parâmetros/refresh/globalitems. Contexto autorizado/lease é requisito da composição futura, não resultado da validação de UUID.
+
+Paginação transacional: nextnull encerra, query string<=2048, encoding/chaves únicas/somente accountId,dateFrom,dateTo,after, mesmo account e período, after opaco/limitado/sem controles. Devolver destino fixo +query exatamente como recebida, sem seguir URL/base/path externo nem reconstruir cursor. Não devolver destinos/next ao app e não logar. Se resposta não preservar filtros contratados, falhar parcial em vez de ampliar intervalo. /transactions antigo excluído.
+
+Aceite: testes de destinos/bindingcapturado, IDOR sintático/conta alheia recusada, períodos/leapdays/limites e corpus SSRF/encoding/query/controles/cursor/troca de escopo; typechecks/suíte, sourceguard e entrypointsfinanceirooff. Builder não consulta fornecedor nem comprova ownership real. Fonte oficial20/10: https://docs.pluggy.ai/en/reference/basic-concepts; https://docs.pluggy.ai/en/reference/transaction/transactions-list-by-cursor; https://docs.pluggy.ai/en/reference/account/accounts-list; https://docs.pluggy.ai/en/reference/investment/investments-list. Especificações antes de código. Próxima T51b2b transporte normalizado/ownership/lease/cursor interno, ainda fixtures, e T65b1 tela.

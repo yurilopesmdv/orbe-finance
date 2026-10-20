@@ -74,3 +74,5 @@ Próxima task: T01, matriz de compatibilidade e paths do projeto, executada isol
 - [Autenticação por senha](https://supabase.com/docs/guides/auth/passwords).
 
 São contratos de produto apoiados em documentação pública; versões e comportamento serão testados antes de confiar em SDK/serviço.
+
+Refinamento20/10/2026 ADR-015/SEC-24: POST/corpo com IDs internos vale para app→Orbe; RESTupstream exige IDs técnicos opacos, permitidos somente server-side no host oficial após ownership, sem logs/Referer/redirect. T51b2a prepara somente destinos/cursor em fixtures. Logs/retencão/fornecedor continuam no gate; isso não habilita banco real.

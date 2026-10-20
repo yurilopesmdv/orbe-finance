@@ -39,3 +39,9 @@ A visão pública de Security do Meu Pluggy não apresentou advisory publicado, 
 5. Confirmar privadamente cobertura por banco/produto e consentimento do titular antes de qualquer conexão real. Cofrinhos ausentes ficam explicitamente indisponíveis; produto ausente fica explicitamente indisponível.
 
 Na pesquisa original não havia backend; em20/10/2026 há backend próprio somente Auth/metadados. Nenhum banco conectado ou SDK financeiro instalado; processamento financeiro permanece bloqueado. A preferência do usuário pelo fornecedor não elimina o gate de dados reais nem autoriza contratação.
+
+## Contratos técnicos atualizados20/10/2026
+
+T51b1 preparou autenticação somente server-side/injetada em fixtures; nenhuma credencial real Pluggy foi solicitada. T51b2a implementa builder puro de destinos no host oficial e valida continuação sem seguir URL da fonte. [ADR-015](../decisions/DECISIONS.md) restringe IDs opacos necessários à API ao backend; PII/valores/tokens/IDs internos continuam fora de URLs. Isso não aprova logs/retencão do fornecedor para dados reais.
+
+A [referência atual de paginação](https://docs.pluggy.ai/en/reference/basic-concepts) orienta /v2/transactions; o caminho anterior será retirado em31/12/2026. [Contrato por cursor](https://docs.pluggy.ai/en/reference/transaction/transactions-list-by-cursor) usa dateFrom/dateTo e next como query pronta. O Orbe preserva essa query somente após conferir escopo, período, chaves e encoding, sempre no endpoint fixo.698 testes/typechecks passaram; nenhum payload bancário foi consultado. Ainda faltam transporte/projeção financeira, cursores internos vinculados a lease, ownership/OF e gate de dados reais.

@@ -14,7 +14,7 @@ Nenhum sistema consegue provar ausência de vazamento por toda via concebível. 
 | SEC-02 | DEVE impedir dados bancários reais e credenciais em chats, IA, MCP, agentes, busca, ferramentas de desenvolvimento, Git, CI e evidências; desenvolvimento usa fixtures sintéticas |
 | SEC-03 | DEVE iniciar sem analytics, anúncios, session replay, crash upload, enriquecimento/IA externos ou ferramentas de suporte que capturem tela/dados; recurso obrigatório de provedor precisa ser avaliado separadamente |
 | SEC-04 | DEVE homologar fornecedor e subprocessadores antes de dados reais: acesso humano, finalidades, país, retenção, eliminação, incidentes e uso por IA precisam de evidência aplicável ao plano |
-| SEC-05 | DEVE limitar saída de rede a destinos/finalidades aprovados; impedir valores/identificadores em URLs, Referer, eventos e recursos remotos; testar chamadas observáveis do runtime |
+| SEC-05 | DEVE limitar saída de rede a destinos/finalidades aprovados; impedir valores/PII/tokens/IDs internos em URLs, Referer, eventos e recursos remotos; IDs opacos upstream somente na exceção server-side SEC-24; testar chamadas observáveis do runtime |
 | SEC-06 | DEVE aplicar criptografia e gestão de chaves ao modelo de ameaça escolhido; não declarar E2EE/zero knowledge se o servidor ou operador consegue descriptografar |
 | SEC-07 | DEVE testar acesso com identidade alheia, sessão expirada, UUID trocado, endpoint de relatório, worker e chave privilegiada; usuário/tenant não vêm da confiança no cliente |
 | SEC-08 | DEVE minimizar persistência local, memória e backups, sem payload bruto financeiro persistido por padrão; política de exclusão define cópias, restauração e limites do fornecedor |
@@ -67,3 +67,11 @@ Exportar para inspeção somente em diretório privado fora do projeto/Metro, co
 Relatório público limitado a quantidades/versões de pacotes e hashes do JS/map inspecionados, sem conteúdo de fontes/caminhos privados/identidade. Evidência aplica-se ao export JavaScript auditado, não a todo binário nativo Expo Go, grafo EAS global ou prova de ausência de vulnerabilidades. Auditoria npm/duas raízes altas continuam separadas e bloqueios de runtime/fornecedor não são removidos pelo relatório.
 
 SEC-23a (T54a2): versões do inventário devem corresponder ao caminho completo da instância no lockfile, inclusive node_modules aninhado. Não usar versão da raiz para uma cópia transitiva diferente; ausência de correspondência falha fechada. Contagem de pacotes é de instâncias resolvidas, podendo haver mesmo nome com versões diferentes; relatório não publica caminhos locais.
+
+## SEC-24 — Destinos upstream construídos, sem seguir URLs da fonte (T51b2a)
+
+Refinamento de arquitetura ADR-015: a REST API exige seus próprios IDs opacos em path/query. Somente o servidor poderá incluí-los no destino literal https://api.pluggy.ai, depois de resolver vínculo autorizado internamente; nunca CPF/nome/número bancário/valor/token/ID Auth ou ID interno do Orbe. Essa exposição ao processador necessário é explícita e continua sujeita ao gate de fornecedor/logs; não significa risco zero nem liberação real. App→Orbe mantém POST/corpo e IDs internos, sem links de provedor.
+
+Builder puro admite apenas item/contas/investimentos e /v2/transactions. Sem URL/base/path arbitrário, /v2/items global, refresh/atualização, pagamento, identidade/enriquecimento ou endpoint obsoleto /transactions. Capturar binding/contas conhecidas; validar sintaxe não substitui autoria/owner, sessão e lease na composição futura.
+
+next upstream deve ser tratado como query opaca de /v2/transactions, nunca URL de navegação. Validar limite/encoding/chaves únicas/accountId e período original antes de concatenar a query exata ao caminho constante. Não decodificar/recriar o conteúdo semântico de after nem encaminhar next ao app/log. Troca de conta/filtros, parâmetro extra/duplicado, URL absoluta/protocol-relative/fragmento/path/controlchar e encoding inválido falham genericamente. nextnull encerra, não reinicia. Nesta fatia somente fixtures/builder, nenhum transporte habilitado.

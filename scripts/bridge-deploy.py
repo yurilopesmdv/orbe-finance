@@ -24,7 +24,7 @@ const ports = {
 Deno.serve(createBridgeHandler(ports, { enabled: false }));
 """
 EXPECTED_METADATA_ENTRY = "import { createMetadataRuntime } from '../_shared/metadata-runtime.ts';\n\n// Metadata status only. No financial ingestion or provider credentials.\nDeno.serve(createMetadataRuntime(name => Deno.env.get(name), fetch));\n"
-ALLOWED = {'_shared/pluggy-auth.ts', '_shared/bridge.ts', '_shared/supabase-rest.ts', '_shared/http-json.ts', '_shared/lease-rest.ts', '_shared/metadata-runtime.ts', 'orbe-bridge/index.mjs', 'orbe-metadata/index.mjs'}
+ALLOWED = {'_shared/pluggy-targets.ts', '_shared/pluggy-auth.ts', '_shared/bridge.ts', '_shared/supabase-rest.ts', '_shared/http-json.ts', '_shared/lease-rest.ts', '_shared/metadata-runtime.ts', 'orbe-bridge/index.mjs', 'orbe-metadata/index.mjs'}
 
 def artifacts(root, private):
     directory = root / 'supabase/functions'

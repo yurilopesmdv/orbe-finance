@@ -702,3 +702,9 @@ T12b aceite físico20/10: titular confirmou retomada sem pedir senha ao alternar
 ## T65a — done como avaliação, sem homologação real
 
 [Plano/matriz](../plan/T65a-EXPO-GO-ZERO-COST.md), integrador único. Orçamento zero/Expo Go preservados; senha/token protegido e primeira candidata financeira volátil/online, sem persistência em claro. FaceID adiado; suporte documental de ScreenCapture/Crypto não equivale a teste físico. T65/T63/T78 continuam incompletas. Próxima T51b2a destinos/cursor upstream em fixtures e T65b1 proteção de tela.
+
+## T51b2a — done
+
+SEC-24/ADR-015/[plano](../plan/T51b2a-UPSTREAM-TARGETS.md), integrador único. Refinar destino/IDs upstream necessários somente server-side e preservar cursor de /v2/transactions sem seguir URL da fonte. Nenhuma liberação de dados reais; autoria e logs permanecem gates separados.
+
+T51b2a evidência:698 testes/typechecks passaram,11 novos casos/corpus de SSRF/escopo/cursor/encoding. Destino literal/conta e período vinculados; query opaca preservada e nextnull encerra. APItransações antiga obsoleta identificada na pesquisa; caminho preparado usa /v2/transactions com dateFrom/dateTo corretos, sem inventar pageSize não documentado. Sem transporte/rede/provedor real/deploy. Allowlist de funções agora9files, entrypoints ativos intocados. Próxima T65b1 proteção de tela e T51b2b transporte/normalização/owner/lease/cursor interno em fixtures.
