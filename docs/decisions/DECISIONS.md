@@ -47,3 +47,7 @@ A antiga arquitetura autônoma foi substituída. [Registro atualizado](ADR-010-L
 ## ADR-011 — Ponte de leitura mínima
 
 Estado: accepted para preparação sintética em T74. [Contrato](../../plan/T74-BRIDGE-CONTRACT.md). Supabase Auth/Functions em projeto independente, RLS de metadados, nenhum armazenamento financeiro no servidor Orbe. Relatórios no aparelho; coleta bancária automática no fornecedor e consulta local ao abrir. Cron/webhooks adiados; conexão original deve comprovar Open Finance. Cobertura e gratuidade dessa trilha não presumidas. Dados reais dependem dos gates já definidos.
+
+## ADR-012 — Separação entre status autenticado e ingestão
+
+Estado: accepted para implementação local sintética em T18b3a,20/10/2026. Metadados exigem Auth e sessão ativa, mas não autorização bancária. Criar factory de runtime somente para status, com configuração pública capturada uma vez e falha fechada. Não reutilizar a ativação financeira para liberar status. Publicação separada exige T18b3b e revisão do helper/artefatos; endpoint orbe-bridge já publicado permanece desligado. Não há aprovação de consentimento, dados financeiros reais ou fornecedor por esta decisão.

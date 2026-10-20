@@ -585,3 +585,10 @@ T37b1:551 testes/typechecks/export iOS/scan aprovados. Porta cliente desligada, 
 [Sessão ativa na leitura](../plan/T51d-METADATA-SESSION-GATE.md), SEC-21. Nova migration7 futura; seis anteriores imutáveis. Reforçar RLS/bridge sem ativar endpoint; teste read-only positivo depois de fixtures/rollback.
 
 T51d:556 testes/typechecks e SQL real metadataREADONLY+/revogação/controls; migration7 imutável, zero fakes/owner preservado. Bridge passa a exigir RPC bool de sessão em source, endpoint publicado permaneceoffv1 (sem redeploy). Próxima T18b3a planejar runtime de metadata autenticada separado de ingestão, antes de UI privada.
+
+## T18b3 — decomposição
+
+- T18b3a done: factory de runtime metadata-only, MPG-12/ADR-012; [plano](../plan/T18b3a-METADATA-RUNTIME.md), integrador único; depende T18b1/T51d; aceite zero rede off/config inválida e Auth+RLS em fixtures.
+- T18b3b pending: entrypoint/deploy separado com manifest/config pública revisados; depende T18b3a. Não ativar ingestão nem reutilizar gate financeiro.
+
+T18b3a:562 testes/typechecks passaram; factory metadata-only local, configuração capturada/falha fechada e guards do deploy desligado preservados. Nenhum deploy/rede bancária. Próxima T18b3b1 entrypoint separado e testes host; T18b3b2 configuração/manifest/deploy posterior.

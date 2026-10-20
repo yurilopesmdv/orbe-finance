@@ -40,3 +40,9 @@ Autenticação DEVE consultar o servidor Auth do projeto fixo e a RPC de proprie
 ## MPG-11 — Validação de runtime desligado (T18b2)
 
 Uma função de desenvolvimento PODERÁ ser publicada somente no projeto próprio Orbe com gate literal false, sem consultar env, Auth, DB ou provedor. Endpoint público sem sessão serve exclusivamente resposta503 genérica/no-store, independentemente de rota/corpo/token; não é rota financeira pública. Alterar esse gate exige task/gates próprios. Deploy não deve receber arquivos privados ou ler infraestrutura alheia; recusar função existente sem manifest local correspondente e não apagar funções. Validar runtime por HTTP sintético sem token real; não declarar adapters/fluxos reais homologados a partir de503.
+
+## MPG-12 — Runtime separado de metadados (T18b3)
+
+Status autenticado DEVE usar composição separada da ingestão financeira. Somente POST /connections/status e contrato MPG-09/10; nunca importar fornecedor, leases ou chave privilegiada. Configuração é capturada no boot: habilitação somente pela string literal `true`, origem HTTPS fixa Supabase e chave `sb_publishable_`. Desligado não lê origem/chave, request ou transporte. Configuração ausente/inválida/falha de leitura resulta503/no-store sem detalhes, sem rede e sem derrubar o handler. Não aceitar configuração de request ou habilitação financeira implícita. Sessão deve passar Auth remoto e orbe_has_session antes de RLS.
+
+T18b3a cobre factory e testes locais, sem novo entrypoint publicado. T18b3b revisará empacotamento, configuração operacional, manifest e deploy separado; orbe-bridge publicado permanece literalfalse. HTTP positivo do proprietário e comportamento nativo permanecem na validação física final.
