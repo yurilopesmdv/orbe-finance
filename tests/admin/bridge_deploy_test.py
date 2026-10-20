@@ -16,7 +16,7 @@ def fixture():
         root = Path(folder) / 'project'; directory = root / 'supabase/functions'; directory.mkdir(parents=True)
         for name in deploy.ALLOWED:
             path = directory / name; path.parent.mkdir(exist_ok=True)
-            path.write_text(deploy.EXPECTED_ENTRY if name.endswith('index.mjs') else 'export const synthetic = true;\n')
+            path.write_text(deploy.EXPECTED_ENTRY if name == 'orbe-bridge/index.mjs' else deploy.EXPECTED_METADATA_ENTRY if name == 'orbe-metadata/index.mjs' else 'export const synthetic = true;\n')
         yield root, directory
 
 class DisabledDeployGuards(unittest.TestCase):
@@ -28,6 +28,12 @@ class DisabledDeployGuards(unittest.TestCase):
         with fixture() as (root, directory):
             (directory / 'orbe-bridge/index.mjs').write_text(deploy.EXPECTED_ENTRY.replace('enabled: false', 'enabled: true'))
             with self.assertRaisesRegex(deploy.admin.SafeError, 'bridge_disabled_entrypoint_required'):
+                deploy.artifacts(root, {})
+
+    def test_modified_metadata_entrypoint_is_rejected(self):
+        with fixture() as (root, directory):
+            (directory / 'orbe-metadata/index.mjs').write_text(deploy.EXPECTED_METADATA_ENTRY + 'fetch("https://untrusted.invalid");\n')
+            with self.assertRaisesRegex(deploy.admin.SafeError, 'bridge_metadata_entrypoint_invalid'):
                 deploy.artifacts(root, {})
 
     def test_unknown_private_source_is_rejected(self):

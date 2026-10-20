@@ -46,3 +46,7 @@ Uma função de desenvolvimento PODERÁ ser publicada somente no projeto própri
 Status autenticado DEVE usar composição separada da ingestão financeira. Somente POST /connections/status e contrato MPG-09/10; nunca importar fornecedor, leases ou chave privilegiada. Configuração é capturada no boot: habilitação somente pela string literal `true`, origem HTTPS fixa Supabase e chave `sb_publishable_`. Desligado não lê origem/chave, request ou transporte. Configuração ausente/inválida/falha de leitura resulta503/no-store sem detalhes, sem rede e sem derrubar o handler. Não aceitar configuração de request ou habilitação financeira implícita. Sessão deve passar Auth remoto e orbe_has_session antes de RLS.
 
 T18b3a cobre factory e testes locais, sem novo entrypoint publicado. T18b3b revisará empacotamento, configuração operacional, manifest e deploy separado; orbe-bridge publicado permanece literalfalse. HTTP positivo do proprietário e comportamento nativo permanecem na validação física final.
+
+### MPG-12a — Entry point de status separado
+
+T18b3b1 prepara somente orbe-metadata/index.mjs: delegar runtime MPG-12 com leitor Deno.env restrito aos três nomes previstos e fetch do host. Não ler configuração no corpo do request, nem importar módulo financeiro/serviço privilegiado. Ausência da flag mantém503 sem acessar origem/chave/rede. Hostmock deve provar esse comportamento e negação sem Bearer quando habilitado. Não adicionar configuração de deploy ativo nesta fatia; helper desligado verifica conteúdo exato dos dois entrypoints e recusa alteração indevida.

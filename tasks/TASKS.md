@@ -592,3 +592,10 @@ T51d:556 testes/typechecks e SQL real metadataREADONLY+/revogação/controls; mi
 - T18b3b pending: entrypoint/deploy separado com manifest/config pública revisados; depende T18b3a. Não ativar ingestão nem reutilizar gate financeiro.
 
 T18b3a:562 testes/typechecks passaram; factory metadata-only local, configuração capturada/falha fechada e guards do deploy desligado preservados. Nenhum deploy/rede bancária. Próxima T18b3b1 entrypoint separado e testes host; T18b3b2 configuração/manifest/deploy posterior.
+
+### T18b3b — subdivisão
+
+- T18b3b1 done: entrypoint metadata-only separado, MPG-12a; [plano](../plan/T18b3b1-METADATA-ENTRYPOINT.md); integrador único, depende T18b3a; aceite hostmock e allowlist sem deploy.
+- T18b3b2 pending: pesquisa/configuração/manifest/helper de deploy separado; depende T18b3b1; sem consentimento ou rota financeira.
+
+T18b3b1:566 testes/typechecks passaram; entrypoint orbe-metadata local defaultoff, hostmock de configuração/negação e verificação exata dos dois entrypoints. Sem TOML/deploy novo; próximo T18b3b2 revisão operacional/configuração/manifest.

@@ -91,3 +91,7 @@ T51d: migration7 imutável cria orbe_has_session sem argumentos/IDs e faz RLS co
 ## T18b3a —20/10/2026
 
 Factory metadata-runtime captura apenas habilitação literaltrue/origem pública/chave publishable e compõe Auth+orbe_has_session+RLS. Falhas de configuração e off retornam503/no-store sem ler request ou rede.562 testes/typechecks passaram. Apenas fixtures Node; nenhum deploy, Deno real ou acesso financeiro. Allowlist de fonte compartilhada atualizada; entrypoint publicado permanece literalfalse.
+
+## T18b3b1 —20/10/2026
+
+Entrypoint local orbe-metadata delega factory com configuração no boot e fetch do host; sem flag por request ou imports financeiros. Defaultoff/401 sem Bearer/config inválida exercitados em hostmock. Helper de deploy desligado enumera sete fontes e verifica ambos entrypoints exatos; adulteração adicional negada em teste.566 testes/typechecks passaram. Nenhum deploy/TOML novo, sem alegação de Deno real. Próxima T18b3b2 precisa validar configuração/manifest/runtime antes de publicação separada.
