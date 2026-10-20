@@ -724,3 +724,9 @@ T65b1 publicada: commite2bfeaa/CI39459277303 success/update01a15a30-9dfd-773a-ba
 MPG-14/[plano](../plan/T51b2b1-EXACT-UPSTREAM-JSON.md), integrador único. Preservar números originais do JSON fornecedor antes de projeção/BigInt, com limites/capability failclosed, sem rede/deploy/cliente financeiro.
 
 T51b2b1 evidência:723 testes/typechecks passaram,13 novos casos. Decimal/integer além do safeint e exponentes preservados pelo source original; contador exige origem/limites; body128KiB/profundidade64/literal128; abort durante decoder impede retorno. Runtime sem contextsource falha na factory; Node22 comprovado, Deno ainda não homologado. Default JSON de Auth/status preservado. Sem cliente/deploy/rede financeira; allowlist agora10files. Próxima T51b2b2 projeção mínima de contas com decimal exato/PII descartada e composição/transporte sob owner/lease.
+
+## T51b2b2 — done
+
+MPG-15/[plano](../plan/T51b2b2-ACCOUNT-PROJECTION.md), integrador único. Projeção mínima exata fornecedor→DTO de contas em fixtures; dados de identidade descartados e relações/datas não inferidas. Transporte/owner/consentimentos/lease seguem pendentes.
+
+T51b2b2 evidência:735 testes/typechecks aprovados,12 novos cenários. BigInt do literal original preserva centavos até safeinteger; fração de centavo/overflow/paginação incompleta/conta externa ou duplicada falham. BANK mínimo sem PII, CREDIT excluído e cobertura parcial; datas/relações desconhecidas não são inventadas. Integração decoder→projeção→normalizer→MemoryAssets validada; lote inválido preserva snapshot anterior. Allowlist11files; sem rede/deploy/cliente novo. Próxima T51b2c composição de transporte fixture com autenticação privada, owner/sessão/lease e cancelamento; definir spec/plano antes do código.
