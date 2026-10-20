@@ -780,3 +780,9 @@ T51b2c7a evidência:799 testes/typechecks/6 casos novos. Seleção accounts-only
 MPG-23/[plano](../plan/T51b2c7b-PRIVATE-ACCOUNT-CONTROLLER.md), integrador único. Controlador de contas condicionado à proteção de tela e sessão, status/registry/gateway/cachevolátil.
 
 T51b2c7b evidência:807 testes/typechecks/8 casos novos. Controller exige sessão+Screenreadyactive antes de UUID/cache/status/registry/coleta; queryguarded, subscrições fecham/purgam ao lock/inactive/fail, closepermanente, busy e deadline120s/cancel mesmo com statusnão cooperativo. ScopeUUIDlocal, snapshots semfinanças, capabilities preservadas/accountsselecionado. Sem import no runtime/deploy. Próxima c8 composição UI sob flags independentes e UUIDnativoCrypto57.0.4 compatível Go, export/scan/audit/publicação somente após checks.
+
+## T51b2c8 — done
+
+MPG-24/[plano](../plan/T51b2c8-ACCOUNT-APP.md), integrador único. Tela/composição contas sob3gatesindependentesfalse e UUIDlocal nativo Crypto incluídoGo; nenhum banco real habilitado.
+
+T51b2c8 evidência:810 testes/typechecks/exportHermes2.7MB/scan aprovados; auditoria mantém19afetados/mesmaexceção, JS1201fontes/56instâncias semduasraízes e mapasprivados. Tela Minhas contas/valoresocultos/Cardsexistentes, composição3gatesfalse e UUIDCrypto57.0.4 incluídoGo; gatezero/ready tested. Sem banco real/deploybackend. Publicação remota após CI, sem pedir teste intermediário. Próxima c9 consentimento upstream atual antes de saldo, pois proxy expirado pode devolver lista vazia com statusantigo.

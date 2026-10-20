@@ -6,5 +6,7 @@ export const runtime = Object.freeze({
   dataMode: 'synthetic' as const,
   metadataStatusEnabled: true as const,
   liveIntegrationEnabled: false as const,
+  accountReadsEnabled: false as const,
+  privateFinancialDataApproved: false as const,
   biometricLoginEnabled: false as const,
 });

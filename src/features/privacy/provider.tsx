@@ -22,3 +22,6 @@ export function useScreenProtection() {
   const state = useSyncExternalStore(model?.subscribe ?? subscribe, model?.getSnapshot ?? snapshot, snapshot);
   return { snapshot: state, retry: () => { void model?.start(); } };
 }
+
+// Internal composition needs the observable to cancel collection when readiness changes.
+export const useScreenProtectionModel = () => useContext(Context);
