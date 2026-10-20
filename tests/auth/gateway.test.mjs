@@ -51,6 +51,7 @@ test('credentials stay in Auth body and fixed-origin headers, never URL', async 
   assert.deepEqual(JSON.parse(calls[0].init.body), { email, password });
   for (const { url, init } of calls) { assert.ok(url.startsWith(config.origin + '/')); assert.ok(!url.includes(email) && !url.includes(password) && !url.includes(login.access_token)); assert.equal(init.redirect, 'error'); assert.equal(init.credentials, 'omit'); }
   assert.equal(calls[1].init.headers.Authorization, 'Bearer ' + login.access_token);
+  for (const call of calls) { assert.match(call.init.headers['Cache-Control'], /no-store/); assert.match(call.init.headers['Cache-Control'], /no-cache/); assert.equal(call.init.headers.Pragma, 'no-cache'); }
 });
 test('rate limit ignores sensitive server error payload', async () => {
   const { gateway } = fixture([response({ message: 'private provider content' }, 429)]);

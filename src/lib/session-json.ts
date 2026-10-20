@@ -1,3 +1,4 @@
+import { privateRequestHeaders } from './private-http.ts';
 import { AuthFailure, type AuthConfig } from '../features/auth/gateway.ts';
 import type { SessionModel } from '../features/auth/session.ts';
 import { readBoundedJson } from './bounded-json.ts';
@@ -19,7 +20,7 @@ export function createSessionJsonClient(session:HttpSession,resolveConfig:()=>Au
    try{
     const interrupted=new Promise<never>((_,reject)=>{stop=()=>{controller.abort();reject(new AuthFailure('cancelled'));};parent.addEventListener('abort',stop,{once:true});external.addEventListener('abort',stop,{once:true});timer=setTimeout(()=>{controller.abort();reject(new AuthFailure('unavailable'));},timeoutMs);});
     const work=async()=>{
-     active();response=await transport(origin+paths[operation],{method:operation==='registry'?'GET':'POST',headers:{apikey:key,Authorization:'Bearer '+token,'Content-Type':'application/json','Cache-Control':'no-store'},body:operation==='registry'?undefined:JSON.stringify(body),signal:controller.signal,credentials:'omit',redirect:'error',cache:'no-store',referrerPolicy:'no-referrer'});active();
+     active();response=await transport(origin+paths[operation],{method:operation==='registry'?'GET':'POST',headers:{apikey:key,Authorization:'Bearer '+token,'Content-Type':'application/json',...privateRequestHeaders},body:operation==='registry'?undefined:JSON.stringify(body),signal:controller.signal,credentials:'omit',redirect:'error',cache:'no-store',referrerPolicy:'no-referrer'});active();
      if(response.redirected)return invalid();if(response.status===401||response.status===403)throw new AuthFailure('invalid_credentials');if(response.status===429)throw new AuthFailure('rate_limited');if(response.status!==200||!response.ok)return invalid();
      const result=await readBoundedJson(response,controller.signal,operation==='discover'?4096:131072);active();return result;
     };

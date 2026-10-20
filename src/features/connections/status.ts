@@ -1,3 +1,4 @@
+import { privateRequestHeaders } from '../../lib/private-http.ts';
 import { AuthFailure, type AuthConfig } from '../auth/gateway.ts';
 import type { SessionModel } from '../auth/session.ts';
 import { readBoundedJson } from '../../lib/bounded-json.ts';
@@ -83,7 +84,7 @@ export function createConnectionStatusReader(session: Session, resolvePublicConf
           const operation = async (): Promise<StatusResult> => {
             try {
               const response = await transport(origin + '/functions/v1/orbe-metadata/connections/status', {
-                method: 'POST', headers: { apikey: publishableKey, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: '{}',
+                method: 'POST', headers: { apikey: publishableKey, Authorization: 'Bearer ' + token, 'Content-Type': 'application/json', ...privateRequestHeaders }, body: '{}',
                 signal: child.signal, credentials: 'omit', redirect: 'error', cache: 'no-store',
               });
               const discard = () => { try { void response.body?.cancel().catch(() => {}); } catch {} };

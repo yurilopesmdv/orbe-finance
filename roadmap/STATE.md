@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c36 concluídas**, evidências em tasks/TASKS.md/plan, SPEC009 MPG-36–43. **967 testes/typechecks aprovados (859Node+108Python)**. CI39511853244(c26)success; commits posteriores ainda precisam de push/CI. Próxima **c37**: revisar privacidade do transporte nativo ExpoGo (cache/cookies/telemetria) com fonte instalada e documentação, sem consultar dados financeiros ou pedir testes agora. Cliente/backend/configuração estão preparados e publicados com gatesfechados; não declarar produto financeiro finalizado. FonteOFporbanco/fornecedor/dependências/homologação continuam revisões concretas, não encerradas por Authválido ou número de testes.
+**c21–c37 concluídas**, 967 testes/typechecks aprovados. c37 reforça cabeçalhos HTTP e prontidão de proteção antes de consultas de metadados; exportação iOS/auditoria runtime1205 fontes/56 instâncias aprovadas. Próxima **c38**: scan privado, commit/CI e publicação do cliente corrigido, atualizar QR e checkpoint. Backend v5/metadata v4 configurados exclusivamente desligados; nenhuma leitura financeira real. As revisões de fornecedor, origem OF, dependências e homologação continuam pendentes e não equivalem a trabalho concluído por Auth válido.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 

@@ -38,14 +38,14 @@ export default function MyConnectionsScreen() {
   const snapshot = useSyncExternalStore(controller?.subscribe ?? idleSubscribe, controller?.getSnapshot ?? idleSnapshot, idleSnapshot);
   useFocusEffect(useCallback(() => {
     setSelection(null);
-    if (!auth.model || auth.snapshot.state !== 'unlocked' || !runtime.metadataStatusEnabled) { setController(null); return; }
+    if (!auth.model || auth.snapshot.state !== 'unlocked' || !runtime.metadataStatusEnabled || screen.snapshot.phase !== 'ready' || !screen.snapshot.active) { setController(null); return; }
     // Metadata-only operations. No financial cache/adapter is created here.
     const reader = createConnectionStatusReader(auth.model, () => publicAuthConfig, expoFetch, { enabled: true });
     const commands = createConnectionCommands(auth.model, () => publicAuthConfig, expoFetch, { enabled: true, privateDataApproved: true });
     const instance = createConnectionsController(auth.model, reader, commands, { enabled: true });
     setController(instance); void instance.refresh();
     return () => { instance.close(); setSelection(null); };
-  }, [auth.model, auth.snapshot.state]));
+  }, [auth.model, auth.snapshot.state, screen.snapshot.phase, screen.snapshot.active]));
   useFocusEffect(useCallback(() => {
     setDiscovery(null);
     if (!discoveryEnabled || !auth.model || auth.snapshot.state !== 'unlocked' || !protection || screen.snapshot.phase !== 'ready' || !screen.snapshot.active) return;

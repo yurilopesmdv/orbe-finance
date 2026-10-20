@@ -952,3 +952,9 @@ T51b2c35 publicada:958testes/typechecks/export/runtimeaudit1204/56/scan todosper
 MPG-50/[plano](../plan/T51b2c36-DISABLED-BACKEND-CONFIG.md). Segredos backend somentecomflagsfalse, preservação demetadata/Auth/digests/artefatoseversões; nenhuma coleta financeira.
 
 T51b2c36 evidência:967testes/typechecks (859Node+108Python),9casosnovos.7segredos backend configurados exclusivamentecom4flagsfalse; digests confirmados/metadatasemalteração. Supabase atualizoubridge4→5/metadata3→4 e archivehashes; downloadreadonly confirmou23fontesbridge/5metadata iguais aosrecibos, entrypoints presentes; recibosprivados sóversãoreconciliada. Reexecuçãoidempotenteadded0/configreadytrue.7smokes503/no-store e5negativosmetadata aprovados;ownerpositivo não testado/remotefinancialReads0. Nenhuma chamadaPluggy nova (total1Auth/0financeiros), sem teste do titular. Próxima c37 revisão nativa de fetch/cache/cookies e evidências de privacidade antes deativação, sem prometer garantia absoluta.
+
+## T51b2c37 — done
+
+SEC-26/[plano](../plan/T51b2c37-NATIVE-HTTP-REVIEW.md). RevisãoSwift/JS e cabeçalhosHTTPcentralizados; não inferir cachezero/SDKbinárioigual/telemetriaausente.
+
+T51b2c37 evidência:967 testes/typechecks aprovados; exportação iOS e auditoria runtime1205 fontes/56 instâncias aprovadas, mapas privados e raízes vulneráveis ausentes do grafo cliente. Quatro testes de transporte ampliados verificam no-store/no-cache/Pragma; metadados aguardam proteção pronta/ativa. Revisão de8fontes JS/Swift documentada com hashes e limites. Nenhuma leitura financeira ou flag alterada. Próxima c38 publicar esta correção após scan/CI e atualizar QR/checkpoint.

@@ -1,3 +1,4 @@
+import { privateRequestHeaders } from '../../lib/private-http.ts';
 import { AuthFailure, type AuthConfig } from '../auth/gateway.ts';
 import type { SessionModel } from '../auth/session.ts';
 import { readBoundedJson } from '../../lib/bounded-json.ts';
@@ -51,7 +52,7 @@ export function createConnectionCommands(session: Session, resolvePublicConfig: 
           const operation = async(): Promise<Readonly<CommandResult>> => {
             try {
               const response = await transport(origin+'/rest/v1/rpc/'+(action === 'pause' ? 'orbe_pause_connection' : 'orbe_remove_connection'),{
-                method:'POST',headers:{ apikey:publishableKey,Authorization:`Bearer ${token}`,'Content-Type':'application/json','Cache-Control':'no-store' },
+                method:'POST',headers:{ apikey:publishableKey,Authorization:`Bearer ${token}`,'Content-Type':'application/json',...privateRequestHeaders },
                 body:JSON.stringify({ p_connection_id:connectionId,p_revision:revision }),signal:child.signal,credentials:'omit',redirect:'error',cache:'no-store',
               });
               const discard = () => { try { void response.body?.cancel().catch(()=>{}); } catch {} };

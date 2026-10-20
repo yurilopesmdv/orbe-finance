@@ -23,7 +23,7 @@ test('locked and preaborted queries never consult public configuration',async()=
 });
 test('own fixed metadata route sends no identifiers in URL or body and captures config',async()=>{
  let f;f=await fixture([()=>{f.publicConfig.origin='https://untrusted.invalid';return response({connections:[connection]});}]);
- const out=await f.reader.read();assert.equal(out.status,'complete');const call=f.calls[0];assert.equal(call.url,origin+'/functions/v1/orbe-metadata/connections/status');assert.equal(call.init.body,'{}');assert.equal(call.init.method,'POST');assert.equal(call.init.headers.Authorization,'Bearer invented-private-token');assert.equal(call.init.headers.apikey,config.publishableKey);assert.equal(call.init.credentials,'omit');assert.equal(call.init.redirect,'error');assert.equal(call.init.signal.aborted,true);
+ const out=await f.reader.read();assert.equal(out.status,'complete');const call=f.calls[0];assert.equal(call.url,origin+'/functions/v1/orbe-metadata/connections/status');assert.equal(call.init.body,'{}');assert.equal(call.init.method,'POST');assert.equal(call.init.headers.Authorization,'Bearer invented-private-token');assert.equal(call.init.headers.apikey,config.publishableKey);assert.match(call.init.headers['Cache-Control'],/no-store/);assert.match(call.init.headers['Cache-Control'],/no-cache/);assert.equal(call.init.headers.Pragma,'no-cache');assert.equal(call.init.credentials,'omit');assert.equal(call.init.redirect,'error');assert.equal(call.init.signal.aborted,true);
 });
 test('another valid Supabase origin and privileged keys never receive Bearer',async()=>{
  for(const patch of [{origin:`https://${'b'.repeat(20)}.supabase.co`},{publishableKey:'sb_secret_invented'},{origin:new String(origin)}]){

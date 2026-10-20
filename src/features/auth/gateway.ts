@@ -1,3 +1,4 @@
+import { privateRequestHeaders } from '../../lib/private-http.ts';
 import { readBoundedJson } from '../../lib/bounded-json.ts';
 export type AuthCode = 'invalid_configuration' | 'invalid_credentials' | 'rate_limited' | 'unavailable' | 'cancelled' | 'expired_code' | 'weak_password' | 'secure_storage';
 export class AuthFailure extends Error {
@@ -39,7 +40,7 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
       const operationResult = (async () => {
         const response = await transport(origin + routes[operation], {
           method: operation === 'user' ? 'GET' : operation === 'update' ? 'PUT' : 'POST',
-          headers: { apikey: publishableKey, 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+          headers: { apikey: publishableKey, 'Content-Type': 'application/json', ...privateRequestHeaders, ...(token ? { Authorization: `Bearer ${token}` } : {}) },
           ...(body === undefined ? {} : { body: JSON.stringify(body) }),
           signal: controller.signal, redirect: 'error', cache: 'no-store', credentials: 'omit',
         });
