@@ -822,3 +822,9 @@ T51b2c13 evidência:834 testes/typechecks (7guardas novos), perfil privado plugg
 MPG-29/[plano](../plan/T51b2c14-USER-SETUP-AND-SECURITY-STATUS.md), integrador único. Revalidou audit19altos/0críticos/2raízes com advisories oficiais sem patch; downgrade major proposto incompatível não aplicado. Fontes oficiais personalguide/dashboard/legal/segurança revistas, bloqueios externos concretos e perguntas preparadas sem contato. Guia permite cadastro vazio/ClientIDSecret no perfil privado agora e separa autorização bancária posterior. Preflight perfilready/credentialsfalse/providerCalls0. Sem código/flags/deploy/mudança bancária; testes834/CI39470696598 da implementação anterior aprovados, sem repetir suíte por docs.
 
 Checkpoint de configuração20/10: titular informou2campos salvos. provider-profilecheck credentials_configuredtrue/formato/permissões, provider_calls0; nenhumvalorimpresso/consulta bancária/AuthPluggy. APIkey não é terceiro campo exigido. Roteirooficial bancário/proxy reconferido, Orbe financeirooff/gatespendentes.
+
+## T51b2c15 — done
+
+MPG-30/[plano](../plan/T51b2c15-PRIVATE-ITEM-INVENTORY.md). Inventário offline privado por banco, sem rede/provisionamento SQL. Relato do titular confirma importação; não tratar como evidência de OF ou homologação real.
+
+T51b2c15 evidência:843 testes/typechecks aprovados (764Node+79Python), incluindo9casos de inventário e7regressões do perfil. Template privado criado0600 semIDs; init/check provider_calls0. Inventário não provisiona SQL/ativa produto; identificadores precisam ser copiados privadamente do Dashboard porque plano pessoal não permite listagem global. Próxima c16 staging server-only pendente, sem afirmar OF/consentimento/capacidades.

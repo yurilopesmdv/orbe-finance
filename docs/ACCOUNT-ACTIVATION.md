@@ -51,3 +51,5 @@ Titular confirmou que o aviso aparece em dashboard.pluggy.ai/overview. O guia of
 ### Progresso confirmado pelo titular —20/10/2026
 
 Bradesco e Mercado Pago adicionados no portal pessoal; titular confirmou depois a importação na aplicação demo de desenvolvimento. Não é necessário repetir a criação das conexões. Esse relato não comprova mapeamento privado por banco, origem Open Finance, cobertura dos produtos ou leitura pelo Orbe. Nenhum valor financeiro foi consultado pelas ferramentas. Próxima etapa técnica: provisionamento privado com identificação mínima, sem itemIds no chat, seguido de revisão do boot/deploy e gates existentes.
+
+Inventário técnico privado preparado em `/home/yurilopesm/.config/orbe-finance/pluggy-items.json`: copiar somente o Item ID do proxy de cada banco para `bradesco` e `mercado-pago`, mantendo as chaves JSON. Não enviar identificadores no chat. `python3 scripts/provider-items.py check` valida sem exibir conteúdo e sem rede; esse arquivo não contém senhas, valores nem IDs de contas. Não adivinhar banco pelo nome genérico MeuPluggy; associação precisa corresponder à conexão original.
