@@ -63,3 +63,5 @@ Camada de rede preparada e testada com transporte fictício: somente operações
 Projeção mínima de inventário de contas preparada em fixtures: extrai IDs técnicos e moeda, sem ler valores, número da conta ou titular. Não faz rede nem registra contas por conta própria. A criação atômica dos bindings e o fluxo autorizado de descoberta continuam etapas técnicas seguintes; o titular não precisa copiar IDs de contas.
 
 Publicação c31: orbe-bridgev4 com rootunificado de leitura/descoberta, mas liveApprovedfalse no código.7verificações503/no-store e canários privados aprovados; nenhum saldo/conta do fornecedor consultado. Cliente de descoberta é a próxima fatia; a publicação backend não altera o QR nem libera leituras no app.
+
+Atualização c34: ClientID/Secret foram autenticados com sucesso exclusivamente em POST/auth. A chave temporária foi validada em memória, não foi exibida/salva nem usada para consultar item/conta/valores. Isso confirma o par técnico, não cobertura/titularidade/OF ou ativação; total1chamadaAuthreal/0leiturasfinanceiras pelas ferramentas. Não é necessário reenviar as credenciais.

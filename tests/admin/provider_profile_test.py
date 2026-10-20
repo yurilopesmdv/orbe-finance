@@ -37,4 +37,46 @@ class ProfileGuards(unittest.TestCase):
         self.initialize()
         with patch.object(profile.os,'getuid',return_value=os.getuid()+1):
             with self.assertRaisesRegex(profile.SafeError,'provider_profile_owner_rejected'):profile.execute('check')
+
+class ProviderAuthTests(unittest.TestCase):
+    def test_auth_destination_body_redacted_and_no_other_request(self):
+        import json
+        calls=[]
+        class Response:
+            status=200
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def read(self,limit):return b'{"apiKey":"invented-api-key-12345"}'
+        class Opener:
+            def open(self,request,timeout):calls.append((request,timeout));return Response()
+        value=profile.authenticate({'PLUGGY_CLIENT_ID':'invented','PLUGGY_CLIENT_SECRET':'invented-secret-12345'},Opener())
+        self.assertEqual(value,{'credentials_authenticated':True,'provider_calls':1,'financial_reads':0})
+        self.assertEqual(len(calls),1)
+        self.assertEqual(calls[0][0].full_url,'https://api.pluggy.ai/auth')
+        self.assertEqual(calls[0][0].get_method(),'POST')
+        self.assertEqual(json.loads(calls[0][0].data),{'clientId':'invented','clientSecret':'invented-secret-12345'})
+        self.assertEqual(calls[0][1],20)
+        self.assertNotIn('invented-api-key',json.dumps(value))
+
+    def test_auth_rejects_invalid_and_oversize_responses(self):
+        class Response:
+            status=200
+            def __init__(self,raw):self.raw=raw
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def read(self,limit):return self.raw[:limit]
+        class Opener:
+            def __init__(self,raw):self.raw=raw
+            def open(self,*args,**kwargs):return Response(self.raw)
+        for raw in [b'{}',b'{"apiKey":"short"}',b'{"apiKey":"invented-api-key-12345","extra":"PRIVATE"}',b' '*4097]:
+            with self.assertRaises(profile.SafeError):profile.authenticate({'PLUGGY_CLIENT_ID':'invented','PLUGGY_CLIENT_SECRET':'invented-secret'},Opener(raw))
+
+    def test_auth_missing_credentials_never_calls_transport(self):
+        class Opener:
+            def open(self,*args,**kwargs):raise AssertionError('network')
+        with self.assertRaises(profile.SafeError):profile.authenticate({'PLUGGY_CLIENT_ID':'','PLUGGY_CLIENT_SECRET':''},Opener())
+
+    def test_auth_redirect_is_rejected(self):
+        with self.assertRaises(profile.SafeError):profile.NoRedirect().redirect_request(None,None,None,None,None,None)
+
 if __name__=='__main__':unittest.main()

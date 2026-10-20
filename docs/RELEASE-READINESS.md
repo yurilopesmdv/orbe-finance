@@ -34,3 +34,5 @@ Prévia de contas publicada20/10: update01a15a72-7573-7ea8-a2e6-e45df58e640a/com
 Perfil privado do fornecedor preparado vazio/0600 foraMetro por c13, sem chamada ao fornecedor nem solicitação de credenciais.834 testes atuais; a prévia publicada foi validada com827 testes antes deste helper administrativo não embarcado no app.
 
 Estado atual c31: orbe-bridgev4ACTIVE com liveApprovedfalse no entrypoint;7rotas sintéticas retornam503/no-store. Allowlist26fontes e scans de todos os perfis privados aprovados. Backend publicado sem carregar chavesPluggy ou consultar bancos; metadata/client/QR preservados. Perfil de credenciais técnicas preenchido e1bindingMPpending; nenhum accountbindingreal. Os parágrafos c11/c13 acima registram evidências históricas e não o estado atual de versão/preenchimento.
+
+Estado c34:958testes/typechecks; cliente/UI descoberta sobflagfalse, exportiOS/runtimeaudit1204fontes56instâncias aprovados. Credenciais técnicas locais autenticadas somente em1POSTAuth, semdadosfinanceiros ouAPIkeypersistida. Próxima prévia consolidada apósCI; leitura/descobertafinanceira real continuamoff.

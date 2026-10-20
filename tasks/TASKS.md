@@ -934,3 +934,9 @@ T51b2c32 evidência:943testes/typechecks (848Node+95Python),9casosnovos, exporti
 MPG-48/[plano](../plan/T51b2c33-READY-DISCOVERY-UI.md). Controlador/runtimeprontidão e botãohiddenporflagfalse emConexões, sem redesreais/novo layout/cores.
 
 T51b2c33 evidência:954testes/typechecks (859Node+95Python),11novoscasos. Gateoff/readiness/proteção/sessão/pending/revisão/abort/busy/cooldown/empty/semredeinicial validados. ExportiOS e runtimeaudit1204fontes/56instâncias aprovados, raízesadvisoriesausentesJS/mapasprivados. inventoryDiscoveryEnabledfalse; UIadaptativa semlayoutnovo/novasconsultas enquantooff. Próxima c34 validar apenas POSTauth técnico do perfilprivado (nenhum GETitem/conta), depoispublicação consolidada conformeCI/scan.
+
+## T51b2c34 — done
+
+MPG-49/[plano](../plan/T51b2c34-TECHNICAL-AUTH-CHECK.md). Autenticação administrativa explícita somenteAuth, sem GETdeitens/contas/valores e semAPIkeypersistida.
+
+T51b2c34 evidência:958testes/typechecks (859Node+99Python),4novoscasos de Auth. Perfil0600/rotaliteral/bodyTLS/NOproxy/NOredirect/20s/4096/redação testados; somente POSTauth real respondeu credenciaisautenticadas,providerCalls1/financialReads0. APIkey não salva/exibida/usadaemGET. Não comprova item/cobertura/OForiginal nem libera flags. Próxima c35 publicarprévia consolidada apósCI958/scan/runtimeaudit, sem testeintermediário.
