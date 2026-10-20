@@ -1,3 +1,5 @@
+import { resolveBackendExecutionMode, type BackendExecutionPolicy } from './execution-mode.ts';
+import { createAccountNetworkTransport } from './account-network.ts';
 import { readPreparedAccountConfiguration, type AccountConfigurationReader } from './account-configuration.ts';
 import { createSupabasePorts } from './supabase-rest.ts';
 import { createLeasePorts } from './lease-rest.ts';
@@ -6,19 +8,20 @@ import { createPluggyAccountsPort } from './pluggy-auth.ts';
 import { createAccountRouter } from './account-router.ts';
 type Transport=(url:string,init:RequestInit)=>Promise<Response>;
 const result=(status:number,error:string)=>new Response(JSON.stringify({error}),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store',Pragma:'no-cache','X-Content-Type-Options':'nosniff'}});
-/** Fixture boot only. Published entrypoint remains literal false and imports none of this. */
-export function createAccountBackendRuntime(read:AccountConfigurationReader,options:{fixtureOnly?:boolean;transport?:Transport}={}){
+/** Guarded boot capability. Published entrypoint remains literal false. */
+export function createAccountBackendRuntime(read:AccountConfigurationReader,options:BackendExecutionPolicy & {transport?:Transport}={}){
  const disabled=Object.freeze({handler:async(_request:Request)=>result(503,'unavailable'),close(){}});
- if(options.fixtureOnly!==true)return disabled;
+ const mode=resolveBackendExecutionMode(options);if(mode===null)return disabled;
  let provider:ReturnType<typeof createPluggyAccountsPort>|undefined;
  try{
   const configuration=readPreparedAccountConfiguration(read,'ORBE_ACCOUNT_READS_ENABLED');
   if(!configuration)return disabled;
-  const transport=options.transport;if(typeof transport!=='function')return disabled;
+  const network=options.transport??(mode==='live'?((url:string,init:RequestInit)=>globalThis.fetch(url,init)):undefined);if(typeof network!=='function')return disabled;
+  const transport=createAccountNetworkTransport({enabled:true,privateDataApproved:true,network});
   const {origin,publishableKey,secretKey,clientId,clientSecret}=configuration;
-  const auth=createSupabasePorts({origin,publishableKey},transport),lease=createLeasePorts(()=>({origin,secretKey}),{enabled:true,privateDataApproved:true,transport}),resolve=createAccountBindingResolver(()=>({origin,secretKey}),{enabled:true,fixtureOnly:true,transport});
-  provider=createPluggyAccountsPort(()=>({clientId,clientSecret}),{enabled:true,fixtureOnly:true,transport});
-  const router=createAccountRouter({authenticate:auth.authenticate,resolve,check:lease.check,acquire:lease.acquire,finish:lease.finish,readAccounts:provider.readAccounts},{enabled:true,fixtureOnly:true});
+  const auth=createSupabasePorts({origin,publishableKey},transport),lease=createLeasePorts(()=>({origin,secretKey}),{enabled:true,privateDataApproved:true,transport}),resolve=createAccountBindingResolver(()=>({origin,secretKey}),{enabled:true,mode,privateDataApproved:true,transport});
+  provider=createPluggyAccountsPort(()=>({clientId,clientSecret}),{enabled:true,mode,privateDataApproved:true,transport});
+  const router=createAccountRouter({authenticate:auth.authenticate,resolve,check:lease.check,acquire:lease.acquire,finish:lease.finish,readAccounts:provider.readAccounts},{enabled:true,mode,privateDataApproved:true});
   const active=new Set<AbortController>();let closed=false;
   return Object.freeze({
    async handler(request:Request):Promise<Response>{

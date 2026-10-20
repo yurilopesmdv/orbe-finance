@@ -7,3 +7,12 @@ export function resolveExecutionMode(policy: ExecutionPolicy): ExecutionMode | n
   if (policy.mode === 'live' && policy.privateDataApproved === true) return 'live';
   return null;
 }
+
+export interface BackendExecutionPolicy { mode?: ExecutionMode; fixtureOnly?: boolean; liveApproved?: boolean }
+/** Code-release gate only. Environment approval/configuration is checked separately. */
+export function resolveBackendExecutionMode(policy: BackendExecutionPolicy): ExecutionMode | null {
+  const mode = policy.mode ?? (policy.fixtureOnly === true ? 'fixture' : null);
+  if (mode === 'fixture') return 'fixture';
+  if (mode === 'live' && policy.fixtureOnly !== true && policy.liveApproved === true) return 'live';
+  return null;
+}

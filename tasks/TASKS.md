@@ -910,3 +910,9 @@ T51b2c28 evidência:914testes/typechecks (823Node+91Python),5casosnovos. Configu
 MPG-44/ADR-016/[plano](../plan/T51b2c29-EXECUTION-MODES.md). Modos explícitos e propagação lowlevel; bootalto/entrypoint/flags reais inalterados.
 
 T51b2c29 evidência:921testes/typechecks (830Node+91Python),7casosnovos. Defaultoff/liveapproval/conflitofixture/live/projeção/auth/handler/capturamodo emclosure aprovados. Factoriesfixtureantigas preservadas, modo validado propagado às projeções sem usarfixturetrue para dadoslive. Bootalto continuafixtureOnly/entrypointoff, nenhuma rede real. Próxima c30 bootexplícitolive sob código+flags+redeguardada, aprovação externa permanecependente.
+
+## T51b2c30 — done
+
+MPG-45/ADR-016/[plano](../plan/T51b2c30-GUARDED-LIVE-BOOT.md). Composições altas com modo explícito/trava liveApproved/flags/redeguardada; nenhuma publicação/env/segredo alterados.
+
+T51b2c30 evidência:926testes/typechecks (835Node+91Python),5casosnovos. Codegate independente/conflito/defaultoff, bootlivecontas29centavos e bootlivedescobertacontagem completos com rede injetada; propagação mode/live semfixture e fronteiraredepreservadas. Flags/entrypoint/remotesecrets intactos, nenhuma chamada real. Próxima c31 unificarentrypoint sob travafalse e atualizarallowlist/scans/deploydesligado revisado.

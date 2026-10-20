@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import { resolveExecutionMode } from '../../supabase/functions/_shared/execution-mode.ts';
+import { resolveExecutionMode, resolveBackendExecutionMode } from '../../supabase/functions/_shared/execution-mode.ts';
 import { createPluggyAuthPort, createPluggyInventoryPort } from '../../supabase/functions/_shared/pluggy-auth.ts';
 import { createInventoryHandler } from '../../supabase/functions/_shared/inventory-handler.ts';
 import { createExactJsonDecoder } from '../../supabase/functions/_shared/exact-json.ts';
@@ -13,3 +13,5 @@ test('pure metadata projection has explicit live capability without pretending f
 test('unapproved live HTTP factory remains off without reading request or coordinator',async()=>{assert.equal((await createInventoryHandler(poison,{enabled:true,mode:'live'}).handler(poison)).status,503);});
 
 test('live inventory snapshots execution mode and retains private minimal projection',async()=>{let configured=true;const options={enabled:true,privateDataApproved:true,get mode(){if(!configured)throw Error('PRIVATE');return'live';},transport:async(url)=>new Response(JSON.stringify(url.endsWith('/auth')?{apiKey:'invented-api-key-12345'}:url.includes('/items/')?{id,connector:{name:'MeuPluggy',isSandbox:false},status:'UPDATED',executionStatus:'SUCCESS',error:null,products:['ACCOUNTS'],consentExpiresAt:'2099-01-01T00:00:00Z'}:{page:1,total:0,totalPages:0,results:[]}),{headers:{'Content-Type':'application/json'}})};const port=createPluggyInventoryPort(()=>({clientId:'invented',clientSecret:'invented-secret-12345'}),options);configured=false;try{const result=await port.readInventory({itemId:id,connectionId:id},new AbortController().signal);assert.equal(result.status,'complete');assert.deepEqual(result.inventory.accounts,[]);}finally{port.close();}});
+
+test('backend live needs separate code gate while fixture preserves explicit injected semantics',()=>{assert.equal(resolveBackendExecutionMode({}),null);assert.equal(resolveBackendExecutionMode({fixtureOnly:true}),'fixture');assert.equal(resolveBackendExecutionMode({mode:'fixture'}),'fixture');assert.equal(resolveBackendExecutionMode({mode:'live'}),null);assert.equal(resolveBackendExecutionMode({mode:'live',liveApproved:true}),'live');assert.equal(resolveBackendExecutionMode({mode:'live',fixtureOnly:true,liveApproved:true}),null);});

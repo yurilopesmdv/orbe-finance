@@ -69,3 +69,5 @@ Documentação atual orienta /v2/transactions com cursor; /transactions está ob
 ## ADR-016 — Modos fixture/live explícitos, aprovação independente
 
 20/10/2026. O encadeamento técnico foi desenvolvido com fixtureOnly e transporte injetado. Usar fixturetrue num entrypoint real ocultaria a mudança de fronteira. Introduzir ExecutionPolicy com modefixture/modelive; defaultoff, live requer privateDataApprovedtrue no contrato lowlevel e flags independentes/estado/consentimento no bootalto. Manter fixtureOnlytrue como compatibilidade de testes, incompatível com modelive. Mode é capacidade técnica, não comprovação de revisãofornecedor/OF/dependências ou liberação do produto. Propagar modo, sem flagsfixas de fixture nas chamadas internas do fluxo real. Não modificar entrypointpublicado nesta mudança.
+
+ADR-016 complementoMPG-45: composiçãoalta exige liveApprovedtrue fixado pelo chamador de boot e flags ORBE_BRIDGE_ENABLED/feature/ORBE_PRIVATE_DATA_APPROVED literaistrue antes de carregar segredos. Fixture não tem fetchpadrão; live usa fetchsomenteapósgates e sempreatravés da rede literal. EntryPoint publicado continua desligado; alterar mode sozinho não ativa nada.
