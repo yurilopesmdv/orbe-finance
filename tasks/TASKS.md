@@ -820,3 +820,5 @@ T51b2c13 evidência:834 testes/typechecks (7guardas novos), perfil privado plugg
 ## T51b2c14 — done
 
 MPG-29/[plano](../plan/T51b2c14-USER-SETUP-AND-SECURITY-STATUS.md), integrador único. Revalidou audit19altos/0críticos/2raízes com advisories oficiais sem patch; downgrade major proposto incompatível não aplicado. Fontes oficiais personalguide/dashboard/legal/segurança revistas, bloqueios externos concretos e perguntas preparadas sem contato. Guia permite cadastro vazio/ClientIDSecret no perfil privado agora e separa autorização bancária posterior. Preflight perfilready/credentialsfalse/providerCalls0. Sem código/flags/deploy/mudança bancária; testes834/CI39470696598 da implementação anterior aprovados, sem repetir suíte por docs.
+
+Checkpoint de configuração20/10: titular informou2campos salvos. provider-profilecheck credentials_configuredtrue/formato/permissões, provider_calls0; nenhumvalorimpresso/consulta bancária/AuthPluggy. APIkey não é terceiro campo exigido. Roteirooficial bancário/proxy reconferido, Orbe financeirooff/gatespendentes.
