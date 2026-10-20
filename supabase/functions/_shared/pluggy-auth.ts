@@ -1,3 +1,4 @@
+import { verifyPluggyItem } from './pluggy-item.ts';
 import { createExactJsonDecoder } from './exact-json.ts';
 import { createPluggyTargets } from './pluggy-targets.ts';
 import { projectPluggyAccounts, type AccountProjectionContext } from './pluggy-accounts.ts';
@@ -133,6 +134,14 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
             if (auth !== 'ready') return Object.freeze({ status: auth });
             if (controller.signal.aborted || closed || generation !== epoch || !key || time() - start >= 20000) throw Error();
             const requestKey = key;
+            const init: RequestInit = { method: 'GET', headers: { Accept: 'application/json', 'X-API-KEY': requestKey, 'Cache-Control': 'no-store' }, signal: controller.signal, redirect: 'error', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer' };
+            response = await transport(createPluggyTargets({ itemId: context.itemId, accountIds: context.bindings.map(row => row.externalId) }).item(), init);
+            if (controller.signal.aborted || closed || generation !== epoch || response.redirected) throw Error();
+            if (response.status === 401 || response.status === 403) { clearKey(); throw Error(); }
+            if (response.status === 429) return Object.freeze({ status: 'rate_limited' });
+            if (response.status !== 200 || !response.ok) throw Error();
+            const evidence = verifyPluggyItem(await readJsonResponse(response, controller.signal, 131072), context.itemId, time());
+            if (controller.signal.aborted || closed || generation !== epoch || key !== requestKey || time() >= expiresAt || time() - start >= 20000) throw Error();
             response = await transport(target, { method: 'GET', headers: { Accept: 'application/json', 'X-API-KEY': requestKey, 'Cache-Control': 'no-store' },
               signal: controller.signal, redirect: 'error', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer' });
             if (controller.signal.aborted || closed || generation !== epoch || response.redirected) throw Error();
@@ -140,8 +149,8 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
             if (response.status === 429) return Object.freeze({ status: 'rate_limited' });
             if (response.status !== 200 || !response.ok) throw Error();
             const raw = await readJsonResponse(response, controller.signal, 131072, decode);
-            if (controller.signal.aborted || closed || generation !== epoch || key !== requestKey || time() >= expiresAt || time() - start >= 20000) throw Error();
-            const projected = projectPluggyAccounts(raw, context, { enabled: true, fixtureOnly: true });
+            if (controller.signal.aborted || closed || generation !== epoch || key !== requestKey || time() >= expiresAt || time() >= evidence.expiresAt || time() - start >= 20000) throw Error();
+            const projected = projectPluggyAccounts(raw, { ...context, sourceUpdatedAt: evidence.sourceUpdatedAt }, { enabled: true, fixtureOnly: true });
             if (projected.kind !== 'page') throw Error();
             return Object.freeze({ status: 'complete', page: projected.page, coverage: projected.coverage });
           } catch { return Object.freeze({ status: controller.signal.aborted ? 'cancelled' : 'unavailable' }); }

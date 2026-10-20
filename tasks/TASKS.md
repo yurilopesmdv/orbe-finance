@@ -786,3 +786,9 @@ T51b2c7b evidência:807 testes/typechecks/8 casos novos. Controller exige sessã
 MPG-24/[plano](../plan/T51b2c8-ACCOUNT-APP.md), integrador único. Tela/composição contas sob3gatesindependentesfalse e UUIDlocal nativo Crypto incluídoGo; nenhum banco real habilitado.
 
 T51b2c8 evidência:810 testes/typechecks/exportHermes2.7MB/scan aprovados; auditoria mantém19afetados/mesmaexceção, JS1201fontes/56instâncias semduasraízes e mapasprivados. Tela Minhas contas/valoresocultos/Cardsexistentes, composição3gatesfalse e UUIDCrypto57.0.4 incluídoGo; gatezero/ready tested. Sem banco real/deploybackend. Publicação remota após CI, sem pedir teste intermediário. Próxima c9 consentimento upstream atual antes de saldo, pois proxy expirado pode devolver lista vazia com statusantigo.
+
+## T51b2c9 — done
+
+MPG-25/[plano](../plan/T51b2c9-CURRENT-PROXY-CONSENT.md), integrador único. Conferir consentExpiresAt atual do proxy antes de contas; nunca apagar por vazio após autorização expirada.
+
+T51b2c9 evidência:817 testes/typechecks/7 novos casos. Auth→GETitem→GETaccounts com consentExpiresAt futuro antes e depois, status/erro/warnings/ação/proxyprodutos verificados; expirado/null/unknown impede contas mesmoUPDATEDantigo. ItemPII descartada/sourceAtual não vira data de saldo. Prazo20s total mantido, allowlist16files, sem rede/deployreal. Tela c8 CI39467658558 success. Próxima c10 composição backendfixture com todas as portas, preparar ativação privada/documentar pendências e publicar prévia c8 após CI/scan.

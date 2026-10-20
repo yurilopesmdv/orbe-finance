@@ -10,8 +10,10 @@ Gates separados no cliente: accountReadsEnabled, liveIntegrationEnabled, private
 
 ## Próximas etapas e ativação conjunta
 
-Antes de uso real: conferir item/consentExpiresAt upstream a cada lote (c9), runtime Edge/context.source, composição/deploy próprios, configuração privada do fornecedor, vínculo administrativo de itens/contas com titularidade e OpenFinance original comprovados por banco, revisão de retenção/logs/subprocessadores e gates de runtime/dependências. Não considerar nome MeuPluggy/isOpenFinancefalse do proxy como prova sobre a origem bancária. Não coletar CPF/senha/extrato para comprovar por conveniência.
+Antes de uso real: runtime Edge/context.source, composição/deploy próprios, configuração privada do fornecedor, vínculo administrativo de itens/contas com titularidade e OpenFinance original comprovados por banco, revisão de retenção/logs/subprocessadores e gates de runtime/dependências. Não considerar nome MeuPluggy/isOpenFinancefalse do proxy como prova sobre a origem bancária. Não coletar CPF/senha/extrato para comprovar por conveniência.
 
 O titular fará em seu navegador a autorização bancária original no Meu Pluggy e o proxy MeuPluggy na aplicação demo, sem enviar credenciais/IDs pelo chat. A configuração backend será preparada antes dessa etapa, com segredo fora do Metro. Não contratar, consentir, gerar webhook/cron, conectar bancos ou consultar conteúdo real pelas ferramentas. A publicação da tela desativada não é homologação de banco.
 
 810 testes/typechecks/export iOS2.7MB aprovados nesta composição; inspeção privada1201 fontes/56 instâncias sem as duas raízes de advisories no JS. Audit ainda19 pacotes afetados na toolchain, mesma exceção exclusivamente sintética até23/10/2026; ausência no JS não é auditoria do Expo Go nativo/EAS/fornecedor. Nenhuma promessa de risco zero/E2EE. Testes físicos restantes e ativação são reunidos ao final, conforme pedido do titular.
+
+T51b2c9 concluída: consulta atual de item/consentExpiresAt antes de contas, e expiração revalidada após a leitura. Statusantigo/arrayvazio não ultrapassam consentimento vencido.817 testes/typechecks, nenhuma chamada a conta real. A inspeção anterior de fonte1201/56 refere-se ao cliente c8, não ao servidor/fornecedor.
