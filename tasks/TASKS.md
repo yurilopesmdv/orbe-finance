@@ -774,3 +774,9 @@ T51b2c6 evidência:793 testes/typechecks/7 casos novos, gateway29c/regressões p
 MPG-22/[plano](../plan/T51b2c7a-PRODUCT-SCOPE.md), integrador único. Seleção explícita para iniciar acesso por contas sem falsificar capacidades dos demais produtos.
 
 T51b2c7a evidência:799 testes/typechecks/6 casos novos. Seleção accounts-only percorre3camadas sem contextos extras/capabilities falsas e mantém ledger não solicitado; inválidos não adquirem lease, mutação após await não amplia produtos. Default continua todos legíveis e resumo parcial explicita omissão. Próxima c7b controlador readiness/cache.
+
+## T51b2c7b — done
+
+MPG-23/[plano](../plan/T51b2c7b-PRIVATE-ACCOUNT-CONTROLLER.md), integrador único. Controlador de contas condicionado à proteção de tela e sessão, status/registry/gateway/cachevolátil.
+
+T51b2c7b evidência:807 testes/typechecks/8 casos novos. Controller exige sessão+Screenreadyactive antes de UUID/cache/status/registry/coleta; queryguarded, subscrições fecham/purgam ao lock/inactive/fail, closepermanente, busy e deadline120s/cancel mesmo com statusnão cooperativo. ScopeUUIDlocal, snapshots semfinanças, capabilities preservadas/accountsselecionado. Sem import no runtime/deploy. Próxima c8 composição UI sob flags independentes e UUIDnativoCrypto57.0.4 compatível Go, export/scan/audit/publicação somente após checks.
