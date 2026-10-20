@@ -61,3 +61,7 @@ Entrega sintética DEVE distinguir validações automatizadas/HTTP gerenciado de
 ## UX-17 — Publicação remota para Expo Go (T44a)
 
 Direção do titular20/10/2026: abrir atualização hospedada por QR, sem depender de Metro/rede local. Publicar somente cliente sintético/Auth/metadata validado no projeto Expo próprio do titular; não publicar financeiro ativo. Novo processor Expo recebe bundle/assets/config pública, nunca PAT/ownerUUID/senha ou dados bancários. Revalidar artefato antes de upload. Perfil CLI exclusivo fora Metro, sem credenciais do F1. Publicação exige sessão Expo do titular ou token próprio autorizado, associação EAS Orbe e compatibilidade SDK57/ExpoGo. QR só é entregue como publicado após ID remoto e verificação; não inventar link. Nenhum build pago, App Store ou FaceID implícito.
+
+## UX-18 — Inicialização da atualização publicada (T44b)
+
+Configuração publicada DEVE conter scheme orbe para construção de links do Expo Router em produção. Aceite de publicação/manifesto não equivale à inicialização física: testar a resolução de scheme com implementação instalada expo-linking no contexto standalone/produção que reproduziu o erro do titular. Nenhum callback bancário ou autenticação por link externo é introduzido. Reexportar/republicar após mudar configuração e entregar QR da correção, mantendo dados financeiros sintéticos.

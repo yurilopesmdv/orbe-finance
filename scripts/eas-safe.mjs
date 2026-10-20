@@ -12,6 +12,7 @@ try {
   if (existsSync(log) && lstatSync(log).isSymbolicLink()) throw new Error('eas_private_path_rejected');
   if (['init', 'publish'].includes(operation)) {
     const config = JSON.parse(readFileSync(path.join(root, 'app.json'), 'utf8')).expo;
+    if (operation === 'publish' && config.scheme !== 'orbe') throw new Error('eas_router_scheme_required');
     if (config.slug !== 'orbe-finance' || config.extra?.liveIntegrationEnabled !== false || config.runtimeVersion?.policy !== 'sdkVersion' || config.sdkVersion !== '57.0.0') throw new Error('eas_project_configuration_invalid');
     if (operation === 'init' && config.extra?.eas?.projectId) throw new Error('eas_project_already_linked');
     if (operation === 'publish') {

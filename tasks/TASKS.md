@@ -644,3 +644,11 @@ T38a:613 testes/typechecks/CI fb80fb8 e export iOS/scan consolidados; Metro comp
 ## T44a — in_progress
 
 Publicação remota para ExpoGo, UX-17; [plano](../plan/T44a-EXPO-GO-PUBLICATION.md); integrador único; usuário pediu parar teste LAN e entregar QR hospedado. Metro parado, diagnóstico firewall cancelado. T38c startonline adiado/substituído por login seguro necessário a EAS. Aceite update remoto verificado/QR, nunca só commit Git. Perfil privado Expo atual sem sessão.
+
+T44a publicada: update iOS01a1591f-8433-7135-a8b2-f03fb5c3fbec/grupo7e5f56bd-462c-4adb-b248-3a509cca68c4, preview/exposdk57.0.0/commit0cdec04. Manifest remoto e hash contra export local conferidos; download anônimo de assets negado pela CDN. Titular confirmou execução remota, mas app caiu por scheme ausente; não marcar aceite físico.
+
+## T44b — in_progress
+
+Hotfix UX-18/[plano](../plan/T44b-PUBLISHED-ROUTER-STARTUP.md), integrador único. Corrigir schemeorbe e testar cenário real de resolução de links em produção contra biblioteca instalada; check/export/CI/republicar/QRnovo.
+
+T44b:623 testes/typechecks/export iOS2.6MB passaram. Teste de biblioteca instalada reproduz erro antigo e confirma root/rotas no contexto de produção comschemeorbe. Publicador exige scheme antes de upload. Próximo CI/republicar/novo QR; aceite físico segue pendente.
