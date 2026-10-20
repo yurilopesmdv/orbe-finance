@@ -892,3 +892,9 @@ T51b2c25 evidência: migration12 aplicada/hashverificada; SQL sintético privil�
 MPG-41/[plano](../plan/T51b2c26-LEASED-DISCOVERY.md). Leaseobrigatório no coordenador e3RPCs adicionais, parsergrantcompartilhado, nenhum HTTP ou fornecedorreal.
 
 T51b2c26 evidência:901testes/typechecks (810Node+91Python),4novoscasos e cenários anteriores ajustados ao leaseobrigatório. Parserdegrantreusado, acquire/check/commitREST/noncebody e rede fechada validados; busy/cooldown/perdalease bloqueiamprov/commit. Nenhumregistro/coletareal ouentrypointalterado. Próxima c27 handler HTTP preparado para descoberta com bodybounded/token/statussemIDs e controleinflight; depoiscomposiçãobackendfixture e revisão de bootreal.
+
+## T51b2c27 — done
+
+MPG-42/[plano](../plan/T51b2c27-DISCOVERY-HANDLER.md). Handlerprepared com entrada interna/statuswhitelist/timeout/cancel/1inflight, nenhum entrypoint publicado.
+
+T51b2c27 evidência:909testes/typechecks (818Node+91Python),8casosnovos. Handlerfixtures valida entrada/token/método/query/oversize/statuswhitelist/contagem/PIInão refletida/close/abort/busy/off. Não foi importado/publicado no entrypoint e não houve chamada real. Próxima c28 composiçãoprepared e configuraçãoúnica para contas/descoberta.
