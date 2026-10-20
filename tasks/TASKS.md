@@ -792,3 +792,9 @@ T51b2c8 evidência:810 testes/typechecks/exportHermes2.7MB/scan aprovados; audit
 MPG-25/[plano](../plan/T51b2c9-CURRENT-PROXY-CONSENT.md), integrador único. Conferir consentExpiresAt atual do proxy antes de contas; nunca apagar por vazio após autorização expirada.
 
 T51b2c9 evidência:817 testes/typechecks/7 novos casos. Auth→GETitem→GETaccounts com consentExpiresAt futuro antes e depois, status/erro/warnings/ação/proxyprodutos verificados; expirado/null/unknown impede contas mesmoUPDATEDantigo. ItemPII descartada/sourceAtual não vira data de saldo. Prazo20s total mantido, allowlist16files, sem rede/deployreal. Tela c8 CI39467658558 success. Próxima c10 composição backendfixture com todas as portas, preparar ativação privada/documentar pendências e publicar prévia c8 após CI/scan.
+
+## T51b2c10 — done
+
+MPG-26/[plano](../plan/T51b2c10-BACKEND-COMPOSITION.md), integrador único. Boot backendfixture fecha todas as portas e rotas sob ownproject/flags, sem mudar entrypointfinanceirooff.
+
+T51b2c10 evidência:823 testes/typechecks/6 casos novos. Bootfixture toda cadeiaAuthowner/lease/RPCbinding/itemconsent/accounts29c/finalize, ownproject literal/3flags/offsemsecrets, prefixorotas fechado, cap4/closeabort/noPII. Allowlist17files, entrypointpublicadov1off intacto. Próxima c11 probe decimalexato no Edge real sem banco/segredo de fornecedor, cleanup; guia/publishclientfinal.
