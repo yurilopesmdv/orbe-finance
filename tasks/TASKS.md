@@ -904,3 +904,9 @@ T51b2c27 evidência:909testes/typechecks (818Node+91Python),8casosnovos. Handler
 MPG-43/[plano](../plan/T51b2c28-INVENTORY-RUNTIME.md). Configuraçãoúnica e composição HTTPAuth→lease→inventário→commit com rede restrita e fixtures, sem entrypointfinanceiro.
 
 T51b2c28 evidência:914testes/typechecks (823Node+91Python),5casosnovos. Configuração centralizada preserva gatesoff/host/chaves/decoderprobe antes de privados; composiçãoHTTP inteira via fronteiraderede/Auth/revalidações/lease/consentimento/inventáriomínimo/commit com fixtures aprovada. Nonowner/path/configmalformada/close/preparedfalse falham semprovedor. CI39511853244(c26)success. Nenhum entrypoint/QR/flag/financeiroreal alterado. Próxima c29 contrato de execução fixture/live para preparar bootreal sem disfarçar produção comofixture, mantendo aprovação e gates fechados.
+
+## T51b2c29 — done
+
+MPG-44/ADR-016/[plano](../plan/T51b2c29-EXECUTION-MODES.md). Modos explícitos e propagação lowlevel; bootalto/entrypoint/flags reais inalterados.
+
+T51b2c29 evidência:921testes/typechecks (830Node+91Python),7casosnovos. Defaultoff/liveapproval/conflitofixture/live/projeção/auth/handler/capturamodo emclosure aprovados. Factoriesfixtureantigas preservadas, modo validado propagado às projeções sem usarfixturetrue para dadoslive. Bootalto continuafixtureOnly/entrypointoff, nenhuma rede real. Próxima c30 bootexplícitolive sob código+flags+redeguardada, aprovação externa permanecependente.

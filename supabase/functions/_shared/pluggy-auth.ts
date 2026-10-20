@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { projectAccountInventory } from './account-inventory.ts';
 import { verifyPluggyItem } from './pluggy-item.ts';
 import { createExactJsonDecoder } from './exact-json.ts';
@@ -19,8 +20,9 @@ const TTL = 119 * 60 * 1000;
 const object = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value);
 
 /** Server-only preparation. No deployed composition enables this fixture transport. */
-function createCore(resolve: () => Configuration, options: { enabled?: boolean; fixtureOnly?: boolean; transport?: Transport; clock?: BridgeClock } = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ authenticate: async () => 'disabled' as const, readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean) => ({ status: 'disabled' as const }), close() {} });
+function createCore(resolve: () => Configuration, options: ExecutionPolicy & { enabled?: boolean; transport?: Transport; clock?: BridgeClock } = {}) {
+  const executionMode = options.enabled === true ? resolveExecutionMode(options) : null;
+  if (executionMode === null) return Object.freeze({ authenticate: async () => 'disabled' as const, readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean) => ({ status: 'disabled' as const }), close() {} });
   let clientId: string, clientSecret: string, transport: Transport;
   let now: () => number, setTimer: BridgeClock['setTimer'], clearTimer: BridgeClock['clearTimer'];
   try {
@@ -110,11 +112,11 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
       try {
         decode = createExactJsonDecoder();
         // Validate own fields before snapshotting. No provider data is needed here.
-        projectPluggyAccounts(decode('{"page":1,"total":0,"totalPages":0,"results":[]}'), rawContext, { enabled: true, fixtureOnly: true });
+        projectPluggyAccounts(decode('{"page":1,"total":0,"totalPages":0,"results":[]}'), rawContext, { enabled: true, mode: executionMode, privateDataApproved: true });
         context = Object.freeze({ itemId: rawContext.itemId, connectionId: rawContext.connectionId,
           sourceUpdatedAt: rawContext.sourceUpdatedAt, coverageApproved: rawContext.coverageApproved,
           bindings: Object.freeze(rawContext.bindings.map(row => Object.freeze({ externalId: row.externalId, internalId: row.internalId, balanceAsOf: row.balanceAsOf, relation: row.relation }))) });
-        projectPluggyAccounts(decode('{"page":1,"total":0,"totalPages":0,"results":[]}'), context, { enabled: true, fixtureOnly: true });
+        projectPluggyAccounts(decode('{"page":1,"total":0,"totalPages":0,"results":[]}'), context, { enabled: true, mode: executionMode, privateDataApproved: true });
         target = createPluggyTargets({ itemId: context.itemId, accountIds: context.bindings.map(row => row.externalId) }).accounts();
       } catch { return Object.freeze({ status: 'unavailable' }); }
       const controller = new AbortController(), generation = epoch;
@@ -152,11 +154,11 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
             const raw = await readJsonResponse(response, controller.signal, 131072, decode);
             if (controller.signal.aborted || closed || generation !== epoch || key !== requestKey || time() >= expiresAt || time() >= evidence.expiresAt || time() - start >= 20000) throw Error();
             if (inventoryMode) {
-              const inventory = projectAccountInventory(raw, context.itemId, { enabled: true, fixtureOnly: true });
+              const inventory = projectAccountInventory(raw, context.itemId, { enabled: true, mode: executionMode, privateDataApproved: true });
               if (inventory.kind !== 'inventory') throw Error();
               return Object.freeze({ status: 'complete', inventory, consentExpiresAt: evidence.expiresAt });
             }
-            const projected = projectPluggyAccounts(raw, { ...context, sourceUpdatedAt: evidence.sourceUpdatedAt }, { enabled: true, fixtureOnly: true });
+            const projected = projectPluggyAccounts(raw, { ...context, sourceUpdatedAt: evidence.sourceUpdatedAt }, { enabled: true, mode: executionMode, privateDataApproved: true });
             if (projected.kind !== 'page') throw Error();
             return Object.freeze({ status: 'complete', page: projected.page, coverage: projected.coverage });
           } catch { return Object.freeze({ status: controller.signal.aborted ? 'cancelled' : 'unavailable' }); }
@@ -204,7 +206,7 @@ export function createPluggyAccountsPort(resolve: () => Configuration, options: 
 
 /** Prepared private metadata port, separate from the public financial DTO factory. */
 export function createPluggyInventoryPort(resolve: () => Configuration, options: Options = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ readInventory: async (_context: unknown, _signal: AbortSignal): Promise<InventoryReadResult> => ({ status: 'disabled' }), close() {} });
+  if (options.enabled !== true || resolveExecutionMode(options) === null) return Object.freeze({ readInventory: async (_context: unknown, _signal: AbortSignal): Promise<InventoryReadResult> => ({ status: 'disabled' }), close() {} });
   const core = createCore(resolve, options);
   return Object.freeze({
     async readInventory(raw: { itemId: string; connectionId: string }, signal: AbortSignal): Promise<InventoryReadResult> {

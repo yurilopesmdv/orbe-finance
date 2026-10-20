@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { exactInteger } from './exact-json.ts';
 const object = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value);
 const fail = (): never => { throw Error('account_inventory_invalid'); };
@@ -6,8 +7,8 @@ const uuid = (value: unknown): string => {
   return value;
 };
 /** Private metadata projection only; does not authorize collection or create bindings. */
-export function projectAccountInventory(raw: unknown, expectedItemId: string, policy: { enabled?: boolean; fixtureOnly?: boolean } = {}) {
-  if (policy.enabled !== true || policy.fixtureOnly !== true) return Object.freeze({ kind: 'disabled' as const });
+export function projectAccountInventory(raw: unknown, expectedItemId: string, policy: ExecutionPolicy & { enabled?: boolean } = {}) {
+  if (policy.enabled !== true || resolveExecutionMode(policy) === null) return Object.freeze({ kind: 'disabled' as const });
   try {
     const itemId = uuid(expectedItemId);
     if (!object(raw) || !['page', 'total', 'totalPages', 'results'].every(key => Object.hasOwn(raw, key)) || !Array.isArray(raw.results) || raw.results.length > 1000) return fail();

@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { parseLeaseGrant, type AcquireResult } from './lease-rest.ts';
 import { readJsonResponse } from './http-json.ts';
 export interface PendingScope { readonly ownerId: string; readonly connectionId: string; readonly revision: number }
@@ -11,8 +12,8 @@ function scope(raw: PendingScope) {
   if (!object(raw) || !uuid(raw.ownerId) || !uuid(raw.connectionId) || !Number.isSafeInteger(raw.revision) || raw.revision < 1) return fail();
   return Object.freeze({ ownerId: raw.ownerId, connectionId: raw.connectionId, revision: raw.revision });
 }
-export function createPendingInventoryPorts(resolve: () => { origin: string; secretKey: string }, options: { enabled?: boolean; fixtureOnly?: boolean; transport?: Transport } = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ resolve: async (_scope: PendingScope, _signal: AbortSignal) => null, store: async (_item: PendingItem, _accounts: readonly unknown[], _signal: AbortSignal) => false, acquire: async (_scope: PendingScope, _signal: AbortSignal): Promise<AcquireResult> => ({ status: 'disabled' }), check: async (_scope: PendingScope, _leaseId: string, _signal: AbortSignal) => false, commit: async (_item: PendingItem, _rows: readonly unknown[], _leaseId: string, _signal: AbortSignal) => false });
+export function createPendingInventoryPorts(resolve: () => { origin: string; secretKey: string }, options: ExecutionPolicy & { enabled?: boolean; transport?: Transport } = {}) {
+  if (options.enabled !== true || resolveExecutionMode(options) === null) return Object.freeze({ resolve: async (_scope: PendingScope, _signal: AbortSignal) => null, store: async (_item: PendingItem, _accounts: readonly unknown[], _signal: AbortSignal) => false, acquire: async (_scope: PendingScope, _signal: AbortSignal): Promise<AcquireResult> => ({ status: 'disabled' }), check: async (_scope: PendingScope, _leaseId: string, _signal: AbortSignal) => false, commit: async (_item: PendingItem, _rows: readonly unknown[], _leaseId: string, _signal: AbortSignal) => false });
   const config = resolve(), origin = config.origin, key = config.secretKey, transport = options.transport;
   if (origin !== ORIGIN || typeof key !== 'string' || !/^sb_secret_[A-Za-z0-9_-]{1,512}$/.test(key) || typeof transport !== 'function') return fail();
   async function rpc(name: 'orbe_resolve_pending_inventory' | 'orbe_stage_account_bindings' | 'orbe_begin_pending_inventory' | 'orbe_check_pending_inventory' | 'orbe_commit_pending_inventory', body: unknown, parent: AbortSignal, limit: number) {

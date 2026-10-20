@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { readJsonResponse } from './http-json.ts';
 import type { BridgeClock } from './bridge.ts';
 const uuid = (raw: unknown): raw is string => typeof raw === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(raw);
@@ -5,8 +6,8 @@ type Configuration = { origin: string; secretKey: string };
 type Transport = (url: string, init: RequestInit) => Promise<Response>;
 const defaultClock: BridgeClock = { now: Date.now, setTimer: (fn, ms) => setTimeout(fn, ms), clearTimer: id => clearTimeout(id as ReturnType<typeof setTimeout>) };
 function unavailable(): never { throw Error('account_binding_unavailable'); }
-export function createAccountBindingResolver(resolveConfig: () => Configuration, options: { enabled?: boolean; fixtureOnly?: boolean; transport?: Transport; clock?: BridgeClock } = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return async (_subject: string, _connection: string, _revision: number, _lease: string, _signal: AbortSignal): Promise<unknown> => null;
+export function createAccountBindingResolver(resolveConfig: () => Configuration, options: ExecutionPolicy & { enabled?: boolean; transport?: Transport; clock?: BridgeClock } = {}) {
+  if (options.enabled !== true || resolveExecutionMode(options) === null) return async (_subject: string, _connection: string, _revision: number, _lease: string, _signal: AbortSignal): Promise<unknown> => null;
   let origin: string, secretKey: string, transport: Transport;
   try {
     const config = resolveConfig(); origin = config.origin; secretKey = config.secretKey;

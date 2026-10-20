@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { exactInteger, exactNumberText } from './exact-json.ts';
 interface Binding { externalId: string; internalId: string; balanceAsOf: string | null; relation: 'distinct' | 'unknown' }
 export interface AccountProjectionContext { itemId: string; connectionId: string; bindings: readonly Binding[]; sourceUpdatedAt: string | null; coverageApproved: boolean }
@@ -28,8 +29,8 @@ export function providerCents(value: unknown): number | null {
   return Number(amount);
 }
 /** Pure fixture projection; caller must separately establish ownership and read authorization. */
-export function projectPluggyAccounts(raw: unknown, rawContext: AccountProjectionContext, policy: { enabled?: boolean; fixtureOnly?: boolean } = {}) {
-  if (policy.enabled !== true || policy.fixtureOnly !== true) return Object.freeze({ kind: 'disabled' as const });
+export function projectPluggyAccounts(raw: unknown, rawContext: AccountProjectionContext, policy: ExecutionPolicy & { enabled?: boolean } = {}) {
+  if (policy.enabled !== true || resolveExecutionMode(policy) === null) return Object.freeze({ kind: 'disabled' as const });
   try {
     if (!object(rawContext) || !Object.hasOwn(rawContext,'itemId') || !Object.hasOwn(rawContext,'connectionId') || !['bindings','sourceUpdatedAt','coverageApproved'].every(key => Object.hasOwn(rawContext,key)) || !Array.isArray(rawContext.bindings) || rawContext.bindings.length > 1000 || typeof rawContext.coverageApproved !== 'boolean') return invalid();
     const itemId = uuid(rawContext.itemId), connectionId = uuid(rawContext.connectionId), sourceUpdatedAt = timestamp(rawContext.sourceUpdatedAt);

@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import type { BridgeClock } from './bridge.ts';
 import type { LeasePorts, ReadScope, ReadOutcome } from './lease-rest.ts';
 interface Ports { authenticate(token: string, signal: AbortSignal): Promise<unknown>; acquire: LeasePorts['acquire']; finish: LeasePorts['finish'] }
@@ -9,8 +10,8 @@ class Failure extends Error { readonly status: number; readonly code: string; co
 function fail(status=503, code='unavailable'): never { throw new Failure(status,code); }
 const response=(status:number,body:unknown)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',Pragma:'no-cache','X-Content-Type-Options':'nosniff'}});
 function instant(value: unknown): number { if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value)))fail(); const civil = new Date(value.slice(0,10)+'T00:00:00Z'); if (!Number.isFinite(civil.getTime()) || civil.toISOString().slice(0,10)!==value.slice(0,10) || Number(value.slice(11,13))>23 || Number(value.slice(14,16))>59 || Number(value.slice(17,19))>59) fail(); return Date.parse(value); }
-export function createReadLeaseHandler(ports: Ports, options:{enabled?:boolean;fixtureOnly?:boolean;clock?:BridgeClock}={}){
- if(options.enabled!==true||options.fixtureOnly!==true)return async(_request:Request)=>response(503,{error:'unavailable'});
+export function createReadLeaseHandler(ports: Ports, options:ExecutionPolicy & {enabled?:boolean;clock?:BridgeClock}={}){
+ if(options.enabled!==true||resolveExecutionMode(options)===null)return async(_request:Request)=>response(503,{error:'unavailable'});
  const clock=options.clock??clockDefault;
  return async(request:Request):Promise<Response>=>{
   const controller=new AbortController();let timer:unknown,set=false,abort:(()=>void)|undefined,start=0,last=-1;

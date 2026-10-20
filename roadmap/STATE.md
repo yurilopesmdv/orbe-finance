@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c28 concluídas**, evidências em tasks/TASKS.md/plan, SPEC009 MPG-36–43. **914 testes/typechecks aprovados (823Node+91Python)**. CI39511853244(c26)success; commits posteriores ainda precisam de push/CI. Próxima **c29**: definir contrato explícito fixture/live e preparar boot real sem passar produção comofixture; manter gates financeiros fechados. Depois composição/publicação desligada e integração de descoberta no cliente, revisando privacidade/OF/dependências antes de ativar.
+**c21–c28 concluídas**, evidências em tasks/TASKS.md/plan, SPEC009 MPG-36–43. **921 testes/typechecks aprovados (830Node+91Python)**. CI39511853244(c26)success; commits posteriores ainda precisam de push/CI. Próxima **c29**: definir contrato explícito fixture/live e preparar boot real sem passar produção comofixture; manter gates financeiros fechados. Depois composição/publicação desligada e integração de descoberta no cliente, revisando privacidade/OF/dependências antes de ativar.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
@@ -43,3 +43,5 @@ Reais ainda nãoaprovados: origemOFporbanco, revisãofornecedor/subprocessadores
 SandboxcwdF1; writesOrbe/Git/npm/network usam require_escalated/auto-review. GitYuriLopes/ConventionalCommitsemportuguês/main/pushautorizado, sem mençãoaagente. PushOrbeexecutaCI, nãoEASautomático. Usar check→exportiOS/runtimeauditquandoafetarcliente→scan→Git/CI→publishwrapper→manifest/hash/QR→docs. Não usarMetro/LAN/túnel/firewall; Metro/DockerOrbeparados, não mexeroutrosprojetos.
 
 `~/.config/orbe-finance/backend.env`0600/dir0700: PAT/ref/ownerUUID; `.env.backend.local` sópointer. `.env.local` sóSupabaseURL/publishable/recoveryfalse. ExpoTokenF1reutilizado porautorização explícita só emexpo-publish.envprivado; nenhumF1Supabase. EASprojeto69843dfe-ab1b-469e-bb78-c7948bbf1d9b/yurilopesmdv/orbe-finance, CLI25.2.0cachedignore-scripts. Helpersprivados: /tmp/orbe-scan-current.py, orbe-verify-release.py, orbe-qr.cjs. ScanIDs doinventário também antes doGit, semimprimirvalores. Não catprofiles/recibos/brutos/sourcemapsprivados. ReparoGit19/10feito, nãorepetirreset.
+
+c29/MPG-44/ADR-016 concluída: móduloslowlevel têm ExecutionPolicyfixture/live, compatibilidadefixtureOnly sótests, liveexigeprivateDataApprovedtrue, conflitosfalhamfechado. Capturamodo emfactory e regressões921aprovadas; nenhum boot/entrypoint/flagreal alterado. Próxima c30 atualizarfactorysdeboot para execução explícita sob liveApproved(código)+3flags, fronteira de rede e defaultfetchsomenteapós gates; entrypointpublicado segueoff.

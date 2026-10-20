@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import type { BridgeClock } from './bridge.ts';
 import type { LeasePorts, ReadScope } from './lease-rest.ts';
 import type { AccountProjectionContext } from './pluggy-accounts.ts';
@@ -17,8 +18,9 @@ const clockDefault: BridgeClock = { now: Date.now, setTimer: (fn, ms) => setTime
 class Failure extends Error { readonly status: number; readonly code: string; constructor(status: number, code: string) { super(code); this.status = status; this.code = code; } }
 function fail(status = 503, code = 'unavailable'): never { throw new Failure(status, code); }
 const response = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', Pragma: 'no-cache', 'X-Content-Type-Options': 'nosniff' } });
-export function createAccountReadHandler(ports: AccountReadPorts, options: { enabled?: boolean; fixtureOnly?: boolean; clock?: BridgeClock } = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return async (_request: Request) => response(503, { error: 'unavailable' });
+export function createAccountReadHandler(ports: AccountReadPorts, options: ExecutionPolicy & { enabled?: boolean; clock?: BridgeClock } = {}) {
+  const executionMode = options.enabled === true ? resolveExecutionMode(options) : null;
+  if (executionMode === null) return async (_request: Request) => response(503, { error: 'unavailable' });
   const clock = options.clock ?? clockDefault;
   return async (request: Request): Promise<Response> => {
     const controller = new AbortController(); let timer: unknown, scheduled = false;
@@ -56,11 +58,11 @@ export function createAccountReadHandler(ports: AccountReadPorts, options: { ena
         if (!record(resolved) || !['ownerId','connectionId','revision','projection'].every(key => Object.hasOwn(resolved,key)) || resolved.ownerId !== scope.ownerId || resolved.connectionId !== scope.connectionId || resolved.revision !== scope.revision || !record(resolved.projection)) fail(404, 'not_found');
         const raw = resolved.projection as unknown as AccountProjectionContext;
         const decode = createExactJsonDecoder(), empty = decode('{"page":1,"total":0,"totalPages":0,"results":[]}');
-        projectPluggyAccounts(empty, raw, { enabled: true, fixtureOnly: true });
+        projectPluggyAccounts(empty, raw, { enabled: true, mode: executionMode, privateDataApproved: true });
         const context = Object.freeze({ itemId: raw.itemId, connectionId: raw.connectionId, sourceUpdatedAt: raw.sourceUpdatedAt, coverageApproved: raw.coverageApproved,
           bindings: Object.freeze(raw.bindings.map(row => Object.freeze({ externalId: row.externalId, internalId: row.internalId, balanceAsOf: row.balanceAsOf, relation: row.relation }))) });
         if (context.connectionId !== scope.connectionId) fail(404, 'not_found');
-        projectPluggyAccounts(empty, context, { enabled: true, fixtureOnly: true });
+        projectPluggyAccounts(empty, context, { enabled: true, mode: executionMode, privateDataApproved: true });
         if (await ports.check(scope, leaseId, 'accounts', controller.signal) !== true) fail(409, 'read_not_available'); fresh(first.expiresAt);
         const result = await ports.readAccounts(context, controller.signal); fresh(first.expiresAt);
         if (result.status !== 'complete') fail(result.status === 'rate_limited' ? 429 : 503, result.status === 'rate_limited' ? 'rate_limited' : 'unavailable');

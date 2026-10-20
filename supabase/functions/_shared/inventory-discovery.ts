@@ -1,3 +1,4 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import type { AcquireResult } from './lease-rest.ts';
 import type { PendingItem, PendingScope } from './pending-inventory-rest.ts';
 import type { InventoryReadResult } from './pluggy-auth.ts';
@@ -16,8 +17,8 @@ const uuid = (value: unknown): value is string => typeof value === 'string' && /
 class Failure extends Error { readonly status: Status; constructor(status: Status) { super('inventory_discovery_unavailable'); this.status = status; } }
 const fail = (status: Status = 'unavailable'): never => { throw new Failure(status); };
 const result = (status: Status): DiscoveryResult => Object.freeze({ status });
-export function createInventoryDiscovery(ports: Ports, options: { enabled?: boolean; privateDataApproved?: boolean; fixtureOnly?: boolean; now?: () => number } = {}) {
-  if (options.enabled !== true || options.privateDataApproved !== true || options.fixtureOnly !== true) return Object.freeze({ run: async (_input: unknown, _token: string, _signal: AbortSignal): Promise<DiscoveryResult> => result('disabled'), close() {} });
+export function createInventoryDiscovery(ports: Ports, options: ExecutionPolicy & { enabled?: boolean; now?: () => number } = {}) {
+  if (options.enabled !== true || options.privateDataApproved !== true || resolveExecutionMode(options) === null) return Object.freeze({ run: async (_input: unknown, _token: string, _signal: AbortSignal): Promise<DiscoveryResult> => result('disabled'), close() {} });
   const now = options.now ?? Date.now;
   let active: AbortController | null = null, closed = false;
   return Object.freeze({
