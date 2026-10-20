@@ -224,23 +224,11 @@ def main():
                         raise SafeError('different_public_project')
             public_file.write_text('EXPO_PUBLIC_SUPABASE_URL=' + origin + '\nEXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=' + candidates[0]['api_key'] + '\n')
             public_file.chmod(0o600)
-            template = '<p>Use este código para redefinir sua senha do Orbe:</p><p><strong>{{ .Token }}</strong></p><p>O código expira em 10 minutos. Se não solicitou, ignore esta mensagem.</p>'
-            settings = {'mailer_templates_recovery_content': template, 'mailer_subjects_recovery': 'Código para redefinir sua senha do Orbe', 'mailer_otp_exp': 600, 'mailer_otp_length': 6}
-            recovery_enabled = False
-            try:
-                request('/config/auth', 'PATCH', settings)
-                configured = request('/config/auth')
-                recovery_enabled = all(configured.get(k) == v for k, v in settings.items())
-                if not recovery_enabled:
-                    raise SafeError('recovery_template_verification_failed')
-            except SafeError as error:
-                if str(error) != 'management_http_400':
-                    raise
-                # Free tier/default SMTP rejected custom templates in the verified project.
-                # Any configuration rejection keeps recovery disabled; never pretend it works.
+            # Public client setup is not SMTP/delivery approval. A template PATCH is
+            # insufficient evidence; recovery activation needs its own reviewed task.
             with public_file.open('a') as file:
-                file.write('EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=' + ('true' if recovery_enabled else 'false') + '\n')
-            print(json.dumps({'public_client_configured': True, 'recovery_code_template_verified': recovery_enabled, 'email_sent': False}))
+                file.write('EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false\n')
+            print(json.dumps({'public_client_configured': True, 'recovery_enabled': False, 'email_sent': False}))
 
             return
         if sys.argv[1] == 'test-owner':

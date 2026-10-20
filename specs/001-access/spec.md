@@ -89,3 +89,7 @@ Qualquer estado diferente de unlocked deve abortar execução, fechar/purgar sto
 ## AUTH-12 — Origem pública vinculada à sessão (T37b1)
 
 Gateway DEVE expor somente origem pública imutável (sem chave/token/subject), e SessionModel deve capturá-la na criação. Portas autenticadas posteriores conferem que seu destino coincide com essa origem antes de usar SessionModel.read. Aceitar qualquer domínio Supabase válido não basta para evitar envio de Bearer a outro projeto. getPublicOrigin não expõe identidade/AuthUUID e não comprova autorização por si. Gateway legado de fixture sem origem não pode executar esses comandos.
+
+## AUTH-13 — Recuperação exige entrega comprovada (T11d)
+
+configure-client DEVE gravar EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false e não configurar template/SMTP nem enviar e-mail. Sucesso em PATCH de template ou configuração já existente não habilita recuperação. Ativação futura exige task própria de SMTP/revisão/entrega comprovada pelo titular, com decisão operacional explícita antes da flag cliente. Reexecutar configuração pública deve remover eventual flagtrue anterior e preservar origem própria/chave publishable, sem abrir cadastros. Não alegar recuperação funcional a partir de configuração administrativa.

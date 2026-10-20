@@ -21,7 +21,6 @@ def public_configuration_fixture(keys):
         history = [{'name': 'orbe_' + baseline.stem + '_' + hashlib.sha256(baseline.read_bytes()).hexdigest()}]
         def request(path, method='GET', body=None):
             if path == '/api-keys': return keys
-            if path == '/config/auth' and method == 'PATCH': raise admin.SafeError('management_http_400')
             raise AssertionError('unexpected administrative operation')
         with patch.object(admin, 'ROOT', root), patch.object(admin, 'config', return_value=('fake-admin-token', 'a' * 20)), patch.object(admin, 'client', return_value=Mock(side_effect=request)), patch.object(admin, 'inspect', return_value=(1, history, {})), patch.object(admin.sys, 'argv', ['admin', 'configure-client']), contextlib.redirect_stdout(io.StringIO()):
             yield root
@@ -51,6 +50,22 @@ def sql_configuration_fixture(residue=0, owner_after=True, command='test-read-le
             yield lambda: reads
 
 class BackendGuards(unittest.TestCase):
+    def test_configure_client_never_changes_auth_or_enables_recovery(self):
+        with public_configuration_fixture([{'type':'publishable','name':'default','api_key':'sb_publishable_invented'}]) as root:
+            # Fixture rejects every API call except publishing-key read: successful
+            # setup must not depend on template PATCH success or send any email.
+            admin.main()
+            self.assertIn('EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false', (root / '.env.local').read_text())
+
+    def test_reconfiguration_disables_previous_unverified_recovery_flag(self):
+        with public_configuration_fixture([{'type':'publishable','name':'default','api_key':'sb_publishable_invented'}]) as root:
+            (root / '.env.local').write_text('EXPO_PUBLIC_SUPABASE_URL=https://' + 'a'*20 + '.supabase.co\nEXPO_PUBLIC_AUTH_RECOVERY_ENABLED=true\n')
+            admin.main()
+            content = (root / '.env.local').read_text()
+            self.assertIn('EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false', content)
+            self.assertNotIn('EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=true', content)
+            self.assertEqual((root / '.env.local').stat().st_mode & 0o777,0o600)
+
     def test_metadata_session_checks_rollback_and_owner(self):
         with sql_configuration_fixture(command='test-metadata'):
             admin.main()

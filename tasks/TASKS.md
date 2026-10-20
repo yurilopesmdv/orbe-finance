@@ -627,3 +627,9 @@ T37b2a:606 testes/typechecks passaram; controller encerra ao lock/close, limpa m
 T37b2b: [plano](../plan/T37b2b-CONNECTIONS-UI.md), UX-15; integrador único; aceite check/export/scan, teste físico final separado.
 
 T37b2b:611 testes/typechecks, export Hermes iOS2.6MB e scan PAT/ownerUUID aprovados. Tela /my-connections acessível após login, consulta metadata ao foco, cleanup ao blur/lock, confirmação Modal e reautenticação manual. Sem financeiro/biometria; teste físico/VoiceOver/modal positivo fica final. T37b2c integração de cache financeiro futura/gated, não concluída por esta tela. Próxima T11d fechar ativação indevida de recovery antes do checklist de validação final sintética.
+
+## T11d — done
+
+Gate de entrega AUTH-13; [plano](../plan/T11d-RECOVERY-DELIVERY-GATE.md); integrador único; aceite configuração pública nunca ativa recovery e sem alteração/envio Auth. T11c SMTP continua bloqueada.
+
+T11d:613 testes/typechecks passaram; configure-client só lê chave pública/grava recoveryfalse, não altera template/Auth nem envia e-mail. Reconfigurar arquivo com flagtrue voltafalse. SMTP/entrega T11c continuam bloqueados. Próxima T38a consolidação/validação final sintética e roteiro físico final.
