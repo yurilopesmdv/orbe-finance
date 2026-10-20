@@ -856,3 +856,9 @@ T51b2c19 evidência:863testes/typechecks (772Node+91Python),8casos novos. Destin
 MPG-35/[plano](../plan/T51b2c20-MINIMAL-ACCOUNT-INVENTORY.md). Projeção privada de IDs/moeda, nenhum acesso a saldo/PII, rede, SQL ou ativação. Mantém IDs técnicosCREDIT porque a projeção financeira existente exige binding antes de excluir seus valores.
 
 T51b2c20 evidência:871testes/typechecks (780Node+91Python),8casosnovos. Projeção de IDs/moeda validada com decoderexato, paginação/contagem/UUID/item/duplicata/tipomoeda/limites, camposprivados com getters que falham não foram acessados; saída congelada e sem valores. CREDIT sóIDtécnico/moedanull/kindunknown, não saldo/limite. Nenhuma redeSQL/entrypoint/flag; próximo c21 RPCatômica de bindings mínimos com owner/pending/revisão e sem reativação.
+
+## T51b2c21 — done
+
+MPG-36/[plano](../plan/T51b2c21-ATOMIC-ACCOUNT-BINDINGS.md). Registro atômico server-only de metadados de contas em pending, sem dados reais ou ativação. Migration nova e testes SQL com identidades fictícias/rollback.
+
+T51b2c21 evidência: migration10 aplicada/hashverificado no projeto próprio; SQL rollback com privilégios/owner/revisão/item/duplicatas/PIIextra/atomicidade/repetição/UUIDinterno/moeda/vaziosemdeleção/paused aprovado, zeroidentidades restantes e ownerpreservado. Nenhuma conta real registrada;871testes/typechecks vigentes da c20. Próxima c22 resolver privado de pending para descoberta, sem entregar IDs externos ao cliente.

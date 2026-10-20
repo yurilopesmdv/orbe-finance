@@ -80,4 +80,36 @@ do $$ begin
  if (select count(*) from orbe_private.connection_bindings where external_item_id='60000000-0000-4000-8000-000000000111')<>1 then raise exception 'stage_binding_count';end if;
  if exists(select 1 from public.orbe_accounts a join public.orbe_connections c on c.id=a.connection_id where c.owner_id='00000000-0000-4000-8000-000000000111' and c.institution='mercado-pago') then raise exception 'stage_created_accounts';end if;
 end $$;
+-- Atomic account inventory, using the pending MP connection created above.
+do $$ begin
+ if has_function_privilege('anon','public.orbe_stage_account_bindings(uuid,uuid,bigint,uuid,jsonb)','execute') or has_function_privilege('authenticated','public.orbe_stage_account_bindings(uuid,uuid,bigint,uuid,jsonb)','execute') then raise exception 'inventory_client_grant';end if;
+ perform set_config('orbe.test_inventory_connection',(select id::text from public.orbe_connections where owner_id='00000000-0000-4000-8000-000000000111' and institution='mercado-pago'),true);
+end $$;
+set local role authenticated;
+do $$ begin
+ begin perform public.orbe_stage_account_bindings('00000000-0000-4000-8000-000000000111',current_setting('orbe.test_inventory_connection')::uuid,1,'60000000-0000-4000-8000-000000000111','[]');raise exception 'inventory_client_allowed';exception when insufficient_privilege then null;end;
+end $$;
+set local role service_role;
+do $$ declare owner_uuid uuid:='00000000-0000-4000-8000-000000000111';connection_uuid uuid:=current_setting('orbe.test_inventory_connection')::uuid;item_uuid uuid:='60000000-0000-4000-8000-000000000111';rows_json jsonb:='[{"externalId":"70000000-0000-4000-8000-000000000111","kind":"unknown","currency":"BRL"},{"externalId":"70000000-0000-4000-8000-000000000112","kind":"unknown","currency":null}]';saved_id uuid;begin
+ if public.orbe_stage_account_bindings('00000000-0000-4000-8000-000000000112',connection_uuid,1,item_uuid,rows_json) then raise exception 'inventory_foreign_owner';end if;
+ if public.orbe_stage_account_bindings(owner_uuid,connection_uuid,2,item_uuid,rows_json) then raise exception 'inventory_wrong_revision';end if;
+ if public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,'60000000-0000-4000-8000-000000000112',rows_json) then raise exception 'inventory_wrong_item';end if;
+ if public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,item_uuid,rows_json||jsonb_build_array(rows_json->0)) then raise exception 'inventory_duplicate';end if;
+ if public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,item_uuid,rows_json||'[{"externalId":"70000000-0000-4000-8000-000000000113","kind":"unknown","currency":"BRL","balance":1}]'::jsonb) then raise exception 'inventory_extra_field';end if;
+ if exists(select 1 from public.orbe_accounts where connection_id=connection_uuid) then raise exception 'inventory_partial_write';end if;
+ if not public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,item_uuid,rows_json) then raise exception 'inventory_create_failed';end if;
+ select account_id into saved_id from orbe_private.account_bindings where connection_id=connection_uuid and external_account_id='70000000-0000-4000-8000-000000000111';
+ if saved_id is null or saved_id='70000000-0000-4000-8000-000000000111'::uuid then raise exception 'inventory_internal_identity';end if;
+ if not public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,item_uuid,rows_json) then raise exception 'inventory_repeat_failed';end if;
+ if not exists(select 1 from orbe_private.account_bindings where connection_id=connection_uuid and account_id=saved_id) then raise exception 'inventory_identity_changed';end if;
+ if public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,item_uuid,jsonb_set(rows_json,'{0,currency}','"USD"')) then raise exception 'inventory_currency_overwritten';end if;
+ if not public.orbe_stage_account_bindings(owner_uuid,connection_uuid,1,item_uuid,'[]') or (select count(*) from public.orbe_accounts where connection_id=connection_uuid)<>2 then raise exception 'inventory_empty_deleted';end if;
+end $$;
+reset role;
+update public.orbe_connections set state='paused' where id=current_setting('orbe.test_inventory_connection')::uuid;
+set local role service_role;
+do $$ begin
+ if public.orbe_stage_account_bindings('00000000-0000-4000-8000-000000000111',current_setting('orbe.test_inventory_connection')::uuid,2,'60000000-0000-4000-8000-000000000111','[]') then raise exception 'inventory_paused_allowed';end if;
+end $$;
+reset role;
 rollback;
