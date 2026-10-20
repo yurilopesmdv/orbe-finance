@@ -1,9 +1,12 @@
+import { useAuth } from '@/features/auth/provider';
 import { useRouter } from 'expo-router';
 import { Action, Body, Card, Screen } from '@/components/ui';
 
 export default function ConnectionsScreen() {
   const router = useRouter();
+  const auth = useAuth();
   return <Screen title="Conexões" subtitle="Seus bancos em um só lugar. A integração ainda está em preparação.">
+    {auth.snapshot.state === 'unlocked' && <Action title="Ver minhas conexões cadastradas" onPress={() => router.push('/my-connections')} />}
     <Card title="Nenhum banco conectado">
       <Body>Você está explorando dados inventados. Esta tela não abre uma conexão, consulta contas nem pede credenciais bancárias.</Body>
     </Card>

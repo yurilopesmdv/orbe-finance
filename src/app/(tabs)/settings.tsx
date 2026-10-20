@@ -23,6 +23,7 @@ export default function SettingsScreen() {
       <Body>Face ID não está habilitado no Expo Go. Ao sair do aplicativo, a sessão de acesso é bloqueada e pede sua senha novamente.</Body>
       {auth.configured && <Action title={auth.snapshot.state === 'unlocked' ? 'Ver meu acesso ao Orbe' : 'Entrar no Orbe'} secondary onPress={() => router.push(auth.snapshot.state === 'unlocked' ? '/account' : '/login')} />}
     </Card>
+    {auth.snapshot.state === 'unlocked' && <Action title="Ver status das minhas conexões" secondary onPress={() => router.push('/my-connections')} />}
     <Card title="Open Finance"><Body>Bradesco e Mercado Pago PF são prioritários. Entenda como será a conexão e o que ainda precisa ser confirmado.</Body><Action title="Ver conexões e funcionamento" secondary onPress={() => router.push('/connections')} /></Card>
     <Card title="Prévia dos estados da interface"><Body>Escolha um exemplo. Estes controles mostram mensagens demonstrativas; não iniciam uma consulta.</Body>{examples.map(item => <Action key={item.state} title={item.label} secondary selected={example === item.state} onPress={() => setExample(item.state)} />)}</Card>
     <StateCard state={example} />

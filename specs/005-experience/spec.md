@@ -47,3 +47,9 @@ Não coletar senha nem simular autenticação, Face ID ou conexão bancária. De
 Visão geral usa cenário fixo inteiramente inventado, com Bradesco/MP identificados como exemplos, período outubro/2026 e datas da fonte. Totais calculados pelos mesmos domínios de lista/carteira, não números independentes. Fonte incompleta gera subtotal parcial e explica o que falta. Reservas incluídas não são somadas novamente.
 
 Ocultação começa ativada, mascara texto visual e acessível, é compartilhada entre abas e volta a ocultar ao sair do primeiro plano. Nesta etapa a escolha é apenas em memória; persistência de preferência fica T29b junto à integração. A ocultação não substitui autenticação. T29 completa exige T27b, persistência e validação física. Botões abrem telas existentes sem fingir relatório implementado.
+
+## UX-15 — Minhas conexões autenticadas (T37b2b)
+
+Tela privada separada da explicação demonstrativa, acessível após login e pelos Ajustes. Consultar somente metadados ao focar, nunca polling/financeiro; ao perder foco fechar controller e limpar seleção de confirmação. Lock mostra login antes de conteúdo. Lista vazia confirmada mostra “Nenhuma conexão cadastrada”; erro não equivale a vazio. Status/datas/capacidades explícitos; data desconhecida permanece desconhecida e capacidades não são homologação. Prazo vencido não aparece “em dia”.
+
+Remoção exige confirmação visível com instituição, explica que não revoga consentimento nem apaga dados no fornecedor. Não mostrar UUID/identificadores privados em texto, logs ou rota. Pausa só disponível em stateactive; resultado incerto exige atualizar, sem retry automático. Reautenticação por novo login é manual e não repete ação pendente. Ação sensível depende da validação de senha recente no servidor, nunca de flag da UI. Mantém navegação principal/quatro abas. LiveIntegration/FaceID permanecem false, não usa cache financeiro.

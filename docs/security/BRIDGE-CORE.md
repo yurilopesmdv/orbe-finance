@@ -103,3 +103,7 @@ Revisão oficial de routing identificou prefixo obrigatório do nome da função
 ## T18b3b2b —20/10/2026
 
 Status metadata-only orbe-metadata v3 ACTIVE, verify_jwtfalse com Auth remoto+RPC sessão+RLS;577 testes/typechecks locais. Cinco HTTP reais: sem Bearer401, token inventado401, método405, rota financeira404, query400; todos genéricos/no-store. Ponte financeiraoff três503 confirmados. Manifest/log separados0600 fora Metro; configuração remota somente flag/chave pública, temporário removido. Nenhum usuário/sessão/saldo bancário usado nos smokes; owner positivo e nativo pendentes. Configurada false antes do primeiro deploy e true antes de redeploy; não prometer corte instantâneo via env em instâncias quentes.
+
+## T37b2b —20/10/2026
+
+UI /my-connections ligada apenas a metadataStatusEnabled; liveIntegrationEnabled/biometricLoginEnabled false. Auth/ownorigin/expoFetch, controller por foco encerrado no blur/lock e Modal de confirmação sem IDs em rota/texto. Novologin não reaplica remoção.611 testes/typechecks/export iOS2.6MB/scan de PAT e ownerUUID aprovados. Auditoria atual18high/2raízes sem patch permanece bloqueio de dados reais; nenhuma dependência nova. CI8539295 success conferida. Navegação/login titular/VoiceOver/Modal físicos pendentes. Nenhum cache financeiro existe nesta tela; integração futura precisa close antes de controles.

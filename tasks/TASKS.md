@@ -620,6 +620,10 @@ T33b1:591 testes/typechecks passaram; porta status desligada por padrão com pro
 ### T37b2 — fatias
 
 - T37b2a done: lifecycle metadata-only e abort de comandos, OF-22; [plano](../plan/T37b2a-CONNECTION-LIFECYCLE.md); integrador único; depende T33b1/T37b1; aceite check/lock/late/uncertain.
-- T37b2b pending: UI privada com confirmação de remoção, status e reautenticação; depende T37b2a. Sem cache financeiro/ingestão.
+- T37b2b done: UI privada com confirmação de remoção, status e reautenticação; depende T37b2a. Sem cache financeiro/ingestão.
 
 T37b2a:606 testes/typechecks passaram; controller encerra ao lock/close, limpa metadata antes de ação e exige status fresco após confirmação. Comandos aceitam abort externo, resultados incertos não repetem mutação. Próxima T37b2b UI metadata-only.
+
+T37b2b: [plano](../plan/T37b2b-CONNECTIONS-UI.md), UX-15; integrador único; aceite check/export/scan, teste físico final separado.
+
+T37b2b:611 testes/typechecks, export Hermes iOS2.6MB e scan PAT/ownerUUID aprovados. Tela /my-connections acessível após login, consulta metadata ao foco, cleanup ao blur/lock, confirmação Modal e reautenticação manual. Sem financeiro/biometria; teste físico/VoiceOver/modal positivo fica final. T37b2c integração de cache financeiro futura/gated, não concluída por esta tela. Próxima T11d fechar ativação indevida de recovery antes do checklist de validação final sintética.
