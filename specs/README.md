@@ -1,8 +1,8 @@
 # Specs do Orbe Finance
 
-Versão documental 0.1 — 16/10/2026, America/Sao_Paulo. Estado: especificação inicial revisada documentalmente; ainda sem validação de integração ou aceite de implementação. Execução sintética autorizada em 16/10/2026, uma task por vez.
+Versão documental 0.1 — 16/10/2026, America/Sao_Paulo. Atualização20/10/2026: prévia sintética e acesso privado publicados; estado de implementação em [STATE](../roadmap/STATE.md), integração bancária real ainda não validada. Execução sintética autorizada em 16/10/2026, uma task por vez.
 
-A ordem de trabalho é **spec → plan → tasks → implement → validate**. Nesta entrega, as três primeiras etapas estão preparadas; implement não foi iniciado. Requisitos usam DEVE para comportamento obrigatório, PODERÁ para evolução. Decisões técnicas propostas estão no plano, separadas dos requisitos de produto.
+A ordem de trabalho é **spec → plan → tasks → implement → validate**. As specs precedem cada implementação; consultar tasks/STATE para progresso e evidências atuais. Requisitos usam DEVE para comportamento obrigatório, PODERÁ para evolução. Decisões técnicas propostas estão no plano, separadas dos requisitos de produto.
 
 | Spec | Contrato |
 |---|---|

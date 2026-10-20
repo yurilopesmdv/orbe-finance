@@ -657,10 +657,12 @@ T44b republicada: update01a15928-0922-76d1-ac22-d49178453a15/grupo26de8237-ff89-
 
 ## Retorno físico e novo escopo —20/10/2026
 
-Titular confirmou “funcionou tudo perfeitamente” no QR de T44b. Abertura/funcionamento relatado da prévia aceitos; não inferir captura/VoiceOver/cache nativo individualmente testados. Nova prioridade: criação de conta dentro do app. Cores/identidade visual ficam posteriores. T10c cadastro em investigação, aguardando definição de quem pode registrar (convidados/público/pessoal), pois backend atual é singleowner; não abrir autorização ou trocar dono silenciosamente.
+Titular confirmou “funcionou tudo perfeitamente” no QR de T44b. Abertura/funcionamento relatado da prévia aceitos; não inferir captura/VoiceOver/cache nativo individualmente testados. Nova prioridade: criação de conta dentro do app. Cores/identidade visual ficam posteriores. T10c escopo confirmado posteriormente: somente titular agora e outros cadastros desabilitados, backend singleowner; não abrir autorização ou trocar dono silenciosamente.
 
-## T10c — doing
+## T10c — done
 
 Ativação inicial privada AUTH-14/15/ADR-013; [plano](../plan/T10c-PRIVATE-OWNER-ONBOARDING.md). Integrador único; depende gateway/session/owner provisionados e publicação Expo existente. Confirmado pelo titular: somente ele, outros cadastros preparados/desligados; identidade visual posterior. Paths/aceite nas três fatias do plano. Não abrir signups nem trocar owner para resolver primeiro acesso.
 
 T10c checkpoint20/10: AUTH-14/15 + ADR-013; helper privado com 8 testes, tela de ativação e confirmação/limpeza, porta futura desligada com 7 testes. Typechecks e638 testes passaram; export iOS Hermes2.6MB aprovado. Smoke real exclusivamente fictício: generate_link recovery→OTP→senha→logout→login; não owner negado/metadata bloqueada e identidade removida. Owner/senha real intactos, signup continua fechado. Próximo: commit/push/CI/publicação/QR, então código privado.
+
+T10c entregue: commit794f307/CI39420200892 success; update01a15939-90d3-7433-8804-eed6baa9a1b1/grupo62650c45-ab2a-49e4-87f9-f048fee8aefe, QR atualizado e manifesto/hash conferidos. Arquivo de ativação do proprietário gerado privadamente após publicar, sem ler/definir sua senha, conteúdo fora de Git/Metro/chat. Próximo uso é do titular no iPhone: definir senha e login; não declarar aceite físico específico antes do retorno. Cadastro público continua desligado; cores/identidade posteriores.
