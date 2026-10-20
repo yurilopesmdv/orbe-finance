@@ -47,3 +47,7 @@ Atualização20/10: titular preencheu ClientID/Secret; preflight local aprovou s
 ### Aviso “Testar com dados reais — solicitação pendente”
 
 Titular confirmou que o aviso aparece em dashboard.pluggy.ai/overview. O guia oficial pessoal afirma que o caminho Meu Pluggy + conectorMeuPluggy não exige liberação de dados reais do Dashboard/due diligence comercial. Isso não comprova que a solicitação individual será aprovada nem que toda UI esteja liberada. Conexão bancária original fica no portal meu.pluggy.ai; depois Applications→aplicação→Demo→ConnectAccount→MeuPluggy. Se necessário, Customization→Connectors→Personal→DirectConnectors habilitaMeuPluggy. Não escolher o conector direto do banco no Dashboard para contornar aprovação. Bloqueio do próprio MeuPluggy divergiria do guia e precisa de esclarecimento do fornecedor. Roteiro não libera gates do Orbe. Fontes reconferidas: https://meu.pluggy.ai/api-guide e https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use .
+
+### Progresso confirmado pelo titular —20/10/2026
+
+Bradesco e Mercado Pago adicionados no portal pessoal; titular confirmou depois a importação na aplicação demo de desenvolvimento. Não é necessário repetir a criação das conexões. Esse relato não comprova mapeamento privado por banco, origem Open Finance, cobertura dos produtos ou leitura pelo Orbe. Nenhum valor financeiro foi consultado pelas ferramentas. Próxima etapa técnica: provisionamento privado com identificação mínima, sem itemIds no chat, seguido de revisão do boot/deploy e gates existentes.
