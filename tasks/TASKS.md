@@ -762,3 +762,9 @@ T51b2c4 evidência:778 testes/typechecks/10 novos casos. Ciclo HTTP fixture acqu
 MPG-20/[plano](../plan/T51b2c5-CLIENT-ACCOUNT-GATEWAY.md), integrador único. Gateway client restrito do lote de contas e prova HTTP→cachevolátil, sem ativar integração real. Registry/readiness compõem a seguir.
 
 T51b2c5 evidência:786 testes/typechecks/8 novos casos. Integração HTTPfixture provider→router→gateway→SyncSession publica29centavos exatos e purga ao lock; falha de finalize preserva snapshot29. IDs/receipt/origem/401lock/429/no-retry/redirect/abort/deadline validados. Nenhum segredo/provedor no cliente; gateway não importado pelo runtime/sem publicação. C4 CI39465784180 e C3 CI39465452627 success. Próxima T51b2c6 registry autenticado de IDs internos para contexto, depois composição readiness/cache e checklist de ativação.
+
+## T51b2c6 — done
+
+MPG-21/[plano](../plan/T51b2c6-ACCOUNT-REGISTRY.md), integrador único. Registry interno por RLS e transporte compartilhado com operações fixas; sem valores financeiros ou IDs externos.
+
+T51b2c6 evidência:793 testes/typechecks/7 casos novos, gateway29c/regressões preservados. Registry GETliteral sóid/connection_id sob RLSsessãoowner, limite1000/duplicata/UUID/erro/401/429/abort/timeout, sem IDs externos/valores/ownerURL. shared session-json fecha destinos e mantém origem/cancelamento. Sem runtimeimport/publicação. Próxima T51b2c7a seleção explícita de produtos em lote para ler somente contas sem adulterar capabilities, depois c7b controlador readiness/cache e integração UIoff.
