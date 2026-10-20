@@ -134,4 +134,41 @@ do $$ declare context jsonb;connection_uuid uuid:=current_setting('orbe.test_inv
  if public.orbe_resolve_pending_inventory('00000000-0000-4000-8000-000000000111',connection_uuid,2) is not null then raise exception 'pending_resolver_revision';end if;
 end $$;
 reset role;
+-- Discovery shares the global cooldown with account reads.
+do $$ begin
+ if has_function_privilege('authenticated','public.orbe_begin_pending_inventory(uuid,uuid,bigint)','execute') or has_function_privilege('anon','public.orbe_check_pending_inventory(uuid,uuid,bigint,uuid)','execute') or has_function_privilege('authenticated','public.orbe_commit_pending_inventory(uuid,uuid,bigint,uuid,uuid,jsonb)','execute') then raise exception 'discovery_lease_client_grant';end if;
+end $$;
+set local role service_role;
+do $$ declare owner_uuid uuid:='00000000-0000-4000-8000-000000000111';connection_uuid uuid:=current_setting('orbe.test_inventory_connection')::uuid;grant_value jsonb;nonce uuid;begin
+ if public.orbe_begin_pending_inventory(connection_uuid,'00000000-0000-4000-8000-000000000112',3)->>'status'<>'unavailable' then raise exception 'discovery_lease_owner';end if;
+ if public.orbe_begin_pending_inventory(connection_uuid,owner_uuid,2)->>'status'<>'unavailable' then raise exception 'discovery_lease_revision';end if;
+ grant_value:=public.orbe_begin_pending_inventory(connection_uuid,owner_uuid,3);
+ if grant_value->>'status'<>'acquired' then raise exception 'discovery_lease_acquire';end if;
+ nonce:=(grant_value->>'lease_id')::uuid;perform set_config('orbe.test_discovery_lease',nonce::text,true);
+ if public.orbe_begin_pending_inventory(connection_uuid,owner_uuid,3)->>'status'<>'busy' then raise exception 'discovery_lease_busy';end if;
+ if not public.orbe_check_pending_inventory(connection_uuid,owner_uuid,3,nonce) then raise exception 'discovery_lease_check';end if;
+ if public.orbe_check_pending_inventory(connection_uuid,owner_uuid,3,'80000000-0000-4000-8000-000000000111') then raise exception 'discovery_lease_nonce';end if;
+ if public.orbe_commit_pending_inventory(connection_uuid,owner_uuid,3,'80000000-0000-4000-8000-000000000111','60000000-0000-4000-8000-000000000111','[]') then raise exception 'discovery_commit_wrong_nonce';end if;
+ if not public.orbe_commit_pending_inventory(connection_uuid,owner_uuid,3,nonce,'60000000-0000-4000-8000-000000000111','[]') then raise exception 'discovery_commit_failed';end if;
+ if public.orbe_commit_pending_inventory(connection_uuid,owner_uuid,3,nonce,'60000000-0000-4000-8000-000000000111','[]') then raise exception 'discovery_commit_replayed';end if;
+ if public.orbe_begin_pending_inventory(connection_uuid,owner_uuid,3)->>'status'<>'cooldown' then raise exception 'discovery_cooldown';end if;
+end $$;
+reset role;
+do $$ begin
+ if exists(select 1 from public.orbe_connections where id=current_setting('orbe.test_inventory_connection')::uuid and (last_read_at is not null or state<>'pending' or accounts_available is not null or open_finance_verified_at is not null)) then raise exception 'discovery_invented_financial_evidence';end if;
+end $$;
+update orbe_private.connection_reads set lease_expires_at=statement_timestamp()-interval '2 seconds',next_read_at=statement_timestamp()-interval '1 second',completed_at=null,outcome=null where connection_id=current_setting('orbe.test_inventory_connection')::uuid;
+set local role service_role;
+do $$ declare owner_uuid uuid:='00000000-0000-4000-8000-000000000111';connection_uuid uuid:=current_setting('orbe.test_inventory_connection')::uuid;grant_value jsonb;begin
+ grant_value:=public.orbe_begin_pending_inventory(connection_uuid,owner_uuid,3);
+ if grant_value->>'status'<>'acquired' or grant_value->>'lease_id'=current_setting('orbe.test_discovery_lease') then raise exception 'discovery_new_nonce';end if;
+ perform set_config('orbe.test_discovery_lease',(grant_value->>'lease_id'),true);
+end $$;
+reset role;
+update orbe_private.connection_reads set lease_expires_at=clock_timestamp()-interval '1 second' where connection_id=current_setting('orbe.test_inventory_connection')::uuid;
+set local role service_role;
+do $$ begin
+ if public.orbe_check_pending_inventory(current_setting('orbe.test_inventory_connection')::uuid,'00000000-0000-4000-8000-000000000111',3,current_setting('orbe.test_discovery_lease')::uuid) or public.orbe_commit_pending_inventory(current_setting('orbe.test_inventory_connection')::uuid,'00000000-0000-4000-8000-000000000111',3,current_setting('orbe.test_discovery_lease')::uuid,'60000000-0000-4000-8000-000000000111','[]') then raise exception 'discovery_expired_lease';end if;
+end $$;
+reset role;
 rollback;

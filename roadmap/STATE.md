@@ -26,7 +26,7 @@ Audit19afetados/duasraízes altas sempatch braces/node-forge; exceção somente 
 
 ## Infraestrutura e evidências reais seguras
 
-Supabase próprio refvvaufaoahotmaocrcyij/us-east-1 saudável. Onze migrations imutáveis aplicadas/hash verificadas, última20261020180000_pending_inventory_resolver. SQLowner/sessão/RLS/lease/pausa/remoção/binding com identidades fictícias+rollback aprovados, zero resíduos/ownerpreservado. Sem tabelas financeiras.
+Supabase próprio refvvaufaoahotmaocrcyij/us-east-1 saudável. Doze migrations imutáveis aplicadas/hash verificadas, última20261020190000_pending_inventory_leases. SQLowner/sessão/RLS/lease/pausa/remoção/binding com identidades fictícias+rollback aprovados, zero resíduos/ownerpreservado. Sem tabelas financeiras.
 
 **orbe-bridge v3 ACTIVE, literalfalse/503** (corrige antigav1 no histórico). Recibo privado tinha v1, investigado20/10: downloadreadonly index/core têm hashes iguais ao manifest antigo, coregit1f2b6a6832a1. MesmoID/version3/status/verifyjwtfalse conferidos; sórecibo local reconciliado, zero mudanças remotas. Smoke3off503 aprovado. **orbe-metadata v3 ACTIVE**, Auth/owner/sessão/RLS apenasmetadados,5HTTPnegativos aprovados. Pausa/remoção são sómetadata, não revogamno banco/provedor. Allowlist bridge-deploy.py17files, entrypoints exatos; não redeploy porfixture.
 
@@ -71,3 +71,5 @@ T51b2c22 concluída: resolver pending privado e portasRESTresolve/store com esco
 T51b2c23 concluída: porta de inventário privado reutiliza internamente pipeline financeiro Auth→itemconsent→accounts, sem duplicar auth/chaves; factories públicas existentes preservadas e sem seletor externo.887testes/typechecks aprovados. Zerochamadasreais/secretcarregado/deploy. Próxima c24 coordenador resolve/read/reAuth/reResolve/store com validação mínima/abort/deadline e retorno somentecontagem; portareal/boot/evidênciasOF/gates continuam depois.
 
 T51b2c24 concluída: coordenador de descoberta validado com reAuth/reResolve/item/revisão/expiração antes de store,1inflight/close/deadline/abort/retornocontagem.897testes/typechecks aprovados, semHTTPativo/financeiroreal. Próxima c25 garantir lease/cooldown global noSQL (reusar connection_reads), para evitar requisições duplicadas entreworkers; depois adaptarstorecoordenadoao commit comlease. Não pular essa proteção para publicar rota nova.
+
+T51b2c25 concluída: leaseglobal de descoberta reutiliza connection_reads120s/900s, begin/check/commitservice-only e registro+finalização atômicos semlast_read_atfinanceiro. Migration12/SQLrollback aprovados/zeroresíduos/ownerpreservado; nenhuma conta real. Próxima c26 conectarRESTlease ao coordenador (leaseobrigatório, sem modo unleased no novo fluxo), reaproveitando parser de grant existente; semrotaHTTPantesdessaprova.

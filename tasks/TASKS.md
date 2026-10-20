@@ -880,3 +880,9 @@ T51b2c23 evidência:887testes/typechecks (796Node+91Python),8casosnovos. Pipelin
 MPG-39/[plano](../plan/T51b2c24-AUTHORIZED-INVENTORY.md). Coordenador preparado de descoberta/revalidação/registro, retorno somentecontagem e limites explícitos de cancelamento após commit; sem HTTP/entrypointativo.
 
 T51b2c24 evidência:897testes/typechecks (806Node+91Python),10casosnovos. Cadeia Authowner→resolver→inventário→Authsameowner→resolvermesmoitem→store responde somentecontagem; nonowner/IDOR/mudança/expiração/malformação/abort/close/busy/falsecommit testados. SintaxeNode22 corrigida antes da aprovação final. Nenhum endpointpublico ou coleta real. Próxima c25 bloqueio/cooldownSQL compartilhado para descoberta antes de criar rota pública.
+
+## T51b2c25 — done
+
+MPG-40/[plano](../plan/T51b2c25-GLOBAL-DISCOVERY-LEASE.md). Lease/cooldown global reusado da conexão e commit de metadados atômico; nenhuma coleta real.
+
+T51b2c25 evidência: migration12 aplicada/hashverificada; SQL sintético privilégios/owner/revisão/acquire/busy/check/nonce/commit/replay/cooldown/novoNonce/expiração e não alteração de evidênciafinanceira passou comrollback/zeroresíduos/ownerpreservado.897testes/typechecks vigentes c24; nenhuma coleta real. Próxima c26 portaslease/commit e coordenador com leaseobrigatório.
