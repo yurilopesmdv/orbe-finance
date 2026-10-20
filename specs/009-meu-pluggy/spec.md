@@ -68,3 +68,11 @@ Preparar módulo exclusivamente server-side, sem SDK/rota pública/entrypoint at
 Resposta JSON de autenticação limitada a4KiB, esquema/apiKey explícitos; erro/redirect/corpo inválido não gera log nem saída bruta. Timeout total20s e cancelamento abrangem rede/leitura, inclusive transportes que ignoram signal. Falha não inicia retry. Apenas uma emissão em curso por instância; concorrente recebe busy. Chave fica privada em memória, nunca é retornada ao chamador nem exposta no cliente/status; reutilizar prontidão até119min (margem conservadora ante2h documentadas), expirar/descartar no timer, close e erro de relógio. Resultado tardio não restaura chave após cancelamento/close. Reabrir instância encerrada é proibido; rotação futura cria nova instância.
 
 ready significa somente credencial técnica obtida em fixture; não prova proprietário, vínculo bancário, Open Finance ou aprovação para dados reais. Não adicionar ainda leitura de produtos: seus IDs em URL exigem decisão SEC-05 e revisão de logs/retencão. T51b/T18c continuam incompletas por esta fatia.
+
+## MPG-14 — Números upstream preservados antes da projeção (T51b2b1)
+
+JSON financeiro não pode passar por Number/toFixed antes da conversão exata. Decoder server-side preserva o token numérico original por JSON.parse reviver context.source, com prova de capacidade no boot/factory; ausência resulta em indisponível antes de coleta, sem fallback lossy. Não assumir suporte do Deno a partir do teste Node. Decoder não é importado pelo status/cliente/entrypoint financeirooff.
+
+Leitura HTTP continua limitada128KiB/UTF8estrito/cancelamento; decoder recebe texto apenas depois desses limites e recusa profundidade>64 ou literal numérico>128chars. Números são células opacas com marca de procedência local; um Number já convertido, string com números ou objeto falsificado não é número exato válido. null/bool/texto permanecem dados, sem executar URLs/instruções. Acessor de contador só produz Number para inteiro não negativo comprovado e dentro de limites explícitos. Valores financeiros seguem por decimal original para futura conversão BigInt; expoente/escala/moeda e domínio são responsabilidade da projeção seguinte.
+
+Erro nunca expõe texto/campo/payload nem promove cache. Nesta fatia só parser/porta HTTP e fixtures, sem DTO financeiro novo/rede/deploy. T51b2b/T18c não se concluem com o decoder.

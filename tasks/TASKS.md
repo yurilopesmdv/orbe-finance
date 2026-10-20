@@ -718,3 +718,9 @@ T65b1 checkpoint:710 testes/typechecks passaram,12 novos cenários. Sem APIs fin
 T65b1 validação local concluída:710 testes/typechecks/export Hermes2.6MB/scan aprovados; inspeção privada1172 fontes/55 instâncias sem duas raízes vulneráveis no cliente. Audit permanece19 afetados toolchain/mesma exceção sintética, sem novos advisories. Compatibilidade pelo SDK instalado confirmada offline; app/teste nativo publicado seguem próximos.
 
 T65b1 publicada: commite2bfeaa/CI39459277303 success/update01a15a30-9dfd-773a-ba38-2c283d4cd2bd/grupo2cfdc1b2-412b-4f30-b3c4-6d751a196f71. QR atualizado/manifesto e hash conferidos.710 testes/typechecks/export/scan; teste físico sintético de captura/multitarefa solicitado assíncrono. Não confundir publicação com homologação nativa; financeiro real segueoff. Próxima T51b2b1 preservar números monetários do JSON fornecedor sem arredondamento, ainda em fixtures.
+
+## T51b2b1 — done
+
+MPG-14/[plano](../plan/T51b2b1-EXACT-UPSTREAM-JSON.md), integrador único. Preservar números originais do JSON fornecedor antes de projeção/BigInt, com limites/capability failclosed, sem rede/deploy/cliente financeiro.
+
+T51b2b1 evidência:723 testes/typechecks passaram,13 novos casos. Decimal/integer além do safeint e exponentes preservados pelo source original; contador exige origem/limites; body128KiB/profundidade64/literal128; abort durante decoder impede retorno. Runtime sem contextsource falha na factory; Node22 comprovado, Deno ainda não homologado. Default JSON de Auth/status preservado. Sem cliente/deploy/rede financeira; allowlist agora10files. Próxima T51b2b2 projeção mínima de contas com decimal exato/PII descartada e composição/transporte sob owner/lease.

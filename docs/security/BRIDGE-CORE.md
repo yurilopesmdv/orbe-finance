@@ -107,3 +107,7 @@ Status metadata-only orbe-metadata v3 ACTIVE, verify_jwtfalse com Auth remoto+RP
 ## T37b2b —20/10/2026
 
 UI /my-connections ligada apenas a metadataStatusEnabled; liveIntegrationEnabled/biometricLoginEnabled false. Auth/ownorigin/expoFetch, controller por foco encerrado no blur/lock e Modal de confirmação sem IDs em rota/texto. Novologin não reaplica remoção.611 testes/typechecks/export iOS2.6MB/scan de PAT e ownerUUID aprovados. Auditoria atual18high/2raízes sem patch permanece bloqueio de dados reais; nenhuma dependência nova. CI8539295 success conferida. Navegação/login titular/VoiceOver/Modal físicos pendentes. Nenhum cache financeiro existe nesta tela; integração futura precisa close antes de controles.
+
+## T51b2b1 — projeção numérica futura sem perda
+
+Parser exato server-only usa representação original dos tokens numéricos, com featureprobe antes de criação e sem fallback por Number. Entradas128KiB/UTF8/64níveis/128chars por literal, células opacas e acessor estrito para contadores. HTTPreader admite decoder interno sem alterar o default de Auth/status e revalida abort depois de decodificar.723 testes/typechecks passaram; sem payload bancário/rede/provedor/deploy. Node22 comprovou context.source, runtime Edge ainda precisa comprovação/failclosed. Próxima projeção precisa converter decimal/moeda para BigInt, selecionar campos mínimos e conferir relações/owner/lease antes de retornar DTO ao app. Nada disso foi concluído apenas com o parser.
