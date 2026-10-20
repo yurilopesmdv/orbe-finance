@@ -16,7 +16,7 @@ export function createMetadataRuntime(read: ConfigurationReader, transport: Tran
     const origin = read('SUPABASE_URL');
     const publishableKey = read('ORBE_PUBLISHABLE_KEY');
     if (typeof origin !== 'string' || typeof publishableKey !== 'string' || typeof transport !== 'function') return disabled;
-    return createBridgeHandler(createSupabasePorts({ origin, publishableKey }, transport), { enabled: true });
+    return createBridgeHandler(createSupabasePorts({ origin, publishableKey }, transport), { enabled: true, statusPath: "/orbe-metadata/connections/status" });
   } catch {
     return disabled;
   }

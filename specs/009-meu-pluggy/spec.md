@@ -50,3 +50,7 @@ T18b3a cobre factory e testes locais, sem novo entrypoint publicado. T18b3b revi
 ### MPG-12a — Entry point de status separado
 
 T18b3b1 prepara somente orbe-metadata/index.mjs: delegar runtime MPG-12 com leitor Deno.env restrito aos três nomes previstos e fetch do host. Não ler configuração no corpo do request, nem importar módulo financeiro/serviço privilegiado. Ausência da flag mantém503 sem acessar origem/chave/rede. Hostmock deve provar esse comportamento e negação sem Bearer quando habilitado. Não adicionar configuração de deploy ativo nesta fatia; helper desligado verifica conteúdo exato dos dois entrypoints e recusa alteração indevida.
+
+### MPG-12b — Caminho do runtime gerenciado
+
+A composição metadata-only DEVE aceitar exclusivamente `/orbe-metadata/connections/status`, considerando prefixo de função documentado pelo Supabase. O core isolado mantém `/connections/status` por padrão; opção interna de composição permite somente esses dois caminhos literais, capturada no boot e nunca derivada do request. Prefixos de gateway, outra função, caminho sem prefixo no runtime metadata, queries e sufixos são recusados antes de autenticação/rede. Nenhum rewrite de Request/body/signal. T18b3b2a valida sinteticamente; HTTP real permanece T18b3b2b.

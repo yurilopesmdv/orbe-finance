@@ -94,11 +94,13 @@ async function emptyBody(request: Request, signal: AbortSignal): Promise<void> {
   } finally { signal.removeEventListener('abort', cancel); reader.releaseLock(); }
 }
 
-export function createBridgeHandler(ports: BridgePorts, options: { enabled?: boolean; clock?: BridgeClock } = {}): (request: Request) => Promise<Response> {
+export function createBridgeHandler(ports: BridgePorts, options: { enabled?: boolean; clock?: BridgeClock; statusPath?: "/connections/status" | "/orbe-metadata/connections/status" } = {}): (request: Request) => Promise<Response> {
   const enabled = options.enabled === true;
+  const statusPath = enabled ? options.statusPath ?? "/connections/status" : undefined;
+  const validPath = statusPath === "/connections/status" || statusPath === "/orbe-metadata/connections/status";
   return async request => {
     // Do not inspect ports, clock, request or body when disabled.
-    if (!enabled) return json(503, { error: 'unavailable' });
+    if (!enabled || !validPath) return json(503, { error: 'unavailable' });
     const clock = options.clock ?? systemClock;
     let timer: unknown; let timerSet = false;
     const controller = new AbortController();
@@ -106,7 +108,7 @@ export function createBridgeHandler(ports: BridgePorts, options: { enabled?: boo
     try {
       const url = new URL(request.url);
       if (url.search || url.hash) fail(400, 'invalid_request');
-      if (url.pathname !== '/connections/status') fail(404, 'not_found');
+      if (url.pathname !== statusPath) fail(404, 'not_found');
       if (request.method !== 'POST') fail(405, 'method_not_allowed');
       if (!/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(request.headers.get('content-type') ?? '')) fail(415, 'unsupported_media_type');
       const authorization = request.headers.get('authorization') ?? '';

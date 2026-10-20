@@ -6,7 +6,7 @@ const subject = '00000000-0000-4000-8000-000000000001';
 const values = () => ({ ORBE_METADATA_ENABLED: 'true', SUPABASE_URL: origin, ORBE_PUBLISHABLE_KEY: 'sb_publishable_invented' });
 const json = body => new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json' } });
 const token = () => 'eyJhbGciOiJpbnZlbnRlZCJ9.' + Buffer.from(JSON.stringify({ sub: subject, iss: origin + '/auth/v1', aud: 'authenticated', role: 'authenticated', is_anonymous: false, exp: Math.floor(Date.now() / 1000) + 600 })).toString('base64url') + '.invented_signature';
-const request = (path = '/connections/status', credential = token()) => new Request('https://metadata.invalid' + path, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(credential ? { Authorization: 'Bearer ' + credential } : {}) }, body: '{}' });
+const request = (path = '/orbe-metadata/connections/status', credential = token()) => new Request('https://metadata.invalid' + path, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(credential ? { Authorization: 'Bearer ' + credential } : {}) }, body: '{}' });
 const forbiddenRequest = () => new Proxy({}, { get() { throw new Error('request_read'); } });
 const noNetwork = () => { throw new Error('network_called'); };
 async function unavailable(handler) {
@@ -43,7 +43,7 @@ test('boot captures public configuration; owner fixture uses Auth session gate t
   const steps = [{ id: subject, is_anonymous: false }, true, []];
   const handler = createMetadataRuntime(name => config[name], async (url, init) => { calls.push({ url, init }); return json(steps.shift()); });
   config.SUPABASE_URL = 'https://untrusted.invalid'; config.ORBE_PUBLISHABLE_KEY = 'sb_secret_invented'; config.ORBE_METADATA_ENABLED = 'false';
-  const response = await handler(request('/connections/status', credential));
+  const response = await handler(request('/orbe-metadata/connections/status', credential));
   assert.equal(response.status, 200);
   assert.equal(calls.length, 3);
   assert.equal(calls[1].url, origin + '/rest/v1/rpc/orbe_has_session');
@@ -57,8 +57,8 @@ test('boot captures public configuration; owner fixture uses Auth session gate t
 
 test('missing Bearer and financial routes never consult Auth or metadata', async () => {
   const handler = createMetadataRuntime(name => values()[name], noNetwork);
-  assert.equal((await handler(request('/connections/status', ''))).status, 401);
-  for (const route of ['/transactions', '/accounts', '/investments', '/connections/status?token=invented']) {
+  assert.equal((await handler(request('/orbe-metadata/connections/status', ''))).status, 401);
+  for (const route of ['/connections/status', '/orbe-bridge/connections/status', '/functions/v1/orbe-metadata/connections/status', '/orbe-metadata/connections/status/', '/orbe-metadata/connections/status/extra', '/transactions', '/accounts', '/investments', '/orbe-metadata/connections/status?token=invented']) {
     const response = await handler(request(route));
     assert.ok(response.status >= 400);
   }
@@ -70,4 +70,15 @@ test('revoked or nonowner session cannot read connection metadata', async () => 
   const response = await handler(request());
   assert.equal(response.status, 403); assert.equal(calls, 2);
   assert.equal(response.headers.get('cache-control'), 'no-store');
+});
+
+test('core route configuration is captured once and invalid runtime route fails closed', async () => {
+  const { createBridgeHandler } = await import('../../supabase/functions/_shared/bridge.ts');
+  const ports = new Proxy({}, { get() { throw new Error('ports_read'); } });
+  const options = { enabled: true, statusPath: '/orbe-metadata/connections/status' };
+  const handler = createBridgeHandler(ports, options);
+  options.statusPath = '/connections/status';
+  assert.equal((await handler(request('/orbe-metadata/connections/status', ''))).status, 401);
+  assert.equal((await handler(request('/connections/status', ''))).status, 404);
+  await unavailable(createBridgeHandler(ports, { enabled: true, statusPath: '/untrusted' }));
 });

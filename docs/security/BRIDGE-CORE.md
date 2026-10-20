@@ -95,3 +95,7 @@ Factory metadata-runtime captura apenas habilitação literaltrue/origem públic
 ## T18b3b1 —20/10/2026
 
 Entrypoint local orbe-metadata delega factory com configuração no boot e fetch do host; sem flag por request ou imports financeiros. Defaultoff/401 sem Bearer/config inválida exercitados em hostmock. Helper de deploy desligado enumera sete fontes e verifica ambos entrypoints exatos; adulteração adicional negada em teste.566 testes/typechecks passaram. Nenhum deploy/TOML novo, sem alegação de Deno real. Próxima T18b3b2 precisa validar configuração/manifest/runtime antes de publicação separada.
+
+## T18b3b2a —20/10/2026
+
+Revisão oficial de routing identificou prefixo obrigatório do nome da função no runtime. Factory metadata agora usa /orbe-metadata/connections/status; core mantém default isolado e captura opção literal no boot, inválida retorna503. Caminhos sem prefixo/outra função/sufixo/query negados antes de rede.567 testes/typechecks passaram, sem deploy/TOML novo. Fontes e próximos passos em plan/T18b3b2a-HOSTED-ROUTING.md.

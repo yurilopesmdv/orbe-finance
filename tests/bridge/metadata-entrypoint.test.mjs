@@ -27,7 +27,7 @@ test('metadata entrypoint defaults off with only gate read and no request/env/tr
 
 test('enabled metadata entrypoint authenticates before network or metadata access', async () => {
   await boot({ ORBE_METADATA_ENABLED: 'true', SUPABASE_URL: `https://${'a'.repeat(20)}.supabase.co`, ORBE_PUBLISHABLE_KEY: 'sb_publishable_invented' }, async (handler, reads) => {
-    const response = await handler(new Request('https://metadata.invalid/connections/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }));
+    const response = await handler(new Request('https://metadata.invalid/orbe-metadata/connections/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }));
     assert.equal(response.status, 401);
     assert.deepEqual(reads, ['ORBE_METADATA_ENABLED', 'SUPABASE_URL', 'ORBE_PUBLISHABLE_KEY']);
   });

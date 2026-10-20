@@ -599,3 +599,10 @@ T18b3a:562 testes/typechecks passaram; factory metadata-only local, configuraç�
 - T18b3b2 pending: pesquisa/configuração/manifest/helper de deploy separado; depende T18b3b1; sem consentimento ou rota financeira.
 
 T18b3b1:566 testes/typechecks passaram; entrypoint orbe-metadata local defaultoff, hostmock de configuração/negação e verificação exata dos dois entrypoints. Sem TOML/deploy novo; próximo T18b3b2 revisão operacional/configuração/manifest.
+
+#### T18b3b2 — fatias operacionais
+
+- T18b3b2a done: corrigir prefixo de rota gerenciada antes de deploy, MPG-12b; [plano](../plan/T18b3b2a-HOSTED-ROUTING.md); integrador único; aceite check/negação sem rede.
+- T18b3b2b pending: helper/manifest/configuração e validação HTTP gerenciada; sem ativar ingestão financeira.
+
+T18b3b2a:567 testes/typechecks passaram. Runtime metadata aceita caminho interno prefixado pela função; core mantém default e captura opção literal no boot. Caminhos alternativos recusados antes de rede. Sem deploy novo. Próxima T18b3b2b helper/configuração/manifest e HTTP gerenciado.
