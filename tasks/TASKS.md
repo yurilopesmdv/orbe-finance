@@ -874,3 +874,9 @@ T51b2c22 evidência:879testes/typechecks aprovados (788Node+91Python),8casosnovo
 MPG-38/[plano](../plan/T51b2c23-PROVIDER-INVENTORY.md). Pipelineinterno compartilhado para inventário mínimo com consentimento, API financeira existente preservada; zero rede real.
 
 T51b2c23 evidência:887testes/typechecks (796Node+91Python),8casosnovos. PipelineúnicoAuth→itemconsent→accounts preserva DTO financeiro existente e projeta inventáriomínimo; offzero/contextoinválido/consentexpirado/durantecoleta/close/abort/chavecacheprivada aprovados com rede fictícia. Nenhum tokenfornecedor exposto ou entrada ativa alterada. Próxima c24 coordenador com Auth/owner/resolverrecheck/store e resultado somentecontagem.
+
+## T51b2c24 — done
+
+MPG-39/[plano](../plan/T51b2c24-AUTHORIZED-INVENTORY.md). Coordenador preparado de descoberta/revalidação/registro, retorno somentecontagem e limites explícitos de cancelamento após commit; sem HTTP/entrypointativo.
+
+T51b2c24 evidência:897testes/typechecks (806Node+91Python),10casosnovos. Cadeia Authowner→resolver→inventário→Authsameowner→resolvermesmoitem→store responde somentecontagem; nonowner/IDOR/mudança/expiração/malformação/abort/close/busy/falsecommit testados. SintaxeNode22 corrigida antes da aprovação final. Nenhum endpointpublico ou coleta real. Próxima c25 bloqueio/cooldownSQL compartilhado para descoberta antes de criar rota pública.
