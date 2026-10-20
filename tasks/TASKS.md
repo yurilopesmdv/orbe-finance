@@ -850,3 +850,9 @@ T51b2c18 evidência:855testes/typechecks (764Node+91Python),8novoscasos, checkof
 MPG-34/[plano](../plan/T51b2c19-RESTRICTED-NETWORK.md). Rede server-only fechada por destino/credencial e gates, sem import por entrypoint ou chamadas reais.
 
 T51b2c19 evidência:863testes/typechecks (772Node+91Python),8casos novos. Destinos/métodos/credenciais fechados, offzero/headerscruzados/queryhost/body/preabort/redirect/erro genérico/integraçãoAuth preparados com rede injetada; sem chamada real, sem entrypointimport, sem mudanças nos gates/deploy/QR. CI39509599362 do aplicador c18 success. Próxima fatia técnica: inventário de contas projetado server-side para provisionar IDs internos sem coletar valores nas ferramentas; definir spec/plan antes do código, composição real ainda sujeita às revisões/gates existentes.
+
+## T51b2c20 — done
+
+MPG-35/[plano](../plan/T51b2c20-MINIMAL-ACCOUNT-INVENTORY.md). Projeção privada de IDs/moeda, nenhum acesso a saldo/PII, rede, SQL ou ativação. Mantém IDs técnicosCREDIT porque a projeção financeira existente exige binding antes de excluir seus valores.
+
+T51b2c20 evidência:871testes/typechecks (780Node+91Python),8casosnovos. Projeção de IDs/moeda validada com decoderexato, paginação/contagem/UUID/item/duplicata/tipomoeda/limites, camposprivados com getters que falham não foram acessados; saída congelada e sem valores. CREDIT sóIDtécnico/moedanull/kindunknown, não saldo/limite. Nenhuma redeSQL/entrypoint/flag; próximo c21 RPCatômica de bindings mínimos com owner/pending/revisão e sem reativação.
