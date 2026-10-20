@@ -61,7 +61,7 @@ def validate(raw):
         raise SafeError('provider_items_duplicate')
     return len(configured), len(items), identified
 
-def execute(operation):
+def _read(operation):
     if operation not in ('init', 'check'):
         raise SafeError('provider_items_operation_invalid')
     if any(p.is_symlink() for p in (PRIVATE_DIR, *PRIVATE_DIR.parents)):
@@ -101,6 +101,15 @@ def execute(operation):
                 source.truncate()
     if len(raw) > 4096:
         raise SafeError('provider_items_invalid')
+    validate(raw)
+    return created, raw
+
+def load_items():
+    _, raw = _read('check')
+    return json.loads(raw)['items']
+
+def execute(operation):
+    created, raw = _read(operation)
     count, total, identified = validate(raw)
     return {'inventory_ready': True, 'created': created, 'configured_items': count, 'complete': count == total, 'identified_items': identified, 'provider_calls': 0}
 

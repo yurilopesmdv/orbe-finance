@@ -77,7 +77,7 @@ def config():
 def client(token, ref):
     opener = urllib.request.build_opener(NoRedirect())
     def request(path='', method='GET', body=None):
-        if not re.fullmatch(r'(?:/[a-z-]+)*', path):
+        if not re.fullmatch(r'(?:/[a-z-]+)*', path) and path != '/api-keys?reveal=true':
             raise SafeError('invalid_management_path')
         req = urllib.request.Request('https://api.supabase.com/v1/projects/' + ref + path,
             data=None if body is None else json.dumps(body).encode(), method=method,

@@ -838,3 +838,9 @@ T51b2c16 evidência: migration9 aplicada/hash verificado no projeto próprio; te
 ## T51b2c17 — done
 
 MPG-32/[plano](../plan/T51b2c17-OBSERVED-ITEM-INVENTORY.md). Corrige exigência de dois IDs; versão2 aceita1a5itens/unknown sem inferir cobertura.13testes do inventário/847testes+typechecks aprovados, template legado vazio migrado sem sobrescrever IDs. Titular forneceu URL do item mostrado com produtos MP: identificador salvo só no arquivo privado, preflight1item/1identificado/0chamadasprovedor. Screenshotposterior confirma dois bancos na origem, não comprova dois itens na aplicação. RPC antiga pending não foi executada nem alterada; próxima c18 aplicador privado de staging para item conhecido, sem coleta financeira.
+
+## T51b2c18 — done
+
+MPG-33/[plano](../plan/T51b2c18-PRIVATE-STAGING-APPLIER.md). Aplicador privado de metadados pending; nenhuma consulta financeira/provedor. ItemMP foi fornecido pelo titular; Bradesco noDashboard não comprovado.
+
+T51b2c18 evidência:855testes/typechecks (764Node+91Python),8novoscasos, checkoffline aprovado. Supabase exige revealtrue para segredo completo; permitido somente GETliteral na administração, chave apenas em memória/nuncastdout. Staging executado do único item fornecido, retorno1pending/providerCalls0/financialReads0; consulta agregada booleana confirmou exatamente1MPpending sem capacidades/OF, nenhum dado financeiro. Falha inicial de chave mascarada diagnosticada sem revelar valores, corrigida. Nenhum itemBradesco inventado/nenhum deploy ou flag alterado.
