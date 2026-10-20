@@ -54,4 +54,30 @@ do $$ begin
  if public.orbe_resolve_account_read('10000000-0000-4000-8000-000000000111','00000000-0000-4000-8000-000000000111',1,current_setting('orbe.test_binding_lease')::uuid) is not null then raise exception 'binding_paused';end if;
 end $$;
 reset role;
+-- Pending staging: service-only, exact repeat, no auto-verification or reactivation.
+do $$ begin
+ if has_function_privilege('anon','public.orbe_stage_connection(uuid,text,uuid)','execute') or has_function_privilege('authenticated','public.orbe_stage_connection(uuid,text,uuid)','execute') then raise exception 'stage_client_grant';end if;
+end $$;
+set local role authenticated;
+do $$ begin
+ begin perform public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago','60000000-0000-4000-8000-000000000111');raise exception 'stage_client_allowed';exception when insufficient_privilege then null;end;
+end $$;
+set local role service_role;
+do $$ begin
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000112','mercado-pago','60000000-0000-4000-8000-000000000111') then raise exception 'stage_foreign_owner';end if;
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','inter','60000000-0000-4000-8000-000000000111') then raise exception 'stage_wrong_bank';end if;
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago',null) then raise exception 'stage_null';end if;
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago','00000000-0000-0000-0000-000000000000') then raise exception 'stage_nil';end if;
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago','20000000-0000-4000-8000-000000000111') then raise exception 'stage_item_reused';end if;
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','bradesco','20000000-0000-4000-8000-000000000111') then raise exception 'stage_reopened_paused';end if;
+ if not public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago','60000000-0000-4000-8000-000000000111') then raise exception 'stage_create_failed';end if;
+ if not public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago','60000000-0000-4000-8000-000000000111') then raise exception 'stage_repeat_failed';end if;
+ if public.orbe_stage_connection('00000000-0000-4000-8000-000000000111','mercado-pago','60000000-0000-4000-8000-000000000112') then raise exception 'stage_replacement_allowed';end if;
+end $$;
+reset role;
+do $$ begin
+ if (select count(*) from public.orbe_connections where owner_id='00000000-0000-4000-8000-000000000111' and institution='mercado-pago' and state='pending' and revision=1 and open_finance_verified_at is null and proxy_consent_expires_at is null and bank_consent_expires_at is null and accounts_available is null and transactions_available is null and investments_available is null and reserves_available is null)<>1 then raise exception 'stage_invented_evidence';end if;
+ if (select count(*) from orbe_private.connection_bindings where external_item_id='60000000-0000-4000-8000-000000000111')<>1 then raise exception 'stage_binding_count';end if;
+ if exists(select 1 from public.orbe_accounts a join public.orbe_connections c on c.id=a.connection_id where c.owner_id='00000000-0000-4000-8000-000000000111' and c.institution='mercado-pago') then raise exception 'stage_created_accounts';end if;
+end $$;
 rollback;

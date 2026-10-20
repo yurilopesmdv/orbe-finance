@@ -828,3 +828,9 @@ Checkpoint de configuração20/10: titular informou2campos salvos. provider-prof
 MPG-30/[plano](../plan/T51b2c15-PRIVATE-ITEM-INVENTORY.md). Inventário offline privado por banco, sem rede/provisionamento SQL. Relato do titular confirma importação; não tratar como evidência de OF ou homologação real.
 
 T51b2c15 evidência:843 testes/typechecks aprovados (764Node+79Python), incluindo9casos de inventário e7regressões do perfil. Template privado criado0600 semIDs; init/check provider_calls0. Inventário não provisiona SQL/ativa produto; identificadores precisam ser copiados privadamente do Dashboard porque plano pessoal não permite listagem global. Próxima c16 staging server-only pendente, sem afirmar OF/consentimento/capacidades.
+
+## T51b2c16 — done
+
+MPG-31/[plano](../plan/T51b2c16-PENDING-CONNECTION-STAGING.md). RPC service-only para cadastrar apenas metadados pending e item privado, sem ativar/consultar banco. SQL isolado com identidades inventadas, nenhuma conta real.
+
+T51b2c16 evidência: migration9 aplicada/hash verificado no projeto próprio; test-account-bindings com staging privilégio/owner/instituição/nil/item duplicado/repetição/substituição/não reativação/evidências desconhecidas/sem contas passou com rollback, zero identidades restantes e proprietário preservado.34regressões administrativas e scan privado aprovados; suíte843/typechecks da c15. Nenhum item real provisionado, flag/deploy financeiro inalterado. Próxima c17 aplicador privado; IDs aguardando cópia privada pelo titular, sem solicitação pelo chat.
