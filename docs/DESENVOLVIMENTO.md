@@ -83,3 +83,9 @@ configure-client grava somente origem/chave pública e recoveryfalse; não alter
 ## Teste final atual
 
 [Prontidão/roteiro iPhone](RELEASE-READINESS.md) reúne evidências e bloqueios. Metro iniciado20/10/2026 na porta8083 para aceite sintético, sem túnel, pelo launcher seguro. Sua disponibilidade depende da sessão/processo; confira status antes de usar o endereço. Não afirmar que o teste físico passou sem resposta do titular.
+
+## Publicação remota Expo Go —T44a
+
+Direção atual do titular: atualização hospedada e QR, sem Metro. Projeto EAS próprio Orbe associado; app.json substitui configuração TypeScript estática, SDK57/runtime sdkVersion explícitos. O EXPO_TOKEN existente foi reutilizado por autorização expressa, guardado em ~/.config/orbe-finance/expo-publish.env0600; nenhum Supabase/F1 reutilizado. Não colocar token em dotenv raiz/EXPO_PUBLIC.
+
+EAS CLI25.2.0 é cacheado sem credenciais/sem scripts antes do uso. scripts/eas-safe.mjs limita operações, isola XDG e introduz token somente no publicador. npm run export:ios continua offline/sem token. npm run publish:expo publica dist já exportado/escaneado em iOS/preview, sem source maps, e grava recibo privado fora Metro. Exige associação atual e gates financeirosfalse. Não executar build/submit/updateconfigure por conveniência. QR só deve ser informado após confirmação do update remoto.

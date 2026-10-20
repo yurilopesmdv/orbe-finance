@@ -640,3 +640,7 @@ T11d:613 testes/typechecks passaram; configure-client só lê chave pública/gra
 - T38b pending: validação no iPhone do titular, incluindo login positivo, blur/lock e VoiceOver; não abrir banco/consentimento.
 
 T38a:613 testes/typechecks/CI fb80fb8 e export iOS/scan consolidados; Metro compilou bundle dev5.8MB sem PAT/ownerUUID, status/manifest SDK57 locais responderam. QR enviado; titular confirmou carregamento infinito no iPhone. T38b bloqueada no acesso, sem aceite físico. Readonlydiagnóstico: bind*:8083 correto, ufw exige sudo indisponível, ping no IP anterior não respondeu (não prova firewall); titular confirma ExpoGo logado. Nova exigência oficial de mesma conta no CLI documentada; próxima T38c preparar login/online segregados, sem reutilizar perfil F1.
+
+## T44a — in_progress
+
+Publicação remota para ExpoGo, UX-17; [plano](../plan/T44a-EXPO-GO-PUBLICATION.md); integrador único; usuário pediu parar teste LAN e entregar QR hospedado. Metro parado, diagnóstico firewall cancelado. T38c startonline adiado/substituído por login seguro necessário a EAS. Aceite update remoto verificado/QR, nunca só commit Git. Perfil privado Expo atual sem sessão.

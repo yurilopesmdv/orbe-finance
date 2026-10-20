@@ -57,3 +57,7 @@ Remoção exige confirmação visível com instituição, explica que não revog
 ## UX-16 — Aceite final rastreável (T38a)
 
 Entrega sintética DEVE distinguir validações automatizadas/HTTP gerenciado de aceite físico. Publicar matriz de funcionalidades/limites, roteiro iPhone com resultados pendentes explícitos e checkpoint por task. Nenhuma linha de aceite físico pode ser marcada aprovada por typecheck/export. Dados reais/FaceID/recuperação dependem dos gates existentes e não se tornam prontos por terminar a demo. Preparar QR LAN somente pelo launcher segregado, sem túnel ou mudança de firewall; falha de acesso pelo iPhone permanece pendência de rede, sem dizer que app foi testado.
+
+## UX-17 — Publicação remota para Expo Go (T44a)
+
+Direção do titular20/10/2026: abrir atualização hospedada por QR, sem depender de Metro/rede local. Publicar somente cliente sintético/Auth/metadata validado no projeto Expo próprio do titular; não publicar financeiro ativo. Novo processor Expo recebe bundle/assets/config pública, nunca PAT/ownerUUID/senha ou dados bancários. Revalidar artefato antes de upload. Perfil CLI exclusivo fora Metro, sem credenciais do F1. Publicação exige sessão Expo do titular ou token próprio autorizado, associação EAS Orbe e compatibilidade SDK57/ExpoGo. QR só é entregue como publicado após ID remoto e verificação; não inventar link. Nenhum build pago, App Store ou FaceID implícito.

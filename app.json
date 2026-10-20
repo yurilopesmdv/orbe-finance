@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Orbe Finance",
+    "slug": "orbe-finance",
+    "version": "0.1.0",
+    "sdkVersion": "57.0.0",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "platforms": [
+      "ios"
+    ],
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "dataMode": "synthetic",
+      "liveIntegrationEnabled": false,
+      "router": {},
+      "eas": {
+        "projectId": "69843dfe-ab1b-469e-bb78-c7948bbf1d9b"
+      }
+    },
+    "owner": "yurilopesmdv",
+    "updates": {
+      "url": "https://u.expo.dev/69843dfe-ab1b-469e-bb78-c7948bbf1d9b"
+    }
+  }
+}
