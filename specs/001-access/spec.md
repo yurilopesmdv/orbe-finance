@@ -93,3 +93,15 @@ Gateway DEVE expor somente origem pública imutável (sem chave/token/subject), 
 ## AUTH-13 — Recuperação exige entrega comprovada (T11d)
 
 configure-client DEVE gravar EXPO_PUBLIC_AUTH_RECOVERY_ENABLED=false e não configurar template/SMTP nem enviar e-mail. Sucesso em PATCH de template ou configuração já existente não habilita recuperação. Ativação futura exige task própria de SMTP/revisão/entrega comprovada pelo titular, com decisão operacional explícita antes da flag cliente. Reexecutar configuração pública deve remover eventual flagtrue anterior e preservar origem própria/chave publishable, sem abrir cadastros. Não alegar recuperação funcional a partir de configuração administrativa.
+
+## AUTH-14 — Ativação inicial privada do proprietário (T10c)
+
+Direção20/10/2026: uso pessoal agora; cadastro de outras pessoas permanece desabilitado. A identidade do proprietário já foi provisionada no backend, mas o app DEVE permitir definir sua senha sem depender de uma senha digitada por ferramenta. “Criar meu acesso” abre formulário privado de e-mail/código temporário/nova senha/confirmação. Usar verifyOtp recovery→Authuser→orbe_is_owner→updatepassword→logout; a conclusão não desbloqueia sessão, exige login novo. Não substituir dono, criar conta técnica nova ou abrir signups.
+
+Código operacional de ativação é gerado somente por helper administrativo no projeto próprio, vinculado ao usuário proprietário registrado, sem enviar e-mail. Supabase gera OTP de6 dígitos/10min/uso único; helper grava e-mail da identidade e código apenas em arquivo0600 fora do projeto/Metro e não os imprime. Nenhuma senha é lida/definida pelo helper. Não publicar código em QR, Git, bundle, URL ou chat. Gerar código só após publicar a tela, para não vencer durante desenvolvimento. Recuperação por e-mail continua desligada até SMTP/entrega.
+
+Formulário limpa credenciais ao enviar, ao perder foco ou ficar inativo. Senha>=12 e confirmação igual antes de rede; expiração, falha e rate limit explícitos sem expor conta. Prova de outro usuário/OTP errado nunca altera senha do proprietário.
+
+## AUTH-15 — Preparação de cadastro futuro, sem habilitação
+
+Cliente poderá ter porta de signup por e-mail/senha somente com gate explícito false por padrão, sem rede/config/entrada consultados quando off. Resposta exige confirmação e nunca entrega sessão/autorização implícita; qualquer sessão emitida inesperadamente deve ser encerrada. Este preparo NÃO habilita multiusuário: backend continua disable_signuptrue e allowlist de proprietário. Antes de ativar: nova spec/ADR de admissão, confirmação de e-mail/SMTP e isolamento SQL/ponte por usuário. UI não mostra cadastro aberto como funcional.

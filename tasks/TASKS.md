@@ -654,3 +654,13 @@ Hotfix UX-18/[plano](../plan/T44b-PUBLISHED-ROUTER-STARTUP.md), integrador únic
 T44b:623 testes/typechecks/export iOS2.6MB passaram. Teste de biblioteca instalada reproduz erro antigo e confirma root/rotas no contexto de produção comschemeorbe. Publicador exige scheme antes de upload. Próximo CI/republicar/novo QR; aceite físico segue pendente.
 
 T44b republicada: update01a15928-0922-76d1-ac22-d49178453a15/grupo26de8237-ff89-4af7-a466-57ce795754e1/commit14635f1, iOS/preview/exposdk57.0.0.623 testes/typechecks/export/CI aprovados. Manifesto remoto confirmado com schemeorbe e hash do HBC igual ao export; QR oficial atualizado em docs/EXPO-PREVIEW.md. T38b aceite físico do hotfix pendente; financeiro real continua gated.
+
+## Retorno físico e novo escopo —20/10/2026
+
+Titular confirmou “funcionou tudo perfeitamente” no QR de T44b. Abertura/funcionamento relatado da prévia aceitos; não inferir captura/VoiceOver/cache nativo individualmente testados. Nova prioridade: criação de conta dentro do app. Cores/identidade visual ficam posteriores. T10c cadastro em investigação, aguardando definição de quem pode registrar (convidados/público/pessoal), pois backend atual é singleowner; não abrir autorização ou trocar dono silenciosamente.
+
+## T10c — doing
+
+Ativação inicial privada AUTH-14/15/ADR-013; [plano](../plan/T10c-PRIVATE-OWNER-ONBOARDING.md). Integrador único; depende gateway/session/owner provisionados e publicação Expo existente. Confirmado pelo titular: somente ele, outros cadastros preparados/desligados; identidade visual posterior. Paths/aceite nas três fatias do plano. Não abrir signups nem trocar owner para resolver primeiro acesso.
+
+T10c checkpoint20/10: AUTH-14/15 + ADR-013; helper privado com 8 testes, tela de ativação e confirmação/limpeza, porta futura desligada com 7 testes. Typechecks e638 testes passaram; export iOS Hermes2.6MB aprovado. Smoke real exclusivamente fictício: generate_link recovery→OTP→senha→logout→login; não owner negado/metadata bloqueada e identidade removida. Owner/senha real intactos, signup continua fechado. Próximo: commit/push/CI/publicação/QR, então código privado.

@@ -51,3 +51,7 @@ Estado: accepted para preparação sintética em T74. [Contrato](../../plan/T74-
 ## ADR-012 — Separação entre status autenticado e ingestão
 
 Estado: accepted para implementação local sintética em T18b3a,20/10/2026. Metadados exigem Auth e sessão ativa, mas não autorização bancária. Criar factory de runtime somente para status, com configuração pública capturada uma vez e falha fechada. Não reutilizar a ativação financeira para liberar status. Publicação separada exige T18b3b e revisão do helper/artefatos; endpoint orbe-bridge já publicado permanece desligado. Não há aprovação de consentimento, dados financeiros reais ou fornecedor por esta decisão.
+
+## ADR-013 — Primeiro acesso pessoal, cadastro público adiado
+
+Estado: accepted20/10/2026 pelo titular: inicialmente apenas ele, preparar outros cadastros porém manter desabilitado. Conservar identidade/owner/RLS e signups fechados. Ativação de senha da identidade provisionada usa OTP recovery gerado pelo administrador sem e-mail, em arquivo privado fora Metro; senha definida somente no iPhone pelo titular. Isso evita inventar um fluxo de entrega SMTP ou trocar dono por conveniência. UI chama “Criar meu acesso” e explica ativação privada. Preparação de signup cliente permanece desligada e não equivale a suporte multiusuário aprovado. Identidade visual e cores ficam para etapa posterior.

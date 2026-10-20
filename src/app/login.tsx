@@ -4,6 +4,7 @@ import { Redirect, useRouter } from 'expo-router';
 import { Action, Body, Card, Screen, palette } from '@/components/ui';
 import { observeActivity } from '@/features/auth/lifecycle';
 import { useAuth } from '@/features/auth/provider';
+import { runtime } from '@/config/runtime';
 import { recoveryEnabled } from '@/config/auth';
 import type { AuthCode } from '@/features/auth/gateway';
 const messages: Record<AuthCode, string> = {
@@ -54,6 +55,7 @@ export default function LoginScreen() {
       <Action title={busy ? 'Aguarde…' : mode === 'login' ? 'Entrar' : mode === 'recover' ? 'Enviar código' : 'Atualizar senha'} disabled={busy || !email.trim() || (mode !== 'recover' && !password) || (mode === 'reset' && code.length !== 6)} onPress={() => { void submit(); }} />
       {recoveryEnabled ? <Action title={mode === 'login' ? 'Esqueci minha senha' : 'Voltar ao login'} secondary disabled={busy} onPress={() => changeMode(mode === 'login' ? 'recover' : 'login')} /> : <Body>A recuperação de senha por e-mail ainda está em configuração nesta versão.</Body>}
     </Card>
+    {runtime.ownerSetupEnabled && <Action title="Criar meu acesso" secondary disabled={busy} onPress={() => { auth.model?.lock(); setPassword(''); setCode(''); router.push('/create-account'); }} />}
     <Body>Face ID ainda não está disponível nesta versão. Ao sair, sua senha não fica salva no Orbe.</Body>
     <Action title="Voltar ao início" secondary onPress={() => { auth.model?.lock(); setPassword(''); setCode(''); router.replace('/'); }} />
   </Screen>;

@@ -12,7 +12,8 @@ const isPayload = (value: unknown): value is Payload => typeof value === 'object
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const validEmail = (value: string) => typeof value === 'string' && value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-export function createAuthGateway(config: AuthConfig, transport: Transport = fetch, now: () => number = Date.now, timeoutMs = 20000) {
+export function createAuthGateway(config: AuthConfig, transport: Transport = fetch, now: () => number = Date.now, timeoutMs = 20000, allowRegistration = false) {
+  const registrationEnabled = allowRegistration === true;
   let origin: string, publishableKey: string;
   try {
     if (!config || !Object.hasOwn(config,'origin') || !Object.hasOwn(config,'publishableKey')) throw new Error();
@@ -21,8 +22,8 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
     origin = candidateOrigin; publishableKey = candidateKey;
   } catch { throw new AuthFailure('invalid_configuration'); }
   // Only literal internal operations can choose destinations. No arbitrary URL enters the gateway.
-  type Operation = 'login' | 'user' | 'owner' | 'logout' | 'recover' | 'verify' | 'update';
-  const routes: Record<Operation, string> = { login: '/auth/v1/token?grant_type=password', user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner', logout: '/auth/v1/logout?scope=local', recover: '/auth/v1/recover', verify: '/auth/v1/verify', update: '/auth/v1/user' };
+  type Operation = 'login' | 'user' | 'owner' | 'logout' | 'recover' | 'verify' | 'update' | 'signup';
+  const routes: Record<Operation, string> = { login: '/auth/v1/token?grant_type=password', user: '/auth/v1/user', owner: '/rest/v1/rpc/orbe_is_owner', logout: '/auth/v1/logout?scope=local', recover: '/auth/v1/recover', verify: '/auth/v1/verify', update: '/auth/v1/user', signup: '/auth/v1/signup' };
   async function request(operation: Operation, body?: Payload, token?: string, signal?: AbortSignal): Promise<unknown> {
     if (signal?.aborted) throw new AuthFailure('cancelled');
     const controller = new AbortController();
@@ -89,6 +90,18 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
       return authorize(await request('login', { email, password }, undefined, signal), startedAt, signal);
     },
     signOut,
+    async requestSignup(email: string, password: string, signal?: AbortSignal): Promise<void> {
+      if (!registrationEnabled) throw new AuthFailure('invalid_configuration');
+      if (!validEmail(email)) throw new AuthFailure('invalid_credentials');
+      if (typeof password !== 'string' || password.length < 12) throw new AuthFailure('weak_password');
+      const data = await request('signup', { email, password }, undefined, signal);
+      // Future registrations must confirm email. Never retain or return an issued session.
+      if (isPayload(data) && typeof data.access_token === 'string' && data.access_token) {
+        if (!/\s/.test(data.access_token) && data.access_token.length <= 16384) await discard(data.access_token);
+        throw new AuthFailure('invalid_configuration');
+      }
+      // Generic result also covers an existing address; no owner privilege is assigned.
+    },
     async requestRecovery(email: string, signal?: AbortSignal): Promise<void> {
       if (!validEmail(email)) throw new AuthFailure('invalid_credentials');
       try { await request('recover', { email }, undefined, signal); }

@@ -1,6 +1,6 @@
 # Prontidão do Orbe —20/10/2026
 
-**Prévia hospedada publicada para Expo Go; aceite físico do hotfix pendente. Não pronto para uso financeiro real.** Implementação do escopo bancário completo permanece condicionada aos gates abaixo. O projeto não foi encerrado como produto integrado.
+**Prévia hospedada publicada para Expo Go; funcionamento da prévia confirmado pelo titular. Não pronto para uso financeiro real.** Implementação do escopo bancário completo permanece condicionada aos gates abaixo. O projeto não foi encerrado como produto integrado.
 
 ## O que está disponível
 
@@ -27,11 +27,11 @@
 
 ## Teste final no iPhone —T38b/T53/T61
 
-Direção atual: usar [QR remoto publicado](EXPO-PREVIEW.md), sem PC/Metro/rede local. Tentativa anterior LAN foi cancelada pelo titular. Primeira atualização hospedada abriu no iPhone mas caiu por scheme ausente; hotfix define schemeorbe e foi republicado, com manifesto conferido. Confirmação física do hotfix ainda pendente.
+Direção atual: usar [QR remoto publicado](EXPO-PREVIEW.md), sem PC/Metro/rede local. Tentativa anterior LAN foi cancelada pelo titular. Primeira atualização hospedada abriu no iPhone mas caiu por scheme ausente; hotfix define schemeorbe e foi republicado, com manifesto conferido. Titular confirmou que a prévia corrigida funcionou perfeitamente em20/10/2026.
 
 | Passo | Resultado esperado | Situação |
 |---|---|---|
-| Abrir pelo QR | Tela de demonstração sem erro do bundle/SDK | Primeiro remoto caiu por scheme; hotfix publicado/pendente |
+| Abrir pelo QR | Tela de demonstração sem erro do bundle/SDK | Hotfix abriu e funcionou, confirmado pelo titular |
 | Explorar sem login | Quatro abas, somente inventados; valores inicialmente ocultos | Pendente no aparelho |
 | Relatório→categoria→voltar | Mesmo filtro/contexto e total reconciliado; leitor de tela sem valores ocultos | Pendente no aparelho |
 | Entrar com a própria conta | Senha digitada somente no iPhone, acesso do proprietário | Pendente no aparelho |
@@ -58,3 +58,5 @@ Não enviar e-mail, senha, prints privados, tokens ou dados bancários no chat. 
 Histórico: a falha LAN foi substituída por publicação remota conforme pedido do titular. Metro parado; diagnóstico firewall/túnel cancelados. Primeiro remoto foi executado no aparelho e revelou erro de scheme, corrigido em T44b e reproduzido em teste da biblioteca instalada. Novo update/QR em [EXPO-PREVIEW](EXPO-PREVIEW.md). Expo Go requer conta proprietária/membro do projeto.
 
 Próxima ação: confirmar abertura com o QR corrigido e validar login/status/VoiceOver/bloqueio no aparelho, sem banco real. As tarefas financeiras futuras permanecem registradas, não concluídas por fixtures. [Checkpoint operacional](../roadmap/STATE.md) e [backlog](../tasks/TASKS.md).
+
+T10c: acesso inicial pessoal em validação/publicação; [instruções privadas](OWNER-ACCESS.md). Cadastro público permanece fechado. Identidade visual fica para próxima etapa por decisão do titular.

@@ -24,6 +24,7 @@ export default function WelcomeScreen() {
           <Text style={styles.body}>Nenhum banco conectado. A demonstração não solicita senhas bancárias nem dados financeiros.</Text>
         </View>
         {auth.configured && <Action title="Entrar no Orbe" onPress={() => router.push('/login')} />}
+        {auth.configured && runtime.ownerSetupEnabled && <Action title="Criar meu acesso" secondary onPress={() => router.push('/create-account')} />}
         <View style={{ height: 12 }} />
         <Action title="Explorar demonstração" onPress={() => router.replace('/(tabs)/overview')} />
         <Text style={styles.footnote}>Orbe Finance · 0.1.0 · {runtime.dataMode === 'synthetic' ? 'Dados demonstrativos' : ''}</Text>
