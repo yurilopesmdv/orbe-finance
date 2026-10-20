@@ -922,3 +922,9 @@ T51b2c30 evidência:926testes/typechecks (835Node+91Python),5casosnovos. Codegat
 MPG-46/[plano](../plan/T51b2c31-DISABLED-BACKEND-RELEASE.md). Rootunificado codeoff antesenv; empacotamento explícito/canários privados/7smokes503, sem liberação de dadosreais.
 
 T51b2c31 evidência:934testes/typechecks (839Node+95Python),4root+4canário novos. Allowlist26arquivos/canáriosPATownerExpoPluggyitemIDs/entryexatoliveApprovedfalse testados. Deploy próprio orbe-bridgev4ACTIVE,7HTTP503/no-store e providerCalls0/financialReads0, recibo/logprivados foraMetro. Metadata/client/QR nãoalterados. Próxima c32 gatewayclientdedescoberta sobgates, depoisreadiness/UI e revisão antes deativar.
+
+## T51b2c32 — done
+
+MPG-47/[plano](../plan/T51b2c32-CLIENT-DISCOVERY-GATEWAY.md). Gateway cliente de descoberta com operação fechada/gates/statuscontagem; backendpublicadooff e nenhum request real.
+
+T51b2c32 evidência:943testes/typechecks (848Node+95Python),9casosnovos, exportiOS aprovado. Gateoff/corpoIDinterno/hostpróprio/401403lock/429semretry/abort/malformação/bounds4096/prazo120sapenasdiscover validados; resposta somentecontagem. Nenhum QR/flag/coleta alterado. Próxima c33 controladorreadiness/proteção e adaptação da telaConexões sobflagfalse.
