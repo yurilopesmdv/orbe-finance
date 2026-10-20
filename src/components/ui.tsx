@@ -1,10 +1,11 @@
+import { PrivateScreen } from './private-screen';
 import type { ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const palette = { background: '#F6F8F3', surface: '#FFFFFF', ink: '#152F29', muted: '#52675D', line: '#DCE3DA', green: '#173F33' };
 export function Screen({ title, subtitle, children, demonstration = true }: { title: string; subtitle: string; children: ReactNode; demonstration?: boolean }) {
-  return <SafeAreaView style={ui.safe} edges={['top', 'left', 'right']}>
+  const content = <SafeAreaView style={ui.safe} edges={['top', 'left', 'right']}>
     <ScrollView contentContainerStyle={ui.page}>
       <Text style={ui.brand}>orbe</Text>
       <Text style={ui.badge}>{demonstration ? 'DEMONSTRAÇÃO · DADOS INVENTADOS' : 'ACESSO AO ORBE · BANCOS DESCONECTADOS'}</Text>
@@ -13,6 +14,7 @@ export function Screen({ title, subtitle, children, demonstration = true }: { ti
       {children}
     </ScrollView>
   </SafeAreaView>;
+  return demonstration ? content : <PrivateScreen>{content}</PrivateScreen>;
 }
 export function Card({ title, children }: { title: string; children: ReactNode }) {
   return <View style={ui.card}><Text accessibilityRole="header" style={ui.cardTitle}>{title}</Text>{children}</View>;

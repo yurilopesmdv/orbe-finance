@@ -708,3 +708,11 @@ T12b aceite físico20/10: titular confirmou retomada sem pedir senha ao alternar
 SEC-24/ADR-015/[plano](../plan/T51b2a-UPSTREAM-TARGETS.md), integrador único. Refinar destino/IDs upstream necessários somente server-side e preservar cursor de /v2/transactions sem seguir URL da fonte. Nenhuma liberação de dados reais; autoria e logs permanecem gates separados.
 
 T51b2a evidência:698 testes/typechecks passaram,11 novos casos/corpus de SSRF/escopo/cursor/encoding. Destino literal/conta e período vinculados; query opaca preservada e nextnull encerra. APItransações antiga obsoleta identificada na pesquisa; caminho preparado usa /v2/transactions com dateFrom/dateTo corretos, sem inventar pageSize não documentado. Sem transporte/rede/provedor real/deploy. Allowlist de funções agora9files, entrypoints ativos intocados. Próxima T65b1 proteção de tela e T51b2b transporte/normalização/owner/lease/cursor interno em fixtures.
+
+## T65b1 — doing
+
+SEC-25/[plano](../plan/T65b1-SCREEN-PROTECTION.md), integrador único. Proteção nativa de captura/multitarefa antes de montar telas privadas, compatível com Expo Go e sem custo. Sucesso do SDK/mocks não aprova banco real; teste físico depois da publicação.
+
+T65b1 checkpoint:710 testes/typechecks passaram,12 novos cenários. Sem APIs financeiras/serviços pagos; módulo nativo incluído no Go. Root monta Stack antes do guard, janela privada só mostra conteúdo ready+active, nativo cobre snapshot/multitarefa. Teste físico de captura ainda pendente; export/scan/CI/publicação em andamento.
+
+T65b1 validação local concluída:710 testes/typechecks/export Hermes2.6MB/scan aprovados; inspeção privada1172 fontes/55 instâncias sem duas raízes vulneráveis no cliente. Audit permanece19 afetados toolchain/mesma exceção sintética, sem novos advisories. Compatibilidade pelo SDK instalado confirmada offline; app/teste nativo publicado seguem próximos.

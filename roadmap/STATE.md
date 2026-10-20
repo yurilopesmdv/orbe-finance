@@ -35,3 +35,9 @@ Allowlist bridge-deploy.py agora9files incluindo _shared/pluggy-auth.ts; entrypo
 Git Yuri Lopes/Conventional Commits português/main/push autorizados. Histórico detalhado de microtasks/testes em tasks/TASKS.md e planos. .git foi reparado19/10 com mirror/hashes/fsck, sem reset; backups /tmp/orbe-git-backup-20261019 e /tmp/orbe-git-recovery-20261019.git. Não repetir reparo sem evidência.
 
 T51b2a concluída: destinos literais item/accounts/investments e v2transactions, conta/período/cursor validados sem rede. Não aceitar /transactions antigo nem next como URL navegável. ADR-015 permite só IDs técnicos no upstream autorizado, nunca PII/tokens/IDs Orbe nas URLs; fornecedor/logs/gate real pendentes. Titular confirmou retomada T12b sem senha.
+
+## T65b1 — em validação/publicação
+
+SEC-25/plano T65b1/docs/SCREEN-PROTECTION.md, ScreenCapture57.0.4 instalado sem scripts/tokens. Nativeprevent+blur e guard ready/active antes de montar telas privadas; demo acessível se indisponível. Controller5s/geração/cleanup, registry serial/chaves por montagem.710 testes/typechecks/12 novos passaram. Sem FaceID ou financeiro real. Próximo: confirmar export/audit/scan, commit/push/CI, publicar/QR/manifesto e teste físico sintético opcional pelo titular. A sessão lembrada T12b já foi aceita ao alternar apps; preservar acesso e não pedir senha/código extra.
+
+T65b1 export/inspeção/scan aprovados (1172 fontes/55 instâncias); audit19/duasraízes inalterado;710 testes/typechecks. Código pronto para CI/publicação, FaceID/financeiro continuamoff. Não renovar código de conta nem remover refresh salvo do titular.

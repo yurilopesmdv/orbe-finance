@@ -1,3 +1,4 @@
+import { ScreenProtectionProvider } from '@/features/privacy/provider';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider } from '@/features/auth/provider';
@@ -8,10 +9,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <AuthProvider><PrivacyProvider><DemoProvider>
+      <ScreenProtectionProvider><AuthProvider><PrivacyProvider><DemoProvider>
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F6F8F3' } }} />
-      </DemoProvider></PrivacyProvider></AuthProvider>
+      </DemoProvider></PrivacyProvider></AuthProvider></ScreenProtectionProvider>
     </SafeAreaProvider>
   );
 }
