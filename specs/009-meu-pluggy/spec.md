@@ -54,3 +54,9 @@ T18b3b1 prepara somente orbe-metadata/index.mjs: delegar runtime MPG-12 com leit
 ### MPG-12b — Caminho do runtime gerenciado
 
 A composição metadata-only DEVE aceitar exclusivamente `/orbe-metadata/connections/status`, considerando prefixo de função documentado pelo Supabase. O core isolado mantém `/connections/status` por padrão; opção interna de composição permite somente esses dois caminhos literais, capturada no boot e nunca derivada do request. Prefixos de gateway, outra função, caminho sem prefixo no runtime metadata, queries e sufixos são recusados antes de autenticação/rede. Nenhum rewrite de Request/body/signal. T18b3b2a valida sinteticamente; HTTP real permanece T18b3b2b.
+
+### MPG-12c — Publicação controlada de status
+
+T18b3b2b DEVE confirmar projeto próprio saudável, artefatos permitidos, configuração pública da mesma origem do app e identidade/versão de função previamente gerenciada antes de mutar. Publicar somente orbe-metadata com manifest/log0600 fora Metro, sem tocar orbe-bridge ou prunes. Habilitação exclusiva ORBE_METADATA_ENABLED e ORBE_PUBLISHABLE_KEY; nunca service role, credencial bancária ou ingestão financeira. Configurar false antes de deploy inicial, verificar ACTIVE e gateway sem verificação legacy (Auth remoto+RPC no código), habilitar true e redeploy para capturar boot; não prometer revogação instantânea via env de instância quente.
+
+Teste HTTP anônimo e token inventado só pode revelar erros genéricos/no-store; rota/método/query indevidos não chegam a conteúdo. Confirmar endpoint financeiro antigo ainda503. Erro operacional não imprime resposta/log/config brutos; tentativa de desabilitar flag em falha é best effort, sem alegar desligamento confirmado sem smoke/redeploy. Login positivo do titular continua manual, sem credencial nas ferramentas. Nenhuma nova conta/banco/consentimento nesta tarefa.

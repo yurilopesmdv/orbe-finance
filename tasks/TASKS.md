@@ -603,6 +603,10 @@ T18b3b1:566 testes/typechecks passaram; entrypoint orbe-metadata local defaultof
 #### T18b3b2 — fatias operacionais
 
 - T18b3b2a done: corrigir prefixo de rota gerenciada antes de deploy, MPG-12b; [plano](../plan/T18b3b2a-HOSTED-ROUTING.md); integrador único; aceite check/negação sem rede.
-- T18b3b2b pending: helper/manifest/configuração e validação HTTP gerenciada; sem ativar ingestão financeira.
+- T18b3b2b done: helper/manifest/configuração e validação HTTP gerenciada; sem ativar ingestão financeira.
 
 T18b3b2a:567 testes/typechecks passaram. Runtime metadata aceita caminho interno prefixado pela função; core mantém default e captura opção literal no boot. Caminhos alternativos recusados antes de rede. Sem deploy novo. Próxima T18b3b2b helper/configuração/manifest e HTTP gerenciado.
+
+T18b3b2b responsável integrador único; [plano](../plan/T18b3b2b-METADATA-DEPLOY.md); aceite guards/check/HTTP negativo e financeirooff, sem prova HTTP positiva do titular.
+
+T18b3b2b:577 testes/typechecks; orbe-metadata v3 ACTIVE publicado, cinco HTTP negativos/no-store passaram e orbe-bridge continua503 nos três casos. Manifest/log separados privados, config temporária removida; nenhum ownerJWT/saldo/banco consultado. Próxima T33b1 cliente autenticado de status em fixtures; ownerHTTP positivo fica físico final.

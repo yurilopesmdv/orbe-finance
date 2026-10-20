@@ -99,3 +99,7 @@ Entrypoint local orbe-metadata delega factory com configuração no boot e fetch
 ## T18b3b2a —20/10/2026
 
 Revisão oficial de routing identificou prefixo obrigatório do nome da função no runtime. Factory metadata agora usa /orbe-metadata/connections/status; core mantém default isolado e captura opção literal no boot, inválida retorna503. Caminhos sem prefixo/outra função/sufixo/query negados antes de rede.567 testes/typechecks passaram, sem deploy/TOML novo. Fontes e próximos passos em plan/T18b3b2a-HOSTED-ROUTING.md.
+
+## T18b3b2b —20/10/2026
+
+Status metadata-only orbe-metadata v3 ACTIVE, verify_jwtfalse com Auth remoto+RPC sessão+RLS;577 testes/typechecks locais. Cinco HTTP reais: sem Bearer401, token inventado401, método405, rota financeira404, query400; todos genéricos/no-store. Ponte financeiraoff três503 confirmados. Manifest/log separados0600 fora Metro; configuração remota somente flag/chave pública, temporário removido. Nenhum usuário/sessão/saldo bancário usado nos smokes; owner positivo e nativo pendentes. Configurada false antes do primeiro deploy e true antes de redeploy; não prometer corte instantâneo via env em instâncias quentes.

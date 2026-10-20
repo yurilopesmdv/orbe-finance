@@ -75,3 +75,8 @@ enabled = false
 [functions.orbe-bridge]
 verify_jwt = false
 entrypoint = "./functions/orbe-bridge/index.mjs"
+
+# Metadata only; own Auth + active-session RPC authorize every request.
+[functions.orbe-metadata]
+verify_jwt = false
+entrypoint = "./functions/orbe-metadata/index.mjs"
