@@ -1,0 +1,52 @@
+import type { BridgeClock } from './bridge.ts';
+import type { LeasePorts, ReadScope, ReadOutcome } from './lease-rest.ts';
+interface Ports { authenticate(token: string, signal: AbortSignal): Promise<unknown>; acquire: LeasePorts['acquire']; finish: LeasePorts['finish'] }
+const record = (raw: unknown): raw is Record<string, unknown> => typeof raw === 'object' && raw !== null && !Array.isArray(raw);
+const uuid = (raw: unknown): raw is string => typeof raw === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(raw);
+import { readJsonResponse } from './http-json.ts';
+const clockDefault: BridgeClock = { now: Date.now, setTimer: (fn, ms) => setTimeout(fn, ms), clearTimer: id => clearTimeout(id as ReturnType<typeof setTimeout>) };
+class Failure extends Error { readonly status: number; readonly code: string; constructor(status: number, code: string) { super(code); this.status=status; this.code=code; } }
+function fail(status=503, code='unavailable'): never { throw new Failure(status,code); }
+const response=(status:number,body:unknown)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',Pragma:'no-cache','X-Content-Type-Options':'nosniff'}});
+function instant(value: unknown): number { if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value)))fail(); const civil = new Date(value.slice(0,10)+'T00:00:00Z'); if (!Number.isFinite(civil.getTime()) || civil.toISOString().slice(0,10)!==value.slice(0,10) || Number(value.slice(11,13))>23 || Number(value.slice(14,16))>59 || Number(value.slice(17,19))>59) fail(); return Date.parse(value); }
+export function createReadLeaseHandler(ports: Ports, options:{enabled?:boolean;fixtureOnly?:boolean;clock?:BridgeClock}={}){
+ if(options.enabled!==true||options.fixtureOnly!==true)return async(_request:Request)=>response(503,{error:'unavailable'});
+ const clock=options.clock??clockDefault;
+ return async(request:Request):Promise<Response>=>{
+  const controller=new AbortController();let timer:unknown,set=false,abort:(()=>void)|undefined,start=0,last=-1;
+  const now=()=>{const value=clock.now();if(!Number.isSafeInteger(value)||value<0||value<last)fail();last=value;return value;};
+  const fresh=(expiry=Infinity)=>{if(controller.signal.aborted||request.signal.aborted)fail(499,'request_aborted');const value=now();if(value-start>=20000)fail(504,'deadline_exceeded');if(value>=expiry)fail(401,'unauthorized');};
+  try{
+   const url=new URL(request.url);if(url.search||url.hash)fail(400,'invalid_request');
+   if(!['/reads/acquire','/reads/finalize'].includes(url.pathname))fail(404,'not_found');const acquiring=url.pathname==='/reads/acquire';
+   if(request.method!=='POST')fail(405,'method_not_allowed');
+   if(!/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(request.headers.get('content-type')??''))fail(415,'unsupported_media_type');
+   const match=/^Bearer ([A-Za-z0-9._~-]{1,8192})$/i.exec(request.headers.get('authorization')??'');if(!match)fail(401,'unauthorized');
+   start=now();fresh();const token=match[1]!;
+   const deadline=new Promise<never>((_,reject)=>{abort=()=>{controller.abort();reject(new Failure(499,'request_aborted'));};request.signal.addEventListener('abort',abort,{once:true});timer=clock.setTimer(()=>{controller.abort();reject(new Failure(504,'deadline_exceeded'));},20000);set=true;});
+   const principal=(raw:unknown)=>{if(!record(raw)||!['subject','isOwner','expiresAt'].every(key=>Object.hasOwn(raw,key))||!uuid(raw.subject)||typeof raw.expiresAt!=='number'||!Number.isSafeInteger(raw.expiresAt)||raw.expiresAt<=now())fail(401,'unauthorized');if(raw.isOwner!==true)fail(403,'forbidden');return{subject:raw.subject,expiresAt:raw.expiresAt};};
+   const work=async()=>{
+    const first=principal(await ports.authenticate(token,controller.signal));fresh(first.expiresAt);
+    let body:unknown;try{body=await readJsonResponse(new Response(request.body,{headers:request.headers}),controller.signal,16384);}catch{fresh(first.expiresAt);fail(400,'invalid_request');}fresh(first.expiresAt);
+    const keys=acquiring?'connectionId,revision':'connectionId,leaseId,outcome,revision';
+    if(!record(body)||Object.keys(body).sort().join(',')!==keys||!uuid(body.connectionId)||!Number.isSafeInteger(body.revision)||(body.revision as number)<1||!acquiring&&(!uuid(body.leaseId)||!['success','failed','cancelled'].includes(body.outcome as string)))fail(400,'invalid_request');
+    const scope:Readonly<ReadScope>=Object.freeze({ownerId:first.subject,connectionId:body.connectionId,revision:body.revision as number});
+    let output:unknown;
+    if(acquiring){
+     const result=await ports.acquire(scope,controller.signal);fresh(first.expiresAt);
+     if(result.status==='busy')output={status:'busy'};
+     else if(result.status==='cooldown'){const next=instant(result.nextReadAt);if(next<=now()||next>now()+960000)fail();output={status:'cooldown',nextReadAt:result.nextReadAt};}
+     else if(result.status==='acquired'){
+      const expires=instant(result.expiresAt),next=instant(result.nextReadAt);
+      if(!uuid(result.leaseId)||result.revision!==scope.revision||expires<=now()||expires>now()+180000||next-expires!==780000)fail();
+      output={status:'acquired',leaseId:result.leaseId,revision:result.revision,expiresAt:result.expiresAt,nextReadAt:result.nextReadAt};
+     }else fail();
+    }else{if(await ports.finish(scope,body.leaseId as string,body.outcome as ReadOutcome,controller.signal)!==true)fail(409,'read_not_available');fresh(first.expiresAt);output={status:'complete'};}
+    const final=principal(await ports.authenticate(token,controller.signal));fresh(Math.min(first.expiresAt,final.expiresAt));if(final.subject!==first.subject)fail(401,'unauthorized');
+    return response(200,output);
+   };
+   return await Promise.race([deadline,work()]);
+  }catch(error){return error instanceof Failure?response(error.status,{error:error.code}):response(503,{error:'unavailable'});}
+  finally{controller.abort();if(abort)request.signal.removeEventListener('abort',abort);if(set){try{clock.clearTimer(timer);}catch{/* No content in errors. */}}}
+ };
+}

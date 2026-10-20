@@ -750,3 +750,9 @@ T51b2c2 evidência:759 testes/typechecks/12 casos aprovados; Auth→resolver own
 MPG-18/[plano](../plan/T51b2c3-PRIVATE-BINDINGS.md), integrador único. Resolver RPC privado sob lease e porta REST em fixtures, nova migration/SQL rollback. Sem vínculo ou conexão bancária real.
 
 T51b2c3 evidência:768 testes/typechecks aprovados (7 REST+2 runner novos), migration8 aplicada/hash verificado no projeto próprio, SQL positivo/IDOR/revisão/nonce/lease expirado/binding ausente/permissões/pausa com identidades fictícias e rollback. Zero identidades restantes/owner preservado. RPCservice-only retorna apenas bindings e evidência conservadora; sem coleta/segredoPluggy/deploy. Handler transmite leaseId ao resolver, allowlist13files. T51b2c2 CI39465045891 success. Próxima T51b2c4 endpoints autenticados acquire/finalize e composição do lote; financeiro real continuaoff.
+
+## T51b2c4 — done
+
+MPG-19/[plano](../plan/T51b2c4-READ-LIFECYCLE.md), integrador único. Contrato HTTP acquire/read/finalize autenticado, integração fixture e nenhum entrypoint ativo.
+
+T51b2c4 evidência:778 testes/typechecks/10 novos casos. Ciclo HTTP fixture acquire/read/finalize integrado, Auth antes/depois/RPCscopeownerderivado, confirmaçãofinalize, busy/cooldown explícitos, body/IDOR/abort/timeout/erro genérico. Lease perdido após cancelamento expira pelo TTL, sem falsa promessa de cleanup. Allowlist15files; sem deploy/financeiroreal. Próxima T51b2c5 gateway client restrito e integração do lote/cache em memória; contextos de IDs internos precisam de registry autenticado separado.
