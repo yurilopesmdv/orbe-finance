@@ -16,3 +16,5 @@ A proteção nativa fica ativa durante a experiência Orbe, inclusive a demonstr
 Não há proteção contra câmera externa ou sistema/aplicativo comprometido. Sucesso da API/mocks não certifica captura física, controle de todo Expo Go ou ausência de telemetria do fornecedor. O controle ainda não autoriza buscar dados bancários reais. A futura composição financeira precisa validar readiness também antes de buscar/promover conteúdo, além da tela.
 
 SEC-25 e [plano](../plan/T65b1-SCREEN-PROTECTION.md). [Fonte SDK57](https://docs.expo.dev/versions/v57.0.0/sdk/screen-capture/). Screenshots event listeners, biblioteca de fotos, logs e uploads não são usados pelo Orbe para esse controle.
+
+Publicada20/10/2026: commite2bfeaa, update01a15a30-9dfd-773a-ba38-2c283d4cd2bd, CI39459277303 aprovada.710 testes/typechecks/export/scan e grafo privado1172 fontes/55 instâncias aprovados; manifesto remoto scheme/hash confere. Teste de captura/multitarefa no iPhone solicitado por texto, pendente; não enviar screenshots privados.

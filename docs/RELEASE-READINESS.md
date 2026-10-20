@@ -17,11 +17,11 @@
 
 ## Evidências executadas
 
-- `npm run check`: dois typechecks e **686 testes** locais aprovados, até T12b. Inclui acesso/RLS por fixture administrativa, limites de JSON, isolamento de sessão, status/control lifecycle, integridade monetária e relatórios.
+- `npm run check`: dois typechecks e **710 testes** locais aprovados, até T65b1. Inclui acesso/RLS por fixture administrativa, limites de JSON, isolamento de sessão, status/control lifecycle, integridade monetária e relatórios.
 - Export iOS Hermes **2,6MB** em T37b2b; token administrativo e UUID privado do titular ausentes nos25 artefatos examinados. Configuração pública do projeto é intencionalmente parte do cliente.
 - SQL real próprio: sete migrations imutáveis; testes de RLS/sessão/read-only/pausa/remoção com identidades fictícias e rollback, zero resíduos e dono preservado. Evidência detalhada em [ponte](security/BRIDGE-CORE.md). Não é teste bancário.
 - HTTP gerenciado: status anônimo401, token inventado401, método405, rota financeira404 e query400; erros genéricos/no-store. Financeirooff três503 confirmados.
-- CI do código `eb9c865` aprovada: [execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39428239529). Não confundir com CI de commit documental posterior sem conferir.
+- CI do código `e2bfeaa` aprovada: [execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39459277303). Não confundir com CI de commit documental posterior sem conferir.
 - Auditoria atual:19 pacotes afetados por duas raízes sem patch, exclusivamente exceção sintética até23/10/2026; **bloqueia dados reais**. [Detalhes](security/DEPENDENCIES.md).
 - Scanner/export/check não demonstram ausência universal de vazamento. Não houve teste de conta bancária, fornecedor autenticado, captura de tráfego nativo completo ou invasão do aparelho.
 
@@ -64,3 +64,5 @@ T10c: acesso inicial pessoal publicado/638 testes e smoke OTP fictício aprovado
 T12b publicada/CI aprovada; Keychain físico ainda pendente: [sessão lembrada sem senha salva](REMEMBERED-ACCESS.md), com SecureStore, rotação e owner/sessão verificados. Titular manteve Expo Go/orçamento zero; runtime privado financeiro será reavaliado em T65a com modo volátil, sem contratação nem supressão silenciosa dos controles.
 
 [T65a — caminho sem custos](../plan/T65a-EXPO-GO-ZERO-COST.md) registra capacidades/documentação e controles pendentes. Retomada T12b confirmada pelo titular ao alternar apps; não presumir cold restart/logout físico.
+
+T65b1 proteção nativa publicada/710 testes/CI aprovada, somente sintéticos; captura/multitarefa ainda precisam do retorno físico. [Evidência e limitações](SCREEN-PROTECTION.md).

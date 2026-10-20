@@ -709,10 +709,12 @@ SEC-24/ADR-015/[plano](../plan/T51b2a-UPSTREAM-TARGETS.md), integrador único. R
 
 T51b2a evidência:698 testes/typechecks passaram,11 novos casos/corpus de SSRF/escopo/cursor/encoding. Destino literal/conta e período vinculados; query opaca preservada e nextnull encerra. APItransações antiga obsoleta identificada na pesquisa; caminho preparado usa /v2/transactions com dateFrom/dateTo corretos, sem inventar pageSize não documentado. Sem transporte/rede/provedor real/deploy. Allowlist de funções agora9files, entrypoints ativos intocados. Próxima T65b1 proteção de tela e T51b2b transporte/normalização/owner/lease/cursor interno em fixtures.
 
-## T65b1 — doing
+## T65b1 — done
 
 SEC-25/[plano](../plan/T65b1-SCREEN-PROTECTION.md), integrador único. Proteção nativa de captura/multitarefa antes de montar telas privadas, compatível com Expo Go e sem custo. Sucesso do SDK/mocks não aprova banco real; teste físico depois da publicação.
 
 T65b1 checkpoint:710 testes/typechecks passaram,12 novos cenários. Sem APIs financeiras/serviços pagos; módulo nativo incluído no Go. Root monta Stack antes do guard, janela privada só mostra conteúdo ready+active, nativo cobre snapshot/multitarefa. Teste físico de captura ainda pendente; export/scan/CI/publicação em andamento.
 
 T65b1 validação local concluída:710 testes/typechecks/export Hermes2.6MB/scan aprovados; inspeção privada1172 fontes/55 instâncias sem duas raízes vulneráveis no cliente. Audit permanece19 afetados toolchain/mesma exceção sintética, sem novos advisories. Compatibilidade pelo SDK instalado confirmada offline; app/teste nativo publicado seguem próximos.
+
+T65b1 publicada: commite2bfeaa/CI39459277303 success/update01a15a30-9dfd-773a-ba38-2c283d4cd2bd/grupo2cfdc1b2-412b-4f30-b3c4-6d751a196f71. QR atualizado/manifesto e hash conferidos.710 testes/typechecks/export/scan; teste físico sintético de captura/multitarefa solicitado assíncrono. Não confundir publicação com homologação nativa; financeiro real segueoff. Próxima T51b2b1 preservar números monetários do JSON fornecedor sem arredondamento, ainda em fixtures.
