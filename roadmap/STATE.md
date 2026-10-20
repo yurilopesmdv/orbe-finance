@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c38 concluídas**,967 testes/typechecks aprovados; nova prévia remota update01a15bbf-7194-7ce1-8903-b8ca5ff4e0e3/commitad2dcc3 com política HTTP reforçada e prontidão de metadados. CI39518018154 success, manifesto/hash/QR conferidos. Próxima **c39** consolidar documentação operacional e eliminar instruções obsoletas de cadastro/segredos/deploy sem alterar gates. Backend v5/metadata v4; nenhuma leitura financeira real. Origem OF, fornecedor, dependências e homologação continuam pendentes.
+**c21–c39 concluídas**,967 testes/typechecks; prévia remota c38/commitad2dcc3 verificada. Guias operacionais consolidados em docs/RELEASE-READINESS.md e ACCOUNT-ACTIVATION.md; histórico preservado em TASKS/planos. Próxima **c40** revisar evidências públicas restantes do fornecedor (subprocessadores/logs/retenção/IA/origem OF) sem contato, login ou qualquer dado financeiro. Backend v5/metadata v4 e gatesfalse; nenhuma leitura financeira real.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
@@ -26,7 +26,7 @@ Backendpreparado de leitura: Auth→owner/revisão/lease→bindingprivado→Plug
 
 Descoberta prepared: Authowner→resolvepending→leaseglobal→check→AuthPluggy/itemconsent/accounts→projeção somenteIDs/moeda→reAuth/reResolve/check→commitSQLatômico. Não lê balance/name/number/owner/creditData na projeção, retorna aoHTTP somentecontagem. Conexãopermanecepending/semOF/capacidades. Deadline120s/globallease120s/cooldown900s; cancelamento/perdaresposta apóscommit pode deixar metadatapendingidempotente, não prometer rollback distribuído. Handler1inflight/close/Bearer/bodyinterno16KiB/no-store. Rede literal própria/PluggyAuthitemaccounts, cookies/headerscruzados/redirect/outroshosts recusados;128KiB sóstage/commit.
 
-`account-configuration.ts` centraliza gates/host/chaves/probeantessegredos. `account-runtime.ts` e `inventory-runtime.ts` ainda **fixtureOnly+transportinjetado**; novoentrypointfinanceiro não os importa. c29 deve introduzir modos explícitos com aprovação independente, sem burlar isso usando fixturetrue emprodução. Segredos deprov configurados na cloud exclusivamentecomflagsfalse emc36, nenhuma chamada financeira real.
+`account-configuration.ts` centraliza gates/host/chaves/probeantessegredos. `account-runtime.ts` e `inventory-runtime.ts` suportam modos explícitos fixture/live desdec29, com aprovação independente. Composição alta exige codegate+flags; entrypoint financeiro publicado permanece liveApprovedfalse. Não usar fixturetrue emprodução. Segredos deprov configurados na cloud exclusivamentecomflagsfalse emc36, nenhuma chamada financeira real.
 
 ## Supabase e segurança
 
@@ -34,7 +34,7 @@ Projeto próprio refvvaufaoahotmaocrcyij/us-east-1. **12 migrations imutáveis/h
 
 **orbe-bridge v5ACTIVE/liveApprovedfalse503**, metadata v4ACTIVE/Authowner/session/RLSsomente. Smoke ponte3off/metadados5negativos passaram. Reciboantigov1 reconciliadoparahash/version3 por downloaddereadonly, semmudançaremota. Allowlistbridge-deploy.py26files/entryexatoliveApprovedfalse/scancanários privadosPATownerExpoPluggyIDs; não redeploy porfixture. ProbeEdge comprovou decoder9007199254740993/0.29 e foi removido, semprovedor.
 
-Reais ainda nãoaprovados: origemOFporbanco, revisãofornecedor/subprocessadores/logs/retencão/exclusão, dependências e runtimeprivado/homologação. Não garantir vazamentozero/E2EE nem tratarausênciadenotícias comoaprovação. Audit19altos/0críticos/2raízes braces/node-forge sempatch na últimarevisão; exceção sósynthetic até23/10(cutoff24UTC), nãoestender ouaplicar downgradeExpo44/updates0.11. JSexport1201fontes56instâncias semraízes não certifica toolchain/nativo/EAS/fornecedor. docs/security/ACTIVATION-BLOCKERS-20261020.md temquestõesexternas nãoenviadas. Não contatarfornecedor seminstrução.
+Reais ainda nãoaprovados: origemOFporbanco, revisãofornecedor/subprocessadores/logs/retencão/exclusão, dependências e runtimeprivado/homologação. Não garantir vazamentozero/E2EE nem tratarausênciadenotícias comoaprovação. Audit19altos/0críticos/2raízes braces/node-forge sempatch na últimarevisão; exceção sósynthetic até23/10(cutoff24UTC), nãoestender ouaplicar downgradeExpo44/updates0.11. JSexportatual1205fontes56instâncias semraízes não certifica toolchain/nativo/EAS/fornecedor. docs/security/ACTIVATION-BLOCKERS-20261020.md temquestõesexternas nãoenviadas. Não contatarfornecedor seminstrução.
 
 ## Publicação, segredos e continuidade
 

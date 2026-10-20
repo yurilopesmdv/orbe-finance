@@ -1,42 +1,31 @@
-# Prontidão do Orbe —20/10/2026
+# Prontidão do Orbe — 20/10/2026
 
-**Prévia remota funcional; acesso às contas reais ainda não liberado.** Conta do titular criada, retomada sem senha e proteção de captura/multitarefa confirmadas no iPhone. O produto bancário completo não está encerrado como integração real.
+**Prévia publicada; contas bancárias reais ainda desativadas.** Este documento descreve o estado atual. Evidências anteriores permanecem em [TASKS](../tasks/TASKS.md); o roteiro de uso vigente está em [ativação](ACCOUNT-ACTIVATION.md).
 
-## Entregue
-
-| Parte | Comportamento | Limite |
+| Entrega | Evidência atual | Limite |
 |---|---|---|
-| Acesso | Ativação privada, senha e sessão lembrada via refresh token rotativo no Keychain; revalidação online ao retornar | Nenhuma senha salva; cadastro de terceiros desabilitado. FaceID indisponível no Expo Go; não exige build pago |
-| Proteção de tela | Conteúdo privado só com proteção pronta/appativo; captura e multitarefa protegidas | Dois cenários confirmados pelo titular; gravação/encerramento/outras versões não inferidos |
-| Demonstração | Gastos/carteira/metas/relatórios/filtros/classificação e valores ocultos por padrão | Dados inventados; alterações voláteis, sem rentabilidade/histórico inventados |
-| Metadados | Minhas conexões, status autenticado, pausa/remoção confirmadas no Orbe | Não revoga consentimento no banco/fornecedor; remoção exige senha recente |
-| Contas | Tela protegida e cadeia técnica Auth/owner/binding/lease/consentimentoatual/centavosexatos/cachevolátil implementadas | Testada com dados inventados; cliente3gatesfalse, backendv4liveApprovedfalse, boots com modos explícitos/codegate+flags |
-| Banco de metadados | Oito migrations imutáveis, RLS/sessão e RPCbindings service-only | Sem valores financeiros, CPF/número de conta ou credenciais do fornecedor |
+| Acesso pessoal | Conta criada; sessão lembrada por refresh token rotativo no Keychain; proprietário fixo e revalidação online | Senha não é salva; terceiros, Face ID e recuperação por e-mail desativados |
+| Proteção | Titular confirmou retomada sem senha, captura e multitarefa; consultas privadas aguardam proteção pronta/ativa | Não comprova cold restart, logout, gravação, VoiceOver, cache ou outras versões |
+| Interface | Gastos, carteira, metas, relatórios e classificação demonstrativos; conexões autenticadas de metadados | Valores demonstrativos não são dados bancários; identidade visual adiada |
+| Infraestrutura própria | 12 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v5 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
+| Credenciais | Client ID/Secret autenticados uma vez somente em POST/auth; segredos somente no backend, quatro flags financeiras false | Chave temporária não foi guardada/exibida; nenhuma leitura financeira foi feita |
+| Vínculos | Um item Mercado Pago cadastrado como pending, sem contas/capacidades/aprovação OF | Bradesco confirmado no portal pessoal, item na aplicação ainda não identificado |
+| Cadeia de contas | Leitura e descoberta preparadas com autorização, consentimento atual, lease global, centavos exatos e cancelamento | Testes com rede/dados fictícios; entrypoint liveApproved false e flags cliente/backend false |
+| Transporte iOS | Cabeçalhos no-store/no-cache/Pragma, cookies omitidos, redirects recusados e prontidão antes da consulta | Revisão da fonte instalada não certifica o binário Expo Go; [relatório](security/EXPO-FETCH-REVIEW-20261020.md) |
 
-## Evidência
+## Verificação atual
 
-934 testes/typechecks aprovados até c31, incluindo descoberta com lease global, rootunificado e canários privados. Export iOSHermes2.7MB e scan de valores privados aprovados no cliente c8. Inspeção privada1201fontes/56instâncias sem duas raízes de advisories no JS, mapas fora Metro e sem upload. Audit ainda19pacotes afetados/duasraízes sempatch, exceção **somente sintética até23/10/2026**; bloqueia liberação financeira, não usar auditfixforce.
+967 testes/typechecks aprovados (859 Node +108 Python). Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
-Migration8/hash verificados no Supabase próprio. SQL de vínculos testado com identidades fictícias e rollback: grants/IDOR/revisão/lease expirado/ausência/pausa, zero resíduos e owner preservado. Probe no Edge real confirmou decimaloriginal com números inventados e função temporária removida; nenhuma chamada ao fornecedor.
+No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração confirmada por digests; fonte de 23 arquivos bridge e cinco metadata corresponde aos recibos privados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
 
-CI/publicação/clientupdate atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md); detalhes históricos nas tasks/planos e [ACCOUNT-ACCESS](ACCOUNT-ACCESS.md). Sucesso de fixtures/scan/CI não é auditoria universal, ausência de vazamento ou homologação bancária.
+## O que falta para o primeiro saldo real
 
-## Ativação e pendências
+| Ordem | Pendência | Responsável e saída necessária |
+|---|---|---|
+| 1 | Origem Open Finance e condições do fornecedor | Evidência específica de origem por banco, subprocessadores, logs, retenção/exclusão e ausência de saídas automáticas não aprovadas. Documentação pública genérica não basta; questões registradas, nenhum contato enviado |
+| 2 | Dependências e runtime | Resolver ou mitigar formalmente duas raízes altas no tooling; validar controles nativos sem dados reais. Exceção atual só permite dados sintéticos até 23/10/2026, sem extensão implícita |
+| 3 | Liberação técnica controlada | Após os gates anteriores, mudança explícita/versionada do codegate e das flags, descoberta no backend e aprovação da conexão. Não editar verifiedAt/capacidades manualmente para simular evidência |
+| 4 | Homologação no aparelho | Conferência privada de saldo/moeda/data/parcialidade, uma conexão por vez, e roteiro final de sessão/proteção. Valores não entram em IA/MCP/logs/screenshots/documentos |
 
-[Guia único de ativação conjunta](ACCOUNT-ACTIVATION.md). Titular fará autorizações nos sites/apps oficiais e guardará credenciais privadamente, depois de revisão dos gates. Não pedir senha bancária, token/ID pelo chat ou criar conexão real apenas para testar. Original Open Finance por banco, retenção/logs/subprocessadores, exclusão, dependências/runtime, provisionamento/deploy financeiro e cobertura real ainda não concluídos. SMTP/recuperação seguem desabilitados; cores/identidade visual foram adiadas pelo titular.
-
-Testes de iPhone ficam reunidos para o final conforme pedido, sem bloquear trabalho independente: cold restart/logout, VoiceOver/texto maior, gravação/cache/rede nativos e futura comparação privada de dados. Não repetir confirmação já recebida de retomada/captura/multitarefa. Usar QR remoto; Metro/LAN/túnel/firewall não são necessários.
-
-Operação20/10: versão remota da ponte confirmada3, recibo antigo1 reconciliado somente após download read-only e hashes de index/core idênticos ao manifest histórico (coregit1f2b6a6832a1). Nenhuma alteração remota; metadata v3 ACTIVE,5negativos e financeiro3off503 aprovados. Probe temporário removido.
-
-Prévia de contas publicada20/10: update01a15a72-7573-7ea8-a2e6-e45df58e640a/commit239c7c1, CI39469588156 success, manifesto/hash/QR conferidos. [Acesso remoto](EXPO-PREVIEW.md).827 testes confirmados por contagem764Node+63Python.
-
-Perfil privado do fornecedor preparado vazio/0600 foraMetro por c13, sem chamada ao fornecedor nem solicitação de credenciais.834 testes atuais; a prévia publicada foi validada com827 testes antes deste helper administrativo não embarcado no app.
-
-Estado atual c31: orbe-bridgev4ACTIVE com liveApprovedfalse no entrypoint;7rotas sintéticas retornam503/no-store. Allowlist26fontes e scans de todos os perfis privados aprovados. Backend publicado sem carregar chavesPluggy ou consultar bancos; metadata/client/QR preservados. Perfil de credenciais técnicas preenchido e1bindingMPpending; nenhum accountbindingreal. Os parágrafos c11/c13 acima registram evidências históricas e não o estado atual de versão/preenchimento.
-
-Estado c34:958testes/typechecks; cliente/UI descoberta sobflagfalse, exportiOS/runtimeaudit1204fontes56instâncias aprovados. Credenciais técnicas locais autenticadas somente em1POSTAuth, semdadosfinanceiros ouAPIkeypersistida. Próxima prévia consolidada apósCI; leitura/descobertafinanceira real continuamoff.
-
-Prévia consolidada c35 publicada: update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/commitbe80325,958testes/CI39514871905 success/runtimeaudit1204/56/scan todosperfis. Manifesto/hashHBC/QRoficial verificados, flags financeirasfalse e nenhumtesteintermediário solicitado. [QR atual](EXPO-PREVIEW.md).
-
-Estado c36:967testes/typechecks. Backend configurado com credenciais privadas e4flagsfalse; bridgev5/metadata4 resultam da atualização automática de ambiente, com23+5fontes byteaByte iguais aosrecibos.7smokesoff e5negativosAuthmetadata passaram. Não inferir ownerpositivo/homologação/OF ou privacidade absoluta. Fonte nativa/cookies/cache/telemetria e demais gates reais continuam em revisão.
+Transações, investimentos e cofrinhos reais são fatias posteriores com adaptadores/paginação/cobertura próprios; modelos e relatórios sintéticos não significam integração entregue. Nenhum serviço pago ou build próprio é exigido automaticamente: Expo Go e orçamento zero continuam a direção vigente. Não há garantia de risco zero nem aprovação de todo o runtime/fornecedor pela quantidade de testes.

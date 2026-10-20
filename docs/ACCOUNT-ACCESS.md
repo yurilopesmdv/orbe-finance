@@ -1,5 +1,7 @@
 # Acesso às contas
 
+**Registro técnico histórico por etapa.** Estado atual consolidado em [prontidão](RELEASE-READINESS.md), roteiro vigente em [ativação](ACCOUNT-ACTIVATION.md) e QR em [EXPO-PREVIEW](EXPO-PREVIEW.md). Não usar versões/contagens antigas abaixo como estado corrente.
+
 20/10/2026. Acesso/login lembrado e proteção de captura/multitarefa confirmados pelo titular. Tela Minhas contas preparada, valores ocultos por padrão, contas correntes/pagamento separadas dos demais produtos. Nenhum banco foi conectado por esta implementação.
 
 ## Implementado e validado sem dados reais

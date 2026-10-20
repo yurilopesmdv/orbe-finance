@@ -1,6 +1,6 @@
 # Validação planejada e rastreabilidade
 
-Estado: desenho de testes, **não testes executados**. Não há código nesta etapa. Cada task técnica, após autorização, deve adicionar evidência real, ambiente, data, resultado e limites; não substituir esta matriz por afirmações genéricas de funcionamento.
+Esta matriz nasceu no planejamento e preserva cenários de aceite; não representa a execução atual. Evidências já executadas estão em [TASKS](../tasks/TASKS.md) e o resumo vigente em [prontidão](RELEASE-READINESS.md). Cada task técnica, após autorização, deve adicionar evidência real, ambiente, data, resultado e limites; não substituir esta matriz por afirmações genéricas de funcionamento.
 
 | Cenário | Requisitos rastreados | Tasks | Prova futura esperada |
 |---|---|---|---|

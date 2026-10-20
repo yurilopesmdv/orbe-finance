@@ -1,5 +1,7 @@
 # Ativação bancária: revisão objetiva de20/10/2026
 
+**Pesquisa histórica da c14, preservada para rastreabilidade.** Estado operacional vigente em [prontidão](../RELEASE-READINESS.md) e [ativação](../ACCOUNT-ACTIVATION.md): credenciais autenticadas/configuradas no backend desligado, bridge v5/metadata v4 e um vínculo MPpending, sem contas/valores coletados. O titular já conectou os bancos no portal pessoal; as instruções de preparação abaixo não devem ser repetidas.
+
 T51b2c14/MPG-29. Pesquisa pública e auditoria de dependências; nenhum acesso a conta bancária, login no fornecedor, contato enviado, contrato ou consentimento. A conta pessoal vazia e as credenciais técnicas podem ser preparadas pelo titular; autorização bancária e leitura real do Orbe permanecem pendentes.
 
 ## Bloqueios revalidados

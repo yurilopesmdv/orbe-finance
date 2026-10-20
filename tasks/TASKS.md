@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado em 16/10/2026: **Concluídas: T74, T01, T02 (20 testes), T03, T04, T05, T47, T48, T49 e T06. Próxima T07.**. Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima c40.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -964,3 +964,9 @@ T51b2c37 evidência:967 testes/typechecks aprovados; exportação iOS e auditori
 SEC-26/[plano](../plan/T51b2c38-HTTP-PREVIEW-RELEASE.md). Publicar correção iOS após CI, verificar bundle/manifesto/QR e atualizar checkpoint, sem alterar gates.
 
 T51b2c38 evidência: CI39518018154 success;967testes/typechecks/exportiOS/runtimeaudit1205/56/scan privado aprovados. Publicado update01a15bbf-7194-7ce1-8903-b8ca5ff4e0e3/grupo1dbf421d-740d-47d5-aff6-8858a3b7732e/commitad2dcc3; manifesto schemeorbe/hashHBC/linkQRoficial conferidos, PNG atualizado. Nenhuma leitura financeira ou flag alterada; sem teste intermediário. Próxima c39 consolidar documentação operacional atual, preservando evidências históricas nas tasks.
+
+## T51b2c39 — done
+
+MPG-04/05/06/07 e SEC-26/[plano](../plan/T51b2c39-OPERATIONAL-STATE.md). Consolidar estado operacional e retirar instruções já cumpridas; nenhuma mudança de gates.
+
+T51b2c39 evidência: guias de ativação/prontidão consolidados com12migrations/bridge5/metadata4/967testes/previewc38; duplicação histórica identificada sem apagar trilha das tasks. Links locais dos8documentos e diffcheck aprovados; nenhuma mudança de código/export/gates. Próxima c40 revisar evidências públicas restantes do fornecedor para reduzir lacunas de privacidade sem contato, login ou dados financeiros.
