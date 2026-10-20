@@ -23,3 +23,7 @@ Auditoria caiu de28 (10 moderados/18 altos) para18 altos, sem moderados/crítico
 ## CI T09
 
 Exceção explícita somente para os dois URLs de advisory acima, válida até23/10/2026, exclusivamente sintéticos. Script security:audit falha para novo advisory, resposta inválida ou prazo expirado; imprime quantidade restante em vez de alegar zero. Não usar continue-on-error no audit. Gate real exige resolver/mitigar e revisar essas pendências, sem herdar a exceção de desenvolvimento.
+
+## Atualização T44a —20/10/2026
+
+Publicação hospedada em ExpoGo exige expo-updates57.0.26 na CLI EAS. Instalado explicitamente sem credencial/ignore-scripts, lockfile atualizado; Expo installcheck compatível e620 testes/typechecks aprovados. Auditoria agora19 pacotes afetados pelas mesmas duas raízes altas, sem advisory novo/crítico; a exceção continua somente sintética e não libera banco real. Publisher verifica a versão instalada antes de iniciar EAS autenticado, evitando autoinstalação no processo que recebe token.

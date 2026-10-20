@@ -15,3 +15,5 @@ Fontes20/10/2026: https://docs.expo.dev/eas/cli/ (update,input-dir,skip-bundler,
 Aceite: update remoto confirmado e QR válido ExpoGo, sem Metro. Se falta sessão do titular, publicar fica pendente, nunca alegar “publicado” só pelo Git. Produto bancário completo permanece gated.
 
 Implementação: helper com operações version/account/init/publish fixas, CLI25.2.0 cacheado sem scripts antes de receber token; publicação usa cacheoffline e dist exportado pelo launcher sem token. Config estática app.json substitui app.config.ts sem lógica dinâmica, para associação EAS rastreável. Runtime sdkVersion57 explícito para Go, sem módulo nativo novo.
+
+A primeira tentativa de update exigiu expo-updates e tentou instalar em cacheoffline, falhando antes do upload. A versão57.0.26 existe no registro; instalada explicitamente em processo sem token/ignore-scripts. Publisher agora exige essa dependência instalada antes de credencial/subprocesso de upload e força ignore-scripts em filhos. Revalidar check/installcheck/audit/export/CI antes de repetir.

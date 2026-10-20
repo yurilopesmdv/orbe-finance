@@ -12,6 +12,7 @@ export function prepareEas(root, parent, authenticated, home = homedir()) {
   env.XDG_CACHE_HOME = path.join(directory, 'eas-cache');
   env.XDG_DATA_HOME = path.join(directory, 'eas-data');
   env.EAS_NO_TELEMETRY = '1';
+  env.npm_config_ignore_scripts = 'true';
   if (authenticated) {
     const file = path.join(directory, 'expo-publish.env');
     let current = file;
