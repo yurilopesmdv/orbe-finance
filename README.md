@@ -2,7 +2,7 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual:20/10/2026 — pronto para teste sintético, aceite físico pendente.** Carteira/gastos/metas/relatórios demonstrativos, login do proprietário e tela privada de status de conexões implementados. Dois typechecks,613 testes e exportação iOS aprovados. API própria de metadata publicada e validada em casos HTTP negativos; coleta financeira/Face ID desligados. Recuperação depende de SMTP comprovado. Nenhum banco conectado; o produto bancário completo ainda depende dos gates de segurança/runtime/fornecedor. [Prontidão e teste final](docs/RELEASE-READINESS.md).
+**Estado atual:20/10/2026 — prévia publicada para Expo Go, sem depender do PC.** [QR e link de acesso](docs/EXPO-PREVIEW.md). Carteira/gastos/metas/relatórios demonstrativos, login do proprietário e status das conexões disponíveis.623 testes, dois typechecks, export iOS e CI aprovados. Hotfix de inicialização publicado com schemeorbe; confirmação física pendente. Open Finance real, Face ID e recuperação por e-mail continuam desativados. [Prontidão e limites](docs/RELEASE-READINESS.md).
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 

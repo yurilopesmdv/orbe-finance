@@ -1,6 +1,6 @@
 # Prontidão do Orbe —20/10/2026
 
-**Pronto para teste sintético no iPhone; aceite físico pendente. Não pronto para uso financeiro real.** Implementação do escopo bancário completo permanece condicionada aos gates abaixo. O projeto não foi encerrado como produto integrado.
+**Prévia hospedada publicada para Expo Go; aceite físico do hotfix pendente. Não pronto para uso financeiro real.** Implementação do escopo bancário completo permanece condicionada aos gates abaixo. O projeto não foi encerrado como produto integrado.
 
 ## O que está disponível
 
@@ -17,21 +17,21 @@
 
 ## Evidências executadas
 
-- `npm run check`: dois typechecks e **613 testes** locais aprovados, até T11d. Inclui acesso/RLS por fixture administrativa, limites de JSON, isolamento de sessão, status/control lifecycle, integridade monetária e relatórios.
+- `npm run check`: dois typechecks e **623 testes** locais aprovados, até T44b. Inclui acesso/RLS por fixture administrativa, limites de JSON, isolamento de sessão, status/control lifecycle, integridade monetária e relatórios.
 - Export iOS Hermes **2,6MB** em T37b2b; token administrativo e UUID privado do titular ausentes nos25 artefatos examinados. Configuração pública do projeto é intencionalmente parte do cliente.
 - SQL real próprio: sete migrations imutáveis; testes de RLS/sessão/read-only/pausa/remoção com identidades fictícias e rollback, zero resíduos e dono preservado. Evidência detalhada em [ponte](security/BRIDGE-CORE.md). Não é teste bancário.
 - HTTP gerenciado: status anônimo401, token inventado401, método405, rota financeira404 e query400; erros genéricos/no-store. Financeirooff três503 confirmados.
-- CI do código `fb80fb8` aprovada: [execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39414272566). Não confundir com CI de commit documental posterior sem conferir.
-- Auditoria atual:18 pacotes afetados por duas raízes sem patch, exclusivamente exceção sintética até23/10/2026; **bloqueia dados reais**. [Detalhes](security/DEPENDENCIES.md).
+- CI do código `14635f1` aprovada: [execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39417861069). Não confundir com CI de commit documental posterior sem conferir.
+- Auditoria atual:19 pacotes afetados por duas raízes sem patch, exclusivamente exceção sintética até23/10/2026; **bloqueia dados reais**. [Detalhes](security/DEPENDENCIES.md).
 - Scanner/export/check não demonstram ausência universal de vazamento. Não houve teste de conta bancária, fornecedor autenticado, captura de tráfego nativo completo ou invasão do aparelho.
 
 ## Teste final no iPhone —T38b/T53/T61
 
-Ambiente preparado com `npm start -- --lan --port 8083`, launcher segregado/offline/sem telemetria CLI; não usar túnel. Endereço desta sessão: `exp://192.168.18.7:8083`, QR gerado localmente e enviado no chat. É endereço transitório de desenvolvimento, não link de produção. O host no cabo e o iPhone no Wi-Fi precisam ter comunicação permitida no roteador; estar no mesmo range de IP não comprova isso.
+Direção atual: usar [QR remoto publicado](EXPO-PREVIEW.md), sem PC/Metro/rede local. Tentativa anterior LAN foi cancelada pelo titular. Primeira atualização hospedada abriu no iPhone mas caiu por scheme ausente; hotfix define schemeorbe e foi republicado, com manifesto conferido. Confirmação física do hotfix ainda pendente.
 
 | Passo | Resultado esperado | Situação |
 |---|---|---|
-| Abrir pelo QR | Tela de demonstração sem erro do bundle/SDK | Bloqueado: titular reportou carregamento infinito |
+| Abrir pelo QR | Tela de demonstração sem erro do bundle/SDK | Primeiro remoto caiu por scheme; hotfix publicado/pendente |
 | Explorar sem login | Quatro abas, somente inventados; valores inicialmente ocultos | Pendente no aparelho |
 | Relatório→categoria→voltar | Mesmo filtro/contexto e total reconciliado; leitor de tela sem valores ocultos | Pendente no aparelho |
 | Entrar com a própria conta | Senha digitada somente no iPhone, acesso do proprietário | Pendente no aparelho |
@@ -55,8 +55,6 @@ Não enviar e-mail, senha, prints privados, tokens ou dados bancários no chat. 
 | Recuperação T11c | SMTP revisado e entrega de código não comprovados | Tarefa própria com o titular. configure-client mantém recoveryfalse e não altera template/SMTP |
 | Histórico T60c2 | Pelo menos dois snapshots patrimoniais autorizados existentes | Não gerar evolução ou rentabilidade fictícia; ausência de histórico permanece explícita |
 
-Diagnóstico após retorno: Metro escuta*:8083, status/manifest SDK57 e bundle dev5,8MB compilam no host, com PAT/ownerUUID ausentes. Titular reportou carregamento infinito; não houve aceite físico. Firewall não pôde ser lido sem sudo, estado solicitado ao titular. Ping no IP antigo sem resposta não prova firewall. Expo Go está logado (confirmado pelo titular); perfil CLI próprio offline ainda precisa ajuste.
+Histórico: a falha LAN foi substituída por publicação remota conforme pedido do titular. Metro parado; diagnóstico firewall/túnel cancelados. Primeiro remoto foi executado no aparelho e revelou erro de scheme, corrigido em T44b e reproduzido em teste da biblioteca instalada. Novo update/QR em [EXPO-PREVIEW](EXPO-PREVIEW.md). Expo Go requer conta proprietária/membro do projeto.
 
-A documentação oficial exige mesma conta no Expo Go e no CLI para iPhone físico: https://docs.expo.dev/troubleshooting/expo-go-sign-in-required/. Próxima T38c prepara login pelo navegador/perfil exclusivo e modo online explícito, sem herdar credenciais F1. Não é motivo para liberar túnel ou finanças reais.
-
-Próxima ação independente: preparar T38c e consolidar resultado físico quando o titular responder. Sem ele, T38b permanece pendente; não marcar R1 aceita. As tarefas financeiras futuras permanecem registradas, não concluídas por fixtures. [Checkpoint operacional](../roadmap/STATE.md) e [backlog](../tasks/TASKS.md).
+Próxima ação: confirmar abertura com o QR corrigido e validar login/status/VoiceOver/bloqueio no aparelho, sem banco real. As tarefas financeiras futuras permanecem registradas, não concluídas por fixtures. [Checkpoint operacional](../roadmap/STATE.md) e [backlog](../tasks/TASKS.md).

@@ -641,14 +641,16 @@ T11d:613 testes/typechecks passaram; configure-client só lê chave pública/gra
 
 T38a:613 testes/typechecks/CI fb80fb8 e export iOS/scan consolidados; Metro compilou bundle dev5.8MB sem PAT/ownerUUID, status/manifest SDK57 locais responderam. QR enviado; titular confirmou carregamento infinito no iPhone. T38b bloqueada no acesso, sem aceite físico. Readonlydiagnóstico: bind*:8083 correto, ufw exige sudo indisponível, ping no IP anterior não respondeu (não prova firewall); titular confirma ExpoGo logado. Nova exigência oficial de mesma conta no CLI documentada; próxima T38c preparar login/online segregados, sem reutilizar perfil F1.
 
-## T44a — in_progress
+## T44a — done
 
 Publicação remota para ExpoGo, UX-17; [plano](../plan/T44a-EXPO-GO-PUBLICATION.md); integrador único; usuário pediu parar teste LAN e entregar QR hospedado. Metro parado, diagnóstico firewall cancelado. T38c startonline adiado/substituído por login seguro necessário a EAS. Aceite update remoto verificado/QR, nunca só commit Git. Perfil privado Expo atual sem sessão.
 
 T44a publicada: update iOS01a1591f-8433-7135-a8b2-f03fb5c3fbec/grupo7e5f56bd-462c-4adb-b248-3a509cca68c4, preview/exposdk57.0.0/commit0cdec04. Manifest remoto e hash contra export local conferidos; download anônimo de assets negado pela CDN. Titular confirmou execução remota, mas app caiu por scheme ausente; não marcar aceite físico.
 
-## T44b — in_progress
+## T44b — done
 
 Hotfix UX-18/[plano](../plan/T44b-PUBLISHED-ROUTER-STARTUP.md), integrador único. Corrigir schemeorbe e testar cenário real de resolução de links em produção contra biblioteca instalada; check/export/CI/republicar/QRnovo.
 
 T44b:623 testes/typechecks/export iOS2.6MB passaram. Teste de biblioteca instalada reproduz erro antigo e confirma root/rotas no contexto de produção comschemeorbe. Publicador exige scheme antes de upload. Próximo CI/republicar/novo QR; aceite físico segue pendente.
+
+T44b republicada: update01a15928-0922-76d1-ac22-d49178453a15/grupo26de8237-ff89-4af7-a466-57ce795754e1/commit14635f1, iOS/preview/exposdk57.0.0.623 testes/typechecks/export/CI aprovados. Manifesto remoto confirmado com schemeorbe e hash do HBC igual ao export; QR oficial atualizado em docs/EXPO-PREVIEW.md. T38b aceite físico do hotfix pendente; financeiro real continua gated.
