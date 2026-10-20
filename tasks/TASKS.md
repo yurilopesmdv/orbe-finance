@@ -844,3 +844,9 @@ MPG-32/[plano](../plan/T51b2c17-OBSERVED-ITEM-INVENTORY.md). Corrige exigência 
 MPG-33/[plano](../plan/T51b2c18-PRIVATE-STAGING-APPLIER.md). Aplicador privado de metadados pending; nenhuma consulta financeira/provedor. ItemMP foi fornecido pelo titular; Bradesco noDashboard não comprovado.
 
 T51b2c18 evidência:855testes/typechecks (764Node+91Python),8novoscasos, checkoffline aprovado. Supabase exige revealtrue para segredo completo; permitido somente GETliteral na administração, chave apenas em memória/nuncastdout. Staging executado do único item fornecido, retorno1pending/providerCalls0/financialReads0; consulta agregada booleana confirmou exatamente1MPpending sem capacidades/OF, nenhum dado financeiro. Falha inicial de chave mascarada diagnosticada sem revelar valores, corrigida. Nenhum itemBradesco inventado/nenhum deploy ou flag alterado.
+
+## T51b2c19 — done
+
+MPG-34/[plano](../plan/T51b2c19-RESTRICTED-NETWORK.md). Rede server-only fechada por destino/credencial e gates, sem import por entrypoint ou chamadas reais.
+
+T51b2c19 evidência:863testes/typechecks (772Node+91Python),8casos novos. Destinos/métodos/credenciais fechados, offzero/headerscruzados/queryhost/body/preabort/redirect/erro genérico/integraçãoAuth preparados com rede injetada; sem chamada real, sem entrypointimport, sem mudanças nos gates/deploy/QR. CI39509599362 do aplicador c18 success. Próxima fatia técnica: inventário de contas projetado server-side para provisionar IDs internos sem coletar valores nas ferramentas; definir spec/plan antes do código, composição real ainda sujeita às revisões/gates existentes.
