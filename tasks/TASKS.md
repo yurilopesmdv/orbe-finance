@@ -804,3 +804,7 @@ T51b2c10 evidência:823 testes/typechecks/6 casos novos. Bootfixture toda cadeia
 MPG-27/[plano](../plan/T51b2c11-EDGE-EXACT-PROBE.md), integrador único. Função temporária numérica sem finanças no projeto próprio, smoke/cleanup/recibo privado, sem alterar funções existentes.
 
 T51b2c11 evidência:827 testes/typechecks (4guardas novos), Edgegerenciado exactJSONsupportedtrue com9007199254740993/0.29, funçãotemporária removida e zerochamadasprovedor. Smoke metadata5negativos e ponte3off aprovados. Drift administrativo detectado: ponte v3/recibov1; downloadreadonly index/core coincidem com hashesmanifesthistórico/coregit1f2b6a6832a1. Recibo local reconciliado após ID/version/hash, zero mudanças remotas. Ponte atualv3literalfalse, metadatav3ACTIVE. Próxima releasefinalc8 apósCI/scan (bundlejáexportado/runtimeauditpronto), QR/docs/checkpoint; gatesreais e atuação conjuntanoACCOUNT-ACTIVATION.
+
+## T51b2c12 — doing
+
+MPG-24/AUTH-16/SEC-25/[plano](../plan/T51b2c12-ACCOUNT-PREVIEW-RELEASE.md), integrador único. Publicar prévia remota da tela contasoff após CI, conferirmanifest/hash/QR e checkpoint final sem pedir teste agora.
