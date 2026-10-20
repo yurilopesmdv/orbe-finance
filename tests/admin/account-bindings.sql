@@ -112,4 +112,26 @@ do $$ begin
  if public.orbe_stage_account_bindings('00000000-0000-4000-8000-000000000111',current_setting('orbe.test_inventory_connection')::uuid,2,'60000000-0000-4000-8000-000000000111','[]') then raise exception 'inventory_paused_allowed';end if;
 end $$;
 reset role;
+-- Resolver remains private and refuses non-pending/revision/foreign owner.
+do $$ begin
+ if has_function_privilege('anon','public.orbe_resolve_pending_inventory(uuid,uuid,bigint)','execute') or has_function_privilege('authenticated','public.orbe_resolve_pending_inventory(uuid,uuid,bigint)','execute') then raise exception 'pending_resolver_client_grant';end if;
+end $$;
+set local role authenticated;
+do $$ begin
+ begin perform public.orbe_resolve_pending_inventory('00000000-0000-4000-8000-000000000111',current_setting('orbe.test_inventory_connection')::uuid,2);raise exception 'pending_resolver_client_allowed';exception when insufficient_privilege then null;end;
+end $$;
+set local role service_role;
+do $$ begin
+ if public.orbe_resolve_pending_inventory('00000000-0000-4000-8000-000000000111',current_setting('orbe.test_inventory_connection')::uuid,2) is not null then raise exception 'pending_resolver_paused';end if;
+end $$;
+reset role;
+update public.orbe_connections set state='pending' where id=current_setting('orbe.test_inventory_connection')::uuid;
+set local role service_role;
+do $$ declare context jsonb;connection_uuid uuid:=current_setting('orbe.test_inventory_connection')::uuid;begin
+ context:=public.orbe_resolve_pending_inventory('00000000-0000-4000-8000-000000000111',connection_uuid,3);
+ if context is null or context->>'itemId'<>'60000000-0000-4000-8000-000000000111' or context->>'revision'<>'3' or (select count(*) from jsonb_object_keys(context))<>4 then raise exception 'pending_resolver_context';end if;
+ if public.orbe_resolve_pending_inventory('00000000-0000-4000-8000-000000000112',connection_uuid,3) is not null then raise exception 'pending_resolver_owner';end if;
+ if public.orbe_resolve_pending_inventory('00000000-0000-4000-8000-000000000111',connection_uuid,2) is not null then raise exception 'pending_resolver_revision';end if;
+end $$;
+reset role;
 rollback;

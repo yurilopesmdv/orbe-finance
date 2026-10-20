@@ -862,3 +862,9 @@ T51b2c20 evidência:871testes/typechecks (780Node+91Python),8casosnovos. Projeç
 MPG-36/[plano](../plan/T51b2c21-ATOMIC-ACCOUNT-BINDINGS.md). Registro atômico server-only de metadados de contas em pending, sem dados reais ou ativação. Migration nova e testes SQL com identidades fictícias/rollback.
 
 T51b2c21 evidência: migration10 aplicada/hashverificado no projeto próprio; SQL rollback com privilégios/owner/revisão/item/duplicatas/PIIextra/atomicidade/repetição/UUIDinterno/moeda/vaziosemdeleção/paused aprovado, zeroidentidades restantes e ownerpreservado. Nenhuma conta real registrada;871testes/typechecks vigentes da c20. Próxima c22 resolver privado de pending para descoberta, sem entregar IDs externos ao cliente.
+
+## T51b2c22 — done
+
+MPG-37/[plano](../plan/T51b2c22-PENDING-INVENTORY-PORTS.md). Resolver SQLpendingservice-only e portasRESTprepared, rede restrita às2RPCs adicionais; sem dados reais ou entrypointfinanceiro.
+
+T51b2c22 evidência:879testes/typechecks aprovados (788Node+91Python),8casosnovos. Migration11 aplicada/hashverificado; SQL resolver privilégios/pending/owner/revisão/contexto mínimo passou comrollback/zeroresíduos/ownerpreservado. PortasREST offzero/cancelamento não cooperativo/escopos/body mínimo/rede restrita validados; nenhumrequestfinanceiro/entrypoint alterado. Próxima c23 reutilizarpipelineAuth→consentimentoitem→contas para inventário mínimo, com coordenadordedescoberta e revalidaçãoSQL antes de commit.
