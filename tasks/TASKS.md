@@ -834,3 +834,7 @@ T51b2c15 evidência:843 testes/typechecks aprovados (764Node+79Python), incluind
 MPG-31/[plano](../plan/T51b2c16-PENDING-CONNECTION-STAGING.md). RPC service-only para cadastrar apenas metadados pending e item privado, sem ativar/consultar banco. SQL isolado com identidades inventadas, nenhuma conta real.
 
 T51b2c16 evidência: migration9 aplicada/hash verificado no projeto próprio; test-account-bindings com staging privilégio/owner/instituição/nil/item duplicado/repetição/substituição/não reativação/evidências desconhecidas/sem contas passou com rollback, zero identidades restantes e proprietário preservado.34regressões administrativas e scan privado aprovados; suíte843/typechecks da c15. Nenhum item real provisionado, flag/deploy financeiro inalterado. Próxima c17 aplicador privado; IDs aguardando cópia privada pelo titular, sem solicitação pelo chat.
+
+## T51b2c17 — done
+
+MPG-32/[plano](../plan/T51b2c17-OBSERVED-ITEM-INVENTORY.md). Corrige exigência de dois IDs; versão2 aceita1a5itens/unknown sem inferir cobertura.13testes do inventário/847testes+typechecks aprovados, template legado vazio migrado sem sobrescrever IDs. Titular forneceu URL do item mostrado com produtos MP: identificador salvo só no arquivo privado, preflight1item/1identificado/0chamadasprovedor. Screenshotposterior confirma dois bancos na origem, não comprova dois itens na aplicação. RPC antiga pending não foi executada nem alterada; próxima c18 aplicador privado de staging para item conhecido, sem coleta financeira.
