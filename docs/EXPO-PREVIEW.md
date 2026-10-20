@@ -1,19 +1,17 @@
 # Abrir o Orbe no Expo Go
 
-Prévia iOS publicada20/10/2026, SDK57, sem PC/Metro/Wi-Fi local. Entre no Expo Go com a conta proprietária do projeto e escaneie:
+Prévia iOS publicada20/10/2026, SDK57, sem PC/Metro/rede local. Entre no Expo Go com a conta proprietária e escaneie quando formos testar:
 
-![QR com sessão lembrada e proteção de tela](assets/orbe-expo-go-20261020.png)
+![QR do Orbe com tela de contas preparada](assets/orbe-expo-go-20261020.png)
 
-Link direto: exp://u.expo.dev/update/01a15a30-9dfd-773a-ba38-2c283d4cd2bd
+Link direto: exp://u.expo.dev/update/01a15a72-7573-7ea8-a2e6-e45df58e640a
 
-Projeto EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0 · update01a15a30-9dfd-773a-ba38-2c283d4cd2bd · grupo2cfdc1b2-412b-4f30-b3c4-6d751a196f71 · commite2bfeaa.
+Projeto EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0 · update01a15a72-7573-7ea8-a2e6-e45df58e640a · grupo260de9bf-5ad0-460d-870a-d2a69a356e47 · commit239c7c1.
 
-**Já criou seu acesso:** entre uma vez nesta versão com **Manter meu acesso neste iPhone** ligado. A versão anterior não guardava refresh token, portanto esse primeiro login é necessário. Depois, o Orbe retoma online sem pedir senha a cada retorno, por até30dias. Não precisa recriar conta nem gerar código. [Como funciona e como sair](REMEMBERED-ACCESS.md).
+**Seu acesso já existe:** não recrie a conta nem gere outro código. A sessão lembrada no mesmo iPhone/origem é preservada conforme [Manter meu acesso](REMEMBERED-ACCESS.md). O titular já confirmou retomada sem senha e captura/multitarefa protegidas; não inferir cold restart/logout/gravação ou outras versões.
 
-**Ainda não criou seu acesso:** toque em Criar meu acesso e siga [a ativação privada](OWNER-ACCESS.md). Código temporário só no arquivo privado local, nunca no QR/chat/Git. Outros cadastros continuam desabilitados.
+**Novidade:** Meu acesso → Ver minhas contas. A tela está preparada e protegida, mas informa que a conexão bancária ainda não foi ativada. Nenhum saldo real será buscado. Cadastro de terceiros/OpenFinance real/FaceID/recuperação por e-mail continuam desabilitados; demonstração de gastos/carteira/metas/relatórios e status de conexões disponíveis. Nenhum serviço contratado; Expo Go/orçamento zero mantidos, identidade visual depois.
 
-710 testes/typechecks/export/CI aprovados ([execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39459277303)). Manifesto remoto confere schemeorbe e hash do launchAsset igual ao HBC local. Smoke refresh/rotação/logout com identidade fictícia passou e identidade foi removida. Titular confirmou retomada sem senha após alternar apps no iPhone; encerramento/reabertura do processo e logout físico ainda não testados; funcionamento relatado de prévias anteriores não homologa esse novo controle.
+827 testes/typechecks, SDKcheck, audit da exceção sintética, exportHermes2.7MB e inspeção privada1201fontes/56instâncias aprovados; [CI39469588156](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39469588156). Manifesto remoto schemeorbe/hashlaunchAsset igual ao HBC local e linkQRoficial conferidos. Mapas privados não enviados. Sem chamada financeira real por ferramentas.
 
-Disponível: demonstração de gastos/carteira/metas/relatórios, ativação/login/sessão lembrada e metadados de conexões. Senha não é persistida. Open Finance real, Face ID e recuperação por e-mail continuam desabilitados. Titular manteve Expo Go/orçamento zero; nenhum serviço contratado. Cores/identidade visual ficam posteriores. [Prontidão e gates](RELEASE-READINESS.md).
-
-**Proteção de tela T65b1:** captura/gravação e prévia na multitarefa são protegidas pelo módulo nativo. Telas privadas ficam ocultas se a preparação falhar ou enquanto o app está inativo; a demonstração continua acessível. Teste físico sintético solicitado ao titular após esta publicação; APIs/testes não provam resultado no aparelho. [Roteiro](SCREEN-PROTECTION.md).
+O decoder foi comprovado no Edge com números inventados/probe removido. Gates reais e configuração do titular continuam separados: [Acesso às contas](ACCOUNT-ACCESS.md), [Ativação conjunta](ACCOUNT-ACTIVATION.md), [prontidão](RELEASE-READINESS.md). Não pedir teste intermediário: roteiro físico restante fica reunido para o final conforme pedido do titular. Não enviar senha/token/CPF/número de conta/itemId ou imagens privadas pelo chat.

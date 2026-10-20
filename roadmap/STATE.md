@@ -4,9 +4,11 @@ Repo **/home/yurilopesm/projects/orbe-finance/main**, independente do F1. Integr
 
 ## Entrega atual e ação imediata
 
-**T51b2c1–c11 concluídas**: cadeia técnica de contas toda em fixtures;827 testes/typechecks aprovados, exportiOS2.7MB/scan, audit19mesmos/JSruntime1201fontes56instâncias semduasraízes (mapasprivados). T51b2c12 doing: publicar tela c8 no EAS após CI última verde, verificar manifesto/hash/QR, docs/checkpoint/push. Ler plan/T51b2c12-ACCOUNT-PREVIEW-RELEASE.md. Código cliente b29dab1 jáCI39467658558 success; último50283c8/CI39469420951 em andamento ao checkpoint. Backend c10 adc39cf/CI39468607516 success; c9 1c63ad7/CI39468131238 success.
+**T51b2c1–c12 concluídas nesta rodada**: cadeia técnica de contas em fixtures e tela publicada aindaoff. **827 testes/typechecks aprovados** (764Node+63Python), SDKcheck/exportiOS2.7MB/scan, audit19mesmos/JS1201fontes56instâncias semduasraízes, mapasprivados. CI39469588156 success. Links locais146 conferidos semquebra. Nenhum dado bancário real acessado.
 
-**Última prévia publicada ainda T65b1** até concluir c12: update01a15a30-9dfd-773a-ba38-2c283d4cd2bd/grupo2cfdc1b2-412b-4f30-b3c4-6d751a196f71/commite2bfeaa. QRdocs/assets/orbe-expo-go-20261020.png e docs/EXPO-PREVIEW.md serão atualizados. Não mandar QR de Metro/LAN; usuário não quer PC ligado. Não pedir teste agora.
+**Prévia atual c8/c12 publicada**: update01a15a72-7573-7ea8-a2e6-e45df58e640a/grupo260de9bf-5ad0-460d-870a-d2a69a356e47/commit239c7c1, ios/preview/runtimeexposdk57.0.0. Manifesto schemeorbe/hashHBC/linkQRoficial conferidos. QRdocs/assets/orbe-expo-go-20261020.png, docs/EXPO-PREVIEW.md. Linkexp://u.expo.dev/update/01a15a72-7573-7ea8-a2e6-e45df58e640a. Recibo/logprivados. Não mandarQRMetro/LAN nem solicitar teste agora.
+
+**Próxima fase**: gates técnicos/externos e ativação conjunta conforme docs/ACCOUNT-ACTIVATION.md. Não há credencial Pluggy/binding/consentimento reais configurados; boot de produção ainda fixtureOnly e entrypointfinanceiro literalfalse. Não afirmar acesso real concluído nem dizer que basta mudarumaenv. Revisões fornecedor/retencão/logs/OForiginal/dependências e aceite físico restante continuam pendentes; tarefas que exigem o titular só depois deste bloco sem interrupções. Preservar projeto ativo/segredos/configurações, não regenerarOTP.
 
 **Aceites físicos já recebidos**: criou conta; retomou sem senha ao alternar apps; “Captura e multitarefa protegidas”. iPhone11/iOS26.6.2/ExpoGo57.0.9/SDK57. Não repetir perguntas, não gerar OTP nem acessar senha. Não inferir coldrestart/logout/gravação/VoiceOver/cache nativo/30dias/outrasversões; ficam no roteiro final.
 

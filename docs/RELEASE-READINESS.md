@@ -28,3 +28,5 @@ CI/publicação/clientupdate atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md); detalhes
 Testes de iPhone ficam reunidos para o final conforme pedido, sem bloquear trabalho independente: cold restart/logout, VoiceOver/texto maior, gravação/cache/rede nativos e futura comparação privada de dados. Não repetir confirmação já recebida de retomada/captura/multitarefa. Usar QR remoto; Metro/LAN/túnel/firewall não são necessários.
 
 Operação20/10: versão remota da ponte confirmada3, recibo antigo1 reconciliado somente após download read-only e hashes de index/core idênticos ao manifest histórico (coregit1f2b6a6832a1). Nenhuma alteração remota; metadata v3 ACTIVE,5negativos e financeiro3off503 aprovados. Probe temporário removido.
+
+Prévia de contas publicada20/10: update01a15a72-7573-7ea8-a2e6-e45df58e640a/commit239c7c1, CI39469588156 success, manifesto/hash/QR conferidos. [Acesso remoto](EXPO-PREVIEW.md).827 testes confirmados por contagem764Node+63Python.

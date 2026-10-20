@@ -805,6 +805,8 @@ MPG-27/[plano](../plan/T51b2c11-EDGE-EXACT-PROBE.md), integrador único. Funçã
 
 T51b2c11 evidência:827 testes/typechecks (4guardas novos), Edgegerenciado exactJSONsupportedtrue com9007199254740993/0.29, funçãotemporária removida e zerochamadasprovedor. Smoke metadata5negativos e ponte3off aprovados. Drift administrativo detectado: ponte v3/recibov1; downloadreadonly index/core coincidem com hashesmanifesthistórico/coregit1f2b6a6832a1. Recibo local reconciliado após ID/version/hash, zero mudanças remotas. Ponte atualv3literalfalse, metadatav3ACTIVE. Próxima releasefinalc8 apósCI/scan (bundlejáexportado/runtimeauditpronto), QR/docs/checkpoint; gatesreais e atuação conjuntanoACCOUNT-ACTIVATION.
 
-## T51b2c12 — doing
+## T51b2c12 — done
 
 MPG-24/AUTH-16/SEC-25/[plano](../plan/T51b2c12-ACCOUNT-PREVIEW-RELEASE.md), integrador único. Publicar prévia remota da tela contasoff após CI, conferirmanifest/hash/QR e checkpoint final sem pedir teste agora.
+
+T51b2c12 publicada:827 testes/typechecks/SDK/export/audit/runtimeaudit/scan, CI39469588156 success. Update01a15a72-7573-7ea8-a2e6-e45df58e640a/grupo260de9bf-5ad0-460d-870a-d2a69a356e47/commit239c7c1, iospreview/exposdk57.0.0; manifesto schemeorbe/hashHBC/linkQRoficial conferidos, PNG atualizado. Nenhum token/mapa financeiro publicado; banco real segueoff.Links locais:146 verificados semquebra antes da publicação. Titular testa restante depois, sem nova pergunta. Pendências/gates e roteiro conjunto emACCOUNT-ACTIVATION; não chamar produto bancário de concluído.
