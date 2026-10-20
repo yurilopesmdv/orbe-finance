@@ -17,3 +17,5 @@ Gate de retomada: origem própria→refresh token rotativo→Authuser→owner→
 Testes de mocks e adaptador nativo não substituem teste físico do Keychain no aparelho. No iPhone, validar somente comportamento genérico: entrar uma vez, alternar/reabrir, retomar sem senha, sair e confirmar senha exigida depois. Não enviar tokens/senhas/prints privados pelo chat. Não conectar bancos para validar a sessão.
 
 Publicada20/10/2026: update01a15971-ed8f-7228-908b-945be1207249, commiteb9c865, CI39428239529 aprovada,686 testes/typechecks/export/scan e manifesto/hash conferidos. Teste físico segue pendente.
+
+Aceite físico20/10/2026: titular confirmou “Retomou sem pedir senha” após alternar para outro app e voltar ao Orbe publicado. Confirma fluxo de retomada/Keychain utilizado nessa experiência; não prova reabertura após encerramento do processo, logout físico,30dias de duração, screenshots ou VoiceOver.

@@ -47,7 +47,7 @@ Não enviar e-mail, senha, prints privados, tokens ou dados bancários no chat. 
 
 | Gate | O que falta | Próximo passo |
 |---|---|---|
-| Runtime privado T65–T67/FaceID | Expo Go não oferece os controles de Face ID/SQLCipher assumidos para uso real | Decisão específica de distribuição privada, chaves/armazenamento/captura e testes; não substituir silenciosamente o pedido de Expo Go |
+| Runtime privado T65–T67/FaceID | Expo Go não oferece os controles de Face ID/SQLCipher assumidos para uso real | T65a mantém Expo Go/orçamento zero e avalia memória/online; FaceID adiado, proteção de tela/cache/rede e gates ainda precisam de evidência. Não exigir pagamento nem liberar dados reais por escolha de runtime |
 | Segurança de dependências T54 | Duas raízes altas sem patch e inspeção de alcance ainda incompleta | Revisar correção/mitigação e cadeia de update; não usar auditfixforce nem herdar exceção sintética |
 | Fornecedor/privacidade T47/T51b/T52/T63/T78 | Termos/subprocessadores/retencão/logs e IDs exigidos em URLs upstream ainda sem decisão compatível com SEC-05 | Resolver contrato e desenho de rede/logs antes do adapter ativo ou consentimento |
 | Integração T18c/T19b2/T76 | Adapter real/provisionamento privado e prova de origem Open Finance | Só depois dos gates; não pedir senha bancária ou credencial Pluggy para liberar experimentalmente |
@@ -62,3 +62,5 @@ Próxima ação: criar a senha pessoal com **Criar meu acesso** no novo QR e val
 T10c: acesso inicial pessoal publicado/638 testes e smoke OTP fictício aprovado; [instruções privadas](OWNER-ACCESS.md). Cadastro público permanece fechado. Identidade visual fica para próxima etapa por decisão do titular.
 
 T12b publicada/CI aprovada; Keychain físico ainda pendente: [sessão lembrada sem senha salva](REMEMBERED-ACCESS.md), com SecureStore, rotação e owner/sessão verificados. Titular manteve Expo Go/orçamento zero; runtime privado financeiro será reavaliado em T65a com modo volátil, sem contratação nem supressão silenciosa dos controles.
+
+[T65a — caminho sem custos](../plan/T65a-EXPO-GO-ZERO-COST.md) registra capacidades/documentação e controles pendentes. Retomada T12b confirmada pelo titular ao alternar apps; não presumir cold restart/logout físico.

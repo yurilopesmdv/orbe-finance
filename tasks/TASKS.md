@@ -696,3 +696,9 @@ T12b publicada: commiteb9c865/CI39428239529 success/update01a15971-ed8f-7228-908
 SEC-23a/[plano](../plan/T54a2-NESTED-PACKAGES.md), integrador único. Corrigir versão de instâncias aninhadas no relatório, sem alteração do app nem do gate financeiro.
 
 T54a2 evidência:7 testes focados passaram; inspeção real repetida no mesmo export privado1166 fontes/54 instâncias resolveu metro-runtime0.84.5 corretamente, sem raízes vulneráveis no grafo. Suíte completa anterior686; novo caso será incluído na CI. App/QR não mudaram; próxima T65a avaliação sem custos.
+
+T12b aceite físico20/10: titular confirmou retomada sem pedir senha ao alternar apps no iPhone. Reabertura após término do processo/logout físico/30dias não foram inferidos. Continuar tasks independentes sem pedir novo aceite para cada uma.
+
+## T65a — done como avaliação, sem homologação real
+
+[Plano/matriz](../plan/T65a-EXPO-GO-ZERO-COST.md), integrador único. Orçamento zero/Expo Go preservados; senha/token protegido e primeira candidata financeira volátil/online, sem persistência em claro. FaceID adiado; suporte documental de ScreenCapture/Crypto não equivale a teste físico. T65/T63/T78 continuam incompletas. Próxima T51b2a destinos/cursor upstream em fixtures e T65b1 proteção de tela.
