@@ -63,3 +63,10 @@ test('expired session after successful HTTP does not confirm the command',async(
 test('busy command reads no second input and never sends a duplicate request',async()=>{
  const pending=deferred(),started=deferred();const f=await fixture([()=>{started.resolve();return pending.promise;}]);const first=f.commands.pause(input);await started.promise;const poison=new Proxy({}, {get(){throw new Error('sensitive');}});assert.deepEqual(await f.commands.remove(poison),{status:'busy'});assert.equal(f.calls.length,1);pending.resolve(response(true));assert.equal((await first).status,'complete');
 });
+
+test('preaborted external signal prevents configuration and remote command',async()=>{
+ const f=await fixture([]),abort=new AbortController();abort.abort();assert.deepEqual(await f.commands.remove(input,abort.signal),{status:'cancelled'});assert.equal(f.resolves(),0);assert.equal(f.calls.length,0);
+});
+test('external cancellation aborts command without locking owner and denies late confirmation',async()=>{
+ const pending=deferred(),started=deferred(),abort=new AbortController();const f=await fixture([()=>{started.resolve();return pending.promise;}]);const work=f.commands.pause(input,abort.signal);await started.promise;abort.abort();assert.deepEqual(await work,{status:'cancelled'});assert.equal(f.calls[0].init.signal.aborted,true);assert.equal(f.session.getSnapshot().state,'unlocked');pending.resolve(response(true));
+});

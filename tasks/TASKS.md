@@ -616,3 +616,10 @@ T18b3b2b:577 testes/typechecks; orbe-metadata v3 ACTIVE publicado, cinco HTTP ne
 Porta cliente de status autenticado OF-21; [plano](../plan/T33b1-CONNECTION-STATUS.md), integrador único; depende T18b3b2b/T51c/T51d; aceite check/projeção/abort sem financeiro ou UI nesta fatia.
 
 T33b1:591 testes/typechecks passaram; porta status desligada por padrão com projeção canonical/limite/ownorigin/cancel/busy. Nenhum HTTP proprietário nem tela ativada. Próxima T37b2a lifecycle de status/controles antes da UI.
+
+### T37b2 — fatias
+
+- T37b2a done: lifecycle metadata-only e abort de comandos, OF-22; [plano](../plan/T37b2a-CONNECTION-LIFECYCLE.md); integrador único; depende T33b1/T37b1; aceite check/lock/late/uncertain.
+- T37b2b pending: UI privada com confirmação de remoção, status e reautenticação; depende T37b2a. Sem cache financeiro/ingestão.
+
+T37b2a:606 testes/typechecks passaram; controller encerra ao lock/close, limpa metadata antes de ação e exige status fresco após confirmação. Comandos aceitam abort externo, resultados incertos não repetem mutação. Próxima T37b2b UI metadata-only.

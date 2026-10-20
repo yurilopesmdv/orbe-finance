@@ -10,7 +10,7 @@ const uuid = (value: unknown): value is string => typeof value === 'string' && /
 export function createConnectionCommands(session: Session, resolvePublicConfig: () => AuthConfig | null, transport: Transport, policy: { enabled?: boolean; privateDataApproved?: boolean; timeoutMs?: number } = {}) {
   const enabled = policy.enabled === true && policy.privateDataApproved === true;
   let pending = false;
-  async function run(action: 'pause'|'remove', raw: unknown): Promise<Readonly<CommandResult>> {
+  async function run(action: 'pause'|'remove', raw: unknown, external?: AbortSignal): Promise<Readonly<CommandResult>> {
     if (!enabled) return result('disabled');
     let read: Session['read'];
     try {
@@ -18,6 +18,7 @@ export function createConnectionCommands(session: Session, resolvePublicConfig: 
       read = session.read.bind(session);
     } catch { return result('locked'); }
     if (pending) return result('busy');
+    if (external?.aborted) return result('cancelled');
     let connectionId: string, revision: number;
     try {
       if (!raw || typeof raw !== 'object' || Array.isArray(raw) || Object.keys(raw).length !== 2 || !Object.hasOwn(raw,'connectionId') || !Object.hasOwn(raw,'revision')) return result('invalid_input');
@@ -29,7 +30,7 @@ export function createConnectionCommands(session: Session, resolvePublicConfig: 
     try {
       const expectedOrigin = session.getPublicOrigin();
       return await read<Readonly<CommandResult>>(async(token,parent) => {
-        if (parent.aborted) return result('cancelled');
+        if (parent.aborted || external?.aborted) return result('cancelled');
         let origin: string, publishableKey: string, timeoutMs: number;
         try {
           const config = resolvePublicConfig();
@@ -42,11 +43,11 @@ export function createConnectionCommands(session: Session, resolvePublicConfig: 
         const child = new AbortController(); let stop: (() => void) | undefined, timer: ReturnType<typeof setTimeout> | undefined;
         const interrupted = new Promise<Readonly<CommandResult>>(resolve => {
           stop = () => { child.abort(); resolve(result('cancelled')); };
-          parent.addEventListener('abort',stop,{ once:true });
+          parent.addEventListener('abort',stop,{ once:true }); external?.addEventListener('abort',stop,{ once:true });
           timer = setTimeout(()=>{ child.abort(); resolve(result('unavailable')); },timeoutMs);
         });
         try {
-          if (parent.aborted) return result('cancelled');
+          if (parent.aborted || external?.aborted) return result('cancelled');
           const operation = async(): Promise<Readonly<CommandResult>> => {
             try {
               const response = await transport(origin+'/rest/v1/rpc/'+(action === 'pause' ? 'orbe_pause_connection' : 'orbe_remove_connection'),{
@@ -55,26 +56,26 @@ export function createConnectionCommands(session: Session, resolvePublicConfig: 
               });
               const discard = () => { try { void response.body?.cancel().catch(()=>{}); } catch {} };
               try {
-                if (child.signal.aborted) return result(parent.aborted ? 'cancelled' : 'unavailable');
+                if (child.signal.aborted) return result(parent.aborted || external?.aborted ? 'cancelled' : 'unavailable');
                 if (response.redirected) return result('unavailable');
                 if (response.status === 401 || response.status === 403) throw new AuthFailure('invalid_credentials');
                 if (response.status === 429) return result('rate_limited');
                 if (response.status !== 200 || !response.ok) return result('unavailable');
                 const value = await readBoundedJson(response,child.signal,16384);
-                if (child.signal.aborted) return result(parent.aborted ? 'cancelled' : 'unavailable');
+                if (child.signal.aborted) return result(parent.aborted || external?.aborted ? 'cancelled' : 'unavailable');
                 return result(value === true ? 'complete' : value === false ? 'not_confirmed' : 'unavailable');
               } finally { discard(); }
             } catch (error) {
               if (error instanceof AuthFailure) throw error;
-              return result(parent.aborted ? 'cancelled' : 'unavailable');
+              return result(parent.aborted || external?.aborted ? 'cancelled' : 'unavailable');
             }
           };
           return await Promise.race([operation(),interrupted]);
-        } finally { clearTimeout(timer); if (stop) parent.removeEventListener('abort',stop); child.abort(); }
+        } finally { clearTimeout(timer); if (stop) { parent.removeEventListener('abort',stop); external?.removeEventListener('abort',stop); } child.abort(); }
       });
     } catch (error) {
       return result(error instanceof AuthFailure && error.code === 'invalid_credentials' ? 'locked' : error instanceof AuthFailure && error.code === 'cancelled' ? 'cancelled' : 'unavailable');
     } finally { pending = false; }
   }
-  return Object.freeze({ pause:(input:unknown)=>run('pause',input),remove:(input:unknown)=>run('remove',input) });
+  return Object.freeze({ pause:(input:unknown,signal?:AbortSignal)=>run('pause',input,signal),remove:(input:unknown,signal?:AbortSignal)=>run('remove',input,signal) });
 }
