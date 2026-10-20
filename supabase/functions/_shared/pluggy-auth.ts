@@ -1,3 +1,4 @@
+import { projectAccountInventory } from './account-inventory.ts';
 import { verifyPluggyItem } from './pluggy-item.ts';
 import { createExactJsonDecoder } from './exact-json.ts';
 import { createPluggyTargets } from './pluggy-targets.ts';
@@ -19,7 +20,7 @@ const object = (value: unknown): value is Record<string, unknown> => typeof valu
 
 /** Server-only preparation. No deployed composition enables this fixture transport. */
 function createCore(resolve: () => Configuration, options: { enabled?: boolean; fixtureOnly?: boolean; transport?: Transport; clock?: BridgeClock } = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ authenticate: async () => 'disabled' as const, readAccounts: async (_context: AccountProjectionContext, _signal: AbortSignal) => ({ status: 'disabled' as const }), close() {} });
+  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ authenticate: async () => 'disabled' as const, readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean) => ({ status: 'disabled' as const }), close() {} });
   let clientId: string, clientSecret: string, transport: Transport;
   let now: () => number, setTimer: BridgeClock['setTimer'], clearTimer: BridgeClock['clearTimer'];
   try {
@@ -28,7 +29,7 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
     clientId = id; clientSecret = secret; transport = options.transport;
     const clock = options.clock ?? systemClock;
     now = clock.now.bind(clock); setTimer = clock.setTimer.bind(clock); clearTimer = clock.clearTimer.bind(clock);
-  } catch { return Object.freeze({ authenticate: async () => 'unavailable' as const, readAccounts: async (_context: AccountProjectionContext, _signal: AbortSignal) => ({ status: 'unavailable' as const }), close() {} }); }
+  } catch { return Object.freeze({ authenticate: async () => 'unavailable' as const, readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean) => ({ status: 'unavailable' as const }), close() {} }); }
   let key: string | null = null, expiresAt = 0, lastNow = -1, epoch = 0, closed = false;
   let expiryTimer: unknown, expiryScheduled = false;
   let inFlight: { controller: AbortController; stop(): void } | null = null;
@@ -101,7 +102,7 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
         if (inFlight?.controller === controller) inFlight = null;
       }
     },
-    async readAccounts(rawContext: AccountProjectionContext, signal: AbortSignal): Promise<AccountReadResult> {
+    async readData(rawContext: AccountProjectionContext, signal: AbortSignal, inventoryMode = false): Promise<ReadDataResult> {
       if (closed) return Object.freeze({ status: 'unavailable' });
       if (signal.aborted) return Object.freeze({ status: 'cancelled' });
       if (stopRead) return Object.freeze({ status: 'busy' });
@@ -118,15 +119,15 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
       } catch { return Object.freeze({ status: 'unavailable' }); }
       const controller = new AbortController(), generation = epoch;
       let stopped = false, deadline: unknown, scheduled = false, start: number;
-      let resolveStop: (value: AccountReadResult) => void = () => {};
-      const interrupted = new Promise<AccountReadResult>(resolve => { resolveStop = resolve; });
+      let resolveStop: (value: ReadDataResult) => void = () => {};
+      const interrupted = new Promise<ReadDataResult>(resolve => { resolveStop = resolve; });
       const stop = (status: 'cancelled' | 'unavailable') => { if (stopped) return; stopped = true; controller.abort(); resolveStop(Object.freeze({ status })); };
       const cancel = () => stop('cancelled'); stopRead = cancel;
       signal.addEventListener('abort', cancel, { once: true });
       try {
         start = time(); deadline = setTimer(() => stop('unavailable'), 20000); scheduled = true;
         if (signal.aborted) cancel();
-        const work = async (): Promise<AccountReadResult> => {
+        const work = async (): Promise<ReadDataResult> => {
           let response: Response | undefined;
           try {
             if (controller.signal.aborted) return { status: 'cancelled' };
@@ -150,6 +151,11 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
             if (response.status !== 200 || !response.ok) throw Error();
             const raw = await readJsonResponse(response, controller.signal, 131072, decode);
             if (controller.signal.aborted || closed || generation !== epoch || key !== requestKey || time() >= expiresAt || time() >= evidence.expiresAt || time() - start >= 20000) throw Error();
+            if (inventoryMode) {
+              const inventory = projectAccountInventory(raw, context.itemId, { enabled: true, fixtureOnly: true });
+              if (inventory.kind !== 'inventory') throw Error();
+              return Object.freeze({ status: 'complete', inventory, consentExpiresAt: evidence.expiresAt });
+            }
             const projected = projectPluggyAccounts(raw, { ...context, sourceUpdatedAt: evidence.sourceUpdatedAt }, { enabled: true, fixtureOnly: true });
             if (projected.kind !== 'page') throw Error();
             return Object.freeze({ status: 'complete', page: projected.page, coverage: projected.coverage });
@@ -175,6 +181,9 @@ function createCore(resolve: () => Configuration, options: { enabled?: boolean; 
 
 type Projection = Extract<ReturnType<typeof projectPluggyAccounts>, { kind: 'page' }>;
 export type AccountReadResult = Readonly<{ status: Exclude<PluggyAuthStatus, 'ready'> }> | Readonly<{ status: 'complete'; page: Projection['page']; coverage: Projection['coverage'] }>;
+type Inventory = Extract<ReturnType<typeof projectAccountInventory>, { kind: 'inventory' }>;
+export type InventoryReadResult = Readonly<{ status: Exclude<PluggyAuthStatus, 'ready'> }> | Readonly<{ status: 'complete'; inventory: Inventory; consentExpiresAt: number }>;
+type ReadDataResult = AccountReadResult | InventoryReadResult;
 type Options = Parameters<typeof createCore>[1];
 export function createPluggyAuthPort(resolve: () => Configuration, options: Options = {}): Readonly<PluggyAuthPort> {
   const core = createCore(resolve, options);
@@ -183,5 +192,30 @@ export function createPluggyAuthPort(resolve: () => Configuration, options: Opti
 /** Fixture-only internal provider port; caller must establish owner/session/lease. */
 export function createPluggyAccountsPort(resolve: () => Configuration, options: Options = {}) {
   const core = createCore(resolve, options);
-  return Object.freeze({ readAccounts: core.readAccounts, close: core.close });
+  return Object.freeze({
+    async readAccounts(context: AccountProjectionContext, signal: AbortSignal): Promise<AccountReadResult> {
+      const result = await core.readData(context, signal, false);
+      if (result.status !== 'complete') return result;
+      return 'page' in result ? result : Object.freeze({ status: 'unavailable' });
+    },
+    close: core.close,
+  });
+}
+
+/** Prepared private metadata port, separate from the public financial DTO factory. */
+export function createPluggyInventoryPort(resolve: () => Configuration, options: Options = {}) {
+  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ readInventory: async (_context: unknown, _signal: AbortSignal): Promise<InventoryReadResult> => ({ status: 'disabled' }), close() {} });
+  const core = createCore(resolve, options);
+  return Object.freeze({
+    async readInventory(raw: { itemId: string; connectionId: string }, signal: AbortSignal): Promise<InventoryReadResult> {
+      try {
+        if (!object(raw) || !Object.hasOwn(raw, 'itemId') || !Object.hasOwn(raw, 'connectionId')) return Object.freeze({ status: 'unavailable' });
+        const context: AccountProjectionContext = { itemId: raw.itemId, connectionId: raw.connectionId, bindings: [], sourceUpdatedAt: null, coverageApproved: false };
+        const result = await core.readData(context, signal, true);
+        if (result.status !== 'complete') return result;
+        return 'inventory' in result ? result : Object.freeze({ status: 'unavailable' });
+      } catch { return Object.freeze({ status: 'unavailable' }); }
+    },
+    close: core.close,
+  });
 }

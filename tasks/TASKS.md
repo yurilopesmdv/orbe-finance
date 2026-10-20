@@ -868,3 +868,9 @@ T51b2c21 evidência: migration10 aplicada/hashverificado no projeto próprio; SQ
 MPG-37/[plano](../plan/T51b2c22-PENDING-INVENTORY-PORTS.md). Resolver SQLpendingservice-only e portasRESTprepared, rede restrita às2RPCs adicionais; sem dados reais ou entrypointfinanceiro.
 
 T51b2c22 evidência:879testes/typechecks aprovados (788Node+91Python),8casosnovos. Migration11 aplicada/hashverificado; SQL resolver privilégios/pending/owner/revisão/contexto mínimo passou comrollback/zeroresíduos/ownerpreservado. PortasREST offzero/cancelamento não cooperativo/escopos/body mínimo/rede restrita validados; nenhumrequestfinanceiro/entrypoint alterado. Próxima c23 reutilizarpipelineAuth→consentimentoitem→contas para inventário mínimo, com coordenadordedescoberta e revalidaçãoSQL antes de commit.
+
+## T51b2c23 — done
+
+MPG-38/[plano](../plan/T51b2c23-PROVIDER-INVENTORY.md). Pipelineinterno compartilhado para inventário mínimo com consentimento, API financeira existente preservada; zero rede real.
+
+T51b2c23 evidência:887testes/typechecks (796Node+91Python),8casosnovos. PipelineúnicoAuth→itemconsent→accounts preserva DTO financeiro existente e projeta inventáriomínimo; offzero/contextoinválido/consentexpirado/durantecoleta/close/abort/chavecacheprivada aprovados com rede fictícia. Nenhum tokenfornecedor exposto ou entrada ativa alterada. Próxima c24 coordenador com Auth/owner/resolverrecheck/store e resultado somentecontagem.
