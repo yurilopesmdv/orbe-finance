@@ -768,3 +768,9 @@ T51b2c5 evidência:786 testes/typechecks/8 novos casos. Integração HTTPfixture
 MPG-21/[plano](../plan/T51b2c6-ACCOUNT-REGISTRY.md), integrador único. Registry interno por RLS e transporte compartilhado com operações fixas; sem valores financeiros ou IDs externos.
 
 T51b2c6 evidência:793 testes/typechecks/7 casos novos, gateway29c/regressões preservados. Registry GETliteral sóid/connection_id sob RLSsessãoowner, limite1000/duplicata/UUID/erro/401/429/abort/timeout, sem IDs externos/valores/ownerURL. shared session-json fecha destinos e mantém origem/cancelamento. Sem runtimeimport/publicação. Próxima T51b2c7a seleção explícita de produtos em lote para ler somente contas sem adulterar capabilities, depois c7b controlador readiness/cache e integração UIoff.
+
+## T51b2c7a — done
+
+MPG-22/[plano](../plan/T51b2c7a-PRODUCT-SCOPE.md), integrador único. Seleção explícita para iniciar acesso por contas sem falsificar capacidades dos demais produtos.
+
+T51b2c7a evidência:799 testes/typechecks/6 casos novos. Seleção accounts-only percorre3camadas sem contextos extras/capabilities falsas e mantém ledger não solicitado; inválidos não adquirem lease, mutação após await não amplia produtos. Default continua todos legíveis e resumo parcial explicita omissão. Próxima c7b controlador readiness/cache.

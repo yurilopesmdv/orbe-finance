@@ -146,3 +146,13 @@ test('malformed or different-revision grant cannot start a page or touch staging
     assert.equal((await f.run()).status, 'failed'); assert.equal(f.stageCount(), 0); assert.equal(f.promotions(), 0); assert.equal(f.clears(), 0);
   }
 });
+
+test('explicit accounts scope does not alter upstream capabilities and reports omitted products',async()=>{
+ const raw=metadata({capabilities:{accounts:true,transactions:true,investments:true,reserves:true}}),f=fixture({}, {products:['accounts']});const result=await f.run(raw);assert.equal(result.status,'complete');assert.equal(result.partial,true);assert.deepEqual(result.products.map(p=>p.product),['accounts']);assert.deepEqual(raw.capabilities,{accounts:true,transactions:true,investments:true,reserves:true});assert.ok(!f.calls.some(v=>v.includes('transactions')));
+});
+test('invalid empty duplicate unknown or unavailable selection never acquires',async()=>{
+ for(const products of [[],['accounts','accounts'],['unknown'],['transactions'],null]){const f=fixture({}, {products});assert.equal((await f.run()).status,'failed');assert.deepEqual(f.calls,[]);}
+});
+test('requested products are captured before awaiting acquisition',async()=>{
+ const products=['accounts'];let resolve;const f=fixture({acquire:()=>new Promise(r=>resolve=r)},{products});const work=f.run(metadata({capabilities:{accounts:true,transactions:true,investments:false,reserves:false}}));products.push('transactions');resolve(grant());const result=await work;assert.equal(result.status,'complete');assert.deepEqual(result.products.map(p=>p.product),['accounts']);
+});

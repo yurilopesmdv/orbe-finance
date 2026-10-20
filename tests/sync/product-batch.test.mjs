@@ -66,3 +66,10 @@ test('partial window preserves manual category correction and exposes product co
 test('expected local owner scope is checked before transport rather than inferred from contexts',async()=>{
  const f=fixture();const result=await runProductBatch(f.metadata,f.contexts,f.stores,f.transport,{...f.options,expectedOwnerSubject:accountId});assert.equal(result.status,'failed');assert.deepEqual(f.calls,[]);
 });
+
+test('accounts-only scope requires no other contexts and preserves unrequested ledger',async()=>{
+ const f=fixture();f.options.products=['accounts'];for(const name of ['transactions','investments','reserves'])delete f.contexts[name];const result=await f.run();assert.equal(result.status,'complete');assert.equal(result.partial,true);assert.deepEqual(result.publishedProducts,['accounts']);assert.deepEqual(f.calls,['acquire','accounts','finalize']);assert.equal(f.ledger().summary.netCents,100);assert.equal(f.metadata.capabilities.transactions,true);
+});
+test('invalid product subset fails before lease or touching previous stores',async()=>{
+ for(const products of [[],['accounts','accounts'],['unknown']]){const f=fixture();f.options.products=products;assert.equal((await f.run()).status,'failed');assert.deepEqual(f.calls,[]);assert.equal(f.assets().summary.subtotalCents,100);}
+});

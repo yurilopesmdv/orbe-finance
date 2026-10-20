@@ -1,3 +1,4 @@
+import { selectReadProducts } from './product-scope.ts';
 import { normalizeConnection, type ConnectionProduct } from '../../domain/connections.ts';
 import { runReadBatch, type BatchResult, type BatchClock, type BatchScope, type PageRequest } from './read-batch.ts';
 import { createAccountStager } from './account-staging.ts';
@@ -24,7 +25,7 @@ const contextFields = {
 } as const;
 const object = (value: unknown): value is Record<string,unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 function invalid(): never { throw new Error('invalid_product_batch'); }
-export async function runProductBatch(rawMetadata: unknown, contexts: unknown, stores: ProductStores, transport: ProductTransport, options: { enabled?: boolean; privateDataApproved?: boolean; assertCurrent?: () => void; signal?: AbortSignal; clock?: BatchClock; expectedOwnerSubject?: string } = {}): Promise<ProductBatchResult> {
+export async function runProductBatch(rawMetadata: unknown, contexts: unknown, stores: ProductStores, transport: ProductTransport, options: { enabled?: boolean; privateDataApproved?: boolean; assertCurrent?: () => void; signal?: AbortSignal; clock?: BatchClock; expectedOwnerSubject?: string; products?: readonly ConnectionProduct[] } = {}): Promise<ProductBatchResult> {
   const published: ConnectionProduct[] = [];
   const result = (value: BatchResult): ProductBatchResult => Object.freeze({ ...value,publishedProducts:Object.freeze([...published]) });
   if (options.enabled !== true || options.privateDataApproved !== true) return result({ status:'disabled' });
@@ -38,12 +39,13 @@ export async function runProductBatch(rawMetadata: unknown, contexts: unknown, s
     const clock = options.clock, expectedOwnerSubject = options.expectedOwnerSubject;
     const metadata = normalizeConnection(rawMetadata,{ integrationEnabled:true,privateDataApproved:true,now:clock ? clock.now() : Date.now() });
     if (metadata.kind !== 'connection' || metadata.readableProducts.length === 0) return result({ status:'unavailable' });
+    const selectedProducts = selectReadProducts(metadata.readableProducts, options.products);
     if (!object(contexts) || !Object.hasOwn(contexts,'ownerSubject')) return invalid();
     const ownerSubject = contexts.ownerSubject;
     if (typeof ownerSubject !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(ownerSubject)) return invalid();
     if (expectedOwnerSubject !== undefined && ownerSubject !== expectedOwnerSubject) return invalid();
     const approved = { enabled:true,privateDataApproved:true };
-    for (const product of metadata.readableProducts) {
+    for (const product of selectedProducts) {
       if (!Object.hasOwn(contexts,product)) return invalid();
       const raw = contexts[product];
       if (!object(raw) || contextFields[product].some(key => !Object.hasOwn(raw,key))) return invalid();
@@ -74,13 +76,13 @@ export async function runProductBatch(rawMetadata: unknown, contexts: unknown, s
       },
       finalize:(scope,child)=>finalize.call(transport,scope,child),
       promote(fresh,child): undefined {
-        for (const product of metadata.readableProducts) {
+        for (const product of selectedProducts) {
           fresh(); if (child.aborted) return invalid();
           stagers.get(product)!.promote(fresh,child); published.push(product);
         }
       },
       clearStaging:clear,
-    },{ ...approved,assertCurrent,signal,clock }));
+    },{ ...approved,assertCurrent,signal,clock,products:selectedProducts }));
   } catch { return result({ status:'failed' }); }
   finally { clear(); }
 }

@@ -56,3 +56,7 @@ test('invalid local factory UUID and subscription failures expose only generic e
  const ready={assertUnlocked(){},getSnapshot:()=>({state:'unlocked'}),subscribe(){return()=>{};}};for(const factory of [()=> 'not-uuid',()=>{throw new Error('PRIVATE_SYNTHETIC');}])assert.throws(()=>createSyncSession(ready,factory,approved),/^Error: sync_session_unavailable$/);
  assert.throws(()=>createSyncSession({...ready,subscribe(){throw new Error('PRIVATE_SYNTHETIC');}},()=>scopeId,approved),/^Error: sync_session_unavailable$/);
 });
+
+test('session cache forwards explicit product scope without requiring other product contexts',async()=>{
+ const f=await fixture();f.metadata.capabilities.transactions=true;f.options.products=['accounts'];assert.equal((await f.run()).status,'complete');assert.deepEqual(f.calls,['acquire','read','finalize']);assert.equal(f.cache.queryAssets({},true).summary.subtotalCents,100000);f.cache.close();
+});

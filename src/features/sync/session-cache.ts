@@ -1,3 +1,4 @@
+import type { ConnectionProduct } from '../../domain/connections.ts';
 import { MemoryAssets } from '../../data/local/assets.ts';
 import { MemoryLedger } from '../../data/local/ledger.ts';
 import type { MovementFilters } from '../../data/local/query.ts';
@@ -14,7 +15,7 @@ export interface SyncSession {
   getSnapshot(): Readonly<{ state: 'active' | 'closed'; running: boolean }>;
   queryAssets(filters?: Parameters<MemoryAssets['list']>[0], sourceComplete?: boolean): ReturnType<MemoryAssets['list']>;
   queryMovements(filters: MovementFilters, sourceComplete?: boolean): ReturnType<MemoryLedger['list']>;
-  run(metadata: unknown, contexts: unknown, transport: ProductTransport, options?: { clock?: BatchClock }): Promise<ProductBatchResult>;
+  run(metadata: unknown, contexts: unknown, transport: ProductTransport, options?: { clock?: BatchClock; products?: readonly ConnectionProduct[] }): Promise<ProductBatchResult>;
   cancel(): void;
   close(): void;
 }
@@ -53,12 +54,12 @@ export function createSyncSession(session: SessionAccess, scopeFactory: () => st
       getSnapshot:()=>Object.freeze({ state:closed ? 'closed' as const : 'active' as const,running:active !== undefined }),
       queryAssets(filters: Parameters<MemoryAssets['list']>[0] = {}, sourceComplete = false) { assertCurrent(); return assetStore.list(filters,sourceComplete); },
       queryMovements(filters: MovementFilters, sourceComplete = false) { assertCurrent(); return ledgerStore.list(filters,sourceComplete); },
-      async run(metadata: unknown, contexts: unknown, transport: ProductTransport, options: { clock?: BatchClock } = {}): Promise<ProductBatchResult> {
+      async run(metadata: unknown, contexts: unknown, transport: ProductTransport, options: { clock?: BatchClock; products?: readonly ConnectionProduct[] } = {}): Promise<ProductBatchResult> {
         try { assertCurrent(); } catch { return outcome('cancelled'); }
         if (active) return outcome('busy');
         const controller = new AbortController(); active = controller;
         try {
-          return await runProductBatch(metadata,contexts,{ assets:assetStore,ledger:ledgerStore },transport,{ enabled:true,privateDataApproved:true,assertCurrent,signal:controller.signal,clock:options.clock,expectedOwnerSubject:scopeId });
+          return await runProductBatch(metadata,contexts,{ assets:assetStore,ledger:ledgerStore },transport,{ enabled:true,privateDataApproved:true,assertCurrent,signal:controller.signal,clock:options.clock,products:options.products,expectedOwnerSubject:scopeId });
         } catch { return Object.freeze({ status:'failed',publishedProducts:Object.freeze([]) }); }
         finally { controller.abort(); if (active === controller) active = undefined; }
       },

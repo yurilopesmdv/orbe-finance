@@ -1,3 +1,4 @@
+import { selectReadProducts } from './product-scope.ts';
 import { normalizeConnection, type ConnectionProduct } from '../../domain/connections.ts';
 import { occurrenceMonth } from '../../domain/money.ts';
 export interface BatchClock { now(): number; setTimer(callback: () => void, milliseconds: number): unknown; clearTimer(handle: unknown): void }
@@ -34,7 +35,7 @@ function instant(value: unknown): string {
 function validCursor(value: unknown): value is string | null { return value === null || typeof value === 'string' && value.length > 0 && value.length <= 512 && !/[\u0000-\u001f\u007f]/.test(value); }
 const defaultClock: BatchClock = { now: () => Date.now(), setTimer: (callback, ms) => setTimeout(callback, ms), clearTimer: handle => clearTimeout(handle as ReturnType<typeof setTimeout>) };
 
-export async function runReadBatch(rawConnection: unknown, ports: BatchPorts, options: { enabled?: boolean; privateDataApproved?: boolean; assertCurrent?: () => void; signal?: AbortSignal; clock?: BatchClock } = {}): Promise<BatchResult> {
+export async function runReadBatch(rawConnection: unknown, ports: BatchPorts, options: { enabled?: boolean; privateDataApproved?: boolean; assertCurrent?: () => void; signal?: AbortSignal; clock?: BatchClock; products?: readonly ConnectionProduct[] } = {}): Promise<BatchResult> {
   if (options.enabled !== true || options.privateDataApproved !== true) return Object.freeze({ status: 'disabled' });
   let controller: AbortController | undefined;
   let parent: AbortSignal | undefined, abort: (() => void) | undefined;
@@ -50,6 +51,7 @@ export async function runReadBatch(rawConnection: unknown, ports: BatchPorts, op
     clock = options.clock ?? defaultClock;
     const metadata = normalizeConnection(rawConnection, { integrationEnabled: true, privateDataApproved: true, now: clock.now() });
     if (metadata.kind !== 'connection' || metadata.readableProducts.length === 0) return Object.freeze({ status: 'unavailable' });
+    const selectedProducts = selectReadProducts(metadata.readableProducts, options.products);
     const scope = Object.freeze({ connectionId: metadata.id, revision: metadata.revision });
     controller = new AbortController(); const root = controller;
     let deadline = Infinity;
@@ -85,7 +87,7 @@ export async function runReadBatch(rawConnection: unknown, ports: BatchPorts, op
     assertFresh(); staged = true;
     leaseTimer = clock.setTimer(abort, Math.max(1, deadline - clock.now())); leaseTimerSet = true;
     const summaries: ProductReadSummary[] = [];
-    for (const product of metadata.readableProducts) {
+    for (const product of selectedProducts) {
       const seen = new Set<string>(); let cursor: string | null = null, pages = 0, rows = 0, partial = false, authoritative = true;
       let sourceUpdatedAt: string | null | undefined; let consistentSource = true;
       while (true) {
@@ -113,7 +115,7 @@ export async function runReadBatch(rawConnection: unknown, ports: BatchPorts, op
     assertFresh();
     if (await request(signal => ports.finalize(Object.freeze({ ...scope, leaseId }), signal)) !== true) invalid();
     assertFresh(); if (ports.promote(assertFresh, root.signal) !== undefined) invalid(); assertFresh();
-    return Object.freeze({ status: 'complete', partial: metadata.state === 'partial' || summaries.some(value => value.partial || !value.authoritative), products: Object.freeze(summaries.map(value => Object.freeze({ ...value }))) });
+    return Object.freeze({ status: 'complete', partial: selectedProducts.length < metadata.readableProducts.length || metadata.state === 'partial' || summaries.some(value => value.partial || !value.authoritative), products: Object.freeze(summaries.map(value => Object.freeze({ ...value }))) });
   } catch (error) {
     return Object.freeze({ status: error instanceof Failure ? error.status : 'failed' });
   } finally {
