@@ -20,3 +20,5 @@ No dispositivo, a ativação verifica OTP/identidade/owner antes de atualizar se
 Recuperação por e-mail continua desligada até entrega comprovada. O helper privado pode gerar novo código para o titular sem SMTP. Nenhuma conexão bancária, dado financeiro real ou Face ID foi habilitado por essa alteração. AUTH-14/15 e ADR-013 definem o contrato.
 
 Validação20/10/2026: typechecks/638 testes locais e export iOS passaram. Smoke remoto com identidade fictícia confirmou formato OTP, verificação, atualização de senha, logout e login novo; não proprietário permaneceu negado e identidade foi removida. A senha do titular não foi acessada nem alterada. Teste positivo do titular depende da etapa no iPhone.
+
+Retorno20/10/2026: titular confirmou criação do acesso pelo aplicativo. Senha permanece somente com ele; confirmação não equivale à homologação de login/status/FaceID ou conexão bancária. Não renovar códigos sem solicitação.

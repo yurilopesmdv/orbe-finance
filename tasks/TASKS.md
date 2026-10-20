@@ -666,3 +666,13 @@ Ativação inicial privada AUTH-14/15/ADR-013; [plano](../plan/T10c-PRIVATE-OWNE
 T10c checkpoint20/10: AUTH-14/15 + ADR-013; helper privado com 8 testes, tela de ativação e confirmação/limpeza, porta futura desligada com 7 testes. Typechecks e638 testes passaram; export iOS Hermes2.6MB aprovado. Smoke real exclusivamente fictício: generate_link recovery→OTP→senha→logout→login; não owner negado/metadata bloqueada e identidade removida. Owner/senha real intactos, signup continua fechado. Próximo: commit/push/CI/publicação/QR, então código privado.
 
 T10c entregue: commit794f307/CI39420200892 success; update01a15939-90d3-7433-8804-eed6baa9a1b1/grupo62650c45-ab2a-49e4-87f9-f048fee8aefe, QR atualizado e manifesto/hash conferidos. Arquivo de ativação do proprietário gerado privadamente após publicar, sem ler/definir sua senha, conteúdo fora de Git/Metro/chat. Próximo uso é do titular no iPhone: definir senha e login; não declarar aceite físico específico antes do retorno. Cadastro público continua desligado; cores/identidade posteriores.
+
+## T10c — aceite de criação informado pelo titular
+
+20/10/2026: titular confirmou que criou a conta/acesso no iPhone. Não presumir teste de login/status/VoiceOver/captura a partir dessa confirmação. Código temporário já não precisa ser renovado; não consultar senha nem conteúdo do arquivo privado.
+
+## T51b1 — done
+
+MPG-13/SEC-05/12; [plano](../plan/T51b1-PLUGGY-AUTH.md). Integrador único; autenticação server-side isolada, fixtures e chave em memória sem retorno. T51b/T18c inteiras seguem abertas. Titular confirmou orçamento zero e preferência por manter Expo Go; avaliar modo somente memória/senha em T65a, sem prometer FaceID nem aprovar dados reais.
+
+T51b1 evidência: 657 testes/typechecks passaram;19 casos novos de autenticação/isolamento. Nenhuma chamada Pluggy real, SDK financeiro, alteração de entrypoint ou publicação remota. Chave não sai da porta e cache expira119min. Próxima T54a: inventário verificável do bundle e dependências; depois T65a avaliação Expo Go sem custo.
