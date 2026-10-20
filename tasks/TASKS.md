@@ -798,3 +798,9 @@ T51b2c9 evidência:817 testes/typechecks/7 novos casos. Auth→GETitem→GETacco
 MPG-26/[plano](../plan/T51b2c10-BACKEND-COMPOSITION.md), integrador único. Boot backendfixture fecha todas as portas e rotas sob ownproject/flags, sem mudar entrypointfinanceirooff.
 
 T51b2c10 evidência:823 testes/typechecks/6 casos novos. Bootfixture toda cadeiaAuthowner/lease/RPCbinding/itemconsent/accounts29c/finalize, ownproject literal/3flags/offsemsecrets, prefixorotas fechado, cap4/closeabort/noPII. Allowlist17files, entrypointpublicadov1off intacto. Próxima c11 probe decimalexato no Edge real sem banco/segredo de fornecedor, cleanup; guia/publishclientfinal.
+
+## T51b2c11 — done
+
+MPG-27/[plano](../plan/T51b2c11-EDGE-EXACT-PROBE.md), integrador único. Função temporária numérica sem finanças no projeto próprio, smoke/cleanup/recibo privado, sem alterar funções existentes.
+
+T51b2c11 evidência:827 testes/typechecks (4guardas novos), Edgegerenciado exactJSONsupportedtrue com9007199254740993/0.29, funçãotemporária removida e zerochamadasprovedor. Smoke metadata5negativos e ponte3off aprovados. Drift administrativo detectado: ponte v3/recibov1; downloadreadonly index/core coincidem com hashesmanifesthistórico/coregit1f2b6a6832a1. Recibo local reconciliado após ID/version/hash, zero mudanças remotas. Ponte atualv3literalfalse, metadatav3ACTIVE. Próxima releasefinalc8 apósCI/scan (bundlejáexportado/runtimeauditpronto), QR/docs/checkpoint; gatesreais e atuação conjuntanoACCOUNT-ACTIVATION.

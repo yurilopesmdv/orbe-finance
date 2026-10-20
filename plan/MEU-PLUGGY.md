@@ -25,10 +25,12 @@ A infraestrutura da ponte pode ter custo mesmo com acesso pessoal gratuito. Nenh
 
 ## Continuidade
 
-T74/T01 concluídas documentalmente; próxima task T02. Execução sequencial autorizada. Ao retomar, ler STATE, SPEC-009 e pesquisa pública; revisar alertas/cobertura na data do desenvolvimento. Nenhum scan de dependências do Orbe rodou, pois não há dependências/lockfile. Pesquisa pública não é teste de integração.
+Estado vigente em [STATE](../roadmap/STATE.md). Em20/10/2026, demonstração/Auth/metadados publicados, sessão lembrada/captura/multitarefa confirmadas pelo titular, cadeia técnica de saldos em fixtures e tela Minhas contas preparada. Oito migrations próprias aplicadas e decoder numérico comprovado no Edge com probe temporário removido. Auditoria19afetados mantém exceção exclusivamente sintética; financeirorealoff. Não retomar pela antiga indicação T02/T01 nem afirmar que não há código/lockfile.
+
+[Ativação conjunta](../docs/ACCOUNT-ACTIVATION.md) separa configuração do titular de gates técnicos/externos. Continuar tarefas sem depender de teste físico intermediário, registrar checkpoint e nunca conectar banco/contratar serviço automaticamente.
 
 ## Contrato aplicável
 
 [T74](T74-BRIDGE-CONTRACT.md) define a ponte sem persistência financeira, Supabase Auth/Functions e metadados sob RLS. Webhook/cron desligados inicialmente. Atualização bancária no fornecedor independe do app; cache local consulta ao abrir/retomar desbloqueado. O contrato prevalece sobre hipóteses anteriores de worker e relatórios no servidor.
 
-[T01](T01-RUNTIME-STRUCTURE.md) fixa SDK57 e Node22.23.2/npm12.2.0 para o cliente confirmado pelo proprietário. T02 é a próxima task; não adotar latest ou alterar o ambiente global.
+[T01](T01-RUNTIME-STRUCTURE.md) fixa SDK57 e Node22.23.2/npm12.2.0 para o cliente confirmado pelo proprietário. Consultar STATE para próxima task; não adotar latest ou alterar o ambiente global.

@@ -6,7 +6,7 @@
 
 Status autenticado → registry de IDs internos sob RLS → lote acquire → Auth/owner/vínculo/revisão/lease → autenticação técnica privada → leitura limitada e decoder decimal exato → DTO sem PII → Auth/lease novamente → finalize → cache volátil. Perda de sessão/proteção/atividade cancela e purga memória; token salvo no Keychain é exclusivamente de acesso Orbe, não financeiro. Não há senha bancária no app nem valores persistidos. Fonte/data/relação desconhecidas permanecem desconhecidas, cobertura parcial não vira patrimônio total.
 
-Gates separados no cliente: accountReadsEnabled, liveIntegrationEnabled, privateFinancialDataApproved, todosfalse. Factoryoff não instancia readers/gateway/cache/UUID nem rede. Backend orbe-bridge publicado continua v1 literalfalse. Código fornecedor permanece fixtureOnly; não habilitar um flag sozinho como atalho. ExpoCrypto57.0.4 só gera namespaceUUIDlocal depois dos guards; não introduz persistência/criptografia financeira. [SDK57 incluídoGo](https://docs.expo.dev/versions/v57.0.0/sdk/crypto/), conferido20/10.
+Gates separados no cliente: accountReadsEnabled, liveIntegrationEnabled, privateFinancialDataApproved, todosfalse. Factoryoff não instancia readers/gateway/cache/UUID nem rede. Backend orbe-bridge publicado confirmado v3 literalfalse. Código fornecedor permanece fixtureOnly; não habilitar um flag sozinho como atalho. ExpoCrypto57.0.4 só gera namespaceUUIDlocal depois dos guards; não introduz persistência/criptografia financeira. [SDK57 incluídoGo](https://docs.expo.dev/versions/v57.0.0/sdk/crypto/), conferido20/10.
 
 ## Próximas etapas e ativação conjunta
 
@@ -17,3 +17,5 @@ O titular fará em seu navegador a autorização bancária original no Meu Plugg
 810 testes/typechecks/export iOS2.7MB aprovados nesta composição; inspeção privada1201 fontes/56 instâncias sem as duas raízes de advisories no JS. Audit ainda19 pacotes afetados na toolchain, mesma exceção exclusivamente sintética até23/10/2026; ausência no JS não é auditoria do Expo Go nativo/EAS/fornecedor. Nenhuma promessa de risco zero/E2EE. Testes físicos restantes e ativação são reunidos ao final, conforme pedido do titular.
 
 T51b2c9 concluída: consulta atual de item/consentExpiresAt antes de contas, e expiração revalidada após a leitura. Statusantigo/arrayvazio não ultrapassam consentimento vencido.817 testes/typechecks, nenhuma chamada a conta real. A inspeção anterior de fonte1201/56 refere-se ao cliente c8, não ao servidor/fornecedor.
+
+T51b2c11: decimal exato comprovado no Edge real com números inventados e função temporária removida;827 testes/typechecks. Ponte remota confirmada v3, recibo antigo reconciliado por hashes de source iguais aos registrados, sem deploy. Smokes financeirooff3/statusnegativo5 aprovados.
