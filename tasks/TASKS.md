@@ -916,3 +916,9 @@ T51b2c29 evidência:921testes/typechecks (830Node+91Python),7casosnovos. Default
 MPG-45/ADR-016/[plano](../plan/T51b2c30-GUARDED-LIVE-BOOT.md). Composições altas com modo explícito/trava liveApproved/flags/redeguardada; nenhuma publicação/env/segredo alterados.
 
 T51b2c30 evidência:926testes/typechecks (835Node+91Python),5casosnovos. Codegate independente/conflito/defaultoff, bootlivecontas29centavos e bootlivedescobertacontagem completos com rede injetada; propagação mode/live semfixture e fronteiraredepreservadas. Flags/entrypoint/remotesecrets intactos, nenhuma chamada real. Próxima c31 unificarentrypoint sob travafalse e atualizarallowlist/scans/deploydesligado revisado.
+
+## T51b2c31 — done
+
+MPG-46/[plano](../plan/T51b2c31-DISABLED-BACKEND-RELEASE.md). Rootunificado codeoff antesenv; empacotamento explícito/canários privados/7smokes503, sem liberação de dadosreais.
+
+T51b2c31 evidência:934testes/typechecks (839Node+95Python),4root+4canário novos. Allowlist26arquivos/canáriosPATownerExpoPluggyitemIDs/entryexatoliveApprovedfalse testados. Deploy próprio orbe-bridgev4ACTIVE,7HTTP503/no-store e providerCalls0/financialReads0, recibo/logprivados foraMetro. Metadata/client/QR nãoalterados. Próxima c32 gatewayclientdedescoberta sobgates, depoisreadiness/UI e revisão antes deativar.

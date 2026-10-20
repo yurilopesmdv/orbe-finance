@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import stat
 from pathlib import Path
 import subprocess
 import sys
@@ -14,17 +15,43 @@ ROOT = Path(__file__).resolve().parent.parent
 spec = importlib.util.spec_from_file_location('backend_admin', ROOT / 'scripts/backend-admin.py')
 admin = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(admin)
-EXPECTED_ENTRY = """import { createBridgeHandler } from '../_shared/bridge.ts';
-
-// This deployed development entrypoint cannot be enabled through environment.
-const ports = {
-  async authenticate() { throw new Error('bridge_disabled'); },
-  async listConnections() { throw new Error('bridge_disabled'); },
-};
-Deno.serve(createBridgeHandler(ports, { enabled: false }));
-"""
+EXPECTED_ENTRY = "import { createFinancialRuntime } from '../_shared/financial-runtime.ts';\n\n// Financial release is disabled in code, independently of environment flags.\nDeno.serve(createFinancialRuntime(name => Deno.env.get(name), { liveApproved: false }).handler);\n"
 EXPECTED_METADATA_ENTRY = "import { createMetadataRuntime } from '../_shared/metadata-runtime.ts';\n\n// Metadata status only. No financial ingestion or provider credentials.\nDeno.serve(createMetadataRuntime(name => Deno.env.get(name), fetch));\n"
-ALLOWED = {'_shared/account-runtime.ts', '_shared/pluggy-item.ts', '_shared/read-lease-handler.ts', '_shared/account-router.ts', '_shared/account-binding-rest.ts', '_shared/account-read.ts', '_shared/pluggy-accounts.ts', '_shared/exact-json.ts', '_shared/pluggy-targets.ts', '_shared/pluggy-auth.ts', '_shared/bridge.ts', '_shared/supabase-rest.ts', '_shared/http-json.ts', '_shared/lease-rest.ts', '_shared/metadata-runtime.ts', 'orbe-bridge/index.mjs', 'orbe-metadata/index.mjs'}
+ALLOWED = {'_shared/metadata-runtime.ts', '_shared/account-binding-rest.ts', '_shared/account-runtime.ts', '_shared/account-configuration.ts', '_shared/inventory-discovery.ts', '_shared/bridge.ts', '_shared/read-lease-handler.ts', 'orbe-metadata/index.mjs', '_shared/financial-runtime.ts', 'orbe-bridge/index.mjs', '_shared/lease-rest.ts', '_shared/http-json.ts', '_shared/account-inventory.ts', '_shared/pluggy-item.ts', '_shared/exact-json.ts', '_shared/account-router.ts', '_shared/pending-inventory-rest.ts', '_shared/inventory-handler.ts', '_shared/pluggy-accounts.ts', '_shared/account-network.ts', '_shared/supabase-rest.ts', '_shared/execution-mode.ts', '_shared/pluggy-auth.ts', '_shared/account-read.ts', '_shared/inventory-runtime.ts', '_shared/pluggy-targets.ts'}
+
+def private_canaries(directory, base):
+    result = dict(base)
+    for name, keys in [('pluggy.env', {'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET'}), ('expo-publish.env', {'EXPO_TOKEN'}), ('pluggy-items.json', None)]:
+        path = directory / name
+        if any(parent.is_symlink() for parent in (directory, *directory.parents)):
+            raise admin.SafeError('bridge_private_path_symlink_rejected')
+        try: fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        except FileNotFoundError: continue
+        with os.fdopen(fd,'rb') as source:
+            info = os.fstat(source.fileno())
+            if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_nlink != 1 or stat.S_IMODE(info.st_mode) != 0o600:
+                raise admin.SafeError('bridge_private_profile_rejected')
+            raw = source.read(8193)
+        if len(raw)>8192: raise admin.SafeError('bridge_private_profile_rejected')
+        if keys is not None:
+            seen = set()
+            for line in raw.decode('utf-8','strict').splitlines():
+                line=line.strip()
+                if not line or line.startswith('#'): continue
+                if '=' not in line: raise admin.SafeError('bridge_private_profile_rejected')
+                key,value=line.split('=',1)
+                if key not in keys or key in seen: raise admin.SafeError('bridge_private_profile_rejected')
+                seen.add(key);result[key]=value.strip().strip('"').strip("'")
+            if seen != keys: raise admin.SafeError('bridge_private_profile_rejected')
+        else:
+            value=json.loads(raw)
+            if not isinstance(value,dict) or value.get('version')!=2 or not isinstance(value.get('items'),list) or not 1<=len(value['items'])<=5:
+                raise admin.SafeError('bridge_private_profile_rejected')
+            for index,item in enumerate(value['items']):
+                if not isinstance(item,dict) or not isinstance(item.get('itemId'),str) or item['itemId'] and not admin.re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}',item['itemId']):
+                    raise admin.SafeError('bridge_private_profile_rejected')
+                result['PRIVATE_ITEM_'+str(index)] = item['itemId']
+    return result
 
 def artifacts(root, private):
     directory = root / 'supabase/functions'
@@ -37,7 +64,7 @@ def artifacts(root, private):
         name = path.relative_to(directory).as_posix()
         if name not in ALLOWED: raise admin.SafeError('bridge_unknown_source_file')
         content = path.read_bytes()
-        if any(value.encode() in content for key, value in private.items() if key in ('SUPABASE_ACCESS_TOKEN', 'ORBE_OWNER_USER_ID') and value):
+        if any(value.encode() in content for key, value in private.items() if (key in ('SUPABASE_ACCESS_TOKEN', 'ORBE_OWNER_USER_ID', 'PLUGGY_CLIENT_ID', 'PLUGGY_CLIENT_SECRET', 'EXPO_TOKEN') or key.startswith('PRIVATE_ITEM_')) and value):
             raise admin.SafeError('bridge_private_content_rejected')
         files[name] = content
     if set(files) != ALLOWED or files['orbe-bridge/index.mjs'].decode() != EXPECTED_ENTRY:
@@ -56,7 +83,7 @@ def verify_remote(request):
 def smoke(ref):
     if not admin.re.fullmatch('[a-z]{20}', ref): raise admin.SafeError('bridge_project_invalid')
     opener = urllib.request.build_opener(admin.NoRedirect())
-    for method, suffix, body in [('POST', '/connections/status', b'{}'), ('GET', '/connections/status', None), ('POST', '/connections/status?canary=invented', b'{"canary":"invented"}')]:
+    for method, suffix, body in [('POST', '/connections/status', b'{}'), ('GET', '/connections/status', None), ('POST', '/connections/status?canary=invented', b'{"canary":"invented"}'), ('POST','/accounts/discover',b'{}'), ('POST','/accounts/read',b'{}'), ('POST','/reads/acquire',b'{}'), ('POST','/reads/finalize',b'{}')]:
         req = urllib.request.Request('https://' + ref + '.supabase.co/functions/v1/orbe-bridge' + suffix, method=method, data=body, headers={'Content-Type': 'application/json'})
         try:
             with opener.open(req, timeout=30) as response:
@@ -68,7 +95,7 @@ def smoke(ref):
             raise admin.SafeError('bridge_smoke_unavailable') from None
         if status != 503 or headers.get('Cache-Control') != 'no-store' or data != b'{"error":"unavailable"}':
             raise admin.SafeError('bridge_disabled_smoke_failed')
-    print(json.dumps({'disabled_runtime_http_passed': True, 'anonymous_cases': 3, 'financial_requests': 0}))
+    print(json.dumps({'disabled_runtime_http_passed': True, 'anonymous_cases': 7, 'financial_reads': 0, 'provider_calls': 0}))
 
 def main():
     if len(sys.argv) != 2 or sys.argv[1] not in ('deploy-disabled', 'smoke-disabled'):
@@ -76,7 +103,7 @@ def main():
     token, ref = admin.config()
     request = admin.client(token, ref)
     admin.inspect(request)  # Confirms dedicated healthy Orbe before any mutation.
-    private = admin.private_values()
+    private = private_canaries(admin.PRIVATE_CONFIG.parent, admin.private_values())
     hashes = artifacts(ROOT, private)
     directory = admin.PRIVATE_CONFIG.parent
     manifest = directory / 'bridge-deploy.json'

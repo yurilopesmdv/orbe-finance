@@ -1,8 +1,4 @@
-import { createBridgeHandler } from '../_shared/bridge.ts';
+import { createFinancialRuntime } from '../_shared/financial-runtime.ts';
 
-// This deployed development entrypoint cannot be enabled through environment.
-const ports = {
-  async authenticate() { throw new Error('bridge_disabled'); },
-  async listConnections() { throw new Error('bridge_disabled'); },
-};
-Deno.serve(createBridgeHandler(ports, { enabled: false }));
+// Financial release is disabled in code, independently of environment flags.
+Deno.serve(createFinancialRuntime(name => Deno.env.get(name), { liveApproved: false }).handler);

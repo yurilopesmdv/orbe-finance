@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c28 concluídas**, evidências em tasks/TASKS.md/plan, SPEC009 MPG-36–43. **921 testes/typechecks aprovados (830Node+91Python)**. CI39511853244(c26)success; commits posteriores ainda precisam de push/CI. Próxima **c29**: definir contrato explícito fixture/live e preparar boot real sem passar produção comofixture; manter gates financeiros fechados. Depois composição/publicação desligada e integração de descoberta no cliente, revisando privacidade/OF/dependências antes de ativar.
+**c21–c28 concluídas**, evidências em tasks/TASKS.md/plan, SPEC009 MPG-36–43. **934 testes/typechecks aprovados (839Node+95Python)**. CI39511853244(c26)success; commits posteriores ainda precisam de push/CI. Próxima **c29**: definir contrato explícito fixture/live e preparar boot real sem passar produção comofixture; manter gates financeiros fechados. Depois composição/publicação desligada e integração de descoberta no cliente, revisando privacidade/OF/dependências antes de ativar.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
@@ -32,7 +32,7 @@ Descoberta prepared: Authowner→resolvepending→leaseglobal→check→AuthPlug
 
 Projeto próprio refvvaufaoahotmaocrcyij/us-east-1. **12 migrations imutáveis/hashverificadas**, última20261020190000_pending_inventory_leases. SQLowner/sessão/RLS/lease/pausa/remoção/binding/staging/inventário/nonce/cooldown/atomicidade com identidadesfictícias+rollback passaram; zeroresíduos e ownerpreservado. Sem tabelas devaloresfinanceiros. Appownerglobalfixo/signupsfalse;JWT600/refreshrotation/pw12. SMTP/recoveryfalse; não regenerarOTP/enviar e-mail.
 
-**orbe-bridge v3ACTIVE/literalfalse503**, metadata v3ACTIVE/Authowner/session/RLSsomente. Smoke ponte3off/metadados5negativos passaram. Reciboantigov1 reconciliadoparahash/version3 por downloaddereadonly, semmudançaremota. Allowlistbridge-deploy.py17files antiga: revisar explicitamente paraqualquer novosartefatos; não redeploy porfixture. ProbeEdge comprovou decoder9007199254740993/0.29 e foi removido, semprovedor.
+**orbe-bridge v4ACTIVE/liveApprovedfalse503**, metadata v3ACTIVE/Authowner/session/RLSsomente. Smoke ponte3off/metadados5negativos passaram. Reciboantigov1 reconciliadoparahash/version3 por downloaddereadonly, semmudançaremota. Allowlistbridge-deploy.py26files/entryexatoliveApprovedfalse/scancanários privadosPATownerExpoPluggyIDs; não redeploy porfixture. ProbeEdge comprovou decoder9007199254740993/0.29 e foi removido, semprovedor.
 
 Reais ainda nãoaprovados: origemOFporbanco, revisãofornecedor/subprocessadores/logs/retencão/exclusão, dependências e runtimeprivado/homologação. Não garantir vazamentozero/E2EE nem tratarausênciadenotícias comoaprovação. Audit19altos/0críticos/2raízes braces/node-forge sempatch na últimarevisão; exceção sósynthetic até23/10(cutoff24UTC), nãoestender ouaplicar downgradeExpo44/updates0.11. JSexport1201fontes56instâncias semraízes não certifica toolchain/nativo/EAS/fornecedor. docs/security/ACTIVATION-BLOCKERS-20261020.md temquestõesexternas nãoenviadas. Não contatarfornecedor seminstrução.
 
@@ -47,3 +47,5 @@ SandboxcwdF1; writesOrbe/Git/npm/network usam require_escalated/auto-review. Git
 c29/MPG-44/ADR-016 concluída: móduloslowlevel têm ExecutionPolicyfixture/live, compatibilidadefixtureOnly sótests, liveexigeprivateDataApprovedtrue, conflitosfalhamfechado. Capturamodo emfactory e regressões921aprovadas; nenhum boot/entrypoint/flagreal alterado. Próxima c30 atualizarfactorysdeboot para execução explícita sob liveApproved(código)+3flags, fronteira de rede e defaultfetchsomenteapós gates; entrypointpublicado segueoff.
 
 c30/MPG-45 concluída: boots altos suportam mode explícito/liveApprovedcódigo+3flags; fixturesemfetchfallback e livecomredeguardada.926testes/typechecks aprovados, incluindo pontaapontalive com rede fictícia. Nenhum entrypoint/flag/envremote alterado. Próxima c31 unifiedruntime guardadoporfalse/allowlist atualizada/canariessupplierIDs antes de publicação exclusivamente503; depois cliente sobgates e revisão deativação.
+
+c31/MPG-46 concluída: financial-runtime rootunificado com defaultcodeoff/flags, entrypointliveApprovedfalse exato.934testes/typechecks; bridgev4publicado/7rotas503/no-store/nenhumprovedor ouvalorreais. Canários de perfisprivados impedem segredo/ID no pacote. Próxima c32 gatewaycliente de descoberta, readiness e UI sobflagsfalse, sem pedir novaautorização/IDs e sem liberarfinanceiro. Revisar docsatuaisqueaindacitamv3 comoestadoativo (históricov3preservado).

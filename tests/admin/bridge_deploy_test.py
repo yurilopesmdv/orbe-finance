@@ -26,7 +26,7 @@ class DisabledDeployGuards(unittest.TestCase):
 
     def test_enabled_entrypoint_is_rejected(self):
         with fixture() as (root, directory):
-            (directory / 'orbe-bridge/index.mjs').write_text(deploy.EXPECTED_ENTRY.replace('enabled: false', 'enabled: true'))
+            (directory / 'orbe-bridge/index.mjs').write_text(deploy.EXPECTED_ENTRY.replace('liveApproved: false', 'liveApproved: true'))
             with self.assertRaisesRegex(deploy.admin.SafeError, 'bridge_disabled_entrypoint_required'):
                 deploy.artifacts(root, {})
 
@@ -53,6 +53,31 @@ class DisabledDeployGuards(unittest.TestCase):
             (directory / '_shared/bridge.ts').write_text('invented-private-token')
             with self.assertRaisesRegex(deploy.admin.SafeError, 'bridge_private_content_rejected'):
                 deploy.artifacts(root, {'SUPABASE_ACCESS_TOKEN': 'invented-private-token'})
+
+    def test_supplier_and_item_canaries_rejected(self):
+        for key in ['PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET','EXPO_TOKEN','PRIVATE_ITEM_0']:
+            with fixture() as (root,directory):
+                (directory/'_shared/bridge.ts').write_text('invented-private-canary')
+                with self.assertRaisesRegex(deploy.admin.SafeError,'bridge_private_content_rejected'):
+                    deploy.artifacts(root,{key:'invented-private-canary'})
+
+    def test_private_canaries_collected_without_output(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder);profile=path/'pluggy.env';profile.write_text('PLUGGY_CLIENT_ID=invented-client\nPLUGGY_CLIENT_SECRET=invented-private-secret\n');profile.chmod(0o600)
+            capture=io.StringIO()
+            with contextlib.redirect_stdout(capture): values=deploy.private_canaries(path,{})
+            self.assertEqual(capture.getvalue(),'')
+            self.assertEqual(values['PLUGGY_CLIENT_SECRET'],'invented-private-secret')
+
+    def test_private_canary_profile_permissions_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder);profile=path/'pluggy.env';profile.write_text('PLUGGY_CLIENT_ID=invented\nPLUGGY_CLIENT_SECRET=invented-secret\n');profile.chmod(0o644)
+            with self.assertRaisesRegex(deploy.admin.SafeError,'bridge_private_profile_rejected'): deploy.private_canaries(path,{})
+
+    def test_private_canary_profile_symlink_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder);target=path/'target';target.write_text('invented');(path/'pluggy.env').symlink_to(target)
+            with self.assertRaises(OSError): deploy.private_canaries(path,{})
 
     def test_existing_unmanaged_function_is_never_overwritten(self):
         with tempfile.TemporaryDirectory() as folder:
