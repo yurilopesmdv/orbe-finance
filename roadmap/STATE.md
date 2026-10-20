@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c37 concluídas**, 967 testes/typechecks aprovados. c37 reforça cabeçalhos HTTP e prontidão de proteção antes de consultas de metadados; exportação iOS/auditoria runtime1205 fontes/56 instâncias aprovadas. Próxima **c38**: scan privado, commit/CI e publicação do cliente corrigido, atualizar QR e checkpoint. Backend v5/metadata v4 configurados exclusivamente desligados; nenhuma leitura financeira real. As revisões de fornecedor, origem OF, dependências e homologação continuam pendentes e não equivalem a trabalho concluído por Auth válido.
+**c21–c38 concluídas**,967 testes/typechecks aprovados; nova prévia remota update01a15bbf-7194-7ce1-8903-b8ca5ff4e0e3/commitad2dcc3 com política HTTP reforçada e prontidão de metadados. CI39518018154 success, manifesto/hash/QR conferidos. Próxima **c39** consolidar documentação operacional e eliminar instruções obsoletas de cadastro/segredos/deploy sem alterar gates. Backend v5/metadata v4; nenhuma leitura financeira real. Origem OF, fornecedor, dependências e homologação continuam pendentes.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
@@ -38,7 +38,7 @@ Reais ainda nãoaprovados: origemOFporbanco, revisãofornecedor/subprocessadores
 
 ## Publicação, segredos e continuidade
 
-ÚltimoExpo permanece update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/grupo41095d0a-c262-4850-a4ab-122bdce6caf0/commitbe80325, iospreview/runtimeexposdk57.0.0/schemeorbe. QR docs/assets/orbe-expo-go-20261020.png e docs/EXPO-PREVIEW.md; link exp://u.expo.dev/update/01a15ba3-efdc-7ce4-b328-fa16a89c0e12. Manifesto/hashHBC/linkQRconferidos, recibosprivados. Backend-only nãoexigeQRnovo.
+ÚltimoExpo update01a15bbf-7194-7ce1-8903-b8ca5ff4e0e3/grupo1dbf421d-740d-47d5-aff6-8858a3b7732e/commitad2dcc3, iospreview/runtimeexposdk57.0.0/schemeorbe. QR docs/assets/orbe-expo-go-20261020.png e docs/EXPO-PREVIEW.md; link exp://u.expo.dev/update/01a15bbf-7194-7ce1-8903-b8ca5ff4e0e3. Manifesto/hashHBC/linkQRconferidos, recibosprivados. Backend-only nãoexigeQRnovo.
 
 SandboxcwdF1; writesOrbe/Git/npm/network usam require_escalated/auto-review. GitYuriLopes/ConventionalCommitsemportuguês/main/pushautorizado, sem mençãoaagente. PushOrbeexecutaCI, nãoEASautomático. Usar check→exportiOS/runtimeauditquandoafetarcliente→scan→Git/CI→publishwrapper→manifest/hash/QR→docs. Não usarMetro/LAN/túnel/firewall; Metro/DockerOrbeparados, não mexeroutrosprojetos.
 

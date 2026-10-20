@@ -958,3 +958,9 @@ T51b2c36 evidência:967testes/typechecks (859Node+108Python),9casosnovos.7segred
 SEC-26/[plano](../plan/T51b2c37-NATIVE-HTTP-REVIEW.md). RevisãoSwift/JS e cabeçalhosHTTPcentralizados; não inferir cachezero/SDKbinárioigual/telemetriaausente.
 
 T51b2c37 evidência:967 testes/typechecks aprovados; exportação iOS e auditoria runtime1205 fontes/56 instâncias aprovadas, mapas privados e raízes vulneráveis ausentes do grafo cliente. Quatro testes de transporte ampliados verificam no-store/no-cache/Pragma; metadados aguardam proteção pronta/ativa. Revisão de8fontes JS/Swift documentada com hashes e limites. Nenhuma leitura financeira ou flag alterada. Próxima c38 publicar esta correção após scan/CI e atualizar QR/checkpoint.
+
+## T51b2c38 — done
+
+SEC-26/[plano](../plan/T51b2c38-HTTP-PREVIEW-RELEASE.md). Publicar correção iOS após CI, verificar bundle/manifesto/QR e atualizar checkpoint, sem alterar gates.
+
+T51b2c38 evidência: CI39518018154 success;967testes/typechecks/exportiOS/runtimeaudit1205/56/scan privado aprovados. Publicado update01a15bbf-7194-7ce1-8903-b8ca5ff4e0e3/grupo1dbf421d-740d-47d5-aff6-8858a3b7732e/commitad2dcc3; manifesto schemeorbe/hashHBC/linkQRoficial conferidos, PNG atualizado. Nenhuma leitura financeira ou flag alterada; sem teste intermediário. Próxima c39 consolidar documentação operacional atual, preservando evidências históricas nas tasks.
