@@ -10,7 +10,7 @@ Continuar automaticamente, uma microtask por vez, spec → plan → tasks → c�
 
 Titular já criou conta: não renovar OTP nem acessar senha. Para nova função, entrar uma vez com Manter meu acesso ligado (prévia anterior não guardava token). Pergunta assíncrona pendente: retomou sem senha ao alternar apps? Não bloquear tarefas independentes esperando resposta. Não confundir criação/abertura relatadas com prova de screenshot/VoiceOver/cache nativo.
 
-**Próxima microtask técnica**: T54a2 corrigir inventário de versões transitivas aninhadas no mapa (uma fonte usa metro-runtime0.84.5, relatório consultava raiz0.84.6; ausência das raízes vulneráveis permanece correta). Spec/plan/task antes da correção. Depois T65a avaliação documentada de Expo Go sem custos, senha/token + finanças voláteis e controles de tela/limites; não exigir build pago automaticamente. Expo57 Crypto e ScreenCapture são candidatos incluídos no Go, não foram instalados/homologados. FaceID iOS/requireAuthentication não suportados no ExpoGo; SQLCipher requer build próprio. Nenhuma conexão bancária aprovada.
+**Próxima microtask técnica**: T65a avaliação documentada de Expo Go sem custos, senha/token + finanças voláteis e controles de tela/limites; não exigir build pago automaticamente. T54a2 concluída:7 testes focados e inspeção real1166 fontes/54 instâncias, metro-runtime aninhado0.84.5 corretamente resolvido (raiz/toolchain0.84.6), nenhuma alteração no app/QR. Expo57 Crypto e ScreenCapture são candidatos incluídos no Go, não foram instalados/homologados. FaceID iOS/requireAuthentication não suportados no ExpoGo; SQLCipher requer build próprio. Nenhuma conexão bancária aprovada.
 
 ## Produto e gates
 

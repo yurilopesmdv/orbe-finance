@@ -1,0 +1,3 @@
+# T54a2 — resolver instâncias transitivas no inventário
+
+20/10/2026, SEC-23a; integrador único. No export de T12b, uma fonte usa metro-runtime0.84.5 aninhado e o inventário relatava0.84.6 da raiz. Ausência de braces/node-forge não mudou, mas versão precisa ser exata. Paths scripts/runtime-audit-policy.mjs e tests/security/runtime-audit.test.mjs, docs/checkpoints. Resolver caminho completo no lock, manter múltiplas instâncias pelo mesmo nome, não expor caminhos no relatório e falhar se instância não resolvida. Testar raiz+aninhado diferentes e ausência de lock correspondente; repetir inspeção do export privado já gerado. Não alterar bundle/cliente nem republicar por isso.

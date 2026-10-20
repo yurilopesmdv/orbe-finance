@@ -690,3 +690,9 @@ AUTH-16/ADR-014/[plano](../plan/T12b-REMEMBERED-SESSION.md), integrador único. 
 T12b checkpoint:686 testes/typechecks,22 novos casos, smoke refresh/rotação/logout fictício com cleanup, export Hermes iOS2.6MB e inspeção JS1166 fontes/54 pacotes aprovados; raízes altas ausentes do cliente,19 alertas toolchain inalterados. Instalação SecureStore sem scripts e conferência SDK offline aprovada (não verificação online de latest). Próximo commit/push/CI/publicação/QR; primeiro login na versão nova necessário, pois prévia antiga não guardava refresh token.
 
 T12b publicada: commiteb9c865/CI39428239529 success/update01a15971-ed8f-7228-908b-945be1207249/grupoc5625e52-6247-4f47-8889-a8f4b0eb31a3. QR remoto atualizado; manifesto/hash conferidos. Titular orientado a entrar uma vez com Manter meu acesso; teste de retomada solicitado assíncrono, sem bloquear tarefas independentes. Não renovar OTP da conta já criada.
+
+## T54a2 — done
+
+SEC-23a/[plano](../plan/T54a2-NESTED-PACKAGES.md), integrador único. Corrigir versão de instâncias aninhadas no relatório, sem alteração do app nem do gate financeiro.
+
+T54a2 evidência:7 testes focados passaram; inspeção real repetida no mesmo export privado1166 fontes/54 instâncias resolveu metro-runtime0.84.5 corretamente, sem raízes vulneráveis no grafo. Suíte completa anterior686; novo caso será incluído na CI. App/QR não mudaram; próxima T65a avaliação sem custos.

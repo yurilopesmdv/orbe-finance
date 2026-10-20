@@ -27,3 +27,12 @@ test('only known Metro virtual polyfill names may contain a leading NUL',()=>{
   const result=inspectRuntimeMap(map(['node_modules/react/index.js','\0polyfill:external-require']),lock);assert.equal(result.sourceCount,2);
   assert.throws(()=>inspectRuntimeMap(map(['node_modules/react/index.js','\0unknown']),lock),/map_invalid/);
 });
+
+test('nested dependency version resolves from its own lock location, never the root copy',()=>{
+  const nested={packages:{...lock.packages,'node_modules/example/node_modules/react':{version:'18.3.1'}}};
+  const sources=['node_modules/react/index.js','node_modules/example/node_modules/react/index.js'];
+  const result=inspectRuntimeMap(map(sources),nested);
+  assert.equal(result.packageCount,2);assert.deepEqual(result.packages,[{name:'react',version:'18.3.1'},{name:'react',version:'19.2.3'}]);
+  assert.ok(!JSON.stringify(result).includes('node_modules'));
+  assert.throws(()=>inspectRuntimeMap(map(sources),lock),/package_unresolved/);
+});

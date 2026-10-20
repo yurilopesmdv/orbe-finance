@@ -31,11 +31,13 @@ export function inspectRuntimeMap(map, lock) {
     if (!match) throw Error('runtime_map_invalid');
     const name = match[0];
     if (vulnerable.has(name)) throw Error('runtime_advisory_dependency');
-    const entry = lock.packages['node_modules/' + name];
+    const first = source.indexOf('node_modules/');
+    const location = source.slice(first, marker + 13 + name.length);
+    const entry = lock.packages[location];
     if (!entry || typeof entry.version !== 'string') throw Error('runtime_package_unresolved');
-    packages.set(name, entry.version);
+    packages.set(location, { name, version: entry.version });
   }
   if (packages.size === 0) throw Error('runtime_packages_missing');
   return Object.freeze({ sourceCount: sources.size, packageCount: packages.size, advisoryRootsAbsent: true,
-    packages: Object.freeze([...packages].sort(([a], [b]) => a.localeCompare(b)).map(([name, version]) => Object.freeze({ name, version }))) });
+    packages: Object.freeze([...packages.values()].sort((a, b) => a.name.localeCompare(b.name) || a.version.localeCompare(b.version)).map(entry => Object.freeze(entry))) });
 }
