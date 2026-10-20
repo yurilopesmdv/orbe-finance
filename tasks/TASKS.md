@@ -732,3 +732,9 @@ MPG-15/[plano](../plan/T51b2b2-ACCOUNT-PROJECTION.md), integrador único. Proje�
 T51b2b2 evidência:735 testes/typechecks aprovados,12 novos cenários. BigInt do literal original preserva centavos até safeinteger; fração de centavo/overflow/paginação incompleta/conta externa ou duplicada falham. BANK mínimo sem PII, CREDIT excluído e cobertura parcial; datas/relações desconhecidas não são inventadas. Integração decoder→projeção→normalizer→MemoryAssets validada; lote inválido preserva snapshot anterior. Allowlist11files; sem rede/deploy/cliente novo. Próxima T51b2c composição de transporte fixture com autenticação privada, owner/sessão/lease e cancelamento; definir spec/plano antes do código.
 
 T65b1 aceite físico recebido20/10/2026: titular confirmou captura e multitarefa protegidas no iPhone da matriz informada; nenhum screenshot privado recebido. Gravação/encerramento/outras versões não inferidos. T51b2b2 CI39461793986 success/commit70d1efa.
+
+## T51b2c1 — done
+
+MPG-16/[plano](../plan/T51b2c1-ACCOUNT-TRANSPORT.md), integrador único. Porta de contas com chave privada e transporte literal, dados fictícios; composição owner/sessão/lease a seguir. Titular pediu priorizar fechamento do acesso às contas e executar todas as tarefas sem pendências pessoais antes de teste conjunto.
+
+T51b2c1 evidência:747 testes/typechecks/12 novos casos aprovados. Auth antiga mantém authenticate/close; factory de contas mantém chave privada, destino literal e contexto capturado, deadline total20s/abort/close/busy/401purge/429semretry. Decoder+projeção antes de devolver DTO mínimo; sem rede real/deploy/cliente. Próxima T51b2c2 coordenador owner/sessão/lease e composição fixture.
