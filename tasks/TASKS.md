@@ -683,8 +683,10 @@ SEC-23/[plano](../plan/T54a-RUNTIME-DEPENDENCIES.md), integrador único; inventa
 
 T54a evidência:664 testes/typechecks passaram. Export JS iOS real privado:1162 fontes/53 pacotes, braces/node-forge ausentes do grafo. Relatório/hashes em ~/.config/orbe-finance/runtime-audit/report.json; mapas privados não publicados. Três nomes virtuais NUL conhecidos do Metro aceitos explicitamente; demais recusados. Não corrige os19 afetados do toolchain nem prova o binário Expo Go. Próxima prioridade do titular: T12b sessão persistida segura sem salvar senha, mantendo Expo Go/orçamento zero.
 
-## T12b — doing
+## T12b — done
 
 AUTH-16/ADR-014/[plano](../plan/T12b-REMEMBERED-SESSION.md), integrador único. Nova prioridade do titular: manter login/entrada rápida no Expo Go, sem salvar senha. Token rotativo no SecureStore, online/owner/active session e logout completo. Nenhuma implementação bancária real desbloqueada.
 
 T12b checkpoint:686 testes/typechecks,22 novos casos, smoke refresh/rotação/logout fictício com cleanup, export Hermes iOS2.6MB e inspeção JS1166 fontes/54 pacotes aprovados; raízes altas ausentes do cliente,19 alertas toolchain inalterados. Instalação SecureStore sem scripts e conferência SDK offline aprovada (não verificação online de latest). Próximo commit/push/CI/publicação/QR; primeiro login na versão nova necessário, pois prévia antiga não guardava refresh token.
+
+T12b publicada: commiteb9c865/CI39428239529 success/update01a15971-ed8f-7228-908b-945be1207249/grupoc5625e52-6247-4f47-8889-a8f4b0eb31a3. QR remoto atualizado; manifesto/hash conferidos. Titular orientado a entrar uma vez com Manter meu acesso; teste de retomada solicitado assíncrono, sem bloquear tarefas independentes. Não renovar OTP da conta já criada.

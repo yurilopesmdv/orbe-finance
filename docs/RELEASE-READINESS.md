@@ -6,7 +6,7 @@
 
 | Parte | Entrega | Limite |
 |---|---|---|
-| Acesso | Ativação privada para definir senha e login do único proprietário, sessão volátil curta, bloqueio ao sair do primeiro plano, logout | Login positivo no iPhone ainda precisa confirmação; senha nunca usada pelas ferramentas |
+| Acesso | Ativação privada para definir senha e login do único proprietário, sessão volátil curta, bloqueio ao sair do primeiro plano, logout | Titular confirmou criação do acesso; retomada/Keychain/login específico ainda em validação no iPhone; senha nunca usada pelas ferramentas |
 | Visão geral/carteira | Contas, investimentos, reservas, moedas e subtotal reconciliado | Dados inventados; reserva/meta não duplica patrimônio |
 | Movimentos | Mês, banco, conta, tipo, categoria, busca, paginação e correção de classificação | Correções só na sessão demonstrativa; sem extrato importado |
 | Relatórios | Categoria, drill-down com filtros, comparação mensal e composição por banco/classe | Valores ocultos também em labels; sem histórico patrimonial inventado ou rentabilidade |
@@ -17,11 +17,11 @@
 
 ## Evidências executadas
 
-- `npm run check`: dois typechecks e **638 testes** locais aprovados, até T10c. Inclui acesso/RLS por fixture administrativa, limites de JSON, isolamento de sessão, status/control lifecycle, integridade monetária e relatórios.
+- `npm run check`: dois typechecks e **686 testes** locais aprovados, até T12b. Inclui acesso/RLS por fixture administrativa, limites de JSON, isolamento de sessão, status/control lifecycle, integridade monetária e relatórios.
 - Export iOS Hermes **2,6MB** em T37b2b; token administrativo e UUID privado do titular ausentes nos25 artefatos examinados. Configuração pública do projeto é intencionalmente parte do cliente.
 - SQL real próprio: sete migrations imutáveis; testes de RLS/sessão/read-only/pausa/remoção com identidades fictícias e rollback, zero resíduos e dono preservado. Evidência detalhada em [ponte](security/BRIDGE-CORE.md). Não é teste bancário.
 - HTTP gerenciado: status anônimo401, token inventado401, método405, rota financeira404 e query400; erros genéricos/no-store. Financeirooff três503 confirmados.
-- CI do código `794f307` aprovada: [execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39420200892). Não confundir com CI de commit documental posterior sem conferir.
+- CI do código `eb9c865` aprovada: [execução](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39428239529). Não confundir com CI de commit documental posterior sem conferir.
 - Auditoria atual:19 pacotes afetados por duas raízes sem patch, exclusivamente exceção sintética até23/10/2026; **bloqueia dados reais**. [Detalhes](security/DEPENDENCIES.md).
 - Scanner/export/check não demonstram ausência universal de vazamento. Não houve teste de conta bancária, fornecedor autenticado, captura de tráfego nativo completo ou invasão do aparelho.
 
@@ -61,4 +61,4 @@ Próxima ação: criar a senha pessoal com **Criar meu acesso** no novo QR e val
 
 T10c: acesso inicial pessoal publicado/638 testes e smoke OTP fictício aprovado; [instruções privadas](OWNER-ACCESS.md). Cadastro público permanece fechado. Identidade visual fica para próxima etapa por decisão do titular.
 
-T12b em validação/publicação: [sessão lembrada sem senha salva](REMEMBERED-ACCESS.md), com SecureStore, rotação e owner/sessão verificados. Titular manteve Expo Go/orçamento zero; runtime privado financeiro será reavaliado em T65a com modo volátil, sem contratação nem supressão silenciosa dos controles.
+T12b publicada/CI aprovada; Keychain físico ainda pendente: [sessão lembrada sem senha salva](REMEMBERED-ACCESS.md), com SecureStore, rotação e owner/sessão verificados. Titular manteve Expo Go/orçamento zero; runtime privado financeiro será reavaliado em T65a com modo volátil, sem contratação nem supressão silenciosa dos controles.
