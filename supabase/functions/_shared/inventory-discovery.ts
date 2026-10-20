@@ -1,10 +1,13 @@
+import type { AcquireResult } from './lease-rest.ts';
 import type { PendingItem, PendingScope } from './pending-inventory-rest.ts';
 import type { InventoryReadResult } from './pluggy-auth.ts';
 interface Ports {
   authenticate(token: string, signal: AbortSignal): Promise<unknown>;
   resolve(scope: PendingScope, signal: AbortSignal): Promise<Readonly<PendingItem> | null>;
   readInventory(context: { itemId: string; connectionId: string }, signal: AbortSignal): Promise<InventoryReadResult>;
-  store(context: PendingItem, rows: readonly unknown[], signal: AbortSignal): Promise<boolean>;
+  acquire(scope: PendingScope, signal: AbortSignal): Promise<AcquireResult>;
+  check(scope: PendingScope, leaseId: string, signal: AbortSignal): Promise<boolean>;
+  commit(context: PendingItem, rows: readonly unknown[], leaseId: string, signal: AbortSignal): Promise<boolean>;
 }
 type Status = 'disabled' | 'unavailable' | 'forbidden' | 'conflict' | 'cancelled' | 'busy' | 'rate_limited';
 export type DiscoveryResult = Readonly<{ status: Status }> | Readonly<{ status: 'complete'; registeredAccounts: number }>;
@@ -22,11 +25,11 @@ export function createInventoryDiscovery(ports: Ports, options: { enabled?: bool
       if (closed) return result('unavailable');
       if (active) return result('busy');
       const controller = new AbortController(); active = controller;
-      let timer: ReturnType<typeof setTimeout> | undefined, stop: () => void = () => {}, lastTime = -1, start = 0;
+      let timer: ReturnType<typeof setTimeout> | undefined, stop: () => void = () => {}, lastTime = -1, start = 0, leaseExpiry = Infinity;
       function fresh(expiry = Infinity) {
         if (controller.signal.aborted || closed || parent.aborted) return fail('cancelled');
         const time = now();
-        if (!Number.isSafeInteger(time) || time < 0 || time < lastTime || time - start >= 120000 || time >= expiry) return fail();
+        if (!Number.isSafeInteger(time) || time < 0 || time < lastTime || time - start >= 120000 || time >= Math.min(expiry, leaseExpiry)) return fail();
         lastTime = time; return time;
       }
       function principal(raw: unknown) {
@@ -50,6 +53,13 @@ export function createInventoryDiscovery(ports: Ports, options: { enabled?: bool
           const first = principal(await ports.authenticate(token, controller.signal)); fresh(first.expiresAt);
           const scope = Object.freeze({ ...request, ownerId: first.ownerId });
           const binding = context(await ports.resolve(scope, controller.signal), scope); fresh(first.expiresAt);
+          const grant = await ports.acquire(scope, controller.signal); fresh(first.expiresAt);
+          if (grant.status !== 'acquired') return result(grant.status === 'busy' ? 'busy' : grant.status === 'cooldown' ? 'rate_limited' : 'conflict');
+          if (!uuid(grant.leaseId) || grant.revision !== scope.revision || typeof grant.expiresAt !== 'string' || typeof grant.nextReadAt !== 'string') return fail();
+          leaseExpiry = Date.parse(grant.expiresAt);
+          if (!Number.isSafeInteger(leaseExpiry) || leaseExpiry > now() + 180000 || Date.parse(grant.nextReadAt) - leaseExpiry !== 780000) return fail();
+          fresh(first.expiresAt);
+          if (await ports.check(scope, grant.leaseId, controller.signal) !== true) return fail('conflict'); fresh(first.expiresAt);
           const collected = await ports.readInventory(Object.freeze({ itemId: binding.itemId, connectionId: binding.connectionId }), controller.signal); fresh(first.expiresAt);
           if (collected.status !== 'complete') return result(collected.status === 'rate_limited' ? 'rate_limited' : collected.status === 'cancelled' ? 'cancelled' : 'unavailable');
           if (!object(collected.inventory) || collected.inventory.kind !== 'inventory' || !Array.isArray(collected.inventory.accounts) || collected.inventory.accounts.length > 1000 || !Number.isSafeInteger(collected.inventory.creditAccounts) || collected.inventory.creditAccounts < 0 || collected.inventory.creditAccounts > collected.inventory.accounts.length || !Number.isSafeInteger(collected.consentExpiresAt)) return fail();
@@ -62,7 +72,8 @@ export function createInventoryDiscovery(ports: Ports, options: { enabled?: bool
           if (second.ownerId !== first.ownerId) return fail('forbidden');
           const confirmed = context(await ports.resolve(scope, controller.signal), scope); fresh(Math.min(expiry, second.expiresAt));
           if (confirmed.itemId !== binding.itemId) return fail('conflict');
-          const stored = await ports.store(binding, accounts, controller.signal); fresh(Math.min(expiry, second.expiresAt));
+          if (await ports.check(scope, grant.leaseId, controller.signal) !== true) return fail('conflict'); fresh(Math.min(expiry, second.expiresAt));
+          const stored = await ports.commit(binding, accounts, grant.leaseId, controller.signal); fresh(Math.min(expiry, second.expiresAt));
           if (stored !== true) return fail('conflict');
           return Object.freeze({ status: 'complete', registeredAccounts: accounts.length });
         };

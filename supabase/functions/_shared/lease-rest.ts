@@ -32,7 +32,7 @@ function instant(value: unknown): string {
   if (!match || !Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value.slice(0, 10) || Number(match[1]) > 23 || Number(match[2]) > 59 || Number(match[3]) > 59 || match[4] !== undefined && (Number(match[4]) > 14 || Number(match[5]) > 59 || Number(match[4]) === 14 && Number(match[5]) !== 0) || !Number.isFinite(Date.parse(value))) return unavailable();
   return new Date(value).toISOString();
 }
-function acquired(raw: unknown, expected: ReadScope, now: number): AcquireResult {
+export function parseLeaseGrant(raw: unknown, expected: ReadScope, now: number): AcquireResult {
   if (!object(raw) || !Number.isSafeInteger(now)) return unavailable();
   if (raw.status === 'busy' || raw.status === 'unavailable') return Object.freeze({ status: raw.status });
   if (raw.status === 'cooldown') {
@@ -87,7 +87,7 @@ export function createLeasePorts(resolveConfig: () => Configuration, options: { 
   return Object.freeze({
     async acquire(input: ReadScope, signal: AbortSignal) {
       const value = scope(input);
-      return timed(signal, async child => acquired(await rpc('begin', { ...body(value), p_expected_revision: value.revision }, child), value, clock.now()));
+      return timed(signal, async child => parseLeaseGrant(await rpc('begin', { ...body(value), p_expected_revision: value.revision }, child), value, clock.now()));
     },
     async check(input: ReadScope, leaseId: string, product: ReadProduct, signal: AbortSignal) {
       const value = scope(input); if (!uuid(leaseId) || !products.includes(product)) throw new Error('lease_request_invalid');

@@ -886,3 +886,9 @@ T51b2c24 evidência:897testes/typechecks (806Node+91Python),10casosnovos. Cadeia
 MPG-40/[plano](../plan/T51b2c25-GLOBAL-DISCOVERY-LEASE.md). Lease/cooldown global reusado da conexão e commit de metadados atômico; nenhuma coleta real.
 
 T51b2c25 evidência: migration12 aplicada/hashverificada; SQL sintético privilégios/owner/revisão/acquire/busy/check/nonce/commit/replay/cooldown/novoNonce/expiração e não alteração de evidênciafinanceira passou comrollback/zeroresíduos/ownerpreservado.897testes/typechecks vigentes c24; nenhuma coleta real. Próxima c26 portaslease/commit e coordenador com leaseobrigatório.
+
+## T51b2c26 — done
+
+MPG-41/[plano](../plan/T51b2c26-LEASED-DISCOVERY.md). Leaseobrigatório no coordenador e3RPCs adicionais, parsergrantcompartilhado, nenhum HTTP ou fornecedorreal.
+
+T51b2c26 evidência:901testes/typechecks (810Node+91Python),4novoscasos e cenários anteriores ajustados ao leaseobrigatório. Parserdegrantreusado, acquire/check/commitREST/noncebody e rede fechada validados; busy/cooldown/perdalease bloqueiamprov/commit. Nenhumregistro/coletareal ouentrypointalterado. Próxima c27 handler HTTP preparado para descoberta com bodybounded/token/statussemIDs e controleinflight; depoiscomposiçãobackendfixture e revisão de bootreal.

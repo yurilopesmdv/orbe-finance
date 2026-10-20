@@ -16,13 +16,13 @@ export function createAccountNetworkTransport(options: { enabled?: boolean; priv
       let kind: 'user' | 'session' | 'rpc' | 'provider-auth' | 'provider-read';
       if (raw === SUPABASE + '/auth/v1/user') kind = 'user';
       else if (raw === SUPABASE + '/rest/v1/rpc/orbe_has_session') kind = 'session';
-      else if (['orbe_begin_connection_read', 'orbe_check_connection_read', 'orbe_finish_connection_read', 'orbe_resolve_account_read', 'orbe_resolve_pending_inventory', 'orbe_stage_account_bindings'].some(name => raw === SUPABASE + '/rest/v1/rpc/' + name)) kind = 'rpc';
+      else if (['orbe_begin_connection_read', 'orbe_check_connection_read', 'orbe_finish_connection_read', 'orbe_resolve_account_read', 'orbe_resolve_pending_inventory', 'orbe_stage_account_bindings', 'orbe_begin_pending_inventory', 'orbe_check_pending_inventory', 'orbe_commit_pending_inventory'].some(name => raw === SUPABASE + '/rest/v1/rpc/' + name)) kind = 'rpc';
       else if (raw === PLUGGY + '/auth') kind = 'provider-auth';
       else if (url.origin === PLUGGY && (new RegExp('^/items/' + UUID + '$').test(url.pathname) && url.search === '' || url.pathname === '/accounts' && url.search.startsWith('?itemId=') && new RegExp('^' + UUID + '$').test(url.search.slice(8)))) kind = 'provider-read';
       else return forbidden();
       const get = kind === 'user' || kind === 'provider-read';
       if (input.method !== (get ? 'GET' : 'POST')) return forbidden();
-      if (get ? input.body != null : typeof input.body !== 'string' || new TextEncoder().encode(input.body).length > (raw === SUPABASE + '/rest/v1/rpc/orbe_stage_account_bindings' ? 131072 : 16384)) return forbidden();
+      if (get ? input.body != null : typeof input.body !== 'string' || new TextEncoder().encode(input.body).length > (['orbe_stage_account_bindings', 'orbe_commit_pending_inventory'].some(name => raw === SUPABASE + '/rest/v1/rpc/' + name) ? 131072 : 16384)) return forbidden();
       const headers = new Headers(input.headers);
       if (headers.has('cache-control') && headers.get('cache-control') !== 'no-store') return forbidden();
       const allowed = ['accept', 'cache-control', ...(get ? [] : ['content-type']), ...(kind === 'provider-read' ? ['x-api-key'] : kind === 'provider-auth' ? [] : kind === 'rpc' ? ['apikey'] : ['apikey', 'authorization'])];

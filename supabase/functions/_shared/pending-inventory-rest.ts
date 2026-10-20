@@ -1,3 +1,4 @@
+import { parseLeaseGrant, type AcquireResult } from './lease-rest.ts';
 import { readJsonResponse } from './http-json.ts';
 export interface PendingScope { readonly ownerId: string; readonly connectionId: string; readonly revision: number }
 export interface PendingItem extends PendingScope { readonly itemId: string }
@@ -11,10 +12,10 @@ function scope(raw: PendingScope) {
   return Object.freeze({ ownerId: raw.ownerId, connectionId: raw.connectionId, revision: raw.revision });
 }
 export function createPendingInventoryPorts(resolve: () => { origin: string; secretKey: string }, options: { enabled?: boolean; fixtureOnly?: boolean; transport?: Transport } = {}) {
-  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ resolve: async (_scope: PendingScope, _signal: AbortSignal) => null, store: async (_item: PendingItem, _accounts: readonly unknown[], _signal: AbortSignal) => false });
+  if (options.enabled !== true || options.fixtureOnly !== true) return Object.freeze({ resolve: async (_scope: PendingScope, _signal: AbortSignal) => null, store: async (_item: PendingItem, _accounts: readonly unknown[], _signal: AbortSignal) => false, acquire: async (_scope: PendingScope, _signal: AbortSignal): Promise<AcquireResult> => ({ status: 'disabled' }), check: async (_scope: PendingScope, _leaseId: string, _signal: AbortSignal) => false, commit: async (_item: PendingItem, _rows: readonly unknown[], _leaseId: string, _signal: AbortSignal) => false });
   const config = resolve(), origin = config.origin, key = config.secretKey, transport = options.transport;
   if (origin !== ORIGIN || typeof key !== 'string' || !/^sb_secret_[A-Za-z0-9_-]{1,512}$/.test(key) || typeof transport !== 'function') return fail();
-  async function rpc(name: 'orbe_resolve_pending_inventory' | 'orbe_stage_account_bindings', body: unknown, parent: AbortSignal, limit: number) {
+  async function rpc(name: 'orbe_resolve_pending_inventory' | 'orbe_stage_account_bindings' | 'orbe_begin_pending_inventory' | 'orbe_check_pending_inventory' | 'orbe_commit_pending_inventory', body: unknown, parent: AbortSignal, limit: number) {
     if (!(parent instanceof AbortSignal) || parent.aborted) return fail();
     const text = JSON.stringify(body);
     if (new TextEncoder().encode(text).length > 131072) return fail();
@@ -34,6 +35,17 @@ export function createPendingInventoryPorts(resolve: () => { origin: string; sec
     finally { clearTimeout(timer); parent.removeEventListener('abort', abort); controller.abort(); try { void response?.body?.cancel().catch(() => {}); } catch { /* Never log private payload. */ } }
   }
   const body = (value: PendingScope) => ({ p_owner_id: value.ownerId, p_connection_id: value.connectionId, p_revision: value.revision });
+  async function write(raw: PendingItem, rows: readonly unknown[], signal: AbortSignal, leaseId?: string): Promise<boolean> {
+      const value = scope(raw), itemId = raw.itemId;
+      if (!uuid(itemId) || !Array.isArray(rows) || rows.length > 1000) return fail();
+      const ids = new Set<string>(), accounts = rows.map(row => {
+        if (!object(row) || Object.keys(row).sort().join(',') !== 'currency,externalId,kind' || !uuid(row.externalId) || ids.has(row.externalId) || row.kind !== 'unknown' || row.currency !== null && (typeof row.currency !== 'string' || !/^[A-Z]{3}$/.test(row.currency))) return fail();
+        ids.add(row.externalId); return { externalId: row.externalId, kind: 'unknown', currency: row.currency };
+      });
+      const result = await rpc(leaseId === undefined ? 'orbe_stage_account_bindings' : 'orbe_commit_pending_inventory', { ...body(value), p_item_id: itemId, p_accounts: accounts, ...(leaseId === undefined ? {} : { p_lease_id: leaseId }) }, signal, 32);
+      if (typeof result !== 'boolean') return fail();
+      return result;
+  }
   return Object.freeze({
     async resolve(raw: PendingScope, signal: AbortSignal): Promise<Readonly<PendingItem> | null> {
       const value = scope(raw), result = await rpc('orbe_resolve_pending_inventory', body(value), signal, 16384);
@@ -41,16 +53,19 @@ export function createPendingInventoryPorts(resolve: () => { origin: string; sec
       if (!object(result) || Object.keys(result).sort().join(',') !== 'connectionId,itemId,ownerId,revision' || result.ownerId !== value.ownerId || result.connectionId !== value.connectionId || result.revision !== value.revision || !uuid(result.itemId)) return fail();
       return Object.freeze({ ...value, itemId: result.itemId });
     },
-    async store(raw: PendingItem, rows: readonly unknown[], signal: AbortSignal): Promise<boolean> {
-      const value = scope(raw), itemId = raw.itemId;
-      if (!uuid(itemId) || !Array.isArray(rows) || rows.length > 1000) return fail();
-      const ids = new Set<string>(), accounts = rows.map(row => {
-        if (!object(row) || Object.keys(row).sort().join(',') !== 'currency,externalId,kind' || !uuid(row.externalId) || ids.has(row.externalId) || row.kind !== 'unknown' || row.currency !== null && (typeof row.currency !== 'string' || !/^[A-Z]{3}$/.test(row.currency))) return fail();
-        ids.add(row.externalId); return { externalId: row.externalId, kind: 'unknown', currency: row.currency };
-      });
-      const result = await rpc('orbe_stage_account_bindings', { ...body(value), p_item_id: itemId, p_accounts: accounts }, signal, 32);
-      if (typeof result !== 'boolean') return fail();
-      return result;
+    store: (raw: PendingItem, rows: readonly unknown[], signal: AbortSignal) => write(raw, rows, signal),
+    async acquire(raw: PendingScope, signal: AbortSignal): Promise<AcquireResult> {
+      const value = scope(raw);
+      const grant = await rpc('orbe_begin_pending_inventory', { p_connection_id: value.connectionId, p_owner_id: value.ownerId, p_expected_revision: value.revision }, signal, 16384);
+      return parseLeaseGrant(grant, value, Date.now());
+    },
+    async check(raw: PendingScope, leaseId: string, signal: AbortSignal): Promise<boolean> {
+      const value = scope(raw); if (!uuid(leaseId)) return fail();
+      const result = await rpc('orbe_check_pending_inventory', { ...body(value), p_lease_id: leaseId }, signal, 32);
+      if (typeof result !== 'boolean') return fail(); return result;
+    },
+    async commit(raw: PendingItem, rows: readonly unknown[], leaseId: string, signal: AbortSignal): Promise<boolean> {
+      if (!uuid(leaseId)) return fail(); return await write(raw, rows, signal, leaseId);
     },
   });
 }
