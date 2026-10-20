@@ -1,3 +1,6 @@
+import { createDiscoveryRuntime } from '@/features/accounts/discovery-runtime';
+import type { DiscoverySnapshot } from '@/features/accounts/discovery-controller';
+import { useScreenProtection, useScreenProtectionModel } from '@/features/privacy/provider';
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { Modal, View } from 'react-native';
 import { Redirect, useFocusEffect, useRouter } from 'expo-router';
@@ -21,8 +24,15 @@ const notices: Record<ConnectionsSnapshot['notice'], string> = {
   rate_limited: 'Muitas solicitações. Aguarde um pouco antes de atualizar.',
   uncertain: 'Não foi possível confirmar o resultado. A alteração pode ter ocorrido no servidor. Atualize o status antes de tentar outra ação.',
 };
+type DiscoveryClient = Extract<ReturnType<typeof createDiscoveryRuntime>, { kind: 'ready' }>;
+const discoveryIdle: Readonly<DiscoverySnapshot> = Object.freeze({ phase: 'idle', notice: 'none' });
+const discoverySnapshot = () => discoveryIdle;
+const discoveryNotices: Record<DiscoverySnapshot['notice'], string> = { none: '', prepared: 'Contas identificadas. A leitura de saldos ainda aguarda a liberação da conexão.', empty: 'O serviço não informou contas nesta tentativa. Isso não indica saldo zero ou ausência de contas no banco.', unavailable: 'Não foi possível preparar a conexão. Atualize o status antes de tentar novamente.', cooldown: 'Aguarde o intervalo entre consultas antes de tentar novamente.', cancelled: 'Preparação interrompida. Volte à conexão quando o acesso estiver disponível.' };
 export default function MyConnectionsScreen() {
-  const auth = useAuth(), router = useRouter();
+  const auth = useAuth(), router = useRouter(), screen = useScreenProtection(), protection = useScreenProtectionModel();
+  const [discovery, setDiscovery] = useState<DiscoveryClient | null>(null);
+  const discoveryState = useSyncExternalStore(discovery?.controller.subscribe ?? idleSubscribe, discovery?.controller.getSnapshot ?? discoverySnapshot, discoverySnapshot);
+  const discoveryEnabled = runtime.inventoryDiscoveryEnabled && runtime.liveIntegrationEnabled && runtime.privateFinancialDataApproved;
   const [controller, setController] = useState<Controller | null>(null);
   const [selection, setSelection] = useState<Selection | null>(null);
   const snapshot = useSyncExternalStore(controller?.subscribe ?? idleSubscribe, controller?.getSnapshot ?? idleSnapshot, idleSnapshot);
@@ -36,14 +46,23 @@ export default function MyConnectionsScreen() {
     setController(instance); void instance.refresh();
     return () => { instance.close(); setSelection(null); };
   }, [auth.model, auth.snapshot.state]));
+  useFocusEffect(useCallback(() => {
+    setDiscovery(null);
+    if (!discoveryEnabled || !auth.model || auth.snapshot.state !== 'unlocked' || !protection || screen.snapshot.phase !== 'ready' || !screen.snapshot.active) return;
+    const instance = createDiscoveryRuntime(auth.model, protection, () => publicAuthConfig, expoFetch, runtime);
+    if (instance.kind !== 'ready') return;
+    setDiscovery(instance);
+    return () => instance.close();
+  }, [discoveryEnabled, auth.model, auth.snapshot.state, protection, screen.snapshot.phase, screen.snapshot.active]));
   useEffect(() => { if (snapshot.phase !== 'ready' || auth.snapshot.state !== 'unlocked') setSelection(null); }, [snapshot.phase, auth.snapshot.state]);
   if (auth.snapshot.state !== 'unlocked') return <Redirect href="/login" />;
-  const busy = snapshot.phase === 'loading' || snapshot.phase === 'working' || !controller;
-  return <Screen title="Minhas conexões" subtitle="Status das conexões cadastradas no Orbe. Nenhum saldo ou movimento é consultado nesta tela." demonstration={false}>
+  const busy = snapshot.phase === 'loading' || snapshot.phase === 'working' || discoveryState.phase === 'loading' || !controller;
+  return <Screen title="Minhas conexões" subtitle={discoveryEnabled ? "Prepare suas conexões e acompanhe a disponibilidade dos dados." : "Status das conexões cadastradas no Orbe. Nenhum saldo ou movimento é consultado nesta tela."} demonstration={false}>
     <Action title="Voltar ao meu acesso" secondary onPress={() => router.replace('/account')} />
-    <Card title="Coleta financeira em preparação"><Body>Esta versão consulta apenas o status no Orbe. Autorizar um banco, buscar dados financeiros, retomar uma conexão ou revogar consentimento na origem ainda não está disponível.</Body></Card>
+    {discoveryEnabled ? <Card title="Prepare sua conexão"><Body>A preparação identifica suas contas, sem exibir saldos ou movimentos nesta tela. A leitura dos valores depende da liberação da conexão.</Body></Card> : <Card title="Coleta financeira em preparação"><Body>Esta versão consulta apenas o status no Orbe. Autorizar um banco, buscar dados financeiros, retomar uma conexão ou revogar consentimento na origem ainda não está disponível.</Body></Card>}
     <Action title={snapshot.phase === 'working' ? 'Confirmando alteração…' : snapshot.phase === 'loading' ? 'Consultando status…' : 'Atualizar status'} disabled={busy || !runtime.metadataStatusEnabled} onPress={() => { void controller?.refresh(); }} />
     {snapshot.notice !== 'none' && <Body>{notices[snapshot.notice]}</Body>}
+    {discoveryEnabled && discoveryState.notice !== 'none' && <Body>{discoveryNotices[discoveryState.notice]}</Body>}
     {snapshot.phase === 'ready' && snapshot.connections.length === 0 && <Card title="Nenhuma conexão cadastrada"><Body>A consulta ao Orbe foi concluída. Nenhum banco foi conectado por esta versão; isso não informa saldo ou existência de contas no banco.</Body></Card>}
     {snapshot.phase === 'ready' && snapshot.connections.map(connection => <Card key={connection.id} title={institutionLabels[connection.institution]}>
       <Body>{connectionStateLabel(connection, Date.now())}</Body>
@@ -54,8 +73,9 @@ export default function MyConnectionsScreen() {
       <Body>Contas: {capabilityLabel(connection.capabilities.accounts)}. Movimentos: {capabilityLabel(connection.capabilities.transactions)}.</Body>
       <Body>Investimentos: {capabilityLabel(connection.capabilities.investments)}. Cofrinhos: {capabilityLabel(connection.capabilities.reserves)}.</Body>
       <Body>Disponibilidade informada não comprova cobertura dos dados. Nenhum produto bancário foi homologado nesta versão.</Body>
-      {connection.state === 'active' && <Action title="Pausar buscas no Orbe" secondary onPress={() => { void controller?.pause({ connectionId: connection.id, revision: connection.revision }); }} />}
-      <Action title="Remover conexão do Orbe" secondary onPress={() => setSelection({ connectionId: connection.id, revision: connection.revision, institution: connection.institution })} />
+      {discoveryEnabled && connection.state === 'pending' && <Action title={discoveryState.phase === 'loading' ? 'Preparando conexão…' : 'Preparar conexão'} disabled={busy || !discovery || discoveryState.phase === 'closed'} onPress={() => { void discovery?.controller.run(connection.id).then(complete => { if (complete) void controller?.refresh(); }); }} />}
+      {connection.state === 'active' && <Action title="Pausar buscas no Orbe" secondary disabled={busy} onPress={() => { void controller?.pause({ connectionId: connection.id, revision: connection.revision }); }} />}
+      <Action title="Remover conexão do Orbe" secondary disabled={busy} onPress={() => setSelection({ connectionId: connection.id, revision: connection.revision, institution: connection.institution })} />
     </Card>)}
     {(snapshot.phase === 'uncertain' || snapshot.phase === 'error') && <Action title="Entrar novamente com minha senha" secondary onPress={() => { setSelection(null); controller?.close(); auth.model?.requirePassword(); router.replace('/login'); }} />}
     <Card title="Sobre pausa e remoção"><Body>Pausar impede novas buscas pelo Orbe. Remover apaga o vínculo e os metadados da conexão no Orbe. Nenhuma dessas ações revoga sozinha o consentimento no banco ou elimina os dados mantidos pelo fornecedor.</Body><Body>Para remover, o servidor exige um login recente com senha. Se não confirmar, atualize o status e, se necessário, entre novamente. O aplicativo não repete a remoção sozinho.</Body></Card>
