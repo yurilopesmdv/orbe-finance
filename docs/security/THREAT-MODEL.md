@@ -1,6 +1,6 @@
 # Modelo de ameaças e destinos permitidos
 
-Versão 0.2, 16/10/2026. Ainda sem implementação. Referência de organização: [OWASP MASVS](https://mas.owasp.org/MASVS/). Não constitui certificação ou avaliação completa de conformidade.
+Modelo-base0.2 de16/10/2026; estado de implementação atualizado em20/10/2026 em [prontidão](../RELEASE-READINESS.md). As tabelas abaixo descrevem controles requeridos, não todos já comprovados. Referência de organização: [OWASP MASVS](https://mas.owasp.org/MASVS/). Não constitui certificação ou avaliação completa de conformidade.
 
 ## Ativos e fronteiras
 

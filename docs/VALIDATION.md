@@ -75,3 +75,7 @@ Esta revisão prevalece nas condições históricas de ausência de cloud/agrega
 ## Contrato T74 aplicado
 
 Metadados sob RLS no servidor; saldos/movimentos/posições e relatórios ficam no aparelho. Cenários de banco/RLS aplicam-se aos vínculos; domínio/relatórios exigem testes de repositório local. Cron/webhook não fazem parte do MVP e não podem ser declarados testados; testar que estão ausentes/desligados. V07 distingue atualização automática da origem e consulta ao reabrir o app, sem promessa de atualização local com app fechado. T74 concluída por revisão documental, não por testes de software.
+
+## Evidência atual —20/10/2026
+
+A matriz anterior é planejamento histórico e não prova de execução. Estado rastreável,613 testes/typechecks, export/scan, HTTP negativo e roteiro físico pendente em [RELEASE-READINESS](RELEASE-READINESS.md). Auth e metadata foram implementados no projeto próprio; fornecedor/finanças reais/runtime privado permanecem bloqueados. Não marcar T38b/T53/T61/T63/T78 concluídas por export ou documentação.

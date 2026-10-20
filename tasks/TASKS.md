@@ -633,3 +633,10 @@ T37b2b:611 testes/typechecks, export Hermes iOS2.6MB e scan PAT/ownerUUID aprova
 Gate de entrega AUTH-13; [plano](../plan/T11d-RECOVERY-DELIVERY-GATE.md); integrador único; aceite configuração pública nunca ativa recovery e sem alteração/envio Auth. T11c SMTP continua bloqueada.
 
 T11d:613 testes/typechecks passaram; configure-client só lê chave pública/grava recoveryfalse, não altera template/Auth nem envia e-mail. Reconfigurar arquivo com flagtrue voltafalse. SMTP/entrega T11c continuam bloqueados. Próxima T38a consolidação/validação final sintética e roteiro físico final.
+
+## T38 — aceite em duas etapas
+
+- T38a done: fechamento técnico sintético e preparo do teste final, UX-16; [plano](../plan/T38a-SYNTHETIC-ACCEPTANCE.md); integrador único; depende T37b2b/T11d; aceite docs/evidências/Git/QR sem simular físico.
+- T38b pending: validação no iPhone do titular, incluindo login positivo, blur/lock e VoiceOver; não abrir banco/consentimento.
+
+T38a:613 testes/typechecks/CI fb80fb8 e export iOS/scan consolidados; Metro compilou bundle dev5.8MB sem PAT/ownerUUID, status/manifest SDK57 locais responderam. QR enviado; titular confirmou carregamento infinito no iPhone. T38b bloqueada no acesso, sem aceite físico. Readonlydiagnóstico: bind*:8083 correto, ufw exige sudo indisponível, ping no IP anterior não respondeu (não prova firewall); titular confirma ExpoGo logado. Nova exigência oficial de mesma conta no CLI documentada; próxima T38c preparar login/online segregados, sem reutilizar perfil F1.

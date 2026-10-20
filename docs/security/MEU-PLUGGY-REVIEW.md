@@ -38,4 +38,4 @@ A visão pública de Security do Meu Pluggy não apresentou advisory publicado, 
 4. Testes sintéticos de autenticação, autorização, expiração, revogação, logs, exclusão, dependências e falhas antes do gate de dados reais já previsto. Revisar advisories novamente com versões/lockfile definidos.
 5. Confirmar privadamente cobertura por banco/produto e consentimento do titular antes de qualquer conexão real. Cofrinhos ausentes ficam explicitamente indisponíveis; produto ausente fica explicitamente indisponível.
 
-Não foi conectado banco, criado backend ou instalado SDK. A preferência do usuário pelo fornecedor não elimina o gate de dados reais nem autoriza contratação.
+Na pesquisa original não havia backend; em20/10/2026 há backend próprio somente Auth/metadados. Nenhum banco conectado ou SDK financeiro instalado; processamento financeiro permanece bloqueado. A preferência do usuário pelo fornecedor não elimina o gate de dados reais nem autoriza contratação.

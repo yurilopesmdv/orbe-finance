@@ -2,7 +2,7 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual: execução retomada em 19/10/2026.** Interface demonstrativa com carteira, gastos e relatórios; backend próprio com proprietário restrito, login e bloqueio por segundo plano implementados. TypeScript, 556 testes e exportação iOS aprovados. Recuperação por e-mail e teste físico pendentes. Nenhum banco conectado; finanças reais continuam desligadas.
+**Estado atual:20/10/2026 — pronto para teste sintético, aceite físico pendente.** Carteira/gastos/metas/relatórios demonstrativos, login do proprietário e tela privada de status de conexões implementados. Dois typechecks,613 testes e exportação iOS aprovados. API própria de metadata publicada e validada em casos HTTP negativos; coleta financeira/Face ID desligados. Recuperação depende de SMTP comprovado. Nenhum banco conectado; o produto bancário completo ainda depende dos gates de segurança/runtime/fornecedor. [Prontidão e teste final](docs/RELEASE-READINESS.md).
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 
@@ -30,6 +30,6 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 
 Meu Pluggy é o fornecedor selecionado para planejar a integração automática Bradesco/Mercado Pago PF. [SPEC-009](specs/009-meu-pluggy/spec.md) prevalece sobre a revisão local 0.3: Open Finance é a única origem financeira admitida. A pesquisa pública não encontrou evidência comprovada de falha grave vigente no próprio serviço; encontrou falhas corrigidas no integrador Actual Budget e um relato de cobertura dos cofrinhos MP. Isso não é auditoria nem garantia de ausência de vazamento.
 
-Expo Go permanece restrito a dados sintéticos até validar runtime real, armazenamento e biometria. Senha e sessão da ponte são distintas do desbloqueio local. Pluggy/ponte processam a sincronização; IA/BI/analytics/ferramentas não recebem conteúdo financeiro. Nenhum banco conectado ou recurso contratado. Código atual é somente base demonstrativa e spike de acesso. Gate de dados reais permanece obrigatório.
+Expo Go permanece restrito a dados sintéticos até validar runtime real, armazenamento e biometria. Senha e sessão da ponte são distintas do desbloqueio local. Pluggy/ponte processam a sincronização; IA/BI/analytics/ferramentas não recebem conteúdo financeiro. Nenhum banco conectado ou recurso contratado. Código atual oferece demonstração, Auth e metadados; normalizadores/coordenadores financeiros seguem em fixtures, sem coleta ativa. Gate de dados reais permanece obrigatório.
 
 [Como executar e validar](docs/DESENVOLVIMENTO.md). Auditoria de dependências e limites em [DEPENDENCIES](docs/security/DEPENDENCIES.md).

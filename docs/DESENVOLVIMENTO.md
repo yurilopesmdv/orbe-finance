@@ -32,7 +32,7 @@ Projeto orbe criado pelo titular, região us-east-1, destinado apenas a desenvol
 
 `npm run backend:cloud:inspect` verifica destino/metadados/política sem imprimir segredos. `npm run backend:cloud:bootstrap` é preparação idempotente de banco vazio e rejeita tabelas de aplicação existentes. Confere nome/ref/saúde, aplica baseline imutável pelo endpoint de migrations e registra nome com hash no histórico oficial. A versão remota é gerada pela API; não executar CLI db push remoto por divergência com timestamps locais. Novas migrations precisam de operação versionada própria antes de aplicar. Não editar a baseline aplicada.
 
-Cadastro público, anônimo e telefone estão desligados; senha mínima12, JWT10min e rotação configurados. Nenhuma identidade proprietária provisionada por ferramenta até esta etapa; T10 usa cadastro administrativo do titular e allowlist server-side. SMTP/recuperação e retenção do provedor continuam pendentes. Stack Docker local segue parada pelo problema de bind já documentado.
+Cadastro público, anônimo e telefone estão desligados; senha mínima12, JWT10min e rotação configurados. Proprietário criado pelo titular e allowlist server-side provisionada em T10; ferramentas não usam senha/e-mail do proprietário. SMTP/recuperação e retenção do provedor continuam pendentes. Stack Docker local segue parada pelo problema de bind já documentado.
 
 ### Migrations e proprietário
 
@@ -74,8 +74,12 @@ Comandos Expo passam por scripts/expo-safe.mjs: perfil exclusivo, ambiente sanit
 
 `npm run backend:bridge:deploy-disabled` confirma projeto/fontes/manifest e publica somente orbe-bridge com gate literal false via API, sem Docker. `npm run backend:bridge:smoke-disabled` valida três respostas503 anônimas. Logs/manifest ficam no diretório privado fora do Metro, nunca no Git. verify_jwt=false vale somente para essa resposta sem dados; não habilitar função ou adicionar operação protegida sem nova task/gates. Detalhes e limites em [ponte](security/BRIDGE-CORE.md).
 
-T20a adicionou quarta migration de metadata, lease privado por conexão e fencing de revisão. `npm run backend:cloud:test-read-leases` executa cenários SQL fictícios em rollback e verifica zero identidades residuais/owner preservado. Não imprimir respostas SQL cruas nem editar migration aplicada. Serviço público orbe-bridge continua desligado; RPCs de lease somente service_role, sem ACL direta na tabela.
+T20a adicionou a quarta migration; em20/10/2026 são sete migrations aplicadas/imutáveis, lease privado por conexão e fencing de revisão. `npm run backend:cloud:test-read-leases` executa cenários SQL fictícios em rollback e verifica zero identidades residuais/owner preservado. Não imprimir respostas SQL cruas nem editar migration aplicada. Serviço público orbe-bridge continua desligado; RPCs de lease somente service_role, sem ACL direta na tabela.
 
 ### Configuração de acesso e conexões —20/10/2026
 
 configure-client grava somente origem/chave pública e recoveryfalse; não altera Auth/template/SMTP e não envia e-mail. T11c continua dependendo de SMTP revisado e entrega comprovada pelo titular. Login → Meu acesso → Minhas conexões consulta somente metadata no endpoint próprio orbe-metadata, com Auth/sessão/RLS. Pausa/remoção têm confirmação/revisão, remoção exige login recente. Não confundir com revogação no banco. Função financeira orbe-bridge permaneceoff. Deploy/manifest metadata são separados (scripts/metadata-deploy.py), logs0600 fora Metro; não executar operações contra outro projeto.
+
+## Teste final atual
+
+[Prontidão/roteiro iPhone](RELEASE-READINESS.md) reúne evidências e bloqueios. Metro iniciado20/10/2026 na porta8083 para aceite sintético, sem túnel, pelo launcher seguro. Sua disponibilidade depende da sessão/processo; confira status antes de usar o endereço. Não afirmar que o teste físico passou sem resposta do titular.
