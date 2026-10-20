@@ -946,3 +946,9 @@ T51b2c34 evidência:958testes/typechecks (859Node+99Python),4novoscasos de Auth.
 [Plano](../plan/T51b2c35-DISCOVERY-PREVIEW-RELEASE.md).958testes/typechecks/exportiOS/runtimeaudit1204/56 aprovados; publicar somente apósCI/scan. Flags cliente/backend off, sem testeintermediário.
 
 T51b2c35 publicada:958testes/typechecks/export/runtimeaudit1204/56/scan todosperfis e CI39514871905 success. Update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/grupo41095d0a-c262-4850-a4ab-122bdce6caf0/commitbe80325, iospreviewSDK57; manifesto scheme/hashHBC/linkQR conferidos, PNG atualizado. Nenhumflagfinanceiro ou teste solicitado. Próxima c36 configurar segredos backend exclusivamente desativados, preservando metadata/Auth e sem dados bancários.
+
+## T51b2c36 — done
+
+MPG-50/[plano](../plan/T51b2c36-DISABLED-BACKEND-CONFIG.md). Segredos backend somentecomflagsfalse, preservação demetadata/Auth/digests/artefatoseversões; nenhuma coleta financeira.
+
+T51b2c36 evidência:967testes/typechecks (859Node+108Python),9casosnovos.7segredos backend configurados exclusivamentecom4flagsfalse; digests confirmados/metadatasemalteração. Supabase atualizoubridge4→5/metadata3→4 e archivehashes; downloadreadonly confirmou23fontesbridge/5metadata iguais aosrecibos, entrypoints presentes; recibosprivados sóversãoreconciliada. Reexecuçãoidempotenteadded0/configreadytrue.7smokes503/no-store e5negativosmetadata aprovados;ownerpositivo não testado/remotefinancialReads0. Nenhuma chamadaPluggy nova (total1Auth/0financeiros), sem teste do titular. Próxima c37 revisão nativa de fetch/cache/cookies e evidências de privacidade antes deativação, sem prometer garantia absoluta.

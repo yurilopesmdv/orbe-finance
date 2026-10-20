@@ -38,3 +38,5 @@ Estado atual c31: orbe-bridgev4ACTIVE com liveApprovedfalse no entrypoint;7rotas
 Estado c34:958testes/typechecks; cliente/UI descoberta sobflagfalse, exportiOS/runtimeaudit1204fontes56instâncias aprovados. Credenciais técnicas locais autenticadas somente em1POSTAuth, semdadosfinanceiros ouAPIkeypersistida. Próxima prévia consolidada apósCI; leitura/descobertafinanceira real continuamoff.
 
 Prévia consolidada c35 publicada: update01a15ba3-efdc-7ce4-b328-fa16a89c0e12/commitbe80325,958testes/CI39514871905 success/runtimeaudit1204/56/scan todosperfis. Manifesto/hashHBC/QRoficial verificados, flags financeirasfalse e nenhumtesteintermediário solicitado. [QR atual](EXPO-PREVIEW.md).
+
+Estado c36:967testes/typechecks. Backend configurado com credenciais privadas e4flagsfalse; bridgev5/metadata4 resultam da atualização automática de ambiente, com23+5fontes byteaByte iguais aosrecibos.7smokesoff e5negativosAuthmetadata passaram. Não inferir ownerpositivo/homologação/OF ou privacidade absoluta. Fonte nativa/cookies/cache/telemetria e demais gates reais continuam em revisão.
