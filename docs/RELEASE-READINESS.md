@@ -7,7 +7,7 @@
 | Acesso pessoal | Conta criada; sessão lembrada por refresh token rotativo no Keychain; proprietário fixo e revalidação online | Senha não é salva; terceiros, Face ID e recuperação por e-mail desativados |
 | Proteção | Titular confirmou retomada sem senha, captura e multitarefa; consultas privadas aguardam proteção pronta/ativa | Não comprova cold restart, logout, gravação, VoiceOver, cache ou outras versões |
 | Interface | Gastos, carteira, metas, relatórios e classificação demonstrativos; conexões autenticadas de metadados | Valores demonstrativos não são dados bancários; identidade visual adiada |
-| Infraestrutura própria | 15 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v6 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
+| Infraestrutura própria | 16 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v6 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
 | Credenciais | Client ID/Secret autenticados uma vez somente em POST/auth; segredos somente no backend, quatro flags financeiras false | Chave temporária não foi guardada/exibida; nenhuma leitura financeira foi feita |
 | Vínculos | Um item Mercado Pago cadastrado como pending, sem contas/capacidades/aprovação OF | Bradesco confirmado no portal pessoal, item na aplicação ainda não identificado |
 | Cadeia de contas | Leitura e descoberta preparadas com autorização, consentimento atual, lease global, centavos exatos e cancelamento | Testes com rede/dados fictícios; entrypoint liveApproved false e flags cliente/backend false |

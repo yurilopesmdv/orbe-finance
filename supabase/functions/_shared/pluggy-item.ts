@@ -8,11 +8,13 @@ function instant(raw:unknown):number{
  return value;
 }
 /** Technical proxy checks only; ownership and original-bank OF proof are separate. */
-export function verifyPluggyItem(raw:unknown,itemId:string,now:number){
+export function verifyPluggyItem(raw:unknown,itemId:string,now:number,product:'accounts'|'transactions'|'investments'='accounts'){
  try{
+  if(!['accounts','transactions','investments'].includes(product))return invalid();
+  const required=product==='investments'?['INVESTMENTS']:product==='transactions'?['ACCOUNTS','TRANSACTIONS']:['ACCOUNTS'];
   if(!Number.isSafeInteger(now)||now<0||!record(raw)||!['id','connector','status','executionStatus','error','consentExpiresAt','products'].every(key=>Object.hasOwn(raw,key))||raw.id!==itemId||!record(raw.connector)||!Object.hasOwn(raw.connector,'name')||!Object.hasOwn(raw.connector,'isSandbox')||raw.connector.name!=='MeuPluggy'||raw.connector.isSandbox!==false||raw.status!=='UPDATED'||raw.executionStatus!=='SUCCESS'||raw.error!==null)return invalid();
   for(const key of ['parameter','userAction','statusDetail'])if(Object.hasOwn(raw,key)&&raw[key]!==null)return invalid();
-  if(!Array.isArray(raw.products)||raw.products.length>32||!raw.products.every(value=>typeof value==='string'&&/^[A-Z_]{1,64}$/.test(value))||!raw.products.includes('ACCOUNTS'))return invalid();
+  if(!Array.isArray(raw.products)||raw.products.length>32||!raw.products.every(value=>typeof value==='string'&&/^[A-Z_]{1,64}$/.test(value))||!required.every(value=>(raw.products as unknown[]).includes(value)))return invalid();
   const expiresAt=instant(raw.consentExpiresAt);if(expiresAt<=now)return invalid();
   const updated=Object.hasOwn(raw,'lastUpdatedAt')&&raw.lastUpdatedAt!==null?instant(raw.lastUpdatedAt):null;
   if(updated!==null&&updated>now+60000)return invalid();

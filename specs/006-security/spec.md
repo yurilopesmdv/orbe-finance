@@ -165,3 +165,7 @@ Perfilopcional movement-keys.env, fora do projeto, deve conter somente ORBE_MOVE
 ## SEC-43 — Rede de investimento limitada a item/página (T23c2)
 
 Opção investmentReadsEnabled explícita mais ExecutionPolicy/privateapproved, com investmentScope próprio {itemId,page1–100}. Capturar item/página e construir único GET/investments?itemId=…&page=…&pageSize=100; não aceitar URL/filtros do chamador. Fixture exige rede injetada. Escopos transacional/investimento simultâneos são recusados. Em investmentmode, GETitem só desseitem; GETaccounts/transações/identity/resources/outrosprodutos permanecem negados. Default segue seminvestimentos e scopeoff não é lido. Essa fronteira não autoriza sessão/owner/lease/consentimento por si. Semboot/deploy/gatesnovos.
+
+## SEC-44 — Produto habilitado no Item antes da coleção (T23c4a)
+
+VerificadorMeuPluggy recebe operação fechada accounts(default)/transactions/investments. ExigirACCOUNTS no default; transactions exigeACCOUNTS+TRANSACTIONS; investments exigeINVESTMENTS sem exigircontas. Produtoausente recusa antes da coleção. Isso confirma só produto habilitado do proxy/consentimentotécnico, não recurso original compartilhado ou provaOF. Manter checksownerexternos, status/erro/sandbox/prazo e mínimos de retorno; nenhum payloadextra passa. Atualizarportmovimentos paraoperação específica; legadocontas/inventory preservado.

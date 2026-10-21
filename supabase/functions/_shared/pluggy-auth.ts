@@ -153,7 +153,7 @@ function createCore(resolve: () => Configuration, options: ExecutionPolicy & { e
             if (response.status === 401 || response.status === 403) { clearKey(); throw Error(); }
             if (response.status === 429) return Object.freeze({ status: 'rate_limited' });
             if (response.status !== 200 || !response.ok) throw Error();
-            const evidence = verifyPluggyItem(await readJsonResponse(response, controller.signal, 131072), context.itemId, time());
+            const evidence = verifyPluggyItem(await readJsonResponse(response, controller.signal, 131072), context.itemId, time(), movement ? 'transactions' : 'accounts');
             if (controller.signal.aborted || closed || generation !== epoch || key !== requestKey || time() >= expiresAt || time() - start >= 20000) throw Error();
             response = await transport(target, { method: 'GET', headers: { Accept: 'application/json', 'X-API-KEY': requestKey, 'Cache-Control': 'no-store' },
               signal: controller.signal, redirect: 'error', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer' });
