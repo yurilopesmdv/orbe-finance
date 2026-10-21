@@ -7,7 +7,7 @@
 - Acesso pessoal criado, sessão lembrada funcionando e proteção de captura/multitarefa confirmada no iPhone.
 - Credenciais da aplicação guardadas privadamente, autenticadas uma vez somente em POST/auth e configuradas nos segredos do backend próprio. API key adicional não é necessária; nenhum segredo vai para o Expo.
 - Um item Mercado Pago foi cadastrado como pending no Orbe. Ainda não foram registrados IDs de contas, capacidades ou evidência Open Finance; nenhum saldo foi coletado.
-- Bridge v6/metadata v4 e 12 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
+- Bridge v6/metadata v4 e 13 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
 
 ## Por que aparecem quantidades diferentes
 
