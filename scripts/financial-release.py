@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import sys
 import stat
+import time
 ROOT=Path(__file__).resolve().parent.parent
 spec=importlib.util.spec_from_file_location('release_config',ROOT/'scripts/financial-config.py');c=importlib.util.module_from_spec(spec);spec.loader.exec_module(c)
 FILES=('app.json','package-lock.json','src/config/runtime.ts')
@@ -26,7 +27,11 @@ def transition(request,desired,receipts,enabled,verify):
         return all(current.get(name)==c.digest(selected) for name in c.FLAGS) and all(current.get(name)==value for name,value in prior.items() if name not in c.FLAGS)
     try:
         if changed:request('/secrets','POST',changed)
-        if not confirmed():raise c.SafeError('release_confirmation_failed')
+        ready=confirmed()
+        for delay in (0.25,0.5,1,2,2):
+            if ready:break
+            time.sleep(delay);ready=confirmed()
+        if not ready:raise c.SafeError('release_confirmation_failed')
         after=c.functions_map(request('/functions'))
         for slug,row in after.items():
             if row['id']!=before[slug]['id'] or row['version']<before[slug]['version'] or verify(slug,receipts[slug]) is not True:raise c.SafeError('release_source_unverified')

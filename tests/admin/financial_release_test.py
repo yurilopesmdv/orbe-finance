@@ -1,6 +1,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('financial_release',Path(__file__).resolve().parents[2]/'scripts/financial-release.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 spec=importlib.util.spec_from_file_location('fixture_config',Path(__file__).with_name('financial_config_test.py'));f=importlib.util.module_from_spec(spec);spec.loader.exec_module(f)
 class ReleaseTests(unittest.TestCase):
@@ -26,6 +27,6 @@ class ReleaseTests(unittest.TestCase):
     calls+=1
     if calls==1:secrets[m.c.FLAGS[0]]=m.c.digest('false')
    return result
-  with self.assertRaises(m.c.SafeError):m.transition(tampered,desired,receipts,True,lambda *args:True)
+  with patch.object(m.time,'sleep'),self.assertRaises(m.c.SafeError):m.transition(tampered,desired,receipts,True,lambda *args:True)
   self.assertEqual(len(posts),2);self.assertTrue(all(secrets[name]==m.c.digest('false') for name in m.c.FLAGS))
 if __name__=='__main__':unittest.main()
