@@ -1126,3 +1126,9 @@ T22c21 evidência21/10:1126 testes/typechecks preservados, install--check/audit/
 SEC-39/[plano](../plan/T22c22-MOVEMENT-SESSION-CACHE.md). Integrar batch com manifesto tardio ao cache de sessão existente antes do controller.
 
 T22c22 concluída21/10:1132 testes/typechecks (1010Node+122Python), seis cenários novos de promoção, ownerlocal/mutex entreprodutos/cancel/lock/close e finishfalse preservando cache. ExportiOS/runtimeaudit1206fontes/56pacotes/scans/diff aprovados. CIpatch21 39631360134 success, corrigiu incompatibilidade sem suprimircheck. Nenhuma UI/flag/deploy/EAS. PróximaT22c23 controller de movimentos com status/registry/proteção e cache.runMovements.
+
+## T22c23 — done
+
+SEC-40/[plano](../plan/T22c23-MOVEMENT-CONTROLLER.md). Controller e runtime protegidos para futura ligação da tela.
+
+T22c23 concluída21/10:1144 testes/typechecks (1022Node+122Python),12cenários de controller/runtime. Prontidão/lock/background, metadadoscapacidade/consentimento, registry, mês, timeout120s/únicorefresh e ausência de rede automática validados. Snapshot sem valores; queryledger protegida; contextoowneropaco. Scan/diff aprovados; módulos isolados sem importUI/exportrepetido. PróximaT22c24 rota Minhasmovimentações+flagliteralfalse e navegação discreta, com filtros de período/direção, parcial e proteção.

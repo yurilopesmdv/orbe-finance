@@ -149,3 +149,7 @@ Corrigir drift apontado por expo install--check com patches do SDK57, sem migrar
 ## SEC-39 — Cache de sessão para batch transacional autorizado (T22c22)
 
 SyncSession expõe runMovements separado para manifesto da primeira página, usando o mesmo mutex e AbortController das leituras existentes. Owner do armazenamento é UUID opaco local, não JWTsubject; contexto deve corresponder a esse escopo antes de adquirir lease. Lock/logout/close abortam batch, purgam ledger e recusam novas consultas; cancel descarta staging sem apagar cache válido. Sem transporte automático, persistência ou novas flags.
+
+## SEC-40 — Controller de movimentações protegido e explícito (T22c23)
+
+Controller só nasce com sessão desbloqueada e proteção ready/active. Refresh captura connectionId/mês, consulta status/capacidade/consentimento e registry autorizado antes do transporte, usando scopeId opaco do cache; BANK continua definido pelo manifesto do backend. Um refresh, prazo global120s e cancelamento de status/registry/transporte/lease ao fechar ou perder proteção. Snapshot só estados/avisos; valores consultados separadamente no ledger protegido, sem persistência. Runtime exige movementReads/live/private independentes e disabled não inspeciona dependências. categories/transferências confirmadas vazias inicialmente, sem inventar classificação. Sem ativação no rootUI nesta task.
