@@ -18,9 +18,9 @@ Login, sessão lembrada e proteções estão publicados. Contas, movimentações
 
 1201 verificações aprovadas (1069 Node +132 Python), incluindo tipos cliente/backend. Logs locais `/tmp/orbe-check-investment-client.log`. Testes integrados verificam fins recusados, registroRLS ausente, sessão bloqueada e gatesoff semrede; o provider é fictício. FixtureSQL real valida claim/commit/finish e replay, sem dados pessoais.
 
-SDK57.0.31/Router57.0.29 preservados. ExportiOS e auditoria do grafo atual são pré-requisitos da nova prévia; resultado e IDs finais em [EXPO-PREVIEW](EXPO-PREVIEW.md). Scans com todos os perfis privados antes de subir artefatos. Sourcemaps ficam privados. A CI do backend consolidado39641198955 passou; cliente tem checkpoint próprio.
+SDK57.0.31/Router57.0.29 preservados. ExportiOS e auditoria do grafo atual1216fontes/56instâncias aprovados; resultado e IDs finais em [EXPO-PREVIEW](EXPO-PREVIEW.md). Scans com todos os perfis privados antes de subir artefatos. Sourcemaps ficam privados. A CI do backend consolidado39641198955 passou; cliente tem checkpoint próprio.
 
-Backend publicado continua financeiramente desligado por `liveApproved:false`, independente das envs. Novas flags de movimentos/investimentos e chaves de movimento ainda não provisionadas. Código local mais novo não equivale ao snapshot remoto; versões publicadas constam em STATE/EXPO-PREVIEW.
+Backendv7 publicado continua financeiramente desligado por `liveApproved:false`, independente das envs. Novas flags de movimentos/investimentos e chaves de movimento ainda não provisionadas. Código local mais novo não equivale ao snapshot remoto; versões publicadas constam em STATE/EXPO-PREVIEW.
 
 ## Pendências para dados reais
 

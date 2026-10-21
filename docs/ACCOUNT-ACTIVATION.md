@@ -1,13 +1,13 @@
 # Ativação das contas — estado atual
 
-20/10/2026. **Você já criou a conta e conectou Bradesco/Mercado Pago no Meu Pluggy. Não precisa repetir esse cadastro ou reenviar credenciais/IDs.** No Orbe, a leitura bancária continua desativada até concluir os gates. A publicação remota e o QR estão em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+21/10/2026. **Você já criou a conta e conectou Bradesco/Mercado Pago no Meu Pluggy. Não precisa repetir esse cadastro ou reenviar credenciais/IDs.** No Orbe, a leitura bancária continua desativada até concluir os gates. A publicação remota e o QR estão em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 ## O que já foi feito
 
 - Acesso pessoal criado, sessão lembrada funcionando e proteção de captura/multitarefa confirmada no iPhone.
 - Credenciais da aplicação guardadas privadamente, autenticadas uma vez somente em POST/auth e configuradas nos segredos do backend próprio. API key adicional não é necessária; nenhum segredo vai para o Expo.
 - Um item Mercado Pago foi cadastrado como pending no Orbe. Ainda não foram registrados IDs de contas, capacidades ou evidência Open Finance; nenhum saldo foi coletado.
-- Bridge v6/metadata v4 e 13 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
+- Bridge v7/metadata v4 e 17 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
 
 ## Por que aparecem quantidades diferentes
 
@@ -22,7 +22,7 @@ O inventário privado aceita de um a cinco itens observados, com instituição e
 3. Versionar a liberação controlada, executar a descoberta no backend sob sessão/owner/lease e somente então permitir a primeira leitura. Não marcar conexão/capacidades como aprovadas artificialmente.
 4. No roteiro final, conferir no próprio iPhone saldo/moeda/data e cobertura, sem compartilhar valores com ferramentas. Testar primeiro uma conexão; preservar null/desconhecido/parcial em vez de inventar zero.
 
-A primeira fatia é conta corrente/pagamento. Movimentos, investimentos e cofrinhos reais exigem etapas próprias; o app demonstrativo não comprova essa cobertura. O trabalho técnico independente continua sem solicitar testes intermediários. As lacunas externas não serão substituídas por fixtures ou por mudança silenciosa de flags.
+A primeira fatia é conta corrente/pagamento. Movimentos e investimentos têm fluxo completo implementado e validado com dados fictícios; os mesmos gates impedem ativação real. Cofrinhos continuam dependentes de natureza/vínculo explícitos da fonte; a tela não inventa cobertura. O trabalho técnico independente continua sem solicitar testes intermediários. As lacunas externas não serão substituídas por fixtures ou por mudança silenciosa de flags.
 
 ## Operação privada
 

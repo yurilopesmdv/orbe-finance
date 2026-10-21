@@ -2,12 +2,13 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual:20/10/2026 — prévia publicada para Expo Go, sem depender do PC.** [QR e link de acesso](docs/EXPO-PREVIEW.md). Carteira/gastos/metas/relatórios demonstrativos, ativação privada do acesso, login do proprietário e status das conexões disponíveis.A versão publicada e as mudanças posteriores têm evidências separadas no [estado atual](roadmap/STATE.md). Hotfix de inicialização confirmado pelo titular; novo fluxo **Criar meu acesso** em [primeiro acesso](docs/OWNER-ACCESS.md). Outros cadastros permanecem desabilitados. **Manter meu acesso neste iPhone** permite retomar online por token protegido sem salvar senha; [instruções](docs/REMEMBERED-ACCESS.md). Proteção nativa de tela/multitarefa publicada, com captura e multitarefa confirmadas pelo titular; [roteiro](docs/SCREEN-PROTECTION.md). Open Finance real, Face ID e recuperação por e-mail continuam desativados. [Prontidão e limites](docs/RELEASE-READINESS.md).
+**Estado atual:21/10/2026 — prévia publicada para Expo Go, sem depender do PC.** [QR e link de acesso](docs/EXPO-PREVIEW.md). Carteira/gastos/metas/relatórios demonstrativos, ativação privada do acesso, login do proprietário e status das conexões disponíveis.A versão publicada e as mudanças posteriores têm evidências separadas no [estado atual](roadmap/STATE.md). Hotfix de inicialização confirmado pelo titular; novo fluxo **Criar meu acesso** em [primeiro acesso](docs/OWNER-ACCESS.md). Outros cadastros permanecem desabilitados. **Manter meu acesso neste iPhone** permite retomar online por token protegido sem salvar senha; [instruções](docs/REMEMBERED-ACCESS.md). Proteção nativa de tela/multitarefa publicada, com captura e multitarefa confirmadas pelo titular; [roteiro](docs/SCREEN-PROTECTION.md). Open Finance real, Face ID e recuperação por e-mail continuam desativados. [Prontidão e limites](docs/RELEASE-READINESS.md).
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 
 | Leia | Para quê |
 |---|---|
+| [Meus investimentos](docs/INVESTMENT-ACCESS.md) | Bruto/líquido/data, fluxo implementado e limites de cofrinhos |
 | [Minhas movimentações](docs/MOVEMENT-ACCESS.md) | Tela preparada, leitura parcial e estado de ativação |
 | [Estado de retomada](roadmap/STATE.md) | Continuar entre sessões sem depender do chat |
 | [Specs](specs/README.md) | Escopo, requisitos e critérios de aceite |
@@ -34,7 +35,7 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 
 Meu Pluggy é o fornecedor selecionado para planejar a integração automática Bradesco/Mercado Pago PF. [SPEC-009](specs/009-meu-pluggy/spec.md) prevalece sobre a revisão local 0.3: Open Finance é a única origem financeira admitida. A pesquisa pública não encontrou evidência comprovada de falha grave vigente no próprio serviço; encontrou falhas corrigidas no integrador Actual Budget e um relato de cobertura dos cofrinhos MP. Isso não é auditoria nem garantia de ausência de vazamento.
 
-Expo Go permanece restrito a dados sintéticos até fechar os gates de runtime, dependências e fornecedor. FaceID segue adiado; o caminho atual é online e com cache financeiro volátil. Senha e sessão da ponte são distintas do desbloqueio local. Pluggy/ponte processam a sincronização; IA/BI/analytics/ferramentas não recebem conteúdo financeiro. Nenhum banco conectado ou recurso contratado. Código atual oferece demonstração, Auth e metadados; normalizadores/coordenadores financeiros seguem em fixtures, sem coleta ativa. Gate de dados reais permanece obrigatório.
+Expo Go permanece restrito a dados sintéticos até fechar os gates de runtime, dependências e fornecedor. FaceID segue adiado; o caminho atual é online e com cache financeiro volátil. Senha e sessão da ponte são distintas do desbloqueio local. Pluggy/ponte processam a sincronização; IA/BI/analytics/ferramentas não recebem conteúdo financeiro. Bradesco e Mercado Pago foram conectados pelo titular no portal pessoal; o Orbe ainda não coleta valores. Contas, movimentos e investimentos têm cadeias implementadas e validadas com dados fictícios, sem coleta ativa. Nenhum recurso pago contratado. Gate de dados reais permanece obrigatório.
 
 [Como executar e validar](docs/DESENVOLVIMENTO.md). Auditoria de dependências e limites em [DEPENDENCIES](docs/security/DEPENDENCIES.md).
 
