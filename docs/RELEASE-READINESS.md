@@ -16,9 +16,9 @@ Login, sessão lembrada e proteções estão publicados. Contas, movimentações
 
 ## Validação desta entrega
 
-1206 verificações aprovadas naCI T75a (1069 Node +137 Python); seis testes adicionais do diagnóstico técnico aprovados localmente, incluindo tipos cliente/backend. Logs locais `/tmp/orbe-check-investment-client.log`. Testes integrados verificam fins recusados, registroRLS ausente, sessão bloqueada e gatesoff semrede; o provider é fictício. FixtureSQL real valida claim/commit/finish e replay, sem dados pessoais.
+1212 verificações aprovadas naCI T75c (1069 Node +143 Python), incluindo seis cenários de diagnóstico técnico, incluindo tipos cliente/backend. Logs locais `/tmp/orbe-check-investment-client.log`. Testes integrados verificam fins recusados, registroRLS ausente, sessão bloqueada e gatesoff semrede; o provider é fictício. FixtureSQL real valida claim/commit/finish e replay, sem dados pessoais.
 
-SDK57.0.31/Router57.0.29 preservados. ExportiOS e auditoria do grafo atual1216fontes/56instâncias aprovados; resultado e IDs finais em [EXPO-PREVIEW](EXPO-PREVIEW.md). Scans com todos os perfis privados antes de subir artefatos. Sourcemaps ficam privados. A CI do backend consolidado39641198955 passou; cliente tem checkpoint próprio.
+SDK57.0.31/Router57.0.29 preservados. ExportiOS e auditoria do grafo atual1216fontes/56instâncias aprovados; resultado e IDs finais em [EXPO-PREVIEW](EXPO-PREVIEW.md). Scans com todos os perfis privados antes de subir artefatos. Sourcemaps ficam privados. CIs do backend39641198955, cliente39642075250, preparação39643339822 e diagnóstico39681820386 aprovadas.
 
 Backendv8 publicado continua financeiramente desligado por `liveApproved:false`, independente das envs. Chaves de movimentos e flags de movimentos/investimentos provisionadas, com os11digests conferidos e todas as seisflags financeirasfalse; metadata5 preserva suas fontes. Código local mais novo não equivale ao snapshot remoto; versões publicadas constam em STATE/EXPO-PREVIEW.
 
