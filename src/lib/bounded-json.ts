@@ -44,3 +44,7 @@ export function readBoundedJson(response: JsonResponse, signal: AbortSignal, max
 export function readMovementJson(response: JsonResponse, signal: AbortSignal): Promise<unknown> {
   return readJson(response,signal,1048576,1048576);
 }
+/** Fixed budget for the minimum investment snapshot only. */
+export function readInvestmentJson(response: JsonResponse, signal: AbortSignal): Promise<unknown> {
+ return readJson(response,signal,1048576,1048576);
+}

@@ -108,3 +108,7 @@ Leitura privada é one-shot com lease/sessão/revisão válidos, até10páginas 
 ## PORT-15 — Confirmação e resposta de investimentos
 
 Claim único por lease e sessãoAuth atual precede fornecedor; commit metadataonly exige claim vigente e contagem0–1000, sem repetir. Finishdedicado só aceita commit concluído e mesma sessão; finishgenérico não passa progresso incompleto. HTTP aceita apenas conexão/revisão/lease, resolve contexto no servidor e registra IDs após validação integral. Antes do commit reautentica e compara contexto pósstage; nenhuma mutação de vínculo prévio é aceita. Falhas não retornam posições. Completo significa paginação concluída, jamais cobertura financeira integral; partialtrue/authoritativefalse são preservados.
+
+## PORT-16 — Cliente e tela de investimentos
+
+RegistroRLS pósstage confirma todos os IDs internos antes do lotevolátil. Transporte one-shot só aceita investments/nextCursornull/partialtrue/authoritativefalse e finalização dedicada; sem escrita ou credencial de provedor no app. Sessão compartilha mutex e limpa memória no lock/background. Bruto/líquido/data preservados e null visível; banco/moeda separados. Relaçãounknown não compõe total consolidado. Falhas não promovem lote. `investmentReadsEnabled` nasce false. Cofrinhos sem prova explícita exibem indisponibilidade, nunca zero ou ativo duplicado.

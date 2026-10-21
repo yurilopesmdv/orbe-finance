@@ -1,0 +1,54 @@
+import {useCallback,useState,useSyncExternalStore} from 'react';
+import {Redirect,useFocusEffect,useRouter} from 'expo-router';
+import {fetch as expoFetch} from 'expo/fetch';
+import {Action,Body,Card,Screen} from '@/components/ui';
+import {Money,usePrivacy} from '@/components/privacy';
+import {useAuth} from '@/features/auth/provider';
+import {useScreenProtection,useScreenProtectionModel} from '@/features/privacy/provider';
+import {createInvestmentsRuntime} from '@/features/investments/runtime';
+import {createAccountScopeId} from '@/features/accounts/native-scope';
+import type {InvestmentsSnapshot} from '@/features/investments/controller';
+import type {ConnectionMetadata} from '@/features/connections/status';
+import {institutionLabels,metadataDateLabel} from '@/features/connections/presentation';
+import {publicAuthConfig} from '@/config/auth';
+import {runtime} from '@/config/runtime';
+type Client=Extract<ReturnType<typeof createInvestmentsRuntime>,{kind:'ready'}>;
+const idle:Readonly<InvestmentsSnapshot>=Object.freeze({phase:'idle',notice:'none'}),idleSnapshot=()=>idle,idleSubscribe=()=>()=>{};
+const classes={fixed_income:'Renda fixa',fund:'Fundo',equity:'Renda variável',other:'Outro investimento',unknown:'Classe não confirmada'};
+const notices:Record<InvestmentsSnapshot['notice'],string>={none:'',updated:'Leitura concluída.',partial:'Cobertura parcial. Os valores recebidos podem não representar todos os investimentos do banco.',unavailable:'Não foi possível confirmar a atualização. Valores anteriores válidos desta sessão foram preservados.',cooldown:'Aguarde o intervalo entre atualizações.',busy:'Já há uma atualização em andamento.',cancelled:'Leitura interrompida. Entre novamente para atualizar.'};
+export default function MyInvestmentsScreen(){
+ const auth=useAuth(),router=useRouter(),screen=useScreenProtection(),protection=useScreenProtectionModel(),privacy=usePrivacy();
+ const[client,setClient]=useState<Client|null>(null),[connections,setConnections]=useState<readonly Readonly<ConnectionMetadata>[]>([]),[available,setAvailable]=useState(false),[currency,setCurrency]=useState('BRL'),[institution,setInstitution]=useState<string>(),[offset,setOffset]=useState(0);
+ const snapshot=useSyncExternalStore(client?.controller.subscribe??idleSubscribe,client?.controller.getSnapshot??idleSnapshot,idleSnapshot);
+ const enabled=runtime.investmentReadsEnabled&&runtime.liveIntegrationEnabled&&runtime.privateFinancialDataApproved,protectedNow=screen.snapshot.phase==='ready'&&screen.snapshot.active;
+ useFocusEffect(useCallback(()=>{
+  setClient(null);setConnections([]);setAvailable(false);setOffset(0);
+  if(!enabled||!auth.model||auth.snapshot.state!=='unlocked'||!protection||!protectedNow)return;
+  const instance=createInvestmentsRuntime(auth.model,protection,()=>publicAuthConfig,expoFetch,createAccountScopeId,runtime);if(instance.kind!=='ready')return;
+  const abort=new AbortController();let active=true;setClient(instance);
+  void instance.connections(abort.signal).then(result=>{if(active&&result.status==='complete'){setConnections(result.connections);setAvailable(true);}}).catch(()=>{});
+  return()=>{active=false;abort.abort();instance.close();};
+ },[enabled,auth.model,auth.snapshot.state,protection,protectedNow]));
+ if(auth.snapshot.state!=='unlocked')return <Redirect href="/login"/>;
+ let result:ReturnType<Client['controller']['query']>|null=null;
+ if(enabled&&protectedNow&&client&&snapshot.phase!=='closed'){try{result=client.controller.query({currency,institutionId:institution});}catch{}}
+ const items=result?.items.filter(row=>row.product==='investment')??[];
+ return <Screen title="Meus investimentos" subtitle="Posições recebidas dos bancos, separadas por moeda." demonstration={false}>
+  <Action title="Voltar ao meu acesso" secondary onPress={()=>router.replace('/account')}/>
+  {!enabled?<Card title="Investimentos em preparação"><Body>A tela está pronta, mas a leitura bancária ainda não foi ativada nesta versão. Nenhuma posição real é consultada aqui.</Body></Card>:!protectedNow?<Card title="Acesso protegido"><Body>Aguarde a proteção de tela para consultar.</Body></Card>:<>
+   <Body>Os dados ficam apenas na memória desta sessão. Uma posição com relação desconhecida ao saldo da conta não compõe um total consolidado, para evitar contagem duplicada.</Body>
+   <Action title={privacy.hidden?'Mostrar valores':'Ocultar valores'} secondary onPress={privacy.toggle}/>
+   <Card title="Filtros">{['BRL','USD','EUR'].map(value=><Action key={value} title={value} secondary selected={currency===value} onPress={()=>{setCurrency(value);setOffset(0);}}/>)}<Action title="Todos os bancos" secondary selected={institution===undefined} onPress={()=>{setInstitution(undefined);setOffset(0);}}/>{[...new Set(connections.map(row=>row.institution))].map(value=><Action key={value} title={institutionLabels[value]} secondary selected={institution===value} onPress={()=>{setInstitution(value);setOffset(0);}}/>)}</Card>
+   {!available&&<Body>As conexões ainda não estão disponíveis. Volte e abra esta tela novamente para tentar.</Body>}
+   {available&&connections.length===0&&<Body>Nenhuma conexão disponível nesta sessão. Isso não confirma ausência de investimentos.</Body>}
+   {connections.map(row=><Card key={row.id} title={institutionLabels[row.institution]}><Action title={snapshot.phase==='loading'?'Atualizando…':'Atualizar investimentos'} disabled={!client||snapshot.phase==='loading'||snapshot.phase==='closed'||row.state!=='active'||row.capabilities.investments!==true} onPress={()=>{setOffset(0);void client?.controller.refresh(row.id);}}/></Card>)}
+   {snapshot.notice!=='none'&&<Body>{notices[snapshot.notice]}</Body>}
+   {items.length===0&&<Card title="Nenhuma posição disponível nesta consulta"><Body>Atualize o banco desejado. Uma lista vazia pode ser falta de leitura, filtro ou cobertura parcial; não significa patrimônio zero.</Body></Card>}
+   {items.slice(offset,offset+20).map(row=><Card key={row.id} title={classes[row.assetClass??'unknown']}><Body>{institutionLabels[row.institutionId as ConnectionMetadata['institution']]}</Body><Body>Valor líquido</Body><Money cents={row.netCents??null} currency={row.currency}/>{row.netCents==null&&<Body>Líquido não informado pela fonte.</Body>}<Body>Valor bruto</Body><Money cents={row.grossCents??null} currency={row.currency}/>{row.grossCents==null&&<Body>Bruto não informado pela fonte.</Body>}<Body>Data da posição: {row.asOf?metadataDateLabel(row.asOf):'Não informada'}</Body><Body>Relação com saldo da conta não confirmada. Fora do total consolidado.</Body></Card>)}
+   {offset>0&&<Action title="Página anterior" secondary onPress={()=>setOffset(n=>Math.max(0,n-20))}/>}
+   {offset+20<items.length&&<Action title="Próxima página" secondary onPress={()=>setOffset(n=>n+20)}/>}
+  </>}
+  <Card title="Cofrinhos e reservas"><Body>A separação de cofrinhos depende de identificação explícita do banco. Um CDB não será contado novamente como reserva. A disponibilidade ainda não foi confirmada.</Body></Card>
+  <Action title="Ver minhas contas" secondary onPress={()=>router.push('/my-accounts')}/>
+ </Screen>;
+}

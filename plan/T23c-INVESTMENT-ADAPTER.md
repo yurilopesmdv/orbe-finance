@@ -25,3 +25,7 @@ Por orientação do titular, c4d/c4e serão implementadas e validadas juntas: co
 ## Integração do backend (c5/c6)
 
 Paths: migration17, fixture position-bindings, investment-progress-rest/handler/finalize/runtime, configuração e roteamento; integrador único. Progresso metadataonly por sessão/lease, claimúnico/commit≤1000/finishdedicado. ValidaçãoSQL com rollback antes de aplicar; HTTP exige reAuth/resolver atual antes de commit. Stage só IDs após snapshot integral, resolução posterior sem troca de vínculos existentes. Aceite integrado providerfake→HTTP→DTO mínimo e falhas de sessão/commit; entrypoint continua off. Sem acesso financeiro por ferramentas.
+
+## Entrega cliente c7/c8
+
+Responsável integrador; paths limitados a lib/session-json/bounded-json, registryposições, sync/investment-transport/batch/session-cache, features/investments e tela privada/navegação/config. RegistryRLS deve ser lido depois do stage do backend, sem inventar IDs; nenhuma posição promove antes do finish. Cachevolátil compartilha mutex/abort e guarda bruto/líquido/base/data/relação. Tela por banco/moeda, valores ocultos, null explícito e nenhuma soma de cofrinho duplicada. Aceite: fluxoHTTPsintético→transporte→cache com29c, errofinish/registry/lock sem promover; tipos/export/audit/scans eCI. Gateindependente false preservado para publicação consolidada.

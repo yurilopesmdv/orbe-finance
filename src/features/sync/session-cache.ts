@@ -1,3 +1,5 @@
+import { runInvestmentBatch } from './investment-batch.ts';
+import type { InvestmentTransportContext } from './investment-transport.ts';
 import type { ConnectionProduct } from '../../domain/connections.ts';
 import { MemoryAssets } from '../../data/local/assets.ts';
 import { MemoryLedger } from '../../data/local/ledger.ts';
@@ -19,6 +21,7 @@ export interface SyncSession {
   queryMovements(filters: MovementFilters, sourceComplete?: boolean): ReturnType<MemoryLedger['list']>;
   run(metadata: unknown, contexts: unknown, transport: ProductTransport, options?: { clock?: BatchClock; products?: readonly ConnectionProduct[] }): Promise<ProductBatchResult>;
   runMovements(metadata: unknown, context: MovementTransportContext, transport: ProductTransport, options?: { clock?: BatchClock }): Promise<BatchResult>;
+  runInvestments(metadata:unknown,context:InvestmentTransportContext,transport:ProductTransport,options?:{clock?:BatchClock}):Promise<BatchResult>;
   cancel(): void;
   close(): void;
 }
@@ -72,6 +75,15 @@ export function createSyncSession(session: SessionAccess, scopeFactory: () => st
         const controller=new AbortController();active=controller;
         try {
           return await runMovementBatch(metadata,context,ledgerStore,transport,{enabled:true,privateDataApproved:true,expectedOwnerSubject:scopeId,assertCurrent,signal:controller.signal,clock:options.clock});
+        } catch { return Object.freeze({status:'failed'}); }
+        finally { controller.abort();if(active===controller)active=undefined; }
+      },
+      async runInvestments(metadata: unknown, context: InvestmentTransportContext, transport: ProductTransport, options: {clock?:BatchClock} = {}): Promise<BatchResult> {
+        try { assertCurrent(); } catch { return Object.freeze({status:'cancelled'}); }
+        if (active) return Object.freeze({status:'busy'});
+        const controller=new AbortController();active=controller;
+        try {
+          return await runInvestmentBatch(metadata,context,assetStore,transport,{enabled:true,privateDataApproved:true,expectedOwnerSubject:scopeId,assertCurrent,signal:controller.signal,clock:options.clock});
         } catch { return Object.freeze({status:'failed'}); }
         finally { controller.abort();if(active===controller)active=undefined; }
       },

@@ -7,6 +7,7 @@ export const runtime = Object.freeze({
   metadataStatusEnabled: true as const,
   liveIntegrationEnabled: false as const,
   accountReadsEnabled: false as const,
+  investmentReadsEnabled: false as const,
   movementReadsEnabled: false as const,
   inventoryDiscoveryEnabled: false as const,
   privateFinancialDataApproved: false as const,
