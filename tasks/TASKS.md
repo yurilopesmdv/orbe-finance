@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima c40.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima c41.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -970,3 +970,9 @@ T51b2c38 evidência: CI39518018154 success;967testes/typechecks/exportiOS/runtim
 MPG-04/05/06/07 e SEC-26/[plano](../plan/T51b2c39-OPERATIONAL-STATE.md). Consolidar estado operacional e retirar instruções já cumpridas; nenhuma mudança de gates.
 
 T51b2c39 evidência: guias de ativação/prontidão consolidados com12migrations/bridge5/metadata4/967testes/previewc38; duplicação histórica identificada sem apagar trilha das tasks. Links locais dos8documentos e diffcheck aprovados; nenhuma mudança de código/export/gates. Próxima c40 revisar evidências públicas restantes do fornecedor para reduzir lacunas de privacidade sem contato, login ou dados financeiros.
+
+## T51b2c40 — done
+
+MPG-01/06/07 e SEC-24/26/[plano](../plan/T51b2c40-PUBLIC-PRIVACY-EVIDENCE.md). Revisão pública de privacidade específica do plano pessoal; nenhuma conta ou contato externo.
+
+T51b2c40 evidência: matriz com9fontes/assuntos primários conferida, incluindo PDF público de6páginas; separação MCPauth/docs e exclusão deitem versus backups registradas sem inferir retenção/ausência deIA. Nenhum contato/login/GETfinanceiro. Gates inalterados. Próxima c41 automatizar scan de todos os perfis privados no publicador EAS antes do subprocesso autenticado.

@@ -14,6 +14,7 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Cobertura por banco](docs/research/BANK-COVERAGE.md) | O que consta na documentação e o que falta homologar |
 | [Fontes oficiais](docs/research/SOURCES.md) | Evidências e data da consulta |
 | [Revisão dos fornecedores](docs/security/VENDOR-REVIEW.md) | Achados, limites e aprovações ainda pendentes |
+| [Privacidade do plano pessoal](docs/security/MEU-PLUGGY-PRIVACY-EVIDENCE-20261020.md) | Evidência pública, MCP, exclusão e lacunas específicas |
 | [Revisão do transporte iOS](docs/security/EXPO-FETCH-REVIEW-20261020.md) | Cache, cookies, redirecionamentos e limites do Expo Go |
 | [Modelo de ameaças](docs/security/THREAT-MODEL.md) | Destinos de dados, controles e riscos residuais |
 | [Decisões](docs/decisions/DECISIONS.md) | Escolhas propostas, confirmadas e adiadas |
