@@ -8,6 +8,7 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 
 | Leia | Para quê |
 |---|---|
+| [Minhas movimentações](docs/MOVEMENT-ACCESS.md) | Tela preparada, leitura parcial e estado de ativação |
 | [Estado de retomada](roadmap/STATE.md) | Continuar entre sessões sem depender do chat |
 | [Specs](specs/README.md) | Escopo, requisitos e critérios de aceite |
 | [Investigação](docs/research/FEASIBILITY.md) | Expo Go, biometria, Open Finance e alternativas de custo |

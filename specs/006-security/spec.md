@@ -153,3 +153,7 @@ SyncSession expõe runMovements separado para manifesto da primeira página, usa
 ## SEC-40 — Controller de movimentações protegido e explícito (T22c23)
 
 Controller só nasce com sessão desbloqueada e proteção ready/active. Refresh captura connectionId/mês, consulta status/capacidade/consentimento e registry autorizado antes do transporte, usando scopeId opaco do cache; BANK continua definido pelo manifesto do backend. Um refresh, prazo global120s e cancelamento de status/registry/transporte/lease ao fechar ou perder proteção. Snapshot só estados/avisos; valores consultados separadamente no ledger protegido, sem persistência. Runtime exige movementReads/live/private independentes e disabled não inspeciona dependências. categories/transferências confirmadas vazias inicialmente, sem inventar classificação. Sem ativação no rootUI nesta task.
+
+## SEC-41 — Tela privada de movimentações separada da demonstração (T22c24)
+
+Rota Minhasmovimentações usa runtime próprio e flags movementReads/live/private, todasfalse na publicação. Semgates não cria runtime/UUID/status/registry/requests. Com gates, foco e proteção readyactive antecedem metadados; cleanup aborta e fecha cache. Valores e descrições só vêm do ledger protegido, sem payloadfinanceiro em Reactstate/logs/persistência. Ocultação mascara também descrição. Período Brasília, navegação2000–2099, consulta manual por conexão e filtrosmoeda/banco/paginação20. Null/semleitura não é zero, parcial/typeunknown visíveis, nenhuma soma fictícia ou compra de cartão inferida. Não usar cache/demo no fluxo real.

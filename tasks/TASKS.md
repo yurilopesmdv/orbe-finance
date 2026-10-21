@@ -1132,3 +1132,9 @@ T22c22 concluída21/10:1132 testes/typechecks (1010Node+122Python), seis cenári
 SEC-40/[plano](../plan/T22c23-MOVEMENT-CONTROLLER.md). Controller e runtime protegidos para futura ligação da tela.
 
 T22c23 concluída21/10:1144 testes/typechecks (1022Node+122Python),12cenários de controller/runtime. Prontidão/lock/background, metadadoscapacidade/consentimento, registry, mês, timeout120s/únicorefresh e ausência de rede automática validados. Snapshot sem valores; queryledger protegida; contextoowneropaco. Scan/diff aprovados; módulos isolados sem importUI/exportrepetido. PróximaT22c24 rota Minhasmovimentações+flagliteralfalse e navegação discreta, com filtros de período/direção, parcial e proteção.
+
+## T22c24 — done
+
+SEC-41/[plano](../plan/T22c24-MOVEMENT-SCREEN.md). Tela privada com gatesfalse, sem consulta real na prévia.
+
+T22c24 concluída21/10:1144 testes/typechecks preservados; tela e flagliteralfalse typechecked/exportadas. Runtimeaudit1210fontes/56instâncias, rootsadvisoryausentes/mapsprivados/scans/diff aprovados. Navegaçãoacesso/contas, períodoBrasília2000–2099, moeda/banco,20porpágina e descrição/valor ocultos. Nenhuma consulta comgatesoff, nem misturaDemo. CI23 39632140130 e22 39631758791 success. UI física fica no roteiro final. PróximaT22c25 validação sintética integrada cliente→backend→providerfake→ledger com payload>128KiB, sessão/finishfalhos, antes da publicação.

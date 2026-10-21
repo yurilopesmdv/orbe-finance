@@ -42,6 +42,7 @@ export default function MyAccountsScreen(){
    {snapshot.notice!=='none'&&<Body>{notices[snapshot.notice]}</Body>}
    {items.map((item,index)=><Card key={item.id} title={`Conta ${index+1} · ${institutionLabels[item.institutionId as ConnectionMetadata['institution']]}`}><Money cents={item.amountCents} currency={item.currency}/><Body>Data do saldo: {metadataDateLabel(item.asOf)}</Body>{item.relation==='unknown'&&<Body>A composição deste saldo ainda não foi confirmada. Ele não deve ser somado automaticamente a investimentos ou reservas.</Body>}</Card>)}
   </>}
+  <Action title="Ver minhas movimentações" secondary onPress={()=>router.push('/my-movements')}/>
   <Action title="Ver minhas conexões" secondary onPress={()=>router.push('/my-connections')}/>
  </Screen>;
 }
