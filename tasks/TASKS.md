@@ -1057,8 +1057,16 @@ SEC-28/[plano](../plan/T22c11-VERIFIED-SESSION-ID.md). Identidade de sessão int
 
 T22c11 evidência21/10:1064 testes/typechecks (942 Node+122 Python), quatro casos novos. sessionId interno só após Auth+orbe_has_session verdadeiros; JWT malformado é recusado cedo, user_metadata não fornece autoridade e respostaHTTP não expõe sessão/owner/token/e-mail. Compatibilidade semsid preservada nos metadados legados. Scan/allowlist31/diff aprovados; sem DB/deploy/flags/cliente. Próxima T22c12 resolverSQL transacional com sessão/leaseExpiry e fixture, depois adaptadoresREST de progresso/coordenador.
 
-## T22c12 — em implementação
+## T22c12 — done
 
 SEC-29/[plano](../plan/T22c12-MOVEMENT-READ-BINDINGS.md). Resolver service-only de bindings transacionais com sessão/lease reais e limite100; aceite por fixture SQL fictícia com rollback e suite.
 
 T22c12 pré-aplicação21/10:1064 testes/typechecks passaram; DDL+fixture em rollback passou ACL, owner/sessão/lease/revisão, capabilityfalse, sessão expirada, ausência de item/bindings e fronteira100/101. Zero resíduos, owner preservado e zero leituras financeiras. Scan/allowlist31/diff aprovados. Migration14 aguarda CI deste commit antes da aplicação.
+
+## T22c13 — done
+
+SEC-30/[plano](../plan/T22c13-MOVEMENT-PROGRESS-REST.md). Adaptadores fixos resolve/claim/commit; aguarda conclusão deT22c12.
+
+T22c12 concluída21/10:CI39598586577 success, migration14 aplicada e14hashes verificados. Fixture instalada passou em rollback, zero resíduos/owner preservado/zero leituras financeiras. Próxima etapa REST em andamento.
+
+T22c13 concluída21/10:1073 testes/typechecks (951Node+122Python), regressão completa1072 e teste adicional de integração de rede aprovado separadamente. Nove novos casos cobrem gates/configuração, RPCs fixas/snapshots, escopo, claim/commit, MIME/limites, abort/deadline e credenciais na rede própria. Scan/allowlist32/diff aprovados. Sem deploy/chaves/flags ou leituras financeiras. PróximaT22c14 coordenadorHTTP de movimentações.

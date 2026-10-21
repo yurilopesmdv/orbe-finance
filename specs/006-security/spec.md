@@ -109,3 +109,7 @@ Metadados legados sem campo sid preservam seu contrato existente; isso não auto
 ## SEC-29 — Resolução transacional vinculada à sessão (T22c12)
 
 RPC service-only resolve movimentos após validar owner, sessão Auth vigente, revisão, capacidade transactions, consentimentos e lease não concluído. Devolver expiração real do lease e no máximo100 bindings técnicos, ordenados por conta interna; sem valores/PII, classe bancária inferida ou aprovação de cobertura. Contexto é interno, nunca DTO público. Ausência de item/bindings, mais100 bindings ou sessão/lease inválidos falham fechados. Migrations anteriores são imutáveis.
+
+## SEC-30 — Portas REST de progresso de movimentações (T22c13)
+
+Adaptadores internos limitam chamadas a resolve/claim/commit em RPCs fixas do Supabase próprio. Capturar escopo owner/conexão/revisão/lease/sessão e validar mês, hashesSHA256, nonce e contagem0–500 antes de rede. Transport injetado obrigatório, sem fetch implícito; disabled não inspeciona configuração/argumentos. Deadline20s/abort, JSON128KiB, sem cookies/redirecionamento e erros genéricos. Commit só aceita booleantrue. Claim valida nonceUUID, número1–100 e expiração futura até120s. Não serializar respostas internas como DTO público. Não ligar ao runtime ou habilitar finanças nesta task.

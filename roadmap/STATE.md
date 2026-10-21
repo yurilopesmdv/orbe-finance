@@ -4,9 +4,9 @@
 
 Trabalhar no **Orbe**, `/home/yurilopesm/projects/orbe-finance`, main. Não alterar o F1, mesmo quando cwd/sandbox apontar para ele. Usuário reiterou continuidade automática e quer adiantar a finalização hoje: uma microtask por vez é sequência com checkpoint, sem pedir “pode continuar”, novas aprovações ou testes físicos intermediários. Integrador único, sem subagentes. Cores/identidade visual ficam para depois. Nenhum serviço pago ou contato com terceiros foi autorizado.
 
-**Concluídas c21–c42 e T22c1–c11.** Ver planos e evidências em `tasks/TASKS.md`. **1064 testes/typechecks locais aprovados:942 Node +122 Python**, log `/tmp/orbe-check-verified-session.log`. Allowlist backend31fontes e scan de todos os perfis privados passaram. Cliente não mudou desde c38; não repetir exportação/QR por módulos backend isolados.
+**Concluídas c21–c42 e T22c1–c13.** Ver planos e evidências em `tasks/TASKS.md`. **1064 testes/typechecks locais aprovados:942 Node +122 Python**, log `/tmp/orbe-check-verified-session.log`. Allowlist backend31fontes e scan de todos os perfis privados passaram. Cliente não mudou desde c38; não repetir exportação/QR por módulos backend isolados.
 
-**T22c12 preparada e validada, aguarda CI/aplicação14:** spec→plan→tasks e migration14 para `orbe_resolve_movement_read`, service-only, com p_session_id, check transactions, sessão real via helper privado da13 e lease atual/expiração. Retornar apenas owner/session/connection/revision/lease/expiry e projection de bindings técnicos, limitando100 (fronteira transacional), sem classe BANK inferida ou valores. Estender fixture de movimento com bindings fictícios/ACL/IDOR/sessão/capFalse/expiração; validar DDL+fixture em rollback antes de aplicar e preservar hash13. T22c11 concluída: Auth retorna sessionId interno só após GetUser+orbe_has_session; metadadoslegados semsid continuam compatíveis, HTTP não expõe sid. Depois RESTports/coordenador de progresso; cliente movements.read precisará response1MiB específico, demais128KiB.
+**T22c12 concluída:** CI39598586577 success; migration14 `20261021110000_movement_read_bindings` aplicada,14hashes verificados e fixture instalada aprovada com rollback/zero resíduos/owner preservado/zero finanças. Resolver exige sessão/lease/capacidade válidos e1–100bindings técnicos. **T22c13 concluída:** movement-progress-rest.ts e allowlist fixa resolve/claim/commit implementados;1073testes/typechecks aprovados (suite1072 +integração adicional isolada), scan/allowlist32/diff aprovados. **PróximaT22c14:** spec/plan/tasks e coordenadorHTTP (Authsid+resolver→claim→provider→reAuth/check→commit→DTO). Cliente movements.read precisa1MiB específico. Nenhum novo runtime/chave/flag/deploy.
 
 ## Situação do titular e dos bancos
 
@@ -30,7 +30,7 @@ Movimentos T22c1–c10, isolados do runtime: HMAC-SHA256/UUIDv8 por owner+conta 
 
 ## Infraestrutura e publicação
 
-Supabase próprio/us-east-1; ref público `vvaufaoahotmaocrcyij`. **13 migrations imutáveis/hash verificadas**, última `20261021100000_movement_page_progress`. Testes SQL com identidades fictícias/rollback, sem resíduos ou mudança de owner. Banco guarda metadados, nenhum saldo/movimento/posição. Signup false, senha12+, JWT600/refresh rotation; SMTP/recovery false.
+Supabase próprio/us-east-1; ref público `vvaufaoahotmaocrcyij`. **14 migrations imutáveis/hash verificadas**, última `20261021110000_movement_read_bindings`. Testes SQL com identidades fictícias/rollback, sem resíduos ou mudança de owner. Banco guarda metadados, nenhum saldo/movimento/posição. Signup false, senha12+, JWT600/refresh rotation; SMTP/recovery false.
 
 **orbe-bridge v6 ACTIVE**, código financeiro literal off; **metadata v4 ACTIVE**, snapshot anterior com protocolo/default128KiB preservados. c5 publicou bridge após CI39587278861 success e1014testes; sete rotas503/no-store e cinco negativos Auth/metadados passaram. Owner positivo não foi testado. Nenhuma mudança de segredos/flags na publicação. Sete segredos backend haviam sido configurados na c36 por digests; quatro flags financeiras false. Recibos privados por função, não inventar igualdade de snapshots entre versões.
 
