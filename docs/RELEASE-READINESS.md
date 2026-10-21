@@ -1,4 +1,4 @@
-# Prontidão do Orbe — 20/10/2026
+# Prontidão do Orbe — 21/10/2026
 
 **Prévia publicada; contas bancárias reais ainda desativadas.** Este documento descreve o estado atual. Evidências anteriores permanecem em [TASKS](../tasks/TASKS.md); o roteiro de uso vigente está em [ativação](ACCOUNT-ACTIVATION.md).
 
@@ -7,7 +7,7 @@
 | Acesso pessoal | Conta criada; sessão lembrada por refresh token rotativo no Keychain; proprietário fixo e revalidação online | Senha não é salva; terceiros, Face ID e recuperação por e-mail desativados |
 | Proteção | Titular confirmou retomada sem senha, captura e multitarefa; consultas privadas aguardam proteção pronta/ativa | Não comprova cold restart, logout, gravação, VoiceOver, cache ou outras versões |
 | Interface | Gastos, carteira, metas, relatórios e classificação demonstrativos; conexões autenticadas de metadados | Valores demonstrativos não são dados bancários; identidade visual adiada |
-| Infraestrutura própria | 13 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v6 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
+| Infraestrutura própria | 15 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v6 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
 | Credenciais | Client ID/Secret autenticados uma vez somente em POST/auth; segredos somente no backend, quatro flags financeiras false | Chave temporária não foi guardada/exibida; nenhuma leitura financeira foi feita |
 | Vínculos | Um item Mercado Pago cadastrado como pending, sem contas/capacidades/aprovação OF | Bradesco confirmado no portal pessoal, item na aplicação ainda não identificado |
 | Cadeia de contas | Leitura e descoberta preparadas com autorização, consentimento atual, lease global, centavos exatos e cancelamento | Testes com rede/dados fictícios; entrypoint liveApproved false e flags cliente/backend false |
@@ -15,9 +15,9 @@
 
 ## Verificação atual
 
-1060 testes/typechecks aprovados (938 Node +122 Python), incluindo publicador, identidade interna e projeção backend de movimentos com dados fictícios. A prévia c38 foi publicada com 967 testes; mudanças posteriores são administrativas/backend isolado, sem nova ativação ou atualização do cliente. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+1126 testes/typechecks locais aprovados (1004 Node +122 Python). Movimento já tem identidade interna, projeção, paginação, progresso/finalizaçãoSQL, rotasbackend preparadas e transporte/stagingcliente isolados, validados com rede fictícia. Faltam controller/runtimeUI e ativação. A prévia c38 publicada tinha967testes; fontes locais posteriores ainda não foram publicadas no cliente. SDK57 recebeu patchesExpo57.0.31/Router57.0.29, com compatibilidade/exportiOS/auditoria1205fontes/56instâncias aprovadas; [revisão](security/EXPO-PATCH-REVIEW-20261021.md). Advisories do tooling continuam pendentes, sem ampliar a exceção sintética. Perfis privados comparados com fonte/export; sourcemaps privados. QR publicado em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
-No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração confirmada por digests; fonte de 23 arquivos bridge e cinco metadata corresponde aos recibos privados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
+No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração remota confirmada por digests e recibos das versões bridgev6/metadatav4; fontes locais posteriores não equivalem a esses snapshots publicados. Novo gate/chaves de movimentações ainda não foram configurados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
 
 ## O que falta para o primeiro saldo real
 

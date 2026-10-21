@@ -1114,3 +1114,9 @@ T22c19 concluída21/10:1120 testes/typechecks (998Node+122Python), oito casos no
 SEC-37/[plano](../plan/T22c20-MOVEMENT-BACKEND-RUNTIME.md). Boot backend de movimentações com rede restrita ao contexto autorizado.
 
 T22c20 concluída21/10:1126 testes/typechecks (1004Node+122Python), seis novos cenários de boot completoRPC/providerfake, gates/chaves distintas/redeporbinding, acquire com contasoff, IDOR/cap4/close. Scan/allowlist35/diff aprovados. Provedor scoped fechado porpágina: quatro chamadasfake/page (Auth/item/accounts/transactions), sem cachefinanceiro; zero chamadasreais. Entry pointliteralfalse intacto. CI da19 39630094209 passou testes, mas falhou expo install--check por novos patches recomendados expo57.0.31/router57.0.29; não é erro de testes. PróximaT22c21 atualizar patches compatíveis SDK57 e rever export/audit/fontesafetadas, sem suprimircheck. Depois controller/runtimecliente protegido.
+
+## T22c21 — done
+
+SEC-38/[plano](../plan/T22c21-EXPO-PATCH-COMPATIBILITY.md). Correção prioritária de compatibilidade Expo apontada pela CI.
+
+T22c21 evidência21/10:1126 testes/typechecks preservados, install--check/audit/exportiOS/runtimeaudit1205/56/scan/diff aprovados. Atualizados somentepatchesdiretosExpo57.0.31/Router57.0.29 e transitivas do lock; relatório de delta/hashfontesFetch em docs/security/EXPO-PATCH-REVIEW-20261021.md. Advisories19/2 permanecem; sem extensão/supressão. CI da20 39630744182 também falhou só em expo install--check; conferir CI deste commit antes de publicação. Sem EAS/env/flags/deploy. PróximaT22c22 controller de movimentações protegido pela sessão/tela.

@@ -141,3 +141,7 @@ Orquestrador de movimentações usa runReadBatch exclusivamente transactions. Re
 ## SEC-37 — Boot backend de movimentações com rede por escopo (T22c20)
 
 Movimentações exigem codegate liveApproved, modo explícito e flags bridge/private/movement independentes. Chavesidentity/cursor distintas de32bytes, nãozero, somentebackend; ausentes/malformadas mantêmfeatureoff sem provisionar fallback. Auth/RPC usam rede própria restrita; port provedor é criado após resolver, com item/contas/mês capturados pela fronteira de transações e fechado nofinally. Primeira composição não compartilhaAPIkey entre páginas: custoAuth/página explícito, sem retries/cachefinanceiro. Máximo4requests, close aborta tudo e descarta chaves em best effort. Entrypoint publicado permanece literalfalse. Rotas conhecidas apenas; aquisição pode usar modo movimentos quando contas off, finalização sempre dedicada.
+
+## SEC-38 — Patches compatíveis e revalidação da cadeia Expo (T22c21)
+
+Corrigir drift apontado por expo install--check com patches do SDK57, sem migrarmajorSDK, suprimirchecks ou ampliar exceções de segurança. Instalaçãoignore-scripts; comparar fontesFetch/linking e registrar evidência de artefato instalado (não certificar binárioGo porisso). Repetircheck/compatibilidade/audit/export/runtimeaudit/scan; CI deve ficarverde antes de publicarcliente. Patches decompatibilidade não equivalem à liberaçãofinanceira.

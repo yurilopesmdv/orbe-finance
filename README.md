@@ -2,7 +2,7 @@
 
 Gestão financeira pessoal para reunir contas, gastos por tipo/categoria, investimentos e cofrinhos. Primeiro uso: iPhone do proprietário, no Expo Go, com senha. Bancos prioritários atuais: Mercado Pago e Bradesco, contas PF confirmadas; Inter/Nubank ficam para expansão. Privacidade prevalece sobre gratuidade.
 
-**Estado atual:20/10/2026 — prévia publicada para Expo Go, sem depender do PC.** [QR e link de acesso](docs/EXPO-PREVIEW.md). Carteira/gastos/metas/relatórios demonstrativos, ativação privada do acesso, login do proprietário e status das conexões disponíveis.827 testes, dois typechecks, export iOS e CI aprovados. Hotfix de inicialização confirmado pelo titular; novo fluxo **Criar meu acesso** em [primeiro acesso](docs/OWNER-ACCESS.md). Outros cadastros permanecem desabilitados. **Manter meu acesso neste iPhone** permite retomar online por token protegido sem salvar senha; [instruções](docs/REMEMBERED-ACCESS.md). Proteção nativa de tela/multitarefa publicada, com captura e multitarefa confirmadas pelo titular; [roteiro](docs/SCREEN-PROTECTION.md). Open Finance real, Face ID e recuperação por e-mail continuam desativados. [Prontidão e limites](docs/RELEASE-READINESS.md).
+**Estado atual:20/10/2026 — prévia publicada para Expo Go, sem depender do PC.** [QR e link de acesso](docs/EXPO-PREVIEW.md). Carteira/gastos/metas/relatórios demonstrativos, ativação privada do acesso, login do proprietário e status das conexões disponíveis.A versão publicada e as mudanças posteriores têm evidências separadas no [estado atual](roadmap/STATE.md). Hotfix de inicialização confirmado pelo titular; novo fluxo **Criar meu acesso** em [primeiro acesso](docs/OWNER-ACCESS.md). Outros cadastros permanecem desabilitados. **Manter meu acesso neste iPhone** permite retomar online por token protegido sem salvar senha; [instruções](docs/REMEMBERED-ACCESS.md). Proteção nativa de tela/multitarefa publicada, com captura e multitarefa confirmadas pelo titular; [roteiro](docs/SCREEN-PROTECTION.md). Open Finance real, Face ID e recuperação por e-mail continuam desativados. [Prontidão e limites](docs/RELEASE-READINESS.md).
 
 A ordem de trabalho é spec → plan → tasks → implement → validate. As specs foram escritas primeiro. Plano, microtasks e roadmap derivam desses requisitos; a implementação seguirá uma task por vez.
 
@@ -15,6 +15,7 @@ A ordem de trabalho é spec → plan → tasks → implement → validate. As sp
 | [Fontes oficiais](docs/research/SOURCES.md) | Evidências e data da consulta |
 | [Revisão dos fornecedores](docs/security/VENDOR-REVIEW.md) | Achados, limites e aprovações ainda pendentes |
 | [Privacidade do plano pessoal](docs/security/MEU-PLUGGY-PRIVACY-EVIDENCE-20261020.md) | Evidência pública, MCP, exclusão e lacunas específicas |
+| [Patches compatíveis SDK57](docs/security/EXPO-PATCH-REVIEW-20261021.md) | Atualização21/10, hashes do transporte e validação |
 | [Revisão do transporte iOS](docs/security/EXPO-FETCH-REVIEW-20261020.md) | Cache, cookies, redirecionamentos e limites do Expo Go |
 | [Modelo de ameaças](docs/security/THREAT-MODEL.md) | Destinos de dados, controles e riscos residuais |
 | [Decisões](docs/decisions/DECISIONS.md) | Escolhas propostas, confirmadas e adiadas |
