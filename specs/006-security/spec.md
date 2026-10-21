@@ -145,3 +145,7 @@ Movimentações exigem codegate liveApproved, modo explícito e flags bridge/pri
 ## SEC-38 — Patches compatíveis e revalidação da cadeia Expo (T22c21)
 
 Corrigir drift apontado por expo install--check com patches do SDK57, sem migrarmajorSDK, suprimirchecks ou ampliar exceções de segurança. Instalaçãoignore-scripts; comparar fontesFetch/linking e registrar evidência de artefato instalado (não certificar binárioGo porisso). Repetircheck/compatibilidade/audit/export/runtimeaudit/scan; CI deve ficarverde antes de publicarcliente. Patches decompatibilidade não equivalem à liberaçãofinanceira.
+
+## SEC-39 — Cache de sessão para batch transacional autorizado (T22c22)
+
+SyncSession expõe runMovements separado para manifesto da primeira página, usando o mesmo mutex e AbortController das leituras existentes. Owner do armazenamento é UUID opaco local, não JWTsubject; contexto deve corresponder a esse escopo antes de adquirir lease. Lock/logout/close abortam batch, purgam ledger e recusam novas consultas; cancel descarta staging sem apagar cache válido. Sem transporte automático, persistência ou novas flags.

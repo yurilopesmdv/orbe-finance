@@ -4,7 +4,9 @@ import { MemoryLedger } from '../../data/local/ledger.ts';
 import type { MovementFilters } from '../../data/local/query.ts';
 import type { MemoryPrincipal } from '../../data/local/scope.ts';
 import { runProductBatch, type ProductBatchResult, type ProductTransport } from './product-batch.ts';
-import type { BatchClock } from './read-batch.ts';
+import { runMovementBatch } from './movement-batch.ts';
+import type { MovementTransportContext } from './movement-transport.ts';
+import type { BatchResult, BatchClock } from './read-batch.ts';
 export interface SessionAccess {
   assertUnlocked(): void;
   getSnapshot(): Readonly<{ state: string }>;
@@ -16,6 +18,7 @@ export interface SyncSession {
   queryAssets(filters?: Parameters<MemoryAssets['list']>[0], sourceComplete?: boolean): ReturnType<MemoryAssets['list']>;
   queryMovements(filters: MovementFilters, sourceComplete?: boolean): ReturnType<MemoryLedger['list']>;
   run(metadata: unknown, contexts: unknown, transport: ProductTransport, options?: { clock?: BatchClock; products?: readonly ConnectionProduct[] }): Promise<ProductBatchResult>;
+  runMovements(metadata: unknown, context: MovementTransportContext, transport: ProductTransport, options?: { clock?: BatchClock }): Promise<BatchResult>;
   cancel(): void;
   close(): void;
 }
@@ -62,6 +65,15 @@ export function createSyncSession(session: SessionAccess, scopeFactory: () => st
           return await runProductBatch(metadata,contexts,{ assets:assetStore,ledger:ledgerStore },transport,{ enabled:true,privateDataApproved:true,assertCurrent,signal:controller.signal,clock:options.clock,products:options.products,expectedOwnerSubject:scopeId });
         } catch { return Object.freeze({ status:'failed',publishedProducts:Object.freeze([]) }); }
         finally { controller.abort(); if (active === controller) active = undefined; }
+      },
+      async runMovements(metadata: unknown, context: MovementTransportContext, transport: ProductTransport, options: {clock?:BatchClock} = {}): Promise<BatchResult> {
+        try { assertCurrent(); } catch { return Object.freeze({status:'cancelled'}); }
+        if (active) return Object.freeze({status:'busy'});
+        const controller=new AbortController();active=controller;
+        try {
+          return await runMovementBatch(metadata,context,ledgerStore,transport,{enabled:true,privateDataApproved:true,expectedOwnerSubject:scopeId,assertCurrent,signal:controller.signal,clock:options.clock});
+        } catch { return Object.freeze({status:'failed'}); }
+        finally { controller.abort();if(active===controller)active=undefined; }
       },
       cancel:()=>{ active?.abort(); },
       close,

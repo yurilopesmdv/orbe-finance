@@ -1120,3 +1120,9 @@ T22c20 concluída21/10:1126 testes/typechecks (1004Node+122Python), seis novos c
 SEC-38/[plano](../plan/T22c21-EXPO-PATCH-COMPATIBILITY.md). Correção prioritária de compatibilidade Expo apontada pela CI.
 
 T22c21 evidência21/10:1126 testes/typechecks preservados, install--check/audit/exportiOS/runtimeaudit1205/56/scan/diff aprovados. Atualizados somentepatchesdiretosExpo57.0.31/Router57.0.29 e transitivas do lock; relatório de delta/hashfontesFetch em docs/security/EXPO-PATCH-REVIEW-20261021.md. Advisories19/2 permanecem; sem extensão/supressão. CI da20 39630744182 também falhou só em expo install--check; conferir CI deste commit antes de publicação. Sem EAS/env/flags/deploy. PróximaT22c22 controller de movimentações protegido pela sessão/tela.
+
+## T22c22 — done
+
+SEC-39/[plano](../plan/T22c22-MOVEMENT-SESSION-CACHE.md). Integrar batch com manifesto tardio ao cache de sessão existente antes do controller.
+
+T22c22 concluída21/10:1132 testes/typechecks (1010Node+122Python), seis cenários novos de promoção, ownerlocal/mutex entreprodutos/cancel/lock/close e finishfalse preservando cache. ExportiOS/runtimeaudit1206fontes/56pacotes/scans/diff aprovados. CIpatch21 39631360134 success, corrigiu incompatibilidade sem suprimircheck. Nenhuma UI/flag/deploy/EAS. PróximaT22c23 controller de movimentos com status/registry/proteção e cache.runMovements.
