@@ -7,7 +7,7 @@
 - Acesso pessoal criado, sessão lembrada funcionando e proteção de captura/multitarefa confirmada no iPhone.
 - Credenciais da aplicação guardadas privadamente, autenticadas uma vez somente em POST/auth e configuradas nos segredos do backend próprio. API key adicional não é necessária; nenhum segredo vai para o Expo.
 - Um item Mercado Pago foi cadastrado como pending no Orbe. Ainda não foram registrados IDs de contas, capacidades ou evidência Open Finance; nenhum saldo foi coletado.
-- Bridge v7/metadata v4 e 17 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
+- Bridge v8/metadata v5 e 17 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
 
 ## Por que aparecem quantidades diferentes
 
@@ -31,3 +31,7 @@ Perfis ficam em `/home/yurilopesm/.config/orbe-finance/`, fora do Metro, diretó
 Não regenerar Client Secret sem necessidade: o anterior é invalidado. Não usar listagem global, refresh não disponível no plano, cookies/scraping ou conectores diretos para contornar o fluxo pessoal. O aviso comercial de acesso real no Dashboard não foi tratado como liberação; o fluxo pessoal é separado. O uso pessoal tem condições e disponibilidade próprias, que precisam ser reconferidas ao ativar.
 
 Referências pesquisadas e histórico estão na [revisão objetiva](security/ACTIVATION-BLOCKERS-20261020.md), [pesquisa Meu Pluggy](security/MEU-PLUGGY-REVIEW.md) e [tasks](../tasks/TASKS.md). Estado técnico atual em [prontidão](RELEASE-READINESS.md). Pesquisa pública não garante ausência de vazamento, não autoriza contato com terceiros e não comprova homologação bancária.
+
+## Atualização21/10 — confirmação e pendência concreta
+
+O titular confirmou OpenFinance nos dois bancos; não é necessário repetir essa pergunta ou pedirnovaautorização bancária. As chaves e flags técnicas faltantes já estão configuradas. O diagnóstico exclusivo de metadados confirmou proxyMPatualizado/vigente/produtoshabilitados, mas encontrou consentimento comitemIddivergente do proxy consultado. A ativação não pode aceitar automaticamente esse registro sem validar a relação. Bradesco ainda não tem item espelhado identificado no inventário privado. Nenhum dadofinanceiro foi consultado. Detalhes/pergunta técnica pronta e demais gates em ACTIVATION-RECHECK-20261021.md eRELEASE-READINESS.md.

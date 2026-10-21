@@ -22,3 +22,13 @@ Além disso, os gates de fornecedor e runtime/dependências permanecem em [RELEA
 ## Informação mínima para resolver a origem
 
 É necessário confirmar, na origem de cada conexão já existente no MeuPluggy, que a modalidade é OpenFinance e identificar a validade do consentimento original e o item espelhado correto da aplicação. Somente metadados; não enviar senha, CPF, conta, saldo ou extrato. Enquanto o fornecedor não documentar uma forma programática de obter isso do proxy, não inventar endpoint nem buscar dados financeiros para adivinhar o banco. O roteiro de perguntas ao fornecedor já existe em ACTIVATION-BLOCKERS-20261020.md e não foi enviado.
+
+## Resultado operacional da T75a/c
+
+CI39643339822success. Duas chaves e duas flagsfaltantes foram provisionadas; os11targets têm digests confirmados, seisflagsfalse. Primeira tentativa de configuração terminou sem concluir a conferência; verificação subsequente encontrou configuração pronta e reconciliação idempotente adicionou0segredos. Receipts/fontes/versões conferidos:bridgev8/metadata5. Setesmokes503/no-store aprovados; nenhuma rotação ou coleta financeira. Essas versões decorreram da configuração de ambiente, sem nova versão cliente.
+
+O titular confirmou explicitamente OpenFinance nas duas origens. Isso foi registrado como declaração do titular, sem reescrever o consentimento retornado pelo fornecedor. O diagnóstico técnico do único item conhecido(MP) confirmouUPDATED/SUCCESS, validade atual da autorização do proxy e produtosACCOUNTS/TRANSACTIONS/INVESTMENTS. Porém GET/consents filtrado pelo proxy retornou registro cujo itemId não corresponde ao proxy consultado. Não recebemos prova documental de que essa associação divergente possa ser aceita como origem original; a projeção a recusa para ativação e expõe apenas flags de diagnóstico. Não trocar IDs no retorno ou relaxar o ownership para fazer passar.
+
+Foram quatro execuções técnicas durante a análise, cada uma comPOST/auth+GETitem+GETconsents; nenhuma chamada de produto/identidade/listagemglobal. APIkeys e corpos não persistidos. Esse histórico substitui a antiga afirmação de“somente1POST/auth”; continua verdadeiro:zero leiturasfinanceiras pelas ferramentas. O diagnóstico não acessa valores ou parâmetros pessoais.
+
+**Pergunta técnica pronta, não enviada:** “No acesso pessoal via conector MeuPluggy, GET/consents?itemId=<proxy> devolve consentimento associado a outro itemId. Qual contrato/campo permite validar de forma inequívoca o vínculo proxy→original, a origem OpenFinance e a revogação? Essa API também fornece os consentimentos originais ou somente a autorização do proxy?” Não incluir IDs reais, credenciais, CPF, conta, saldos ou anexos. O guia público distingue os dois itens, mas não esclarece esse retorno.

@@ -256,3 +256,7 @@ MPG-50 evidência operacional: Supabase incrementou bridge4→5 e metadata3→4 
 ## MPG-INV-01 — Orçamento JSON explícito de posições (T23c4b)
 
 Páginas de investimentos podem usar decoderexato profileinvestments e leitorHTTP nomeado com1MiB fixo, preparados antes da coleta. Standard128KiB e perfiltransações permanecem iguais; nenhum orçamento arbitrário do chamador. Mesmos limitesUTF8/profundidade/números/cancelamento, semJSON.parse lossy. Isso não autoriza endpoint/gate/coleta nem altera limite de snapshot1000.
+
+## MPG-INV-02 — Metadados técnicos para preparação de ativação
+
+Após instrução explícita do titular para ativar os bancos existentes, é permitido diagnosticar somente os itens presentes no inventário privado por GETitem e GETconsents filtrado nesseitem. Não consultar produto/identidade/listglobal ou inferir banco de valores. Projeção antes de qualquer saída devolve apenas flags técnicas e contagens, semIDexterno/PII/credenciais/respostabruta. APIkeysomenteemmemória, requestsfixos HTTPS/nocache/noredirect/semproxy. ConfirmaçãoOpenFinance pelo titular é evidência declarada, distinta de permissions retornadas pelo consentimento original. Diagnóstico não ativa nem aprova cobertura. Ausência/ambiguidade/endpointnegado continuam desconhecidos, nunca zero ou consentimento válido inventado.

@@ -9,3 +9,7 @@ Responsável: integrador único. Dependências: T22c26, T23c10/publicação21/10
 ## T75b — Origem e segurança
 
 Revalidar fontes oficiais e distinguir requisito ainda não implementado de evidência externa inexistente. Recursos de item MeuPluggy não comprovam, por si, a origem original de cada banco. Não chamar endpoints financeiros, importar cookies ou marcar verifiedAt/capacidades manualmente. Advisories sempatch não são resolvidos por maisfixtures ou mudança de exceção. Produzir lista objetiva do que impede a ativação e da ação mínima possível; nenhum contato externo sem autorização.
+
+## T75c — Diagnóstico técnico dos vínculos já autorizados
+
+Titular confirmou em21/10 que ambos foram conectados por OpenFinance. Registrar essa origem como confirmação do titular, sem chamar isso de prova retornada pelaAPI. Responsávelintegrador. Paths:scripts/provider-metadata.py/testesadmin/docs. ApenasPOST/auth,GET/items/{itemconhecido},GET/consents?itemId={itemconhecido}; vedadosprodutos/identidade/listglobal/scraping. Ler somente inventário privado validado; APIkeytemporária emmemória, semcache/redirect/proxy/log. JSONlimitado eprojeção antesdestdout: flags técnicas/contagens, semIDs/PII/segredos/errosbrutos. Aceite: testes deendpoints/corposemPII/cancelamentoHTTP/limites/consentrevogado ouambíguo. Diagnóstico nãopromove conexãoactive e nãopassa gates automaticamente. Esta investigação técnica não consulta saldos/extratos/posições.

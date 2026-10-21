@@ -14,13 +14,13 @@ Seu acesso mantém a sessão lembrada e as proteções já confirmadas. Não rec
 
 A demonstração de gastos, carteira, metas e relatórios continua separada do acesso privado. Foram preservados o layout e a identidade visual atuais. Cliente/backend têm fluxos completos de contas, movimentos e investimentos validados com fonte fictícia; **nenhum desses testes comprova homologação de suas contas pessoais**.
 
-Leitura/descoberta bancária real continua desligada: liveIntegration/accountReads/movementReads/investmentReads/inventoryDiscovery/privateFinancialDataApprovedfalse. Bridgev7ACTIVE tem `liveApproved:false`; metadata v4 preserva o snapshot anterior.17migrations aplicadas/hashverificadas. Banco guarda somente metadados, sem saldos, movimentos ou posições financeiras.
+Leitura/descoberta bancária real continua desligada: liveIntegration/accountReads/movementReads/investmentReads/inventoryDiscovery/privateFinancialDataApprovedfalse. Bridgev8ACTIVE tem `liveApproved:false`; metadata v5 preserva o snapshot anterior.17migrations aplicadas/hashverificadas. Banco guarda somente metadados, sem saldos, movimentos ou posições financeiras.
 
 ## Validação da publicação
 
 1201verificações (1069Node+132Python), tiposcliente/backend, exportHermes e auditoria1216fontes/56instâncias aprovados. [CI39642075250](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39642075250) success. Fonte e export comparados com todos os perfis privados antes do upload. Manifesto comschemeorbe e hashlaunchAssetigualaoHBC local; linkQRoficial conferido. Sourcemaps privados.
 
-Backendv7:11casos negativos das rotas desativadas passaram com503/no-store, sem consultar provedor. FixtureSQL de posições/progresso passou instalada comrollback/zeroresíduos/ownerpreservado. Testes integrados1000investimentos e500movimentos são exclusivamente sintéticos.
+Backendv7(em teste depublicação antes da configuraçãoT75a):11casos negativos das rotas desativadas passaram com503/no-store, sem consultar provedor. FixtureSQL de posições/progresso passou instalada comrollback/zeroresíduos/ownerpreservado. Testes integrados1000investimentos e500movimentos são exclusivamente sintéticos.
 
 ## Limites restantes
 
@@ -29,3 +29,5 @@ A ativação real depende das evidências de origem Open Finance por banco, forn
 Seu acesso já existe. Titular confirmou retomada ao alternar apps, captura e multitarefa; coldrestart/logout/gravação/VoiceOver seguem no roteiro final. Nenhum dado bancário deve ser enviado no chat ou em imagens. Não houve nova autorização bancária, contratação ou leitura de finanças pelas ferramentas.
 
 [Acesso](ACCOUNT-ACCESS.md) · [Ativação](ACCOUNT-ACTIVATION.md) · [Movimentações](MOVEMENT-ACCESS.md) · [Investimentos](INVESTMENT-ACCESS.md).
+
+AtualizaçãoT75a: sem nova préviaExpo ou mudança deQR. Segredos adicionais conferidos; bridge8/metadata5 por mudança deambiente, fontes preservadas e sete smokesoff aprovados. OrigemOF confirmada pelo titular, associaçãoAPI deconsentimento divergente emdiagnóstico técnico; [estado de ativação](security/ACTIVATION-RECHECK-20261021.md).

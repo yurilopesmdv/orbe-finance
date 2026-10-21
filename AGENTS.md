@@ -25,3 +25,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Depois consulte spec da tarefa,
 - T01 definiu SDK57 para iPhone11/iOS26.6.2/ExpoGo57.0.9; Node22.23.2/npm12.2.0 instalados. Ler plan/T01-RUNTIME-STRUCTURE.md antes de código. Não usar Node18 default ou SDK latest automaticamente; paths futuros definidos no contrato.
 
 - Usuário autorizou continuidade automática entre tasks; uma por vez significa sequência e checkpoint, não pedir nova confirmação. Prosseguir nas tasks independentes se outra estiver bloqueada por serviço/aparelho.
+
+- Atualização21/10/T75: titular confirmou origem OpenFinance nas duas conexões e reiterou ativação. Chaves provisionadas/11digests/seisflagsfalse; bridge8/metadata5. Diagnóstico sómetadados detectou consentimento comitemIddivergente do proxyMP; não relaxar ownership paraativar. NenhumGETfinanceiro por ferramentas. Estado/pergunta técnica preparada em docs/security/ACTIVATION-RECHECK-20261021.md.
