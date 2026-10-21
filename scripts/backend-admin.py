@@ -114,7 +114,7 @@ def owner_id():
     return candidate
 
 def main():
-    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases', 'test-connection-controls', 'test-account-bindings', 'test-movement-pages'):
+    if len(sys.argv) != 2 or sys.argv[1] not in ('inspect', 'bootstrap', 'migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases', 'test-connection-controls', 'test-account-bindings', 'test-movement-pages', 'test-position-bindings'):
         raise SafeError('usage_backend_admin_inspect_or_bootstrap')
     token, ref = config()
     request = client(token, ref)
@@ -122,7 +122,7 @@ def main():
     print(json.dumps({'project_confirmed': True, 'application_table_count': tables, 'migration_count': len(history), 'auth_policy_matches': all(auth.get(k) == v for k, v in AUTH_POLICY.items())}))
     if sys.argv[1] == 'inspect':
         return
-    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases', 'test-connection-controls', 'test-account-bindings', 'test-movement-pages'):
+    if sys.argv[1] in ('migrate', 'set-owner', 'test-owner', 'configure-client', 'test-metadata', 'test-read-leases', 'test-connection-controls', 'test-account-bindings', 'test-movement-pages', 'test-position-bindings'):
         migrations = sorted((ROOT / 'supabase/migrations').glob('*.sql'))
         baseline_prefix = 'orbe_20261016170000_bootstrap_'
         if not any((row.get('name') or '').startswith(baseline_prefix) for row in history):
@@ -150,6 +150,26 @@ def main():
                 if not any(row.get('name') == expected for row in verified):
                     raise SafeError('migration_verification_failed')
             print(json.dumps({'versioned_migrations_verified': len(migrations)}))
+            return
+        if sys.argv[1] == 'test-position-bindings':
+            owner = owner_id()
+            check_query = "select exists(select 1 from orbe_private.app_owner where user_id='%s'::uuid) as configured" % owner
+            before = request('/database/query', 'POST', {'query': check_query, 'read_only': True})
+            if before != [{'configured': True}]:
+                raise SafeError('provisioned_owner_required')
+            failure = None
+            try:
+                request('/database/query', 'POST', {'query': (ROOT / 'tests/admin/position-bindings.sql').read_text()})
+            except SafeError as error:
+                failure = error
+            residue_query = "select ((select count(*) from auth.users where id in ('00000000-0000-4000-8000-000000000151','00000000-0000-4000-8000-000000000152')) + (select count(*) from auth.sessions where id in ('70000000-0000-4000-8000-000000000151','70000000-0000-4000-8000-000000000152')) + (select count(*) from public.orbe_connections where id='10000000-0000-4000-8000-000000000151') + (select count(*) from public.orbe_positions where connection_id='10000000-0000-4000-8000-000000000151'))::int as count"
+            residue = request('/database/query', 'POST', {'query': residue_query, 'read_only': True})
+            after = request('/database/query', 'POST', {'query': check_query, 'read_only': True})
+            if residue != [{'count': 0}] or after != before:
+                raise SafeError('position_bindings_test_rollback_failed')
+            if failure is not None:
+                raise failure
+            print(json.dumps({'position_bindings_sql_rollback_checks_passed': True, 'temporary_identities_remaining': 0, 'owner_preserved': True, 'financial_reads': 0}))
             return
         if sys.argv[1] == 'test-movement-pages':
             owner = owner_id()

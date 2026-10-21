@@ -1166,3 +1166,9 @@ T23c1 concluída21/10:1166 testes/typechecks (1038Node+128Python),12casos novos.
 SEC-43/[plano](../plan/T23c2-INVESTMENT-NETWORK.md). Rede de investimento por item/página, sem acesso real.
 
 T23c2 concluída21/10:1172 testes/typechecks (1044Node+128Python), seis novoscenários. investmentScope item/page1–100 capturado com política explícita, destinocanônico pageSize100, defaultoff/unusedscope, escoposduplosnegados, contas/transações/resources/identity e SSRF/cookies/redirect/writes proibidos eminvestmode. Scan/allowlist36/diff aprovados. Semprovisionamento/HTTPreal/deploy. PróximaT23c3 metadata/RLS/staging/resolver de posições sem valores.
+
+## T23c3 — em implementação
+
+PORT-12/[plano](../plan/T23c3-POSITION-BINDINGS.md). Registro de posições e contexto autorizado sem valores financeiros.
+
+T23c3 pré-aplicação21/10:1176 testes/typechecks (1044Node+132Python; suite+runner42testes após reforço dosasserts), quatrocasosnovosrunner. DDL+fixture real emrollback passou RLSowner/sessãoexpirada/foreign, ACL, stageestrito/atomicidade/IDsestáveis, fronteira1000/1001, FKowner/produtoreserveproibido ecapinvestfalse comleasecontasválido. Zeroresíduos/ownerpreservado/schema não persistida/zero finanças. Scan/allowlist36/diff aprovados. Migration16 aguarda CI deste commit para aplicar e repetirfixtureinstalada. Próximac4a verificadorprodutoItem (accountsdefault/transactions/ investments) antes do portinvestimentos; hoje default exigeACCOUNTS e movimentosnãoexigemTRANSACTIONS noItem.
