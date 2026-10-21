@@ -113,3 +113,7 @@ RPC service-only resolve movimentos após validar owner, sessão Auth vigente, r
 ## SEC-30 — Portas REST de progresso de movimentações (T22c13)
 
 Adaptadores internos limitam chamadas a resolve/claim/commit em RPCs fixas do Supabase próprio. Capturar escopo owner/conexão/revisão/lease/sessão e validar mês, hashesSHA256, nonce e contagem0–500 antes de rede. Transport injetado obrigatório, sem fetch implícito; disabled não inspeciona configuração/argumentos. Deadline20s/abort, JSON128KiB, sem cookies/redirecionamento e erros genéricos. Commit só aceita booleantrue. Claim valida nonceUUID, número1–100 e expiração futura até120s. Não serializar respostas internas como DTO público. Não ligar ao runtime ou habilitar finanças nesta task.
+
+## SEC-31 — Coordenador HTTP de movimentações (T22c14)
+
+POST /movements/read aceita somente connectionId/revision/leaseId/month/cursor. Auth deve confirmar owner e sessionId; resolver valida mesmo contexto e lease real antes de claim de hashSHA256 do cursor (null usa domínio rootv1). Claim precede provedor; nenhum retry interno. Após projeção, reautenticar mesma sessão, resolver novamente com contexto idêntico, confirmar página com contagem recebida e hash do próximo cursor antes de devolver DTO mínimo. Nunca liberar valores se claim/commit/consentimento/lease/sessão falhar. Prazo20s/abort/semcache, response até1MiB, sem IDs externos. Retorno final da paginação não prova cobertura nem finaliza lease global automaticamente. Entry point continua desabilitado.

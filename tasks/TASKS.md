@@ -1070,3 +1070,9 @@ SEC-30/[plano](../plan/T22c13-MOVEMENT-PROGRESS-REST.md). Adaptadores fixos reso
 T22c12 concluída21/10:CI39598586577 success, migration14 aplicada e14hashes verificados. Fixture instalada passou em rollback, zero resíduos/owner preservado/zero leituras financeiras. Próxima etapa REST em andamento.
 
 T22c13 concluída21/10:1073 testes/typechecks (951Node+122Python), regressão completa1072 e teste adicional de integração de rede aprovado separadamente. Nove novos casos cobrem gates/configuração, RPCs fixas/snapshots, escopo, claim/commit, MIME/limites, abort/deadline e credenciais na rede própria. Scan/allowlist32/diff aprovados. Sem deploy/chaves/flags ou leituras financeiras. PróximaT22c14 coordenadorHTTP de movimentações.
+
+## T22c14 — done
+
+SEC-31/[plano](../plan/T22c14-MOVEMENT-HTTP.md). Coordenador HTTP autenticado de páginas de movimentações.
+
+T22c14 concluída21/10:1089 testes/typechecks (967Node+122Python; suite1088 e caso extra isolado).16cenáriosHTTP aprovados, incluindo port real com rede fictícia, mínimo interno/sem IDs externos, IDOR/sessão/lease, claim/commit, consentimento, snapshot antes de reAuth, budget de linhas brutas e hashroot compatívelSQL, abort/deadline. Scan/allowlist33/diff aprovados. T22c13 CI39599099479 success. Nenhum endpoint novo ligado/publicado ou flag/chave real. PróximaT22c15 finalizar lease transacional somente com progresso completo e sessão válida, antes de adaptar cliente.
