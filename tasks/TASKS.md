@@ -1042,3 +1042,9 @@ T22c8 evidência21/10:1041 testes/typechecks (923 Node+118 Python), sete casos n
 EXP-19/[plano](../plan/T22c9-PRIVATE-PLUGGY-MOVEMENT-PORT.md). Integrar transporte de movimentos com chaveAPI privada e envelope multi-conta/janela, somente fixtures.
 
 T22c9 evidência21/10:1054 testes/typechecks (936 Node+118 Python),13 casos novos. Transporte com chaveAPI na closure validou fluxo de4páginas/2BANK/2janelas até stager/ledger, Authcache1/13requests fictícios, fonte mínima sem extras/IDs externos.500movimentos>128KiB/centavos exatos/429semretry/401limpacache/consentimento expirado entre etapas/cursor de outra sessão/onlyCREDIT/IDOR/close/20s/busy/snapshot cobertos. Projeção admite continuação mensal explícita e prefixov1. Cursor/chaves nunca reais; allowlist31/scans/diff aprovados, semHTTP/deploy/featureflag. Próxima T22c10 SQL de progresso entreworkers: claim/commit de página com hashes opacos/limites, depois autoridade de sessão e coordenadorHTTP.
+
+## T22c10 — doing
+
+EXP-20/[plano](../plan/T22c10-MOVEMENT-PAGE-PROGRESS.md). Metadados privados de claim/commit de página, sem cursor ou dados financeiros persistidos.
+
+T22c10 pré-publicação21/10:1060 testes/typechecks (938 Node+122 Python), seis casos novos de runner/transporte. DDL+fixtureSQL reais passaram em BEGIN/ROLLBACK:120 páginas nos cenários de limite, ACL/IDOR/nonce/replay/sessão/expiração/capacidade e zero resíduos/owner preservado/schema não persistida. Contagem recebida antes de filtro e ciclo upstream imediato testados. Allowlist31/scans/diff aprovados. Migration13 ainda pendente: aguardarCI deste commit, aplicar pelo runner e executar fixture instalada antes de marcar done.

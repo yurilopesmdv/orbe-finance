@@ -33,7 +33,7 @@ def sql_configuration_fixture(residue=0, owner_after=True, command='test-read-le
         root = Path(folder); directory = root / 'supabase/migrations'; directory.mkdir(parents=True)
         baseline = directory / '20261016170000_bootstrap.sql'; baseline.write_text('select 1;')
         history = [{'name': 'orbe_' + baseline.stem + '_' + hashlib.sha256(baseline.read_bytes()).hexdigest()}]
-        sql = root / {'test-account-bindings': 'tests/admin/account-bindings.sql', 'test-connection-controls': 'tests/admin/connection-controls.sql', 'test-metadata': 'tests/admin/metadata-access.sql', 'test-read-leases': 'tests/admin/read-leases.sql'}[command]; sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
+        sql = root / {'test-movement-pages': 'tests/admin/movement-pages.sql', 'test-account-bindings': 'tests/admin/account-bindings.sql', 'test-connection-controls': 'tests/admin/connection-controls.sql', 'test-metadata': 'tests/admin/metadata-access.sql', 'test-read-leases': 'tests/admin/read-leases.sql'}[command]; sql.parent.mkdir(parents=True); sql.write_text('fixed-rollback-fixture')
         reads = 0
         def request(path, method='GET', body=None):
             nonlocal reads
@@ -50,6 +50,28 @@ def sql_configuration_fixture(residue=0, owner_after=True, command='test-read-le
             yield lambda: reads
 
 class BackendGuards(unittest.TestCase):
+
+    def test_movement_pages_runner_verifies_rollback_and_owner(self):
+        with sql_configuration_fixture(command='test-movement-pages') as reads:
+            admin.main()
+            self.assertEqual(reads(), 2)
+
+    def test_movement_pages_runner_rejects_residue(self):
+        with sql_configuration_fixture(command='test-movement-pages', residue=1):
+            with self.assertRaisesRegex(admin.SafeError, 'movement_pages_test_rollback_failed'):
+                admin.main()
+
+    def test_movement_pages_runner_rejects_owner_change(self):
+        with sql_configuration_fixture(command='test-movement-pages', owner_after=False):
+            with self.assertRaisesRegex(admin.SafeError, 'movement_pages_test_rollback_failed'):
+                admin.main()
+
+    def test_movement_pages_runner_checks_cleanup_after_sql_error(self):
+        with sql_configuration_fixture(command='test-movement-pages', execution_error=True) as reads:
+            with self.assertRaisesRegex(admin.SafeError, 'management_http_400'):
+                admin.main()
+            self.assertEqual(reads(), 2)
+
     def test_account_bindings_rollback_and_owner(self):
         with sql_configuration_fixture(command='test-account-bindings'):
             admin.main()

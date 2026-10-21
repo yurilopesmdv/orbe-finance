@@ -121,11 +121,24 @@ test('500 large source rows use the transaction budget and produce only minimal 
  const rows=Array.from({length:500},(_,i)=>({id:uid(1000+i),accountId:uid(3),date:'2026-02-20T12:00:00Z',amount:-0.29,currencyCode:'BRL',type:'DEBIT',status:'POSTED',description:'Movimento fictício',privateExtra:'SYNTHETIC_PRIVATE'.repeat(60)}));
  assert.ok(Buffer.byteLength(JSON.stringify({results:rows,next:null}))>131072);
  const f=fixture({context:ctx,month:'2026-02',transactions:async()=>json({results:rows,next:null})});
- try{const result=await f.port.readMovements(f.ctx,request({month:'2026-02'}),signal());assert.equal(result.status,'complete');assert.equal(result.envelope.page.items.length,500);assert.equal(result.envelope.nextCursor,null);assert.equal(result.envelope.page.items.reduce((sum,row)=>sum+row.amountCents,0),14500);assert.ok(!JSON.stringify(result).includes('SYNTHETIC_PRIVATE'));}finally{f.port.close();}
+ try{const result=await f.port.readMovements(f.ctx,request({month:'2026-02'}),signal());assert.equal(result.status,'complete');assert.equal(result.envelope.page.items.length,500);assert.equal(result.receivedRows,500);assert.equal(result.envelope.nextCursor,null);assert.equal(result.envelope.page.items.reduce((sum,row)=>sum+row.amountCents,0),14500);assert.ok(!JSON.stringify(result).includes('SYNTHETIC_PRIVATE'));}finally{f.port.close();}
 });
 
 test('consent expiring while inventory is read blocks the subsequent transaction request',async()=>{
  let clock;
  const f=fixture({item:async()=>json({...item(),consentExpiresAt:'1970-01-01T00:00:01.005Z'}),inventory:async()=>{clock.value=1005;return json(inventory(context()));}});clock=f.clock;
  try{assert.equal((await f.port.readMovements(f.ctx,request(),signal())).status,'unavailable');assert.ok(!f.calls.some(call=>call.url.includes('/v2/transactions')));}finally{f.port.close();}
+});
+
+
+test('raw row count for global budget includes records filtered out of the Brasília month',async()=>{
+ const rows=[{id:uid(1600),accountId:uid(3),date:'2026-10-01T01:00:00Z',amount:-0.29,currencyCode:'BRL',type:'DEBIT',status:'POSTED',description:'Earlier local month'},{id:uid(1601),accountId:uid(3),date:'2026-10-20T12:00:00Z',amount:-0.29,currencyCode:'BRL',type:'DEBIT',status:'POSTED',description:'Current local month'}];
+ const f=fixture({transactions:async()=>json({results:rows,next:null})});
+ try{const result=await f.port.readMovements(f.ctx,request(),signal());assert.equal(result.status,'complete');assert.equal(result.receivedRows,2);assert.equal(result.envelope.page.items.length,1);}finally{f.port.close();}
+});
+
+test('a provider that repeats the same raw next cursor fails without issuing another continuation',async()=>{
+ const repeated='?accountId='+uid(3)+'&dateFrom=2026-02-01&dateTo=2026-03-01&after=repeated_cursor';
+ const f=fixture({context:{...context(),bindings:[context().bindings[0]]},month:'2026-02',transactions:async()=>json({results:[],next:repeated})});
+ try{const first=await f.port.readMovements(f.ctx,request({month:'2026-02'}),signal());assert.equal(first.status,'complete');const second=await f.port.readMovements(f.ctx,request({month:'2026-02',cursor:first.envelope.nextCursor}),signal());assert.deepEqual(second,{status:'unavailable'});assert.equal(f.calls.filter(call=>call.url.includes('/v2/transactions')).length,2);}finally{f.port.close();}
 });

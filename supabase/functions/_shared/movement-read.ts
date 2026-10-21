@@ -71,8 +71,11 @@ export async function prepareMovementRead(rawContext: AccountProjectionContext, 
           response=await fetchPage(target);fresh(signal,evidence);
           if(response.redirected||response.status!==200||!response.ok)return response.status===429?Object.freeze({status:'rate_limited' as const}):unavailable;
           const raw=await readTransactionJsonResponse(response,signal,decode);fresh(signal,evidence);
-          if(typeof raw!=='object'||raw===null||!Object.hasOwn(raw,'next'))return unavailable;
-          const next=(raw as Record<string,unknown>).next;targets.nextTransactions(account.externalAccountId,window,next);
+          if(typeof raw!=='object'||raw===null||!Object.hasOwn(raw,'next')||!Object.hasOwn(raw,'results'))return unavailable;
+          const source=raw as Record<string,unknown>,rows=source.results;
+          if(!Array.isArray(rows)||rows.length>500)return unavailable;
+          const receivedRows=rows.length,next=source.next;targets.nextTransactions(account.externalAccountId,window,next);
+          if(next!==null&&next===position.next)return unavailable;
           const continueMonth=next===null&&position.windowIndex+1<windows.length;
           let following:{accountId:string;windowIndex:number;next:string|null}|null=null;
           if(next!==null)following={accountId:account.accountId,windowIndex:position.windowIndex,next:next as string};
@@ -84,7 +87,7 @@ export async function prepareMovementRead(rawContext: AccountProjectionContext, 
           const projected=await projectPluggyMovementPage(raw,{ownerSubject,connectionId:context.connectionId,accountId:account.accountId,externalAccountId:account.externalAccountId,itemId:context.itemId,accountKind:'BANK',month,window,nextCursor:pageCursor,continueMonth,windowComplete:false,sourceUpdatedAt:evidence.sourceUpdatedAt},()=>identityKey!,{enabled:true,mode,privateDataApproved:true,signal});
           fresh(signal,evidence);if(projected.kind!=='page')return unavailable;
           const accountCursor=cursor===null||position.windowIndex===0&&position.next===null?null:cursor;
-          return Object.freeze({status:'complete' as const,accountIds:Object.freeze(manifest.accounts.map(row=>row.accountId)),envelope:Object.freeze({accountCursor,nextCursor,page:projected.page}),coverage:Object.freeze({partial:true,excludedCreditCount:manifest.excludedCreditCount,unsupportedCurrencyCount:manifest.unsupportedCurrencyCount}),consentExpiresAt:evidence.expiresAt});
+          return Object.freeze({status:'complete' as const,receivedRows,accountIds:Object.freeze(manifest.accounts.map(row=>row.accountId)),envelope:Object.freeze({accountCursor,nextCursor,page:projected.page}),coverage:Object.freeze({partial:true,excludedCreditCount:manifest.excludedCreditCount,unsupportedCurrencyCount:manifest.unsupportedCurrencyCount}),consentExpiresAt:evidence.expiresAt});
         }catch{return signal.aborted?Object.freeze({status:'cancelled' as const}):unavailable;}
         finally{close();try{void response?.body?.cancel().catch(()=>{});}catch{/* No provider details escape. */}}
       },
