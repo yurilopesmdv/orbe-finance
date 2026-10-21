@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c5.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c6.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -1012,3 +1012,9 @@ T22c3 evidência21/10:1008testes/typechecks (890Node+118Python),12novoscasos. Pr
 EXP-16/[plano](../plan/T22c4-TRANSACTION-JSON-BUDGET.md). Orçamento específico finito para páginas transacionais sem alterar defaults de contas/Auth.
 
 T22c4 evidência21/10:1014testes/typechecks (896Node+118Python),6novoscasos. Perfiltransactions1MiBfixo preserva standard128KiB; leitorHTTPdedicado exige decoderexplícito.500movimentos comextras>128KiB passaramHTTP→decoderexato→projeção500IDs/14500centavos, extrasomitidos. Bounds1MiB/Unicode/depth/probe/perfilinválido/overflow/abort/MIME e defaultHTTP nãoampliável testados; allowlist29/scans/diff aprovados. Código compartilhado local diverge agora do remoto: próxima T22c5 publicar backend exclusivamenteoff apósCI e smokes, sem nova versãoExpo por não mudar cliente.
+
+## T22c5 — done
+
+MPG-06/46/EXP-16/[plano](../plan/T22c5-DISABLED-BRIDGE-RELEASE.md). Publicar somente bridge off apósCI; sem metadata/configuração/QR novos.
+
+T22c5 evidência21/10: CI39587278861success/1014testes/typechecks; bridgev6ACTIVE publicado com liveApprovedfalse,29fontes verificadaslocalmente/canáriosprivados.7rotas503/no-store e5negativosmetadata passaram; metadata4 não redeployado, ownerpositivo não testado/financialReads0/providerCalls0. Nenhuma chave/flag/migration/cliente/QR alterado, recibo/logprivados. Próxima T22c6 cursorconfidencial/autenticado sob sessão/lease/manifesto/UTCwindow, sem habilitar rede.

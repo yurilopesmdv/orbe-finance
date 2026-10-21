@@ -7,7 +7,7 @@
 | Acesso pessoal | Conta criada; sessão lembrada por refresh token rotativo no Keychain; proprietário fixo e revalidação online | Senha não é salva; terceiros, Face ID e recuperação por e-mail desativados |
 | Proteção | Titular confirmou retomada sem senha, captura e multitarefa; consultas privadas aguardam proteção pronta/ativa | Não comprova cold restart, logout, gravação, VoiceOver, cache ou outras versões |
 | Interface | Gastos, carteira, metas, relatórios e classificação demonstrativos; conexões autenticadas de metadados | Valores demonstrativos não são dados bancários; identidade visual adiada |
-| Infraestrutura própria | 12 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v5 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
+| Infraestrutura própria | 12 migrations imutáveis aplicadas, RLS/sessões/leases e rollback de fixtures; bridge v6 e metadata v4 ACTIVE | Banco contém metadados, nenhum saldo/movimento/posição financeira |
 | Credenciais | Client ID/Secret autenticados uma vez somente em POST/auth; segredos somente no backend, quatro flags financeiras false | Chave temporária não foi guardada/exibida; nenhuma leitura financeira foi feita |
 | Vínculos | Um item Mercado Pago cadastrado como pending, sem contas/capacidades/aprovação OF | Bradesco confirmado no portal pessoal, item na aplicação ainda não identificado |
 | Cadeia de contas | Leitura e descoberta preparadas com autorização, consentimento atual, lease global, centavos exatos e cancelamento | Testes com rede/dados fictícios; entrypoint liveApproved false e flags cliente/backend false |
@@ -15,7 +15,7 @@
 
 ## Verificação atual
 
-1008 testes/typechecks aprovados (890 Node +118 Python), incluindo publicador, identidade interna e projeção backend de movimentos com dados fictícios. A prévia c38 foi publicada com 967 testes; mudanças posteriores são administrativas/backend isolado, sem nova ativação ou atualização do cliente. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+1014 testes/typechecks aprovados (896 Node +118 Python), incluindo publicador, identidade interna e projeção backend de movimentos com dados fictícios. A prévia c38 foi publicada com 967 testes; mudanças posteriores são administrativas/backend isolado, sem nova ativação ou atualização do cliente. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração confirmada por digests; fonte de 23 arquivos bridge e cinco metadata corresponde aos recibos privados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
 
@@ -30,4 +30,6 @@ No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco ca
 
 Transações, investimentos e cofrinhos reais são fatias posteriores com adaptadores/paginação/cobertura próprios; modelos e relatórios sintéticos não significam integração entregue. Nenhum serviço pago ou build próprio é exigido automaticamente: Expo Go e orçamento zero continuam a direção vigente. Não há garantia de risco zero nem aprovação de todo o runtime/fornecedor pela quantidade de testes.
 
-Atualização21/10: T22c1/c2/c3 prepararam identidade opaca, janelas UTC/Brasília e projeção mínimaBANK de movimentações. Não há transporte bancário de movimentos ligado ao runtime; investimentos/cofrinhos reais continuam posteriores. O primeiro saldo continua condicionado aos gates descritos acima, não à conclusão desses módulos isolados.
+Atualização21/10: T22c1–c4 prepararam identidade opaca, janelas UTC/Brasília e projeção mínimaBANK de movimentações. Não há transporte bancário de movimentos ligado ao runtime; investimentos/cofrinhos reais continuam posteriores. O primeiro saldo continua condicionado aos gates descritos acima, não à conclusão desses módulos isolados.
+
+Publicação21/10/T22c5: bridgev6 com código financeirooff e fontes compartilhadas atuais; CI39587278861 success,7smokes503/no-store e5negativosmetadata aprovados. Metadata4 preserva o snapshot anterior e o mesmo protocolo/default128KiB; não foi redeployado. Nenhuma leitura real, flag, chave ou QR novo.
