@@ -3,22 +3,23 @@ import type { BridgePorts } from './bridge.ts';
 
 type Configuration = { origin: string; publishableKey: string };
 type Transport = (input: string, init: RequestInit) => Promise<Response>;
-const uuid = (value: unknown): value is string => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
+const uuid = (value: unknown): value is string => typeof value === 'string' && value.length === 36 && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
 const object = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value);
 function unavailable(): never { throw new Error('bridge_upstream_unavailable'); }
 function active(signal: AbortSignal): void { if (signal.aborted) unavailable(); }
 
 // Parsing is only a structural/expiry precheck. Remote Auth and RPC verify trust.
-function claims(token: string, origin: string, now: number): { subject: string; expiresAt: number } | null {
+function claims(token: string, origin: string, now: number): { subject: string; expiresAt: number; sessionId?: string } | null {
   if (token.length > 8192 || !/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token)) return null;
   try {
     const encoded = token.split('.')[1]!;
     const raw = atob(encoded.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - encoded.length % 4) % 4));
     const payload: unknown = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(Uint8Array.from(raw, character => character.charCodeAt(0))));
     if (!object(payload) || !uuid(payload.sub) || payload.iss !== origin + '/auth/v1' || payload.aud !== 'authenticated' || payload.role !== 'authenticated' || payload.is_anonymous === true || !Number.isSafeInteger(payload.exp)) return null;
+    if (Object.hasOwn(payload, 'session_id') && !uuid(payload.session_id)) return null;
     const expiresAt = (payload.exp as number) * 1000;
     if (!Number.isSafeInteger(expiresAt) || expiresAt <= now) return null;
-    return { subject: payload.sub, expiresAt };
+    return { subject: payload.sub, expiresAt, ...(Object.hasOwn(payload, 'session_id') ? { sessionId: payload.session_id as string } : {}) };
   } catch { return null; }
 }
 const columns = 'id,owner_id,institution,state,revision,accounts_available,transactions_available,investments_available,reserves_available,open_finance_verified_at,proxy_consent_expires_at,bank_consent_expires_at,source_updated_at,last_read_at';
@@ -59,7 +60,7 @@ export function createSupabasePorts(config: Configuration, transport: Transport 
         const allowed = await jsonResponse(sessionGate, signal); active(signal);
         if (typeof allowed !== 'boolean') unavailable();
         if (decoded.expiresAt <= now()) return null;
-        return { subject: decoded.subject, isOwner: allowed, expiresAt: decoded.expiresAt };
+        return { subject: decoded.subject, isOwner: allowed, expiresAt: decoded.expiresAt, ...(allowed && decoded.sessionId ? { sessionId: decoded.sessionId } : {}) };
       } catch { return unavailable(); }
     },
     async listConnections(subject, signal, token) {

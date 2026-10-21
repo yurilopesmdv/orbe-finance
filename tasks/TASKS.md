@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c11.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c12.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -1050,3 +1050,9 @@ EXP-20/[plano](../plan/T22c10-MOVEMENT-PAGE-PROGRESS.md). Metadados privados de 
 T22c10 pré-publicação21/10:1060 testes/typechecks (938 Node+122 Python), seis casos novos de runner/transporte. DDL+fixtureSQL reais passaram em BEGIN/ROLLBACK:120 páginas nos cenários de limite, ACL/IDOR/nonce/replay/sessão/expiração/capacidade e zero resíduos/owner preservado/schema não persistida. Contagem recebida antes de filtro e ciclo upstream imediato testados. Allowlist31/scans/diff aprovados. Migration13 ainda pendente: aguardarCI deste commit, aplicar pelo runner e executar fixture instalada antes de marcar done.
 
 T22c10 concluída21/10: CI39596337560 success; migration13 aplicada e todos13hashes verificados. Fixture instalada passou com rollback, zero identidades/resíduos e owner preservado; execução paralela não ensaiada, locks/condições SQL revisados. Nenhuma leitura financeira/flag/chave/deploy.1060testes/typechecks preservados. Próxima T22c11 expor sessionId internamente somente após Auth+RPC de sessão válidos, sem alterar DTO público ou compatibilidade de metadados.
+
+## T22c11 — done
+
+SEC-28/[plano](../plan/T22c11-VERIFIED-SESSION-ID.md). Identidade de sessão interna apenas após confirmação remota, sem expor dados de Auth.
+
+T22c11 evidência21/10:1064 testes/typechecks (942 Node+122 Python), quatro casos novos. sessionId interno só após Auth+orbe_has_session verdadeiros; JWT malformado é recusado cedo, user_metadata não fornece autoridade e respostaHTTP não expõe sessão/owner/token/e-mail. Compatibilidade semsid preservada nos metadados legados. Scan/allowlist31/diff aprovados; sem DB/deploy/flags/cliente. Próxima T22c12 resolverSQL transacional com sessão/leaseExpiry e fixture, depois adaptadoresREST de progresso/coordenador.

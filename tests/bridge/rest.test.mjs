@@ -154,3 +154,30 @@ test('metadata select requests independent authorization fields after the schema
 test('Auth identity success cannot read metadata after session gate denies authorization',async()=>{
  const {handler,calls}=fixture([user(owner),false]);const response=await handler(req(token()));assert.equal(response.status,403);assert.equal(calls.length,2);assert.ok(calls[1].url.endsWith('/orbe_has_session'));assert.ok(!calls.some(call=>call.url.includes('/orbe_connections?')));
 });
+
+const verifiedSession='70000000-0000-4000-8000-000000000001';
+
+test('internal session identity is returned only after Auth and current owner-session RPC approve it',async()=>{
+ const credential=token(owner,{session_id:verifiedSession});
+ const f=fixture([user(owner),true]);const principal=await f.ports.authenticate(credential,signal());
+ assert.equal(principal.subject,owner);assert.equal(principal.sessionId,verifiedSession);assert.equal(principal.isOwner,true);assert.equal(f.calls.length,2);
+ assert.ok(!JSON.stringify(principal).includes('invented-private'));assert.ok(!JSON.stringify(principal).includes(credential));
+});
+
+test('forged Auth user metadata and an unapproved RPC never create a trusted session identity',async()=>{
+ const forged={...user(owner),user_metadata:{session_id:other,isOwner:true}};
+ const absent=fixture([forged,true]);const legacy=await absent.ports.authenticate(token(),signal());assert.equal(Object.hasOwn(legacy,'sessionId'),false);
+ const denied=fixture([user(owner),false]);const principal=await denied.ports.authenticate(token(owner,{session_id:verifiedSession}),signal());assert.equal(principal.isOwner,false);assert.equal(Object.hasOwn(principal,'sessionId'),false);
+ const refused=fixture([json({message:'private'},401)]);assert.equal(await refused.ports.authenticate(token(owner,{session_id:verifiedSession}),signal()),null);assert.equal(refused.calls.length,1);
+});
+
+test('malformed explicit session claims fail before any remote Auth or metadata request',async()=>{
+ for(const session_id of [null,'invalid',verifiedSession+'\n',123,{},verifiedSession.toUpperCase().replace('70000000','7AAAAAAA')]){
+  const f=fixture([]);assert.equal(await f.ports.authenticate(token(owner,{session_id}),signal()),null);assert.equal(f.calls.length,0);
+ }
+});
+
+test('status HTTP response never serializes verified session identity or private Auth fields',async()=>{
+ const credential=token(owner,{session_id:verifiedSession});const f=fixture([user(owner),true,[]]);const response=await f.handler(req(credential));assert.equal(response.status,200);
+ const text=await response.text();for(const privateValue of [verifiedSession,owner,credential,'invented-private','sessionId','session_id'])assert.ok(!text.includes(privateValue));
+});

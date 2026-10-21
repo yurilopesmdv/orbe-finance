@@ -99,3 +99,9 @@ Antes de iniciar o subprocesso EAS autenticado, a publicação DEVE executar sca
 /v2/transactions só é permitido na fronteira preparada quando habilitação específica, ExecutionPolicy e aprovação privada estiverem explícitas; fixture exige rede injetada. Capturar binding confiável com1–100contas e mês válido; gerar janelas pelo planner e verificar cada destino pelo builder de conta/filtros/next, preservando a query opaca. Sem esse escopo, o comportamento atual continua recusando transações e não deve ler a configuração extra.
 
 No escopo transacional, GETitem/contas também fica limitado ao item capturado. Restantes destinos/hierarquia de credenciais/headers/métodos/abort/semcookies/semredirect continuam fechados; não permitir listar itens, refresh, identidade, investimentos ou pagamentos por essa opção. A fronteira limita destinos e não prova ownership/consentimento/sessão/lease; isso permanece no coordenador. Nenhum cliente pode fornecer binding ou URL diretamente. Default/entrypoint financeiro continuam off.
+
+## SEC-28 — Identificador de sessão verificado no backend (T22c11)
+
+Para vincular leitura financeira à sessão, a porta de Auth pode devolver sessionId interno extraído de session_id próprio do JWT, UUID estrito, somente depois de GetUser validar o mesmo bearer/subject e orbe_has_session confirmar owner/sessão ativa. Decodificar JWT não autentica ninguém; user_metadata não é fonte de sessionId. Campo presente malformado é recusado antes de rede.
+
+Metadados legados sem campo sid preservam seu contrato existente; isso não autoriza novos handlers financeiros sem sessionId confirmado. Quando RPC nega owner/sessão, não devolver sessionId. Subject/sessionId/token/e-mail/metadadosAuth não são DTOHTTP público nem logs. Coordenador novo exige a mesma sessão no início e antes de liberar dados/confirmar página. Nenhuma grant, cookie, chamada adicional ou configuração de Auth é acrescentada.
