@@ -121,3 +121,7 @@ POST /movements/read aceita somente connectionId/revision/leaseId/month/cursor. 
 ## SEC-32 — Conclusão de lease após progresso transacional (T22c15)
 
 Finalização transacional service-only exige sessão Auth vigente igual ao hash do progresso, revisão/lease atuais e progresso finished sem nonce pendente. Não é prova de cobertura bancária. Finalizador genérico preserva contas e failed/cancelled; success recusa se há progresso do mesmo lease incompleto. Sem progresso, sucesso genérico mantém significado legado de leitura de contas, nunca comprova transações. Nenhum valor financeiro é persistido; nenhum retry após finalização incerta.
+
+## SEC-33 — Endpoint de finalização transacional (T22c16)
+
+POST /movements/finalize aceita só connectionId/revision/leaseId; owner/sessão vêm do bearer validado duas vezes, mesma sessão, antes do RPC service-only de finalização. Deadline20s/abort/semcache, corpo16KiB e resposta apenas statuscomplete. REST destino fixo, nenhum fallback para finalização genérica. Disabled não lê portas ou argumentos. Nenhum runtime/deploy/gate muda nesta task.

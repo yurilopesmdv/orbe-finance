@@ -1077,8 +1077,16 @@ SEC-31/[plano](../plan/T22c14-MOVEMENT-HTTP.md). Coordenador HTTP autenticado de
 
 T22c14 concluída21/10:1089 testes/typechecks (967Node+122Python; suite1088 e caso extra isolado).16cenáriosHTTP aprovados, incluindo port real com rede fictícia, mínimo interno/sem IDs externos, IDOR/sessão/lease, claim/commit, consentimento, snapshot antes de reAuth, budget de linhas brutas e hashroot compatívelSQL, abort/deadline. Scan/allowlist33/diff aprovados. T22c13 CI39599099479 success. Nenhum endpoint novo ligado/publicado ou flag/chave real. PróximaT22c15 finalizar lease transacional somente com progresso completo e sessão válida, antes de adaptar cliente.
 
-## T22c15 — em implementação
+## T22c15 — done
 
 SEC-32/[plano](../plan/T22c15-MOVEMENT-FINALIZATION.md). Finalização segura do lease após paginação completa.
 
 T22c15 pré-aplicação21/10:DDL+fixture em rollback aprovado, zero resíduos/owner preservado/zero finanças. Cobertos ACL, sem progresso/inflight, bloqueio do successgenérico incompleto, final completo, sessão diferente/expirada e repetição.1089 testes/typechecks da etapa anterior preservados; HTTP CI39599686076 success. Scan/allowlist33/diff aprovados. Migration15 aguarda CI deste commit, depois aplicar e repetir fixture de movimentos e leases legados.
+
+## T22c16 — done
+
+SEC-33/[plano](../plan/T22c16-MOVEMENT-FINALIZE-HTTP.md). Endpoint de finalização com sessão e transporte RPC fixo.
+
+T22c16 concluída21/10:1098 testes/typechecks (976Node+122Python), regressão completa aprovada. Nove casos novos de RPCfinish/rede própria, disabled, sessão dupla/alterada, corpoestrito, recusas genéricas, abort/deadline. Scan/allowlist34/diff aprovados. Sem runtime/deploy/flags/chaves. T22c15 CI39599955417 success, aplicação/fixtures em execução; confirmar resultado antes do checkpoint. PróximaT22c17 orçamento JSON cliente exclusivo de movimentações e operações fixas.
+
+T22c15 aplicada21/10:15hashes verificados; movement-pages e read-leases instalados passaram em rollback, zero resíduos e owner preservado. Sem leitura financeira, chaves/flags ou deploy.

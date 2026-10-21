@@ -26,6 +26,7 @@ export function createMovementProgressPorts(resolveConfig: () => Configuration, 
   if (options.enabled !== true || resolveExecutionMode(options) === null) return Object.freeze({
     resolve: async (_scope: MovementReadScope, _signal: AbortSignal): Promise<unknown> => null,
     claim: async (_scope: MovementPageScope, _signal: AbortSignal): Promise<Readonly<{claimId:string;pageNumber:number;leaseExpiresAt:number}> | null> => null,
+    finish: async (_scope: MovementReadScope, _signal: AbortSignal) => false,
     commit: async (_scope: MovementPageCommit, _signal: AbortSignal) => false,
   });
   let origin: string, secretKey: string, transport: Transport;
@@ -35,7 +36,7 @@ export function createMovementProgressPorts(resolveConfig: () => Configuration, 
     transport = options.transport;
   } catch { return unavailable(); }
   const clock = options.clock ?? defaultClock;
-  async function call(endpoint: 'orbe_resolve_movement_read' | 'orbe_claim_movement_page' | 'orbe_commit_movement_page', body: unknown, signal: AbortSignal): Promise<unknown> {
+  async function call(endpoint: 'orbe_resolve_movement_read' | 'orbe_claim_movement_page' | 'orbe_commit_movement_page' | 'orbe_finish_movement_read', body: unknown, signal: AbortSignal): Promise<unknown> {
     if (signal.aborted) return unavailable();
     const payload = JSON.stringify(body), controller = new AbortController(); let timer: unknown, set = false, abort: (() => void) | undefined, response: Response | undefined;
     try {
@@ -59,6 +60,11 @@ export function createMovementProgressPorts(resolveConfig: () => Configuration, 
     finally { controller.abort(); if (abort) signal.removeEventListener('abort', abort); if (set) { try { clock.clearTimer(timer); } catch { /* Generic failure only. */ } } try { void response?.body?.cancel().catch(() => {}); } catch { /* Best effort. */ } }
   }
   return Object.freeze({
+    finish: async (input: MovementReadScope, signal: AbortSignal): Promise<boolean> => {
+      const raw = await call('orbe_finish_movement_read', scope(input), signal);
+      if (typeof raw !== 'boolean') return unavailable();
+      return raw;
+    },
     resolve: (input: MovementReadScope, signal: AbortSignal) => call('orbe_resolve_movement_read', scope(input), signal),
     claim: async (input: MovementPageScope, signal: AbortSignal): Promise<Readonly<{claimId:string;pageNumber:number;leaseExpiresAt:number}> | null> => {
       const raw = await call('orbe_claim_movement_page', page(input), signal);
