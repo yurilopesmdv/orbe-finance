@@ -117,3 +117,7 @@ Adaptadores internos limitam chamadas a resolve/claim/commit em RPCs fixas do Su
 ## SEC-31 — Coordenador HTTP de movimentações (T22c14)
 
 POST /movements/read aceita somente connectionId/revision/leaseId/month/cursor. Auth deve confirmar owner e sessionId; resolver valida mesmo contexto e lease real antes de claim de hashSHA256 do cursor (null usa domínio rootv1). Claim precede provedor; nenhum retry interno. Após projeção, reautenticar mesma sessão, resolver novamente com contexto idêntico, confirmar página com contagem recebida e hash do próximo cursor antes de devolver DTO mínimo. Nunca liberar valores se claim/commit/consentimento/lease/sessão falhar. Prazo20s/abort/semcache, response até1MiB, sem IDs externos. Retorno final da paginação não prova cobertura nem finaliza lease global automaticamente. Entry point continua desabilitado.
+
+## SEC-32 — Conclusão de lease após progresso transacional (T22c15)
+
+Finalização transacional service-only exige sessão Auth vigente igual ao hash do progresso, revisão/lease atuais e progresso finished sem nonce pendente. Não é prova de cobertura bancária. Finalizador genérico preserva contas e failed/cancelled; success recusa se há progresso do mesmo lease incompleto. Sem progresso, sucesso genérico mantém significado legado de leitura de contas, nunca comprova transações. Nenhum valor financeiro é persistido; nenhum retry após finalização incerta.

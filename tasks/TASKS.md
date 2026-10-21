@@ -1076,3 +1076,9 @@ T22c13 concluída21/10:1073 testes/typechecks (951Node+122Python), regressão co
 SEC-31/[plano](../plan/T22c14-MOVEMENT-HTTP.md). Coordenador HTTP autenticado de páginas de movimentações.
 
 T22c14 concluída21/10:1089 testes/typechecks (967Node+122Python; suite1088 e caso extra isolado).16cenáriosHTTP aprovados, incluindo port real com rede fictícia, mínimo interno/sem IDs externos, IDOR/sessão/lease, claim/commit, consentimento, snapshot antes de reAuth, budget de linhas brutas e hashroot compatívelSQL, abort/deadline. Scan/allowlist33/diff aprovados. T22c13 CI39599099479 success. Nenhum endpoint novo ligado/publicado ou flag/chave real. PróximaT22c15 finalizar lease transacional somente com progresso completo e sessão válida, antes de adaptar cliente.
+
+## T22c15 — em implementação
+
+SEC-32/[plano](../plan/T22c15-MOVEMENT-FINALIZATION.md). Finalização segura do lease após paginação completa.
+
+T22c15 pré-aplicação21/10:DDL+fixture em rollback aprovado, zero resíduos/owner preservado/zero finanças. Cobertos ACL, sem progresso/inflight, bloqueio do successgenérico incompleto, final completo, sessão diferente/expirada e repetição.1089 testes/typechecks da etapa anterior preservados; HTTP CI39599686076 success. Scan/allowlist33/diff aprovados. Migration15 aguarda CI deste commit, depois aplicar e repetir fixture de movimentos e leases legados.
