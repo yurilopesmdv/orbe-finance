@@ -125,3 +125,7 @@ Finalização transacional service-only exige sessão Auth vigente igual ao hash
 ## SEC-33 — Endpoint de finalização transacional (T22c16)
 
 POST /movements/finalize aceita só connectionId/revision/leaseId; owner/sessão vêm do bearer validado duas vezes, mesma sessão, antes do RPC service-only de finalização. Deadline20s/abort/semcache, corpo16KiB e resposta apenas statuscomplete. REST destino fixo, nenhum fallback para finalização genérica. Disabled não lê portas ou argumentos. Nenhum runtime/deploy/gate muda nesta task.
+
+## SEC-34 — JSON cliente por operação de movimentações (T22c17)
+
+Somente operação movementRead no cliente de sessão usa leitor nomeado com teto fixo1MiB de bytesUTF8 antes de parse. Reader padrão conserva teto128KiB e discovery4KiB; movementFinalize também128KiB. Não aceitar orçamento arbitrário do chamador para ampliar operação. Rotas próprias fixas, deadline20s, origem da sessão, cancelamento/lock e headers privados mantidos. Sem persistência de payloads ou mudanças de gates/UI/publicação nesta task.

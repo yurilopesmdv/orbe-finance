@@ -1,7 +1,7 @@
 export type JsonResponse = Pick<Response,'headers'|'body'>;
 function invalid(): never { throw new Error('invalid_json_response'); }
 /** Bounds decoded bytes before JSON.parse. No unbounded text/json fallback. */
-export async function readBoundedJson(response: JsonResponse, signal: AbortSignal, maxBytes = 131072): Promise<unknown> {
+async function readJson(response: JsonResponse, signal: AbortSignal, maxBytes: number, ceiling: number): Promise<unknown> {
   let body: ReadableStream<Uint8Array> | null | undefined, reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
   let stop: (() => void) | undefined;
   const cancel = () => {
@@ -9,7 +9,7 @@ export async function readBoundedJson(response: JsonResponse, signal: AbortSigna
   };
   try {
     body = response.body;
-    if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || maxBytes > 131072 || signal.aborted) return invalid();
+    if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || maxBytes > ceiling || signal.aborted) return invalid();
     const mime = response.headers.get('content-type'), declared = response.headers.get('content-length');
     if (!/^application\/json(?:\s*;.*)?$/i.test(mime ?? '') || declared !== null && (!/^(?:0|[1-9]\d*)$/.test(declared) || !Number.isSafeInteger(Number(declared)) || Number(declared) > maxBytes) || !body || typeof body.getReader !== 'function') return invalid();
     reader = body.getReader();
@@ -34,4 +34,13 @@ export async function readBoundedJson(response: JsonResponse, signal: AbortSigna
     return JSON.parse(new TextDecoder('utf-8',{ fatal:true }).decode(bytes));
   } catch { cancel(); return invalid(); }
   finally { if (stop) signal.removeEventListener('abort',stop); try { reader?.releaseLock(); } catch { /* A broken transport cannot publish an error payload. */ } }
+}
+
+/** Standard private operations cannot raise their existing 128 KiB budget. */
+export function readBoundedJson(response: JsonResponse, signal: AbortSignal, maxBytes = 131072): Promise<unknown> {
+  return readJson(response,signal,maxBytes,131072);
+}
+/** Fixed budget for the minimum movement DTO only; no caller-selected expansion. */
+export function readMovementJson(response: JsonResponse, signal: AbortSignal): Promise<unknown> {
+  return readJson(response,signal,1048576,1048576);
 }

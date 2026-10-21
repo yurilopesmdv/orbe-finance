@@ -1,11 +1,11 @@
 import { privateRequestHeaders } from './private-http.ts';
 import { AuthFailure, type AuthConfig } from '../features/auth/gateway.ts';
 import type { SessionModel } from '../features/auth/session.ts';
-import { readBoundedJson } from './bounded-json.ts';
+import { readBoundedJson, readMovementJson } from './bounded-json.ts';
 export type HttpSession = Pick<SessionModel,'read'|'assertUnlocked'|'getPublicOrigin'>;
 export type SessionTransport = (url: string, init: RequestInit) => Promise<Pick<Response,'ok'|'status'|'redirected'|'headers'|'body'>>;
 function invalid(): never { throw new AuthFailure('unavailable'); }
-const paths={discover:'/functions/v1/orbe-bridge/accounts/discover',acquire:'/functions/v1/orbe-bridge/reads/acquire',read:'/functions/v1/orbe-bridge/accounts/read',finalize:'/functions/v1/orbe-bridge/reads/finalize',registry:'/rest/v1/orbe_accounts?select=id,connection_id&order=id.asc&limit=1001'} as const;
+const paths={movementRead:'/functions/v1/orbe-bridge/movements/read',movementFinalize:'/functions/v1/orbe-bridge/movements/finalize',discover:'/functions/v1/orbe-bridge/accounts/discover',acquire:'/functions/v1/orbe-bridge/reads/acquire',read:'/functions/v1/orbe-bridge/accounts/read',finalize:'/functions/v1/orbe-bridge/reads/finalize',registry:'/rest/v1/orbe_accounts?select=id,connection_id&order=id.asc&limit=1001'} as const;
 /** Fixed operations only. Caller gates financial capabilities before creating this client. */
 export function createSessionJsonClient(session:HttpSession,resolveConfig:()=>AuthConfig|null,transport:SessionTransport,timeoutMs=20000){
  return async function request(operation:keyof typeof paths,body:unknown,external:AbortSignal):Promise<unknown>{
@@ -22,7 +22,7 @@ export function createSessionJsonClient(session:HttpSession,resolveConfig:()=>Au
     const work=async()=>{
      active();response=await transport(origin+paths[operation],{method:operation==='registry'?'GET':'POST',headers:{apikey:key,Authorization:'Bearer '+token,'Content-Type':'application/json',...privateRequestHeaders},body:operation==='registry'?undefined:JSON.stringify(body),signal:controller.signal,credentials:'omit',redirect:'error',cache:'no-store',referrerPolicy:'no-referrer'});active();
      if(response.redirected)return invalid();if(response.status===401||response.status===403)throw new AuthFailure('invalid_credentials');if(response.status===429)throw new AuthFailure('rate_limited');if(response.status!==200||!response.ok)return invalid();
-     const result=await readBoundedJson(response,controller.signal,operation==='discover'?4096:131072);active();return result;
+     const result=await (operation==='movementRead'?readMovementJson(response,controller.signal):readBoundedJson(response,controller.signal,operation==='discover'?4096:131072));active();return result;
     };
     return await Promise.race([interrupted,work()]);
    }catch(error){if(error instanceof AuthFailure)throw error;return invalid();}

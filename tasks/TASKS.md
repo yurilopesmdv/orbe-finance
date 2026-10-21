@@ -1090,3 +1090,9 @@ SEC-33/[plano](../plan/T22c16-MOVEMENT-FINALIZE-HTTP.md). Endpoint de finalizaç
 T22c16 concluída21/10:1098 testes/typechecks (976Node+122Python), regressão completa aprovada. Nove casos novos de RPCfinish/rede própria, disabled, sessão dupla/alterada, corpoestrito, recusas genéricas, abort/deadline. Scan/allowlist34/diff aprovados. Sem runtime/deploy/flags/chaves. T22c15 CI39599955417 success, aplicação/fixtures em execução; confirmar resultado antes do checkpoint. PróximaT22c17 orçamento JSON cliente exclusivo de movimentações e operações fixas.
 
 T22c15 aplicada21/10:15hashes verificados; movement-pages e read-leases instalados passaram em rollback, zero resíduos e owner preservado. Sem leitura financeira, chaves/flags ou deploy.
+
+## T22c17 — done
+
+SEC-34/[plano](../plan/T22c17-MOVEMENT-CLIENT-JSON.md). Budget JSON específico e operações fixas de movimentações no cliente.
+
+T22c17 concluída21/10:1104 testes/typechecks (982Node+122Python), seis novos cenários de tetoUTF8 exato1MiB/overflow/chunks/MIME/abort, rotas, origem, lock e limites das demais operações. Exportação iOS e auditoria1205fontes/56pacotes aprovadas; raízes de advisories ausentes do JS, sourcemaps privados. Scan perfis+dist/allowlist34/diff aprovados. Nenhuma UI/gate/EAS alterada. PróximaT22c18 transporte transacional que valida manifestoBANK interno contra registroRLS e mantém manifesto estável porlease, antes de adaptar stager.
