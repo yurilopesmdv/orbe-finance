@@ -1,0 +1,5 @@
+# T22c7 — Manifesto de contas bancárias para movimentos
+
+EXP-18/15 e MPG-05; dependeT22c6, based7d858a; integrador único. Paths: specs003, supabase/functions/_shared/account-inventory.ts, tests/bridge/account-inventory.test.mjs, TASKS/STATE. Preservar DTO de descoberta; nenhum backendentrypoint/env/deploy/cliente novo.
+
+Refatorar parser privado compartilhado para capturar tipoBANK/CREDIT validado sem tocar valores; wrapperinventory devolve mesmo DTO anterior(kindunknown). Nova projeçãoBankManifest recebe item/bindingsprivados, valida todos os vínculos e inventário completo, selecionaBANK suportadas/sortIDinterno/cap100 e informa exclusões. Sem inferir classe por moeda/kindunknown ou criar contas. UUID comprimento36 para rejeitar newline. Testar compatibilidade wrapper, proofkind/extraspoison/sort/missingunboundduplicate/currency/count/bounds/gateszeroacesso, integração cursorAAD independente da ordem da fonte. Check/suite/scans e checkpoint. Depois transporte autenticado que mantém chaveAPI na closure e valida consentimento antes de qualquer dados.

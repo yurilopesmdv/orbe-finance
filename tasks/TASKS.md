@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c7.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c8.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -1024,3 +1024,9 @@ T22c5 evidência21/10: CI39587278861success/1014testes/typechecks; bridgev6ACTIV
 EXP-17/ADR-018/[plano](../plan/T22c6-PRIVATE-TRANSACTION-CURSOR.md). Cursor confidencial backend, sem rede/persistência/chave real ou ativação.
 
 T22c6 evidência21/10:1027testes/typechecks (909Node+118Python),13novoscasos. AESGCMroundtrip/IValeatório/AADownerSessãoConexãoRevisãoLeaseExpiraçãoMêsItemManifesto, tamper/canonicidade/TTL/rollback/close/errocriptográfico/importnãoexportávelúnica e256bits testados. Token512/cursorgrande recusadoanteskey/snapshotmanifesto/transiçõesjanelaconta semclaimcomplete cobertos. Allowlist30/scans/diff aprovados; sem chave real/HTTP/deploy. Próxima T22c7 manifestoBANK validado e vinculado antes de aplicar convenção monetária de transações, sem inferir kindunknown comoBANK.
+
+## T22c7 — done
+
+EXP-18/[plano](../plan/T22c7-BANK-MOVEMENT-MANIFEST.md). Confirmar tipo BANK da fonte e vínculos sem ler dados de saldo/identidade.
+
+T22c7 evidência21/10:1034 testes/typechecks (916 Node +118 Python), sete casos novos. Parser de inventário compartilhado preserva o DTO de descoberta; manifesto BANK usa tipo da fonte, vínculos completos e ordem interna estável, sem acessar saldo/identidade/limite. Crédito/moeda não suportada têm contagens explícitas; limites, UUID com newline, IDOR e integração cursor/AAD sob reordenação foram validados. Allowlist de30fontes, scan de perfis e diff aprovados. Sem rede/deploy/env. Próxima T22c8: fronteira de rede v2/transactions exclusivamente sob binding/janelas confiáveis, mantendo default sem transações.
