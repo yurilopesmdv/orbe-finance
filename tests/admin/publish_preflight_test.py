@@ -27,6 +27,7 @@ class PublicationScanTests(unittest.TestCase):
         self.private = {'SUPABASE_ACCESS_TOKEN': 'invented_admin_token',
                         'ORBE_OWNER_USER_ID': 'invented_owner_uuid', 'EXPO_TOKEN': 'invented_expo_token',
                         'PLUGGY_CLIENT_ID': 'invented_client_id', 'PLUGGY_CLIENT_SECRET': 'invented_client_secret',
+                        'ORBE_MOVEMENT_IDENTITY_KEY':'12'*32,'ORBE_MOVEMENT_CURSOR_KEY':'34'*32,
                         'PRIVATE_ITEM_0': 'invented_item_uuid', 'SUPABASE_PROJECT_REF': 'public_project_ref'}
 
     def test_each_private_profile_canary_blocks_binary_export(self):
@@ -37,6 +38,14 @@ class PublicationScanTests(unittest.TestCase):
                 self.asset.write_bytes(b'\x00\xff' + value.encode() + b'\x01')
                 with self.assertRaisesRegex(m.bridge.admin.SafeError, '^publish_private_content_rejected$'):
                     m.scan_artifacts(self.dist, self.private)
+
+    def test_actual_movement_profile_canaries_block_binary_export_offline(self):
+        profile=self.root/'movement-keys.env';profile.write_text('ORBE_MOVEMENT_IDENTITY_KEY='+('12'*32)+'\nORBE_MOVEMENT_CURSOR_KEY='+('34'*32)+'\n');profile.chmod(0o600)
+        private=m.bridge.private_canaries(self.root,{})
+        for key,value in private.items():
+            with self.subTest(key=key):
+                self.asset.write_bytes(b'\x00'+value.encode()+b'\xff')
+                with self.assertRaisesRegex(m.bridge.admin.SafeError,'publish_private_content_rejected'):m.scan_artifacts(self.dist,private)
 
     def test_secret_split_across_read_boundary_is_detected(self):
         self.asset.write_bytes(b'x' * (32768 - 5) + self.private['PLUGGY_CLIENT_SECRET'].encode())

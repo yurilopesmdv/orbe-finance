@@ -79,6 +79,38 @@ class DisabledDeployGuards(unittest.TestCase):
             path=Path(folder);target=path/'target';target.write_text('invented');(path/'pluggy.env').symlink_to(target)
             with self.assertRaises(OSError): deploy.private_canaries(path,{})
 
+    def test_movement_keys_collected_without_output(self):
+        with tempfile.TemporaryDirectory() as folder:
+            directory=Path(folder);profile=directory/'movement-keys.env'
+            profile.write_text('ORBE_MOVEMENT_IDENTITY_KEY='+('12'*32)+'\nORBE_MOVEMENT_CURSOR_KEY='+('34'*32)+'\n');profile.chmod(0o600)
+            output=io.StringIO()
+            with contextlib.redirect_stdout(output):values=deploy.private_canaries(directory,{})
+            self.assertEqual(output.getvalue(),'')
+            self.assertEqual(values['ORBE_MOVEMENT_IDENTITY_KEY'],'12'*32)
+            self.assertEqual(values['ORBE_MOVEMENT_CURSOR_KEY'],'34'*32)
+
+    def test_movement_profile_malformed_missing_equal_zero_keys_rejected(self):
+        for first,second in [('12'*31,'34'*32),('12'*32,'12'*32),('00'*32,'34'*32),('AB'*32,'34'*32),('','34'*32)]:
+            with self.subTest(first_length=len(first),second_length=len(second)),tempfile.TemporaryDirectory() as folder:
+                directory=Path(folder);profile=directory/'movement-keys.env';profile.write_text('ORBE_MOVEMENT_IDENTITY_KEY='+first+'\nORBE_MOVEMENT_CURSOR_KEY='+second+'\n');profile.chmod(0o600)
+                with self.assertRaisesRegex(deploy.admin.SafeError,'bridge_private_profile_rejected'):deploy.private_canaries(directory,{})
+
+    def test_movement_profile_permissions_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            directory=Path(folder);profile=directory/'movement-keys.env';profile.write_text('ORBE_MOVEMENT_IDENTITY_KEY='+('12'*32)+'\nORBE_MOVEMENT_CURSOR_KEY='+('34'*32)+'\n');profile.chmod(0o644)
+            with self.assertRaisesRegex(deploy.admin.SafeError,'bridge_private_profile_rejected'):deploy.private_canaries(directory,{})
+
+    def test_any_private_name_including_movement_keys_blocks_source(self):
+        for name in ['ORBE_MOVEMENT_IDENTITY_KEY','ORBE_MOVEMENT_CURSOR_KEY','FUTURE_PRIVATE_PROFILE_VALUE']:
+            with self.subTest(name=name),fixture() as (root,directory):
+                (directory/'_shared/bridge.ts').write_text('private-fixture-canary-only')
+                with self.assertRaisesRegex(deploy.admin.SafeError,'bridge_private_content_rejected'):deploy.artifacts(root,{name:'private-fixture-canary-only'})
+
+    def test_public_ref_remains_allowed_in_source(self):
+        with fixture() as (root,directory):
+            (directory/'_shared/bridge.ts').write_text('public-ref-fixture')
+            self.assertEqual(set(deploy.artifacts(root,{'SUPABASE_PROJECT_REF':'public-ref-fixture'})),deploy.ALLOWED)
+
     def test_existing_unmanaged_function_is_never_overwritten(self):
         with tempfile.TemporaryDirectory() as folder:
             private = Path(folder) / 'backend.env'

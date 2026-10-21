@@ -1144,3 +1144,9 @@ T22c24 concluída21/10:1144 testes/typechecks preservados; tela e flagliteralfal
 [Plano](../plan/T22c25-MOVEMENT-INTEGRATED-VALIDATION.md). Validação conjunta da cadeia cliente/HTTP/backend/providerfictício/ledger, além dos testes de módulo.
 
 T22c25 concluída21/10:1148 testes/typechecks (1026Node+122Python), quatro cenários integrados.500movimentos atravessaramSessionModel→runtime/controller→HTTP→backendfixture→Auth/RPCfake→Pluggyfake→HMAC/projeção→ledger; DTO>128KiB e<=1MiB,29centavosexatos, scopeopacolocal distintoAuthowner e nenhumextra/IDexterno noDTO. Nenhuma promoção antes de finish; recusa/lock descartam; gateoffzerochamadas. SQLnãoéprovadopelaRPCfake; fixtures reais15migrations já passaram separadamente. Scan/diff aprovados; CI24 39632749109 success. Sem exportrepetido/EAS/rede financeira. PróximaT22c26 ampliar scanner privado para chaves de movimentos antes de provisionar qualquer chave.
+
+## T22c26 — done
+
+SEC-42/[plano](../plan/T22c26-MOVEMENT-KEY-SCAN.md). Estender guard de publicação antes de criar qualquer chave de movimentações.
+
+T22c26 concluída21/10:1154 testes/typechecks (1026Node+128Python), seis novoscenários de coletaformato/permissões/canáriosfonte/export. Scanner lê perfilopcionalduaschaves semoutput, recusa64hexinválido/nulo/igual; backendartifacts bloqueia qualquer valorprivadoconhecido excetorefpúblico. Scanrealperfis/fontes/dist e diff passaram. Nenhuma chave/perfil real criado, nenhum provisionamento/deploy/ativação. CI25 39633238141 success. Próxima plano de adaptadores investimentos/reservas baseado em fonteoficial, mantendo cobertura desconhecida e sem ler bancos pelas ferramentas.

@@ -21,7 +21,7 @@ ALLOWED = {'_shared/movement-runtime.ts', '_shared/movement-finalize-handler.ts'
 
 def private_canaries(directory, base):
     result = dict(base)
-    for name, keys in [('pluggy.env', {'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET'}), ('expo-publish.env', {'EXPO_TOKEN'}), ('pluggy-items.json', None)]:
+    for name, keys in [('movement-keys.env', {'ORBE_MOVEMENT_IDENTITY_KEY','ORBE_MOVEMENT_CURSOR_KEY'}), ('pluggy.env', {'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET'}), ('expo-publish.env', {'EXPO_TOKEN'}), ('pluggy-items.json', None)]:
         path = directory / name
         if any(parent.is_symlink() for parent in (directory, *directory.parents)):
             raise admin.SafeError('bridge_private_path_symlink_rejected')
@@ -43,6 +43,8 @@ def private_canaries(directory, base):
                 if key not in keys or key in seen: raise admin.SafeError('bridge_private_profile_rejected')
                 seen.add(key);result[key]=value.strip().strip('"').strip("'")
             if seen != keys: raise admin.SafeError('bridge_private_profile_rejected')
+            if name == 'movement-keys.env' and (any(not admin.re.fullmatch(r'[0-9a-f]{64}',result[key]) or set(result[key]) == {'0'} for key in keys) or result['ORBE_MOVEMENT_IDENTITY_KEY'] == result['ORBE_MOVEMENT_CURSOR_KEY']):
+                raise admin.SafeError('bridge_private_profile_rejected')
         else:
             value=json.loads(raw)
             if not isinstance(value,dict) or value.get('version')!=2 or not isinstance(value.get('items'),list) or not 1<=len(value['items'])<=5:
@@ -64,7 +66,7 @@ def artifacts(root, private):
         name = path.relative_to(directory).as_posix()
         if name not in ALLOWED: raise admin.SafeError('bridge_unknown_source_file')
         content = path.read_bytes()
-        if any(value.encode() in content for key, value in private.items() if (key in ('SUPABASE_ACCESS_TOKEN', 'ORBE_OWNER_USER_ID', 'PLUGGY_CLIENT_ID', 'PLUGGY_CLIENT_SECRET', 'EXPO_TOKEN') or key.startswith('PRIVATE_ITEM_')) and value):
+        if any(value.encode() in content for key, value in private.items() if key != 'SUPABASE_PROJECT_REF' and value):
             raise admin.SafeError('bridge_private_content_rejected')
         files[name] = content
     if set(files) != ALLOWED or files['orbe-bridge/index.mjs'].decode() != EXPECTED_ENTRY:

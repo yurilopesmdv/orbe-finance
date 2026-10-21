@@ -157,3 +157,7 @@ Controller só nasce com sessão desbloqueada e proteção ready/active. Refresh
 ## SEC-41 — Tela privada de movimentações separada da demonstração (T22c24)
 
 Rota Minhasmovimentações usa runtime próprio e flags movementReads/live/private, todasfalse na publicação. Semgates não cria runtime/UUID/status/registry/requests. Com gates, foco e proteção readyactive antecedem metadados; cleanup aborta e fecha cache. Valores e descrições só vêm do ledger protegido, sem payloadfinanceiro em Reactstate/logs/persistência. Ocultação mascara também descrição. Período Brasília, navegação2000–2099, consulta manual por conexão e filtrosmoeda/banco/paginação20. Null/semleitura não é zero, parcial/typeunknown visíveis, nenhuma soma fictícia ou compra de cartão inferida. Não usar cache/demo no fluxo real.
+
+## SEC-42 — Canários de chaves de movimentos antes de publicação (T22c26)
+
+Perfilopcional movement-keys.env, fora do projeto, deve conter somente ORBE_MOVEMENT_IDENTITY_KEY/ORBE_MOVEMENT_CURSOR_KEY,64hex cada/nãozero/distintas, arquivo600regular/donoatual/singlelink/nofollow, limitesjáexistentes. Scanner fonte/export deve incluir ambas; fontebackend recusa todo valorprivado não-vazio dos perfis, exceto refpúblicoSupabase, sem depender de lista antiga de nomes. Não gerar/provisionar chaves nesta task. Detecção de valores conhecidos não equivale a garantia universalcontraexfiltração.
