@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c6.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c7.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -1018,3 +1018,9 @@ T22c4 evidência21/10:1014testes/typechecks (896Node+118Python),6novoscasos. Per
 MPG-06/46/EXP-16/[plano](../plan/T22c5-DISABLED-BRIDGE-RELEASE.md). Publicar somente bridge off apósCI; sem metadata/configuração/QR novos.
 
 T22c5 evidência21/10: CI39587278861success/1014testes/typechecks; bridgev6ACTIVE publicado com liveApprovedfalse,29fontes verificadaslocalmente/canáriosprivados.7rotas503/no-store e5negativosmetadata passaram; metadata4 não redeployado, ownerpositivo não testado/financialReads0/providerCalls0. Nenhuma chave/flag/migration/cliente/QR alterado, recibo/logprivados. Próxima T22c6 cursorconfidencial/autenticado sob sessão/lease/manifesto/UTCwindow, sem habilitar rede.
+
+## T22c6 — done
+
+EXP-17/ADR-018/[plano](../plan/T22c6-PRIVATE-TRANSACTION-CURSOR.md). Cursor confidencial backend, sem rede/persistência/chave real ou ativação.
+
+T22c6 evidência21/10:1027testes/typechecks (909Node+118Python),13novoscasos. AESGCMroundtrip/IValeatório/AADownerSessãoConexãoRevisãoLeaseExpiraçãoMêsItemManifesto, tamper/canonicidade/TTL/rollback/close/errocriptográfico/importnãoexportávelúnica e256bits testados. Token512/cursorgrande recusadoanteskey/snapshotmanifesto/transiçõesjanelaconta semclaimcomplete cobertos. Allowlist30/scans/diff aprovados; sem chave real/HTTP/deploy. Próxima T22c7 manifestoBANK validado e vinculado antes de aplicar convenção monetária de transações, sem inferir kindunknown comoBANK.

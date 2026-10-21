@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c42 e T22c1–c5 concluídas**,1014 testes/typechecks e CI39587278861success. Bridgev6ACTIVE publicadooff, metadata4preservado;7smokes503/no-store e5negativosAuth aprovados, financialReads/providerCalls0. Cliente/QRc38inalterado. Próxima **T22c6** spec/plan/tasks/implement de cursorAEAD backend (manifesto1–100contas, sessão/owner/connection/revisão/lease/mês/expiração<=120s emAAD), token<=512 semrawquery legível; rejeitar cursorgrande emvez de truncar e não prometer usoúnico global. Nenhuma chave real configurada/rotaativada. Depois transporte/lease/multiwindow. Userquer avançarhojesemtestes/aprovaçõesintermediárias; gatesreaisfornecedor/OF/runtime permanecem.
+**c21–c42 e T22c1–c6 concluídas**,1027 testes/typechecks (909Node+118Python). CursorAESGCM512 preparado, vinculadosessão/lease/manifesto e validadosemtokenouqueryexternalegível; semchavereal/HTTP/deploy. Bridgev6/metadata4remotos e QRc38preservados. Próxima **T22c7** manifestoBANK vinculado a partir de inventário validado: evitar aplicar sinalBANK a CREDIT/kindunknown e ordenar porIDinternoestável; refatorar parse compartilhado preservandoDTOinventory existente. Depois transporte privado/Auth/lease/cursor/multiwindow. Allowlistlocal30; gatesfornecedor/OF/runtime mantidos. Userquer avançarhojesemaprovações/testesintermediários.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 

@@ -128,3 +128,11 @@ Rawnext só é validado no backend com builder de host/janela/conta fixos; nunca
 ## EXP-16 — Orçamento de leitura de página transacional (T22c4)
 
 Páginas v2 com até500movimentos podem exceder128KiB por campos extras. Permitir exclusivamente perfil transactions com teto1MiB no decoder numérico exato e leitorHTTP dedicado; manter defaultstandard e demais consumidores em128KiB. Perfil só enumeração fixa, sem limite arbitrário vindo de request. Ambos verificam bytesUTF8, profundidade64 e fonte numérica original; erro/aborto/overflow não vira lotevazio nem parseFloat/Number com perda. Inicializar decoder/probe de suporte antes de chamar o provedor na composição futura. Novo leitor exige decoder explícito; sua existência não autoriza consulta ou novo destino.
+
+## EXP-17 — Cursor confidencial e vinculado ao lote (T22c6)
+
+Cursor de movimentos DEVE usar AES-256-GCM/chave backend independente/IValeatório96bits/tag128bits, formato v1.base64url canônico e no máximo512caracteres. AAD vincula owner, sessãoAuthverificada, conexão/revisão, lease/expiração<=120s, mês e manifesto ordenado de1–100contas internas/externas/item. Chave só na ponte, não rotacionar outra credencial para derivá-la; não provisionar chave real nesta fatia. Importação nãoexportável única, erros genéricos/close descarta resultados tardios. Não afirmar zeramento deheap.
+
+Payload cifrado contém índices de conta/janela e rawnext privado, validado antes de cifrar e depois de abrir pelo builder de origem/conta/filtros fixos. nextnull só representa início de janela/conta posterior, não término automático do produto. Queries grandes que não caibam no token512 falham fechadas, sem truncar/reconstruir cursor ou promover lote parcial. Nenhum ID externo/query fica legível no cursor/cliente/log; open é exclusivamentebackend e seu resultado nunca é DTOHTTP.
+
+Checar relógio monotônico/TTL/aborto lógico antes e depois de operaçõesasync. Cursor autentica escopo, não substitui sessão/binding/lease/prova deprogressão; não é usoúnico global e pode ser reapresentado enquanto leaseválido. Transporte futuro deve revalidar cada página e concluir todascontas/janelas antes da promoção. Esta fatia não faz rede, persistência, configuração/env/deploy ou liberação financeira.

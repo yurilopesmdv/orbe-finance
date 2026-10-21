@@ -75,3 +75,7 @@ ADR-016 complementoMPG-45: composiçãoalta exige liveApprovedtrue fixado pelo c
 ## ADR-017 — Identidade interna determinística de movimentos
 
 Estado: accepted para implementação isolada T22c1, sem liberação financeira. EXP-13 escolhe HMAC-SHA256/domínio v1/owner+conta interna+UUID externo em vez de enviar ID do provedor ou usar hash público sem chave. Saída UUIDv8 suporta os contratos locais existentes; chave independente backend de256bits não sai da ponte e não reutiliza credenciais rotativas. Preservar a conta interna mantém identidade após renovação do proxy. Perda/rotação da chave ou remapeamento de conta exige plano de reconciliação e não é resolvido por heurística. Colisão é possível em princípio, e a projeção futura deve detectar IDs conflitantes. Backend código ainda não importa o módulo; não provisionar chave real ou ativar rotas nesta etapa.
+
+## ADR-018 — Cursor transacional cifrado e limitado
+
+21/10/2026, accepted para módulo isoladoT22c6. AES-256-GCM com chave independente do HMAC deidentidade e credenciais do provedor protege query/índices e autentica lote/sessão/manifesto/lease emAAD. Nenhuma persistência de cursor no backend é acrescentada. Compatibilidade DTO512 é mantida: payload que exceder esse orçamento resulta em indisponibilidade explícita/preservação do lote anterior, não truncamento ou token maior silencioso. Não prometer anti-replay global; autenticação atual e controle de lease/progressão continuam requisitos do coordenador. Sem provisionamento de chave ou liberação real.
