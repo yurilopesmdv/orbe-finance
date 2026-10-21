@@ -133,3 +133,7 @@ Somente operação movementRead no cliente de sessão usa leitor nomeado com tet
 ## SEC-35 — Transporte cliente e manifesto de movimentações (T22c18)
 
 Transporte autenticado de uma tentativa captura contexto local e registryRLS permitido; não infere BANK de metadadosunknown. Primeira página retorna manifesto de IDs internos1–100, únicos/ordenados/subconjunto do registry, estável em todas páginas do mesmo lease. Validar DTO mínimo e envelope antes de entregar ao stager, sem IDs externos/owner/segredos no payload. Uma aquisição e paginação sequencial, sem retries/concorrência; cursor/lease/revisão/mês não mudam. Finalizar por endpoint dedicado apenas após página final, sem promover/cachear dados no transporte. Gates independentes desligados não inspecionam dependências.
+
+## SEC-36 — Staging transacional iniciado pelo manifesto autorizado (T22c19)
+
+Orquestrador de movimentações usa runReadBatch exclusivamente transactions. RegistryRLS delimita contas permitidas, mas o manifestoBANK vem da primeira página autorizada: só então criar stager, sem prefetch extra nem inferência de tipo. Capturar owner/conexão/instituição/mês e contexto local; exigir manifesto1–100internos ordenados/subconjunto do registry/estável. Promover ledger só após paginação completa, finalização dedicada e sessão/lease fresh. Erros/lock/abort limpam staging e preservam cache anterior ainda válido; nenhum valor persiste fora da memória.

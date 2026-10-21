@@ -1102,3 +1102,9 @@ T22c17 concluída21/10:1104 testes/typechecks (982Node+122Python), seis novos ce
 SEC-35/[plano](../plan/T22c18-MOVEMENT-TRANSPORT.md). Transporte cliente sequencial com manifesto interno estável por lease.
 
 T22c18 concluída21/10:1112 testes/typechecks (990Node+122Python), oito casos novos. Manifesto interno1–100/subconjunto do registry/ordenado/estável, tentativas únicas/cursor/escopo e snapshot validados; lock interrompe transporte pendente sem nova rede. Scan/diff aprovados. Módulo isolado, ainda não importado no runtimeUI; artefatos/export da17 permanecem válidos e não foram repetidos. CI da17 39600673463 success. PróximaT22c19 criar stager apenas após manifesto da primeira página e promover ledger só após finalizar lease.
+
+## T22c19 — done
+
+SEC-36/[plano](../plan/T22c19-MOVEMENT-BATCH.md). Orquestração com staging criado após primeira página autorizada.
+
+T22c19 concluída21/10:1120 testes/typechecks (998Node+122Python), oito casos novos. Duas contas e registry com cartão excluído sem prefetch adicional; falha na última página/finalização preserva ledger anterior; driftmanifesto/owner/instituição/mês são recusados, lock impede promoção e fecha store permanentemente. Contexto capturado e cache só promove apósfinish/fresh. Scan/diff aprovados. CI da18 39601141539 success. Sem runtimeUI/env/export/deploy. PróximaT22c20 boot backend/roteamento de movimentações com gates e rede capturada por escopo, mantendo entrypoint off.
