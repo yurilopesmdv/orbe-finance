@@ -105,3 +105,7 @@ No escopo transacional, GETitem/contas também fica limitado ao item capturado. 
 Para vincular leitura financeira à sessão, a porta de Auth pode devolver sessionId interno extraído de session_id próprio do JWT, UUID estrito, somente depois de GetUser validar o mesmo bearer/subject e orbe_has_session confirmar owner/sessão ativa. Decodificar JWT não autentica ninguém; user_metadata não é fonte de sessionId. Campo presente malformado é recusado antes de rede.
 
 Metadados legados sem campo sid preservam seu contrato existente; isso não autoriza novos handlers financeiros sem sessionId confirmado. Quando RPC nega owner/sessão, não devolver sessionId. Subject/sessionId/token/e-mail/metadadosAuth não são DTOHTTP público nem logs. Coordenador novo exige a mesma sessão no início e antes de liberar dados/confirmar página. Nenhuma grant, cookie, chamada adicional ou configuração de Auth é acrescentada.
+
+## SEC-29 — Resolução transacional vinculada à sessão (T22c12)
+
+RPC service-only resolve movimentos após validar owner, sessão Auth vigente, revisão, capacidade transactions, consentimentos e lease não concluído. Devolver expiração real do lease e no máximo100 bindings técnicos, ordenados por conta interna; sem valores/PII, classe bancária inferida ou aprovação de cobertura. Contexto é interno, nunca DTO público. Ausência de item/bindings, mais100 bindings ou sessão/lease inválidos falham fechados. Migrations anteriores são imutáveis.

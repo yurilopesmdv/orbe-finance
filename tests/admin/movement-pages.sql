@@ -15,6 +15,9 @@ insert into auth.sessions(id,user_id,created_at) values
 insert into orbe_private.app_owner(singleton,user_id) values(true,'00000000-0000-4000-8000-000000000131') on conflict(singleton) do update set user_id=excluded.user_id;
 insert into public.orbe_connections(id,owner_id,institution,state,accounts_available,transactions_available,open_finance_verified_at,proxy_consent_expires_at,bank_consent_expires_at)
  values('10000000-0000-4000-8000-000000000131','00000000-0000-4000-8000-000000000131','bradesco','active',true,true,clock_timestamp()-interval '1 day',clock_timestamp()+interval '1 day',clock_timestamp()+interval '1 day');
+insert into orbe_private.connection_bindings(connection_id,owner_id,external_item_id) values('10000000-0000-4000-8000-000000000131','00000000-0000-4000-8000-000000000131','20000000-0000-4000-8000-000000000131');
+insert into public.orbe_accounts(id,connection_id,owner_id) values('30000000-0000-4000-8000-000000000131','10000000-0000-4000-8000-000000000131','00000000-0000-4000-8000-000000000131');
+insert into orbe_private.account_bindings(account_id,connection_id,owner_id,external_account_id) values('30000000-0000-4000-8000-000000000131','10000000-0000-4000-8000-000000000131','00000000-0000-4000-8000-000000000131','40000000-0000-4000-8000-000000000131');
 select set_config('orbe.test_movement_owner','00000000-0000-4000-8000-000000000131',true);
 select set_config('orbe.test_movement_connection','10000000-0000-4000-8000-000000000131',true);
 select set_config('orbe.test_movement_session','70000000-0000-4000-8000-000000000131',true);
@@ -25,6 +28,9 @@ do $$ declare role_name text; begin
   assert not has_table_privilege(role_name,'orbe_private.movement_page_reads','select,insert,update,delete'),'movement_table_grant';
   assert not has_function_privilege(role_name,'orbe_private.movement_session_hash(uuid,uuid)','execute'),'movement_session_helper_grant';
  end loop;
+ assert not has_function_privilege('anon','public.orbe_resolve_movement_read(uuid,uuid,bigint,uuid,uuid)','execute'),'movement_resolver_anon_grant';
+ assert not has_function_privilege('authenticated','public.orbe_resolve_movement_read(uuid,uuid,bigint,uuid,uuid)','execute'),'movement_resolver_client_grant';
+ assert has_function_privilege('service_role','public.orbe_resolve_movement_read(uuid,uuid,bigint,uuid,uuid)','execute'),'movement_resolver_service_denied';
  assert not has_function_privilege('anon','public.orbe_claim_movement_page(uuid,uuid,bigint,uuid,uuid,text,text)','execute'),'movement_anon_claim_grant';
  assert not has_function_privilege('authenticated','public.orbe_commit_movement_page(uuid,uuid,bigint,uuid,uuid,text,text,uuid,text,integer)','execute'),'movement_client_commit_grant';
  assert has_function_privilege('service_role','public.orbe_claim_movement_page(uuid,uuid,bigint,uuid,uuid,text,text)','execute'),'movement_service_claim_denied';
@@ -39,6 +45,14 @@ set local role service_role;
 do $$ declare o uuid:=current_setting('orbe.test_movement_owner')::uuid;c uuid:=current_setting('orbe.test_movement_connection')::uuid;s uuid:=current_setting('orbe.test_movement_session')::uuid;r bigint:=1;l uuid;g jsonb;v jsonb;n uuid;h text:=current_setting('orbe.test_movement_root');a text:=repeat('a',64);begin
  begin perform count(*) from orbe_private.movement_page_reads;assert false,'movement_service_table_allowed';exception when insufficient_privilege then null;end;
  g:=public.orbe_begin_connection_read(c,o,r);assert g->>'status'='acquired','movement_lease_missing';l:=(g->>'lease_id')::uuid;perform set_config('orbe.test_movement_lease',l::text,true);
+ v:=public.orbe_resolve_movement_read(c,o,r,l,s);
+ assert v is not null and v->>'sessionId'=s::text and v->>'leaseId'=l::text and (v->>'leaseExpiresAt')::timestamptz=(g->>'lease_expires_at')::timestamptz,'movement_resolver_context';
+ assert jsonb_array_length(v#>'{projection,bindings}')=1 and v#>'{projection,bindings,0,balanceAsOf}'='null'::jsonb and v#>>'{projection,bindings,0,relation}'='unknown' and v#>'{projection,coverageApproved}'='false'::jsonb,'movement_resolver_minimum';
+ assert public.orbe_resolve_movement_read(c,o,r+1,l,s) is null,'movement_resolver_revision';
+ assert public.orbe_resolve_movement_read(c,o,r,gen_random_uuid(),s) is null,'movement_resolver_lease';
+ assert public.orbe_resolve_movement_read(c,'00000000-0000-4000-8000-000000000132',r,l,s) is null,'movement_resolver_owner';
+ assert public.orbe_resolve_movement_read(c,o,r,l,'70000000-0000-4000-8000-000000000133') is null,'movement_resolver_session';
+ assert public.orbe_resolve_movement_read(c,o,r,l,null) is null,'movement_resolver_null_session';
  assert public.orbe_claim_movement_page(c,o,r,l,s,'2026-10',repeat('b',64)) is null,'movement_nonroot_start';
  assert public.orbe_claim_movement_page(c,'00000000-0000-4000-8000-000000000132',r,l,s,'2026-10',h) is null,'movement_foreign_owner';
  assert public.orbe_claim_movement_page(c,o,r+1,l,s,'2026-10',h) is null,'movement_foreign_revision';
@@ -63,6 +77,35 @@ end $$;
 reset role;
 do $$ begin
  assert exists(select 1 from orbe_private.movement_page_reads where connection_id=current_setting('orbe.test_movement_connection')::uuid and page_count=2 and row_count=507 and finished and inflight_nonce is null),'movement_progress_counts';
+end $$;
+do $$ declare o uuid:=current_setting('orbe.test_movement_owner')::uuid;c uuid:=current_setting('orbe.test_movement_connection')::uuid;s uuid:=current_setting('orbe.test_movement_session')::uuid;l uuid:=current_setting('orbe.test_movement_lease')::uuid;r bigint;begin
+ begin
+  delete from orbe_private.account_bindings where connection_id=c;
+  assert public.orbe_resolve_movement_read(c,o,1,l,s) is null,'movement_resolver_empty_bindings';
+  raise exception using errcode='Z0001';
+ exception when sqlstate 'Z0001' then null; end;
+ begin
+  delete from orbe_private.connection_bindings where connection_id=c;
+  assert public.orbe_resolve_movement_read(c,o,1,l,s) is null,'movement_resolver_missing_item';
+  raise exception using errcode='Z0001';
+ exception when sqlstate 'Z0001' then null; end;
+ begin
+  insert into public.orbe_accounts(id,connection_id,owner_id) select md5('orbe-movement-fixture-'||i::text)::uuid,c,o from generate_series(1,100) i;
+  insert into orbe_private.account_bindings(account_id,connection_id,owner_id,external_account_id) select md5('orbe-movement-fixture-'||i::text)::uuid,c,o,md5('external-fixture-'||i::text)::uuid::text from generate_series(1,100) i;
+  assert public.orbe_resolve_movement_read(c,o,1,l,s) is null,'movement_resolver_binding_limit';
+  delete from public.orbe_accounts where id=md5('orbe-movement-fixture-100')::uuid;
+  assert jsonb_array_length(public.orbe_resolve_movement_read(c,o,1,l,s)#>'{projection,bindings}')=100,'movement_resolver_binding_boundary';
+  raise exception using errcode='Z0001';
+ exception when sqlstate 'Z0001' then null; end;
+ begin
+  update public.orbe_connections set transactions_available=false where id=c;
+  select revision into r from public.orbe_connections where id=c;
+  assert public.orbe_resolve_movement_read(c,o,r,l,s) is null,'movement_resolver_capability';
+  raise exception using errcode='Z0001';
+ exception when sqlstate 'Z0001' then null; end;
+ update auth.sessions set not_after=clock_timestamp()-interval '1 second' where id=s;
+ assert public.orbe_resolve_movement_read(c,o,1,l,s) is null,'movement_resolver_expired_session';
+ update auth.sessions set not_after=null where id=s;
 end $$;
 -- A new valid lease is the only supported reset. No retry clears an uncertain claim.
 update orbe_private.connection_reads set lease_expires_at=clock_timestamp()-interval '2 seconds',next_read_at=clock_timestamp()-interval '1 second' where connection_id=current_setting('orbe.test_movement_connection')::uuid;
