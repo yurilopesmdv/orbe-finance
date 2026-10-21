@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c41 concluídas**,977 testes/typechecks (859Node+118Python). c38 publicada/commitad2dcc3 com políticaHTTP; c41 publicador agora bloqueia automaticamente qualquer canário conhecido de todos os perfis privados antes da CLI autenticada. Export atual25artefatos passouoffline; nenhumQRnovo necessário por mudança sóadministrativa. Próxima **c42** revisar alcance das duas raízes altas no tooling por fonte instalada/advisories e mitigação compatível, sem downgrade/contratação/dadosfinanceiros. Backend v5/metadata v4/gatesfalse. Não confundir pesquisa pública c40 com aprovação do fornecedor.
+**c21–c42 concluídas**,977 testes/typechecks e CI39518966284success. c42 conferiu alcanceestático/advisories ainda sempatch; mitigação integral não aprovada. Próxima **T22c1**: spec/plan/tasks para identidade interna estável do adapter de movimentos, sem expor IDs do provedor ao cliente e sem qualquer rede/ativação. Usuário reiterou21/10 concluir quanto possível hoje sem testes/aprovações intermediárias. Backendv5/metadata4/flagsfalse; fornecedor/OF/runtime continuam gates concretos.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 

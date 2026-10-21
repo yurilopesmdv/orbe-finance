@@ -982,3 +982,9 @@ T51b2c40 evidência: matriz com9fontes/assuntos primários conferida, incluindo 
 SEC-22a/[plano](../plan/T51b2c41-PUBLISHER-PRIVATE-SCAN.md). Automatizar preflight offline completo e falha fechada antes da CLI autenticada.
 
 T51b2c41 evidência:977testes/typechecks (859Node+118Python),10novoscasos. Wrapperreal isolado rejeita export com segredoPluggy antes da CLI e aceita artefato limpo com CLI fictícia offline; canários em binário/divisão debloco/symlink/hardlink/FIFO/perfilinválido cobertos. Preflight real doexport25artefatos passou comnetwork0; scan fonte/exportde todosperfis e sintaxeJS/diffcheck aprovados. Nenhuma alteração cliente/backend/publicação/flags. Próxima c42 revisar alcance das duas dependências altas no tooling com fontes locais/advisories, sem downgrade nem inferir liberação por ausência no JS.
+
+## T51b2c42 — done
+
+SEC-23/MPG-06/T54/[plano](../plan/T51b2c42-TOOLCHAIN-REACHABILITY.md). Conferir advisories/callsites instalados e limites da mitigação sem executar material externo.
+
+T51b2c42 evidência21/10: advisories oficiais ainda sempatch e seis fontes instaladas comhashes documentadas; watcherexamined some versusparse/braces e verificaçãoRSA em bibliotecaExpo identificados. Sem prova global de inatingibilidade, sem downgrades/suppressão/extensãoexceção. CI39518966284(c41)success/977testes preservados; mudança sódocumental. Próxima T22c1 contrato/identidade opaca para adaptermovimentos, independente de ativação financeira.

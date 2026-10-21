@@ -1,5 +1,7 @@
 # Dependências — bootstrap T07
 
+**Histórico de auditoria; estado atual: 19 pacotes afetados/duas raízes altas, exceção somente sintética até23/10/2026.** [Alcance revisado em21/10](TOOLCHAIN-REACHABILITY-20261020.md). Não usar contagens antigas abaixo como estado corrente.
+
 Data16/10/2026, SDK57.0.30, RN0.86.3, React19.2.3. Scanner: npm audit, árvore com lockfile. Não é auditoria completa nem teste de exploração; nenhuma conta bancária acessível ao projeto.
 
 ## Correções aplicadas
