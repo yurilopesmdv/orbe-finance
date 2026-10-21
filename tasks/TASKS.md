@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c2.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c3.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -994,3 +994,9 @@ T51b2c42 evidência21/10: advisories oficiais ainda sempatch e seis fontes insta
 EXP-13/ADR-017/[plano](../plan/T22c1-MOVEMENT-IDENTITY.md). Identidade interna estável para movimentos, backend isolado/sem rede ou liberação.
 
 T22c1 evidência21/10:988testes/typechecks (870Node+118Python),11novoscasos. VetorHMAC independente Python/WebCrypto, UUIDv8 estável/separaçãoownercontachave, escopocapturado, importaçãoúnica/nãoexportável, erroredigido e closeassíncrono passaram. Validação UUIDestrita inclui tamanho36/inheritedscope rejeitado. Allowlist27fontes/scanperfis/export/diff aprovados; módulo não importado no entrypoint e nenhuma chave/env/rota/deploy criado. Próxima T22c2: janela mensal Brasília sem perder fim de mês em UTC, antes da projeção de payload.
+
+## T22c2 — done
+
+EXP-14/[plano](../plan/T22c2-TRANSACTION-MONTH-WINDOWS.md). Evitar truncamento de fim do mês de Brasília em consultas por diasUTC.
+
+T22c2 evidência21/10:996testes/typechecks (878Node+118Python),8novoscasos.1200meses2000–2099 validados com builder real/31dias inclusivos/semgapouoverlap; UTC/Brasília/fimdemês/ano/fevereirobissexto/DST2018/ISOinválido/gatesoff cobertos. Allowlist28fontes/scantodosperfis/diff aprovados, nenhum rede/secret/deploy/exportcliente. Próxima T22c3 projeção mínima de movimentos reais emfixtures, sem inferir tipo financeiro/direção por sinal ou cobertura pelo cursorfinal.
