@@ -1186,3 +1186,9 @@ T23c4a concluída21/10:1178 testes/typechecks (1046Node+132Python), dois casosno
 MPG-INV-01/[plano](../plan/T23c4b-INVESTMENT-JSON.md). Decoder e reader explícitos por página de investimentos.
 
 T23c4b concluída21/10:1181 testes/typechecks (1049Node+132Python), trêsnovoscasos.100posições comextras>128KiB chegam porreadernomeado/decoderinvestmentsexato e projetam29c; tetoUTF81MiB/overflow/MIME/preabort e default128KiB preservados. Scan/allowlist36/diff aprovados; semport/deploy/env/coleção real. CIc4a 39637672088 success. Próximac4c preparar snapshotprivado validado antes de staging de IDs, depois portcollector paginado/cicloAuth.
+
+## T23c4c — done
+
+PORT-13/[plano](../plan/T23c4c-PREPARED-INVESTMENTS.md). Validar dados antes de registrar vínculos, sem expor payload financeiro ao callback.
+
+T23c4c concluída21/10:1184 testes/typechecks (1052Node+132Python), trêsnovoscasos de handlegenuíno/clones/discard/semvalores/snapshotimutável/invalidosemIDsstaging/gates. Wrapper e15casosanteriores preservados. Dadosmínimosfinanceiros ficamemWeakMapprivado e sóprojetam apósbindingsreais; handleexpõeIDs técnicos/contagem. Scan/allowlist36/diff aprovados. CIc4b 39638051009 success. SemHTTP/deploy/env. Próximac4d collector limitado de páginas com callbackIDsapenas; depois integrarAuthclosure.
