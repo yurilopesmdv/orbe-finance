@@ -84,3 +84,11 @@ Cache DEVE conservar os quatro campos opcionais como conjunto completo (grossCen
 ## PORT-10 — Staging concreto de posições/reservas (T23b2)
 
 Staging de investment/reserve DEVE usar normalizador concreto T23a e contexto vinculado capturado, preservando valuation T23b1. Gates desligados não tocam conteúdo/contexto/store. Recibos locais devem mapear produto singular do cache ao plural do coordenador, somente este produto; fonte mista/desconhecida/parcial em qualquer página impede remoção por ausência. Validar todas posições/pais/ciclos entre páginas antes do swap, com guard fresco; falha conserva último snapshot do produto. Conta e posição podem compartilhar engine interno de paginação/guards, mas sem aceitar normalizador executável vindo de HTTP ou substituir validação concreta por tipo genérico. Não prometer atomicidade global entre produtos.
+
+## PORT-11 — Adapter de investimentos e cobertura de reservas (T23c)
+
+Cobertura do conectorOF, origem do proxy e recursos do consentimento são evidências distintas; nenhuma tabela aprova vínculo real. Ler investimentos só com gate/capacidade/owner/sessão/lease/consentimentos e bindings técnicos autorizados. Projeção mínima mantém amount→grossCents e balance→netCents por decoderexato, base net declarada (líquido ausente continua null), moeda/data da fonte e classe sustentada por type; não calcular bruto porquantity×value ou líquido por subtrair taxas.
+
+Relação inicialunknown/parentnull e authoritativefalse impedem subtotal completo/remover ausentes. Nomes/códigos/titular/emissor/metadados/transações anexas não são DTO nem heurística de cofrinho. Reservas sócomnatureza/pai/inclusão explícitos; semprova não buscar endpoint inexistente nem anunciar zero/suporte confirmado. CDB não cria ativoextra emCofrinhos. T23c1 começa por snapshot único completo de até1000linhas vinculado; páginas adicionais exigem etapa de transporte/progresso própria antes de uso. Status foraACTIVE falha fechado nessa fatia, sem silenciosamente remover posição antiga ou fabricar zero.
+
+Evidência pública e limites em docs/research/INVESTMENT-ADAPTER-EVIDENCE-20261021.md. Backend/publicação reais continuamoff.

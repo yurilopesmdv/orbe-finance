@@ -1150,3 +1150,7 @@ T22c25 concluída21/10:1148 testes/typechecks (1026Node+122Python), quatro cená
 SEC-42/[plano](../plan/T22c26-MOVEMENT-KEY-SCAN.md). Estender guard de publicação antes de criar qualquer chave de movimentações.
 
 T22c26 concluída21/10:1154 testes/typechecks (1026Node+128Python), seis novoscenários de coletaformato/permissões/canáriosfonte/export. Scanner lê perfilopcionalduaschaves semoutput, recusa64hexinválido/nulo/igual; backendartifacts bloqueia qualquer valorprivadoconhecido excetorefpúblico. Scanrealperfis/fontes/dist e diff passaram. Nenhuma chave/perfil real criado, nenhum provisionamento/deploy/ativação. CI25 39633238141 success. Próxima plano de adaptadores investimentos/reservas baseado em fonteoficial, mantendo cobertura desconhecida e sem ler bancos pelas ferramentas.
+
+## T23c0 — done
+
+PORT-11/[plano](../plan/T23c-INVESTMENT-ADAPTER.md). Pesquisa primária21/10 e escopo do adapter de investimentos/reservas. CoberturaOF por conector separada da direta e do consentimento; bruto/líquido, recursos/status e cofrinhos sem heurística documentados. Docs-only, sem novo teste/rede autenticada/financeira. PróximaT23c1 projeção pura vinculada e snapshotúnico.

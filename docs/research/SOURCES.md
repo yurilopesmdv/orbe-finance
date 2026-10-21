@@ -69,3 +69,7 @@ Consultadas em 16/10/2026. Bradesco público é aplicação JavaScript e o conte
 ## Pesquisa pública de segurança — revisão 0.4
 
 Fontes, achados, limites e data em [Meu Pluggy — revisão de segurança](../security/MEU-PLUGGY-REVIEW.md). Consultar advisories novamente ao fixar dependências; não interpretar ausência de relato como certificado de segurança.
+
+## Revisão21/10 — adapter de investimentos
+
+Fontes primárias, interpretação e limites em [INVESTMENT-ADAPTER-EVIDENCE-20261021](INVESTMENT-ADAPTER-EVIDENCE-20261021.md): produtoInvestment, listagempaginada, coberturaOF porconector vsdireta, recursos do consentimento e campospororigem. Consulta pública apenas; nenhuma produçãofinanceira acessada.
