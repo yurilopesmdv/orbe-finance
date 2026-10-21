@@ -161,3 +161,7 @@ Rota Minhasmovimentações usa runtime próprio e flags movementReads/live/priva
 ## SEC-42 — Canários de chaves de movimentos antes de publicação (T22c26)
 
 Perfilopcional movement-keys.env, fora do projeto, deve conter somente ORBE_MOVEMENT_IDENTITY_KEY/ORBE_MOVEMENT_CURSOR_KEY,64hex cada/nãozero/distintas, arquivo600regular/donoatual/singlelink/nofollow, limitesjáexistentes. Scanner fonte/export deve incluir ambas; fontebackend recusa todo valorprivado não-vazio dos perfis, exceto refpúblicoSupabase, sem depender de lista antiga de nomes. Não gerar/provisionar chaves nesta task. Detecção de valores conhecidos não equivale a garantia universalcontraexfiltração.
+
+## SEC-43 — Rede de investimento limitada a item/página (T23c2)
+
+Opção investmentReadsEnabled explícita mais ExecutionPolicy/privateapproved, com investmentScope próprio {itemId,page1–100}. Capturar item/página e construir único GET/investments?itemId=…&page=…&pageSize=100; não aceitar URL/filtros do chamador. Fixture exige rede injetada. Escopos transacional/investimento simultâneos são recusados. Em investmentmode, GETitem só desseitem; GETaccounts/transações/identity/resources/outrosprodutos permanecem negados. Default segue seminvestimentos e scopeoff não é lido. Essa fronteira não autoriza sessão/owner/lease/consentimento por si. Semboot/deploy/gatesnovos.

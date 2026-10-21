@@ -1160,3 +1160,9 @@ PORT-11/[plano](../plan/T23c-INVESTMENT-ADAPTER.md). Pesquisa primária21/10 e e
 PORT-11/[plano](../plan/T23c1-INVESTMENT-PROJECTION.md). Projeção pura de snapshot vinculado de investimentos.
 
 T23c1 concluída21/10:1166 testes/typechecks (1038Node+128Python),12casos novos. Snapshotvinculado/contadores exatos, bruto/líquido29c/baseNet/null/negativos/limites, IDOR, dedupeconflito, moedaausente, statusnãoativo, datasestritas, classes porType e gettersPII nunca lidos. Projeção→normalizador→MemoryAssets preserva valuation e subtotalreconciliado0 por relaçãounknown. Scan/allowlist36/diff aprovados; semHTTP/SQL/env/deploy/exportnovo. CIc0 39634489441 success. PróximaT23c2 redeinvestment comitem/página fixos (builder investmentsjáexiste), disablednãoinspeciona, nãoampliarproducts.
+
+## T23c2 — done
+
+SEC-43/[plano](../plan/T23c2-INVESTMENT-NETWORK.md). Rede de investimento por item/página, sem acesso real.
+
+T23c2 concluída21/10:1172 testes/typechecks (1044Node+128Python), seis novoscenários. investmentScope item/page1–100 capturado com política explícita, destinocanônico pageSize100, defaultoff/unusedscope, escoposduplosnegados, contas/transações/resources/identity e SSRF/cookies/redirect/writes proibidos eminvestmode. Scan/allowlist36/diff aprovados. Semprovisionamento/HTTPreal/deploy. PróximaT23c3 metadata/RLS/staging/resolver de posições sem valores.

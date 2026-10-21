@@ -7,8 +7,10 @@ const PLUGGY = 'https://api.pluggy.ai';
 const UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
 const forbidden = (): never => { throw Error('account_network_unavailable'); };
 /** Server-only boundary. The published root keeps financial requests disabled. */
-export function createAccountNetworkTransport(options: ExecutionPolicy & { enabled?: boolean; network?: Network; transactionReadsEnabled?: boolean; transactionScope?: { binding: ResolvedPluggyBinding; month: string } } = {}): Network {
+export function createAccountNetworkTransport(options: ExecutionPolicy & { enabled?: boolean; network?: Network; investmentReadsEnabled?: boolean; investmentScope?: { itemId:string; page:number }; transactionReadsEnabled?: boolean; transactionScope?: { binding: ResolvedPluggyBinding; month: string } } = {}): Network {
   if (options.enabled !== true || options.privateDataApproved !== true) return async () => forbidden();
+  let investmentTargets: ReturnType<typeof createPluggyTargets> | null = null, investmentUrl: string | null = null;
+  try { if (options.transactionReadsEnabled === true && options.investmentReadsEnabled === true) return async () => forbidden(); } catch { return async () => forbidden(); }
   let transactionTargets: ReturnType<typeof createPluggyTargets> | null = null;
   let windows: readonly Readonly<TransactionWindow>[] = [], scopedNetwork: Network | undefined;
   if (options.transactionReadsEnabled === true) {
@@ -27,6 +29,16 @@ export function createAccountNetworkTransport(options: ExecutionPolicy & { enabl
       transactionTargets = createPluggyTargets({ itemId, accountIds }); windows = plan.windows;
       if (mode === 'fixture') { scopedNetwork = options.network; if (typeof scopedNetwork !== 'function') return async () => forbidden(); }
     } catch { return async () => forbidden(); }
+  }
+  if (options.investmentReadsEnabled === true) {
+    try {
+      const mode=resolveExecutionMode(options),scope=options.investmentScope;
+      if(!mode||!scope||typeof scope!=='object'||Object.keys(scope).sort().join(',')!=='itemId,page')return async()=>forbidden();
+      const itemId=scope.itemId,page=scope.page;
+      if(typeof itemId!=='string'||itemId.length!==36||!new RegExp('^'+UUID+'$').test(itemId)||!Number.isSafeInteger(page)||page<1||page>100)return async()=>forbidden();
+      investmentTargets=createPluggyTargets({itemId,accountIds:[]});investmentUrl=investmentTargets.investments(page);
+      if(mode==='fixture'){scopedNetwork=options.network;if(typeof scopedNetwork!=='function')return async()=>forbidden();}
+    } catch { return async()=>forbidden(); }
   }
   const network = scopedNetwork ?? options.network ?? ((url: string, init: RequestInit) => globalThis.fetch(url, init));
   const transactionAllowed = (raw: string, url: URL) => {
@@ -52,9 +64,10 @@ export function createAccountNetworkTransport(options: ExecutionPolicy & { enabl
       else if (raw === PLUGGY + '/auth') kind = 'provider-auth';
       else if (url.origin === PLUGGY && (new RegExp('^/items/' + UUID + '$').test(url.pathname) && url.search === '' || url.pathname === '/accounts' && url.search.startsWith('?itemId=') && new RegExp('^' + UUID + '$').test(url.search.slice(8)))) {
         if (transactionTargets && raw !== transactionTargets.item() && raw !== transactionTargets.accounts()) return forbidden();
+        if (investmentTargets && raw !== investmentTargets.item()) return forbidden();
         kind = 'provider-read';
       }
-      else if (transactionAllowed(raw, url)) kind = 'provider-read';
+      else if (investmentUrl !== null && raw === investmentUrl || transactionAllowed(raw, url)) kind = 'provider-read';
       else return forbidden();
       const get = kind === 'user' || kind === 'provider-read';
       if (input.method !== (get ? 'GET' : 'POST')) return forbidden();
