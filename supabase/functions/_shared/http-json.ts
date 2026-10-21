@@ -10,6 +10,11 @@ export async function readTransactionJsonResponse(response: Response, signal: Ab
   if (typeof decode !== 'function') unavailable();
   return readBounded(response, signal, 1048576, decode);
 }
+/** Investment pages only. Exact decoder must be prepared before provider access. */
+export async function readInvestmentJsonResponse(response: Response, signal: AbortSignal, decode: (text: string) => unknown): Promise<unknown> {
+  if (typeof decode !== 'function') unavailable();
+  return readBounded(response, signal, 1048576, decode);
+}
 async function readBounded(response: Response, signal: AbortSignal, maxBytes: number, decode: (text: string) => unknown): Promise<unknown> {
   if (!/^application\/json(?:\s*;.*)?$/i.test(response.headers.get('content-type') ?? '') || !response.body) unavailable();
   const reader = response.body.getReader(); const chunks: Uint8Array[] = []; let length = 0;

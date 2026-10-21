@@ -24,9 +24,9 @@ function checkBounds(text: string, maxBytes: number) {
   if (quoted || depth !== 0) unavailable();
 }
 /** Initialize before any provider read. Unsupported hosts have no lossy fallback. */
-export function createExactJsonDecoder(parser: Parser = JSON.parse, profile: 'standard' | 'transactions' = 'standard'): (text: string) => unknown {
-  if (profile !== 'standard' && profile !== 'transactions') return unavailable();
-  const maxBytes = profile === 'transactions' ? 1048576 : 131072;
+export function createExactJsonDecoder(parser: Parser = JSON.parse, profile: 'standard' | 'transactions' | 'investments' = 'standard'): (text: string) => unknown {
+  if (profile !== 'standard' && profile !== 'transactions' && profile !== 'investments') return unavailable();
+  const maxBytes = profile === 'standard' ? 131072 : 1048576;
   try {
     let proven = false;
     parser('9007199254740993', (_key, value, context) => { if (typeof value === 'number' && context?.source === '9007199254740993') proven = true; return value; });

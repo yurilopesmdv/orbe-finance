@@ -1180,3 +1180,9 @@ SEC-44/[plano](../plan/T23c4a-ITEM-PRODUCT-GUARD.md). Exigir produto específico
 T23c3 aplicada21/10:CI39636931521 success,16hashes verificados e fixtureinstalada passou emrollback/zeroresíduos/ownerpreservado/zero finanças. Registro de posições vazio de dadosreais, nenhumfontecoletada ougateativado.
 
 T23c4a concluída21/10:1178 testes/typechecks (1046Node+132Python), dois casosnovos. Verificador accountsdefault preservado; transactions exigeACCOUNTS+TRANSACTIONS e investimentosaceitaINVESTMENTS semACCOUNTS. Movementport semproduto transacional fazsóAuth+Itemfake, nenhumGETcontas/tx. Scan/allowlist36/diff aprovados. Semdeploy/rede financeira. Próximac4b orçamentoJSON exato1MiB nomeado para investimentos, default128KiB mantido; depoisc4c portproviderpaginado/stagingtécnico.
+
+## T23c4b — done
+
+MPG-INV-01/[plano](../plan/T23c4b-INVESTMENT-JSON.md). Decoder e reader explícitos por página de investimentos.
+
+T23c4b concluída21/10:1181 testes/typechecks (1049Node+132Python), trêsnovoscasos.100posições comextras>128KiB chegam porreadernomeado/decoderinvestmentsexato e projetam29c; tetoUTF81MiB/overflow/MIME/preabort e default128KiB preservados. Scan/allowlist36/diff aprovados; semport/deploy/env/coleção real. CIc4a 39637672088 success. Próximac4c preparar snapshotprivado validado antes de staging de IDs, depois portcollector paginado/cicloAuth.
