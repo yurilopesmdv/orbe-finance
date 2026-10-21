@@ -129,3 +129,7 @@ POST /movements/finalize aceita só connectionId/revision/leaseId; owner/sessão
 ## SEC-34 — JSON cliente por operação de movimentações (T22c17)
 
 Somente operação movementRead no cliente de sessão usa leitor nomeado com teto fixo1MiB de bytesUTF8 antes de parse. Reader padrão conserva teto128KiB e discovery4KiB; movementFinalize também128KiB. Não aceitar orçamento arbitrário do chamador para ampliar operação. Rotas próprias fixas, deadline20s, origem da sessão, cancelamento/lock e headers privados mantidos. Sem persistência de payloads ou mudanças de gates/UI/publicação nesta task.
+
+## SEC-35 — Transporte cliente e manifesto de movimentações (T22c18)
+
+Transporte autenticado de uma tentativa captura contexto local e registryRLS permitido; não infere BANK de metadadosunknown. Primeira página retorna manifesto de IDs internos1–100, únicos/ordenados/subconjunto do registry, estável em todas páginas do mesmo lease. Validar DTO mínimo e envelope antes de entregar ao stager, sem IDs externos/owner/segredos no payload. Uma aquisição e paginação sequencial, sem retries/concorrência; cursor/lease/revisão/mês não mudam. Finalizar por endpoint dedicado apenas após página final, sem promover/cachear dados no transporte. Gates independentes desligados não inspecionam dependências.

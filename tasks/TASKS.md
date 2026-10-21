@@ -1096,3 +1096,9 @@ T22c15 aplicada21/10:15hashes verificados; movement-pages e read-leases instalad
 SEC-34/[plano](../plan/T22c17-MOVEMENT-CLIENT-JSON.md). Budget JSON específico e operações fixas de movimentações no cliente.
 
 T22c17 concluída21/10:1104 testes/typechecks (982Node+122Python), seis novos cenários de tetoUTF8 exato1MiB/overflow/chunks/MIME/abort, rotas, origem, lock e limites das demais operações. Exportação iOS e auditoria1205fontes/56pacotes aprovadas; raízes de advisories ausentes do JS, sourcemaps privados. Scan perfis+dist/allowlist34/diff aprovados. Nenhuma UI/gate/EAS alterada. PróximaT22c18 transporte transacional que valida manifestoBANK interno contra registroRLS e mantém manifesto estável porlease, antes de adaptar stager.
+
+## T22c18 — done
+
+SEC-35/[plano](../plan/T22c18-MOVEMENT-TRANSPORT.md). Transporte cliente sequencial com manifesto interno estável por lease.
+
+T22c18 concluída21/10:1112 testes/typechecks (990Node+122Python), oito casos novos. Manifesto interno1–100/subconjunto do registry/ordenado/estável, tentativas únicas/cursor/escopo e snapshot validados; lock interrompe transporte pendente sem nova rede. Scan/diff aprovados. Módulo isolado, ainda não importado no runtimeUI; artefatos/export da17 permanecem válidos e não foram repetidos. CI da17 39600673463 success. PróximaT22c19 criar stager apenas após manifesto da primeira página e promover ledger só após finalizar lease.
