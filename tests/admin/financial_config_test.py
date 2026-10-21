@@ -5,7 +5,7 @@ import unittest
 spec=importlib.util.spec_from_file_location('financial_config',Path(__file__).resolve().parents[2]/'scripts/financial-config.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 CREDS={'PLUGGY_CLIENT_ID':'invented-client','PLUGGY_CLIENT_SECRET':'invented-secret-12345'}
 def fixture(change=None):
-    desired=m.desired_values(CREDS,'sb_secret_invented');secrets={'ORBE_METADATA_ENABLED':m.digest('true'),'ORBE_PUBLISHABLE_KEY':m.digest('sb_publishable_invented')}
+    desired=m.desired_values(CREDS,'sb_secret_invented',{'ORBE_MOVEMENT_IDENTITY_KEY':'11'*32,'ORBE_MOVEMENT_CURSOR_KEY':'22'*32});secrets={'ORBE_METADATA_ENABLED':m.digest('true'),'ORBE_PUBLISHABLE_KEY':m.digest('sb_publishable_invented')}
     functions=[{'slug':slug,'id':'invented-'+slug,'version':4,'ezbr_sha256':'a'*64,'status':'ACTIVE','verify_jwt':False} for slug in m.SLUGS]
     receipts={row['slug']:{'project_ref':m.REF,'id':row['id'],'version':row['version']} for row in functions};posts=[]
     def request(path,method='GET',body=None):
@@ -22,7 +22,7 @@ class FinancialConfigTests(unittest.TestCase):
     def test_only_missing_disabled_targets_added_and_metadata_preserved(self):
         desired,secrets,_,receipts,posts,request=fixture();prior=dict(secrets)
         result,_=m.apply_disabled(request,desired,receipts,'configure-disabled')
-        self.assertTrue(result['configuration_ready']);self.assertEqual(result['added_secrets'],7)
+        self.assertTrue(result['configuration_ready']);self.assertEqual(result['added_secrets'],11)
         self.assertEqual({r['name'] for r in posts[0]},m.TARGETS)
         self.assertTrue(all(row['value']=='false' for row in posts[0] if row['name'] in m.FLAGS))
         self.assertTrue(all(secrets[k]==v for k,v in prior.items()))
@@ -49,6 +49,10 @@ class FinancialConfigTests(unittest.TestCase):
     def test_enabling_flag_is_rejected_before_any_request(self):
         desired,_,_,receipts,_,_=fixture();desired['ORBE_BRIDGE_ENABLED']='true'
         with self.assertRaises(m.SafeError):m.apply_disabled(lambda *args: self.fail('network'),desired,receipts,'configure-disabled')
+    def test_invalid_keys_are_rejected_before_network(self):
+        for patch in [{'ORBE_MOVEMENT_IDENTITY_KEY':'0'*64},{'ORBE_MOVEMENT_CURSOR_KEY':'11'*32},{'ORBE_MOVEMENT_CURSOR_KEY':'PRIVATE'}]:
+            desired,_,_,receipts,_,_=fixture();desired.update(patch)
+            with self.assertRaises(m.SafeError):m.apply_disabled(lambda *args:self.fail('network'),desired,receipts,'configure-disabled')
     def test_raw_or_duplicate_secret_metadata_rejected(self):
         for rows in [[{'name':'x','value':'PRIVATE'}],[{'name':'x','value':'a'*64}]*2]:
             with self.assertRaises(m.SafeError):m.secrets_map(rows)

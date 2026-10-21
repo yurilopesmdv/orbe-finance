@@ -169,3 +169,7 @@ Opção investmentReadsEnabled explícita mais ExecutionPolicy/privateapproved, 
 ## SEC-44 — Produto habilitado no Item antes da coleção (T23c4a)
 
 VerificadorMeuPluggy recebe operação fechada accounts(default)/transactions/investments. ExigirACCOUNTS no default; transactions exigeACCOUNTS+TRANSACTIONS; investments exigeINVESTMENTS sem exigircontas. Produtoausente recusa antes da coleção. Isso confirma só produto habilitado do proxy/consentimentotécnico, não recurso original compartilhado ou provaOF. Manter checksownerexternos, status/erro/sandbox/prazo e mínimos de retorno; nenhum payloadextra passa. Atualizarportmovimentos paraoperação específica; legadocontas/inventory preservado.
+
+## SEC-45 — Provisionamento das chaves de movimentações
+
+Preparação operacional pode criar duas chavesCSPRNG independentes de32bytes fora do projeto e provisioná-las no backend próprio, mantendo todos gatesfalse. Arquivo600, diretório700, donoatual/regular/singlelink/nofollow, sem chave em stdout/log/recibo/Git/Metro. Nunca sobrescrever/rotacionar silenciosamente, pois identidade e cursor dependem das chaves. Check não gera chave. Configuração valida perfil antes de rede e recusa qualquer flagtrue; preserva segredos alheios e exige digests/fontes/versões verificáveis. Canários existentes devem detectar os novos valores antes de publicar. Essa preparação não aprova runtime/fornecedor/origem nem autoriza dados reais.

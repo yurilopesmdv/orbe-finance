@@ -13,8 +13,8 @@ import tempfile
 import sys
 ROOT=Path(__file__).resolve().parent.parent
 REF='vvaufaoahotmaocrcyij'
-FLAGS=('ORBE_BRIDGE_ENABLED','ORBE_ACCOUNT_READS_ENABLED','ORBE_INVENTORY_DISCOVERY_ENABLED','ORBE_PRIVATE_DATA_APPROVED')
-TARGETS=set(FLAGS)|{'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET','ORBE_BACKEND_SECRET_KEY'}
+FLAGS=('ORBE_BRIDGE_ENABLED','ORBE_ACCOUNT_READS_ENABLED','ORBE_INVENTORY_DISCOVERY_ENABLED','ORBE_PRIVATE_DATA_APPROVED','ORBE_MOVEMENT_READS_ENABLED','ORBE_INVESTMENT_READS_ENABLED')
+TARGETS=set(FLAGS)|{'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET','ORBE_BACKEND_SECRET_KEY','ORBE_MOVEMENT_IDENTITY_KEY','ORBE_MOVEMENT_CURSOR_KEY'}
 SLUGS={'orbe-bridge':'bridge-deploy.json','orbe-metadata':'metadata-deploy.json'}
 class SafeError(Exception):pass
 
@@ -24,12 +24,14 @@ def module(name,file):
 admin=module('config_admin','backend-admin.py')
 profile=module('config_profile','provider-profile.py')
 bridge=module('config_bridge','bridge-deploy.py')
+movement_keys=module('config_movement_keys','movement-keys.py')
 
 def digest(value):return hashlib.sha256(value.encode()).hexdigest()
 
-def desired_values(credentials,secret):
+def desired_values(credentials,secret,keys):
     if set(credentials)!={'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET'} or not re.fullmatch(r'[A-Za-z0-9_-]{1,256}',credentials.get('PLUGGY_CLIENT_ID','')) or not re.fullmatch(r'[A-Za-z0-9._~/-]{16,512}',credentials.get('PLUGGY_CLIENT_SECRET','')) or not isinstance(secret,str) or not re.fullmatch(r'sb_secret_[A-Za-z0-9_-]{1,512}',secret):raise SafeError('disabled_config_invalid')
-    return {**credentials,'ORBE_BACKEND_SECRET_KEY':secret,**{name:'false' for name in FLAGS}}
+    if not isinstance(keys,dict) or set(keys)!=set(movement_keys.NAMES) or any(not isinstance(value,str) or not re.fullmatch(r'[0-9a-f]{64}',value) or set(value)=={'0'} for value in keys.values()) or len(set(keys.values()))!=2:raise SafeError('disabled_config_keys_invalid')
+    return {**credentials,**keys,'ORBE_BACKEND_SECRET_KEY':secret,**{name:'false' for name in FLAGS}}
 
 def secrets_map(rows):
     if not isinstance(rows,list):raise SafeError('disabled_config_invalid')
@@ -51,6 +53,7 @@ def functions_map(rows):
 
 def apply_disabled(request,desired,recorded,operation,verify_sources=None):
     if operation not in ('check','configure-disabled') or set(desired)!=TARGETS or any(desired[name]!='false' for name in FLAGS):raise SafeError('disabled_config_invalid')
+    desired_values({name:desired[name] for name in ('PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET')},desired['ORBE_BACKEND_SECRET_KEY'],{name:desired[name] for name in movement_keys.NAMES})
     before=functions_map(request('/functions'))
     for slug,fn in before.items():
         receipt=recorded[slug]
@@ -110,6 +113,7 @@ def verify_function_sources(slug,receipt,token,ref):
 
 def execute(operation):
     if operation not in ('check','configure-disabled'):raise SafeError('disabled_config_operation_invalid')
+    read_keys=movement_keys.read_keys(admin.PRIVATE_CONFIG.parent)
     token,ref=admin.config()
     if ref!=REF:raise SafeError('disabled_config_project_rejected')
     request=admin.client(token,ref);_,history,_=admin.inspect(request)
@@ -128,7 +132,7 @@ def execute(operation):
     if len(secret)!=1 or len(public)!=1 or not isinstance(public[0],str) or not public[0].startswith('sb_publishable_'):raise SafeError('disabled_config_keys_unavailable')
     existing=secrets_map(request('/secrets'))
     if existing.get('ORBE_PUBLISHABLE_KEY')!=digest(public[0]) or existing.get('ORBE_METADATA_ENABLED')!=digest('true'):raise SafeError('disabled_config_metadata_unverified')
-    result,current=apply_disabled(request,desired_values(credentials,secret[0]),receipts,operation,lambda slug,receipt:verify_function_sources(slug,receipt,token,ref))
+    result,current=apply_disabled(request,desired_values(credentials,secret[0],read_keys),receipts,operation,lambda slug,receipt:verify_function_sources(slug,receipt,token,ref))
     if operation=='configure-disabled':
         for slug,row in current.items():
             if row['version']!=receipts[slug]['version']:update_receipt(folder/SLUGS[slug],receipts[slug],{**receipts[slug],'version':row['version']})

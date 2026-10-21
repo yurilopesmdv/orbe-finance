@@ -1206,3 +1206,7 @@ RegistryRLS próprio pósstage, JSON1MiB exclusivo, transporteone-shot/finaliza�
 Backend orbe-bridge v7 ACTIVE publicado com `liveApproved:false`; sete smokes existentes e quatro novas rotas de movimentos/investimentos retornaram503/no-store/payloadmínimo, zero leitura financeira/provedor. Metadata v4 preservada. CIcliente39642075250success, commit e33928e. PublicaçãoExpo iniciada após CIverde; manifesto/HBC/QR serão conferidos antes de anunciarlinknovo.
 
 Publicação concluída: update01a15f77-2cb3-7872-a3e3-49625880255e/grupoa5771241-b969-4c16-8b56-b6d085ba302e/commite33928e. Manifesto/schemeorbe/hashHBC/QRoficial conferidos. QR21/10 e EXPO-PREVIEW atualizados. Bridgev7off/metadata4/17migrations/1201checks. Nenhuma flag real ativada, nenhuma finança consultada. Entrega técnica de investimentos concluída; c9 sem cobertura confirmada da fonte, gates externos/runtime descritos em RELEASE-READINESS.
+
+### T75a — preparação operacional da ativação (21/10)
+
+SpecSEC45/planT75. HelpermovementkeysCSPRNG32bytesdistintas/criaçãoúnica/checksemgerar/600/700/singlelink/nofollow/semstdoutprivado. financial-config inclui11targets/seisflagsfalse, valida chaves antesderede, recusa conflito/flagtrue, preservadigests/fontes/receipts.41testesfocadosaprovados, scannercomnovascanáriaspassou; perfilprivadorealcriado, zerorede/finanças. ConfigremotaaguardaCI. T75b: fontesoficiais revalidadas; doisadvisoriesseguemsempatch, proxy/resources não provamorigemoriginal, lacunasfornecedorpersistem. Recheck documentado semcontatofornecedor/GETfinanceiro/ativaçãodefachada.
