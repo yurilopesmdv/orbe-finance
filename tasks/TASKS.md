@@ -1108,3 +1108,9 @@ T22c18 concluída21/10:1112 testes/typechecks (990Node+122Python), oito casos no
 SEC-36/[plano](../plan/T22c19-MOVEMENT-BATCH.md). Orquestração com staging criado após primeira página autorizada.
 
 T22c19 concluída21/10:1120 testes/typechecks (998Node+122Python), oito casos novos. Duas contas e registry com cartão excluído sem prefetch adicional; falha na última página/finalização preserva ledger anterior; driftmanifesto/owner/instituição/mês são recusados, lock impede promoção e fecha store permanentemente. Contexto capturado e cache só promove apósfinish/fresh. Scan/diff aprovados. CI da18 39601141539 success. Sem runtimeUI/env/export/deploy. PróximaT22c20 boot backend/roteamento de movimentações com gates e rede capturada por escopo, mantendo entrypoint off.
+
+## T22c20 — done
+
+SEC-37/[plano](../plan/T22c20-MOVEMENT-BACKEND-RUNTIME.md). Boot backend de movimentações com rede restrita ao contexto autorizado.
+
+T22c20 concluída21/10:1126 testes/typechecks (1004Node+122Python), seis novos cenários de boot completoRPC/providerfake, gates/chaves distintas/redeporbinding, acquire com contasoff, IDOR/cap4/close. Scan/allowlist35/diff aprovados. Provedor scoped fechado porpágina: quatro chamadasfake/page (Auth/item/accounts/transactions), sem cachefinanceiro; zero chamadasreais. Entry pointliteralfalse intacto. CI da19 39630094209 passou testes, mas falhou expo install--check por novos patches recomendados expo57.0.31/router57.0.29; não é erro de testes. PróximaT22c21 atualizar patches compatíveis SDK57 e rever export/audit/fontesafetadas, sem suprimircheck. Depois controller/runtimecliente protegido.

@@ -137,3 +137,7 @@ Transporte autenticado de uma tentativa captura contexto local e registryRLS per
 ## SEC-36 — Staging transacional iniciado pelo manifesto autorizado (T22c19)
 
 Orquestrador de movimentações usa runReadBatch exclusivamente transactions. RegistryRLS delimita contas permitidas, mas o manifestoBANK vem da primeira página autorizada: só então criar stager, sem prefetch extra nem inferência de tipo. Capturar owner/conexão/instituição/mês e contexto local; exigir manifesto1–100internos ordenados/subconjunto do registry/estável. Promover ledger só após paginação completa, finalização dedicada e sessão/lease fresh. Erros/lock/abort limpam staging e preservam cache anterior ainda válido; nenhum valor persiste fora da memória.
+
+## SEC-37 — Boot backend de movimentações com rede por escopo (T22c20)
+
+Movimentações exigem codegate liveApproved, modo explícito e flags bridge/private/movement independentes. Chavesidentity/cursor distintas de32bytes, nãozero, somentebackend; ausentes/malformadas mantêmfeatureoff sem provisionar fallback. Auth/RPC usam rede própria restrita; port provedor é criado após resolver, com item/contas/mês capturados pela fronteira de transações e fechado nofinally. Primeira composição não compartilhaAPIkey entre páginas: custoAuth/página explícito, sem retries/cachefinanceiro. Máximo4requests, close aborta tudo e descarta chaves em best effort. Entrypoint publicado permanece literalfalse. Rotas conhecidas apenas; aquisição pode usar modo movimentos quando contas off, finalização sempre dedicada.
