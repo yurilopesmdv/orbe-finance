@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c8.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c9.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -1030,3 +1030,9 @@ T22c6 evidência21/10:1027testes/typechecks (909Node+118Python),13novoscasos. AE
 EXP-18/[plano](../plan/T22c7-BANK-MOVEMENT-MANIFEST.md). Confirmar tipo BANK da fonte e vínculos sem ler dados de saldo/identidade.
 
 T22c7 evidência21/10:1034 testes/typechecks (916 Node +118 Python), sete casos novos. Parser de inventário compartilhado preserva o DTO de descoberta; manifesto BANK usa tipo da fonte, vínculos completos e ordem interna estável, sem acessar saldo/identidade/limite. Crédito/moeda não suportada têm contagens explícitas; limites, UUID com newline, IDOR e integração cursor/AAD sob reordenação foram validados. Allowlist de30fontes, scan de perfis e diff aprovados. Sem rede/deploy/env. Próxima T22c8: fronteira de rede v2/transactions exclusivamente sob binding/janelas confiáveis, mantendo default sem transações.
+
+## T22c8 — done
+
+SEC-27/[plano](../plan/T22c8-SCOPED-TRANSACTION-NETWORK.md). Permitir rede transacional somente com escopo confiável e gates explícitos.
+
+T22c8 evidência21/10:1041 testes/typechecks (923 Node+118 Python), sete casos novos. Rede v2/transactions só aceita escopo capturado/modo/gates; fixture não faz fallback para fetch. Primeira/next query preservadas, duas janelas mensais aceitas e item/contas restritos ao binding; IDOR/SSRF/filtros/cookies/headers/métodos/abort/redirect/defaultoff e mutações testados. Allowlist30/scans/diff aprovados; nenhum boot/flag/deploy/rede real. Próxima T22c9 transporte Pluggy de movimentos com chave só na closure, consentimento e manifesto BANK antes da página.

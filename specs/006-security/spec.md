@@ -93,3 +93,9 @@ SEC-26 complemento: status real de conexões também deve aguardar proteção Sc
 ## SEC-22a — Scan obrigatório de perfis no publicador (c41)
 
 Antes de iniciar o subprocesso EAS autenticado, a publicação DEVE executar scan offline do export contra os canários privados configurados: PAT, owner, Expo token, Client ID/Secret e itens. Reutilizar o leitor privado seguro do deploy, sem exibir valores/caminhos de ocorrência ou consultar APIs. Projeto Supabase público não é canário secreto. Arquivo suspeito/symlink/perfil inválido/scan com erro impede upload. Testar canário em binário, limite de bloco e perfis opcionais; manter a checagem manual de fonte antes do Git. O scan cobre os artefatos presentes naquele instante, não prova ausência universal de dados sensíveis nem substitui revisão do runtime.
+
+## SEC-27 — Fronteira de rede transacional com escopo capturado (T22c8)
+
+/v2/transactions só é permitido na fronteira preparada quando habilitação específica, ExecutionPolicy e aprovação privada estiverem explícitas; fixture exige rede injetada. Capturar binding confiável com1–100contas e mês válido; gerar janelas pelo planner e verificar cada destino pelo builder de conta/filtros/next, preservando a query opaca. Sem esse escopo, o comportamento atual continua recusando transações e não deve ler a configuração extra.
+
+No escopo transacional, GETitem/contas também fica limitado ao item capturado. Restantes destinos/hierarquia de credenciais/headers/métodos/abort/semcookies/semredirect continuam fechados; não permitir listar itens, refresh, identidade, investimentos ou pagamentos por essa opção. A fronteira limita destinos e não prova ownership/consentimento/sessão/lease; isso permanece no coordenador. Nenhum cliente pode fornecer binding ou URL diretamente. Default/entrypoint financeiro continuam off.

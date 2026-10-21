@@ -1,12 +1,44 @@
+import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
+import { createPluggyTargets, type ResolvedPluggyBinding, type TransactionWindow } from './pluggy-targets.ts';
+import { planTransactionMonth } from './transaction-month.ts';
 type Network = (url: string, init: RequestInit) => Promise<Response>;
 const SUPABASE = 'https://vvaufaoahotmaocrcyij.supabase.co';
 const PLUGGY = 'https://api.pluggy.ai';
 const UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
 const forbidden = (): never => { throw Error('account_network_unavailable'); };
-/** Prepared network boundary only; not imported by the deployed entrypoint. */
-export function createAccountNetworkTransport(options: { enabled?: boolean; privateDataApproved?: boolean; network?: Network } = {}): Network {
+/** Server-only boundary. The published root keeps financial requests disabled. */
+export function createAccountNetworkTransport(options: ExecutionPolicy & { enabled?: boolean; network?: Network; transactionReadsEnabled?: boolean; transactionScope?: { binding: ResolvedPluggyBinding; month: string } } = {}): Network {
   if (options.enabled !== true || options.privateDataApproved !== true) return async () => forbidden();
-  const network = options.network ?? ((url: string, init: RequestInit) => globalThis.fetch(url, init));
+  let transactionTargets: ReturnType<typeof createPluggyTargets> | null = null;
+  let windows: readonly Readonly<TransactionWindow>[] = [], scopedNetwork: Network | undefined;
+  if (options.transactionReadsEnabled === true) {
+    try {
+      const mode = resolveExecutionMode(options), scope = options.transactionScope;
+      if (!mode || !scope || typeof scope !== 'object' || !Object.hasOwn(scope,'binding') || !Object.hasOwn(scope,'month')) return async () => forbidden();
+      const binding = scope.binding;
+      if (!binding || typeof binding !== 'object' || !Object.hasOwn(binding,'itemId') || !Object.hasOwn(binding,'accountIds')) return async () => forbidden();
+      const itemId = binding.itemId, rawIds = binding.accountIds;
+      const validId = (value: unknown): value is string => typeof value === 'string' && value.length === 36 && new RegExp('^'+UUID+'$').test(value);
+      if (!validId(itemId) || !Array.isArray(rawIds) || rawIds.length < 1 || rawIds.length > 100) return async () => forbidden();
+      const accountIds = Array.from(rawIds);
+      if (!accountIds.every(validId)) return async () => forbidden();
+      const plan = planTransactionMonth(scope.month, { enabled: true, mode, privateDataApproved: options.privateDataApproved });
+      if (plan.kind !== 'plan') return async () => forbidden();
+      transactionTargets = createPluggyTargets({ itemId, accountIds }); windows = plan.windows;
+      if (mode === 'fixture') { scopedNetwork = options.network; if (typeof scopedNetwork !== 'function') return async () => forbidden(); }
+    } catch { return async () => forbidden(); }
+  }
+  const network = scopedNetwork ?? options.network ?? ((url: string, init: RequestInit) => globalThis.fetch(url, init));
+  const transactionAllowed = (raw: string, url: URL) => {
+    if (!transactionTargets || url.origin !== PLUGGY || url.pathname !== '/v2/transactions') return false;
+    const accountId = url.searchParams.get('accountId'); if (!accountId) return false;
+    for (const window of windows) {
+      try {
+        if (raw === transactionTargets.firstTransactions(accountId, window) || raw === transactionTargets.nextTransactions(accountId, window, url.search)) return true;
+      } catch { /* Another window can match; never log upstream queries. */ }
+    }
+    return false;
+  };
   return async (raw, input) => {
     let response: Response | undefined;
     try {
@@ -18,7 +50,11 @@ export function createAccountNetworkTransport(options: { enabled?: boolean; priv
       else if (raw === SUPABASE + '/rest/v1/rpc/orbe_has_session') kind = 'session';
       else if (['orbe_begin_connection_read', 'orbe_check_connection_read', 'orbe_finish_connection_read', 'orbe_resolve_account_read', 'orbe_resolve_pending_inventory', 'orbe_stage_account_bindings', 'orbe_begin_pending_inventory', 'orbe_check_pending_inventory', 'orbe_commit_pending_inventory'].some(name => raw === SUPABASE + '/rest/v1/rpc/' + name)) kind = 'rpc';
       else if (raw === PLUGGY + '/auth') kind = 'provider-auth';
-      else if (url.origin === PLUGGY && (new RegExp('^/items/' + UUID + '$').test(url.pathname) && url.search === '' || url.pathname === '/accounts' && url.search.startsWith('?itemId=') && new RegExp('^' + UUID + '$').test(url.search.slice(8)))) kind = 'provider-read';
+      else if (url.origin === PLUGGY && (new RegExp('^/items/' + UUID + '$').test(url.pathname) && url.search === '' || url.pathname === '/accounts' && url.search.startsWith('?itemId=') && new RegExp('^' + UUID + '$').test(url.search.slice(8)))) {
+        if (transactionTargets && raw !== transactionTargets.item() && raw !== transactionTargets.accounts()) return forbidden();
+        kind = 'provider-read';
+      }
+      else if (transactionAllowed(raw, url)) kind = 'provider-read';
       else return forbidden();
       const get = kind === 'user' || kind === 'provider-read';
       if (input.method !== (get ? 'GET' : 'POST')) return forbidden();
