@@ -28,6 +28,13 @@ try {
       const markers = [env.EXPO_TOKEN, ...admin.split(/\r?\n/).filter(line => /^(SUPABASE_ACCESS_TOKEN|ORBE_OWNER_USER_ID)=/.test(line)).map(line => line.slice(line.indexOf('=') + 1).trim().replace(/^["']|["']$/g, ''))].filter(Boolean);
       const scan = folder => { for (const entry of readdirSync(folder, { withFileTypes: true })) { const target = path.join(folder, entry.name); if (entry.isSymbolicLink()) throw new Error('eas_artifact_symlink_rejected'); if (entry.isDirectory()) scan(target); else if (entry.isFile()) { const bytes = readFileSync(target); if (markers.some(marker => bytes.includes(Buffer.from(marker)))) throw new Error('eas_artifact_private_content_rejected'); } } };
       scan(path.join(root, 'dist'));
+      // Reuse the backend's secure profile parser; no credentials are passed to this process.
+      const { env: scanEnv } = prepareEas(root, process.env, false);
+      const preflight = spawnSync('python3', [path.join(root, 'scripts/publish-preflight.py')], {
+        cwd: root, env: { ...scanEnv, PYTHONDONTWRITEBYTECODE: '1' },
+        timeout: 60000, maxBuffer: 16384, stdio: ['ignore', 'pipe', 'pipe'],
+      });
+      if (preflight.status !== 0 || preflight.error) throw new Error('eas_private_preflight_failed');
     }
   }
   const descriptor = openSync(log, 'w', 0o600); chmodSync(log, 0o600);

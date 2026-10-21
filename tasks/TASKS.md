@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima c41.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima c42.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -976,3 +976,9 @@ T51b2c39 evidência: guias de ativação/prontidão consolidados com12migrations
 MPG-01/06/07 e SEC-24/26/[plano](../plan/T51b2c40-PUBLIC-PRIVACY-EVIDENCE.md). Revisão pública de privacidade específica do plano pessoal; nenhuma conta ou contato externo.
 
 T51b2c40 evidência: matriz com9fontes/assuntos primários conferida, incluindo PDF público de6páginas; separação MCPauth/docs e exclusão deitem versus backups registradas sem inferir retenção/ausência deIA. Nenhum contato/login/GETfinanceiro. Gates inalterados. Próxima c41 automatizar scan de todos os perfis privados no publicador EAS antes do subprocesso autenticado.
+
+## T51b2c41 — done
+
+SEC-22a/[plano](../plan/T51b2c41-PUBLISHER-PRIVATE-SCAN.md). Automatizar preflight offline completo e falha fechada antes da CLI autenticada.
+
+T51b2c41 evidência:977testes/typechecks (859Node+118Python),10novoscasos. Wrapperreal isolado rejeita export com segredoPluggy antes da CLI e aceita artefato limpo com CLI fictícia offline; canários em binário/divisão debloco/symlink/hardlink/FIFO/perfilinválido cobertos. Preflight real doexport25artefatos passou comnetwork0; scan fonte/exportde todosperfis e sintaxeJS/diffcheck aprovados. Nenhuma alteração cliente/backend/publicação/flags. Próxima c42 revisar alcance das duas dependências altas no tooling com fontes locais/advisories, sem downgrade nem inferir liberação por ausência no JS.

@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c40 concluídas**,967 testes/typechecks; c38 publicada/commitad2dcc3. c40 matriz pública em docs/security/MEU-PLUGGY-PRIVACY-EVIDENCE-20261020.md esclarece MCPauth/exclusão sem resolver integralmente subprocessadores/logs/backups/origemOF. Próxima **c41** automatizar scan de todos os perfis privados antes de qualquer publicação EAS autenticada, reutilizando parser seguro existente e fixtures sem segredos reais. Backend v5/metadata v4/gatesfalse; nenhuma leitura financeira real.
+**c21–c41 concluídas**,977 testes/typechecks (859Node+118Python). c38 publicada/commitad2dcc3 com políticaHTTP; c41 publicador agora bloqueia automaticamente qualquer canário conhecido de todos os perfis privados antes da CLI autenticada. Export atual25artefatos passouoffline; nenhumQRnovo necessário por mudança sóadministrativa. Próxima **c42** revisar alcance das duas raízes altas no tooling por fonte instalada/advisories e mitigação compatível, sem downgrade/contratação/dadosfinanceiros. Backend v5/metadata v4/gatesfalse. Não confundir pesquisa pública c40 com aprovação do fornecedor.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 

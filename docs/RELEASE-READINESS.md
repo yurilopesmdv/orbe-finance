@@ -15,7 +15,7 @@
 
 ## Verificação atual
 
-967 testes/typechecks aprovados (859 Node +108 Python). Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+977 testes/typechecks aprovados (859 Node +118 Python), incluindo bloqueio real do publicador em fixture antes de iniciar a CLI autenticada. A prévia c38 foi publicada com 967 testes; as dez verificações adicionais cobrem somente o publicador administrativo. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração confirmada por digests; fonte de 23 arquivos bridge e cinco metadata corresponde aos recibos privados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
 
