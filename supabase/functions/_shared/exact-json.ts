@@ -9,8 +9,8 @@ function numericSource(value: unknown, context?: Context): unknown {
   if (typeof source !== 'string' || source.length > 128 || !/^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$/.test(source)) return unavailable();
   const cell = Object.freeze({}); literals.set(cell, source); return cell;
 }
-function checkBounds(text: string) {
-  if (typeof text !== 'string' || text.length > 131072 || new TextEncoder().encode(text).length > 131072) unavailable();
+function checkBounds(text: string, maxBytes: number) {
+  if (typeof text !== 'string' || text.length > maxBytes || new TextEncoder().encode(text).length > maxBytes) unavailable();
   let depth = 0, quoted = false, escaped = false;
   for (const char of text) {
     if (quoted) {
@@ -24,14 +24,16 @@ function checkBounds(text: string) {
   if (quoted || depth !== 0) unavailable();
 }
 /** Initialize before any provider read. Unsupported hosts have no lossy fallback. */
-export function createExactJsonDecoder(parser: Parser = JSON.parse): (text: string) => unknown {
+export function createExactJsonDecoder(parser: Parser = JSON.parse, profile: 'standard' | 'transactions' = 'standard'): (text: string) => unknown {
+  if (profile !== 'standard' && profile !== 'transactions') return unavailable();
+  const maxBytes = profile === 'transactions' ? 1048576 : 131072;
   try {
     let proven = false;
     parser('9007199254740993', (_key, value, context) => { if (typeof value === 'number' && context?.source === '9007199254740993') proven = true; return value; });
     if (!proven) return unavailable();
   } catch { return unavailable(); }
   return text => {
-    try { checkBounds(text); return parser(text, (_key, value, context) => numericSource(value, context)); }
+    try { checkBounds(text, maxBytes); return parser(text, (_key, value, context) => numericSource(value, context)); }
     catch { return unavailable(); }
   };
 }

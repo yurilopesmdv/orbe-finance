@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c4.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c5.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -1006,3 +1006,9 @@ T22c2 evidência21/10:996testes/typechecks (878Node+118Python),8novoscasos.1200m
 EXP-15/[plano](../plan/T22c3-PLUGGY-MOVEMENT-PROJECTION.md). Projeção bancária mínima/exata com IDs internos e sem extras ou rawcursor no DTO.
 
 T22c3 evidência21/10:1008testes/typechecks (890Node+118Python),12novoscasos. ProjeçãoBANK/centavosexatos/null/direção/status/IDOR/cursorrawrestrito/PIIgettersexcluídos/viradaBrasília/dedupeconflito/NFCUnicode/snapshot/abort e integraçãoMemoryLedger comoverridepersistente aprovados. Allowlist29fontes/scanprivado/diff aprovados; nenhumsecret/rota/deploy/rede. Próxima T22c4 limite de decoder específico de transações: páginas500comextras podem ultrapassar128KiB; manter defaultcontas e limiteglobal finito antes do transporte.
+
+## T22c4 — done
+
+EXP-16/[plano](../plan/T22c4-TRANSACTION-JSON-BUDGET.md). Orçamento específico finito para páginas transacionais sem alterar defaults de contas/Auth.
+
+T22c4 evidência21/10:1014testes/typechecks (896Node+118Python),6novoscasos. Perfiltransactions1MiBfixo preserva standard128KiB; leitorHTTPdedicado exige decoderexplícito.500movimentos comextras>128KiB passaramHTTP→decoderexato→projeção500IDs/14500centavos, extrasomitidos. Bounds1MiB/Unicode/depth/probe/perfilinválido/overflow/abort/MIME e defaultHTTP nãoampliável testados; allowlist29/scans/diff aprovados. Código compartilhado local diverge agora do remoto: próxima T22c5 publicar backend exclusivamenteoff apósCI e smokes, sem nova versãoExpo por não mudar cliente.

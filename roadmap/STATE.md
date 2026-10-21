@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c42 e T22c1/c2/c3 concluídas**,1008 testes/typechecks (890Node+118Python). ProjeçãoBANKmovimentos preparada comHMAC/centavosexatos/UTC-Brasília/minimização/cursorinternoconfiável e integraçãonormalizador/ledgeroverride; sem transporte real. Próxima **T22c4** limite específico do decoder exato para transações:500linhas comextras podem ultrapassar128KiB; manterdefaultcontas128KiB, permitirperfiltransações explícito1MiB comlimites/depth/Unicode e rejeiçãosemperda silenciosa. Depois transporte/cursorautenticado/lease+multiwindow. Módulos novos nãoimportados no entrypoint, allowlistlocal29fontes. Userquer avançarhojesemtestes/aprovaçõesintermediárias; gatesreaisfornecedor/OF/runtime mantidos.
+**c21–c42 e T22c1/c2/c3/c4 concluídas**,1014 testes/typechecks (896Node+118Python). Perfiltransações1MiB/HTTPdedicado passou500movimentos comextras, defaults128KiB preservados. Código compartilhado http-json/exact-json mudou somente local; remoto bridgev5/metadata4 ainda snapshotanterior. Próxima **T22c5** apósCI publicar backend exclusivamenteoff/allowlist29 e executar smokes, sem dadosreais/novoQR. Depois contrato de cursor autenticado/transporte privado/lease+multiwindow. Userquer avançarhojesemtestes/aprovaçõesintermediárias; gates reais fornecedor/OF/runtime mantidos.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
