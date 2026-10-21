@@ -1,6 +1,6 @@
 # Microtasks — backlog de implementação
 
-Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima c42.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
+Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c2.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.
 
 ## Planejamento entregue
 
@@ -988,3 +988,9 @@ T51b2c41 evidência:977testes/typechecks (859Node+118Python),10novoscasos. Wrapp
 SEC-23/MPG-06/T54/[plano](../plan/T51b2c42-TOOLCHAIN-REACHABILITY.md). Conferir advisories/callsites instalados e limites da mitigação sem executar material externo.
 
 T51b2c42 evidência21/10: advisories oficiais ainda sempatch e seis fontes instaladas comhashes documentadas; watcherexamined some versusparse/braces e verificaçãoRSA em bibliotecaExpo identificados. Sem prova global de inatingibilidade, sem downgrades/suppressão/extensãoexceção. CI39518966284(c41)success/977testes preservados; mudança sódocumental. Próxima T22c1 contrato/identidade opaca para adaptermovimentos, independente de ativação financeira.
+
+## T22c1 — done
+
+EXP-13/ADR-017/[plano](../plan/T22c1-MOVEMENT-IDENTITY.md). Identidade interna estável para movimentos, backend isolado/sem rede ou liberação.
+
+T22c1 evidência21/10:988testes/typechecks (870Node+118Python),11novoscasos. VetorHMAC independente Python/WebCrypto, UUIDv8 estável/separaçãoownercontachave, escopocapturado, importaçãoúnica/nãoexportável, erroredigido e closeassíncrono passaram. Validação UUIDestrita inclui tamanho36/inheritedscope rejeitado. Allowlist27fontes/scanperfis/export/diff aprovados; módulo não importado no entrypoint e nenhuma chave/env/rota/deploy criado. Próxima T22c2: janela mensal Brasília sem perder fim de mês em UTC, antes da projeção de payload.

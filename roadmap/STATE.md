@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c42 concluídas**,977 testes/typechecks e CI39518966284success. c42 conferiu alcanceestático/advisories ainda sempatch; mitigação integral não aprovada. Próxima **T22c1**: spec/plan/tasks para identidade interna estável do adapter de movimentos, sem expor IDs do provedor ao cliente e sem qualquer rede/ativação. Usuário reiterou21/10 concluir quanto possível hoje sem testes/aprovações intermediárias. Backendv5/metadata4/flagsfalse; fornecedor/OF/runtime continuam gates concretos.
+**c21–c42 e T22c1 concluídas**,988 testes/typechecks (870Node+118Python). Identidade backend de movimentos HMAC/UUIDv8 preparada, sem chave real/entrada de runtime/ativação. Próxima **T22c2**: planejar janelas de consulta mensal UTC/Brasília limitadas a31dias por request, cobrindo virada do mês sem truncar movimentos. Docs oficiais transações consultadas21/10 (v2cursor, date UTC, direção explícita). Depois projeção mínima/cursor interno, ainda sem dados reais. Usuário quer avançar hoje sem testes/aprovações intermediárias. Backendv5/metadata4/flagsfalse; origemOF/fornecedor/runtime continuam gates.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
