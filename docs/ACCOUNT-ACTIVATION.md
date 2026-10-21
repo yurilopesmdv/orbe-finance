@@ -1,37 +1,27 @@
-# Ativação das contas — estado atual
+# Acessar seus bancos no Orbe
 
-21/10/2026. **Você já criou a conta e conectou Bradesco/Mercado Pago no Meu Pluggy. Não precisa repetir esse cadastro ou reenviar credenciais/IDs.** No Orbe, a leitura bancária continua desativada até concluir os gates. A publicação remota e o QR estão em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+A liberação pessoal foi implementada em21/10/2026. Você já possui conta e credenciais configuradas: não recrie o login, não regenere chaves e não envie IDs ou dados bancários no chat. Use o QR remoto atual em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
-## O que já foi feito
+## Mercado Pago
 
-- Acesso pessoal criado, sessão lembrada funcionando e proteção de captura/multitarefa confirmada no iPhone.
-- Credenciais da aplicação guardadas privadamente, autenticadas uma vez somente em POST/auth e configuradas nos segredos do backend próprio. API key adicional não é necessária; nenhum segredo vai para o Expo.
-- Um item Mercado Pago foi cadastrado como pending no Orbe. Ainda não foram registrados IDs de contas, capacidades ou evidência Open Finance; nenhum saldo foi coletado.
-- Bridge v8/metadata v5 e 17 migrations próprias verificados. Leitura/descoberta financeiras continuam false no cliente, ambiente e codegate. Não há edição de painel pendente do titular nesta etapa.
+1. Entre com sua conta existente e abra **Ver minhas conexões**.
+2. Na conexão Mercado Pago, toque em **Preparar conexão**. Isso registra somente os identificadores técnicos das contas. Quando terminar, toque em **Ativar leitura desta conexão**. O servidor confere o consentimento original Open Finance e a sessão do proprietário antes de ativar.
+3. Volte e abra **Ver minhas contas → Atualizar saldos desta conexão**. Movimentações e investimentos têm telas próprias com atualização por conexão. Cada consulta respeita limites e intervalos; aguarde quando o app informar cooldown.
 
-## Por que aparecem quantidades diferentes
+A ativação confirma o vínculo e permissões, não a exatidão de cada produto. Verifique no próprio aparelho a moeda/data/cobertura. Ausência de informação não significa zero. Os valores ficam em memória durante o uso e são descartados ao bloquear/sair do primeiro plano; não são armazenados no banco próprio nem enviados às ferramentas de desenvolvimento. Os termos de retenção do banco e Pluggy continuam aplicáveis.
 
-O portal pessoal mostra duas conexões originais. O detalhe selecionado na demo mostra um item MeuPluggy e seus produtos Mercado Pago: conta e cartão não representam dois bancos. Esse detalhe não prova a listagem completa da aplicação nem que um único item agrega ambos os bancos. O item Bradesco na aplicação ainda não foi identificado; não duplicar o item conhecido nem refazer autorização para contornar isso.
+## Bradesco
 
-O inventário privado aceita de um a cinco itens observados, com instituição explícita ou desconhecida. Apenas o backend resolve vínculos técnicos. Nenhum identificador ou URL privada deve ir ao chat, Git ou variável EXPO_PUBLIC.
+O portal Meu Pluggy possui a conexão original, mas esta aplicação ainda só tem o proxy Mercado Pago identificado. Um item com conta e cartão não representa dois bancos. Não duplicar o ID do Mercado Pago nem marcar Bradesco ativo sem seu próprio proxy. O plano pessoal não fornece listagem global de itens. O compartilhamento do Bradesco com a aplicação é uma etapa distinta da autorização original no portal; não é necessário refazer credenciais já válidas. Essa conexão não está sendo apresentada como concluída.
 
-## Próxima liberação
+## Segurança e limites
 
-1. Concluir evidências de origem Open Finance por banco e revisão do fornecedor, logs, retenção, exclusão e subprocessadores. O proxy MeuPluggy não comprova sozinho a origem bancária.
-2. Resolver a revisão de dependências/runtime e validar os controles nativos com dados inventados. A fonte local do Expo não certifica o binário instalado no iPhone.
-3. Versionar a liberação controlada, executar a descoberta no backend sob sessão/owner/lease e somente então permitir a primeira leitura. Não marcar conexão/capacidades como aprovadas artificialmente.
-4. No roteiro final, conferir no próprio iPhone saldo/moeda/data e cobertura, sem compartilhar valores com ferramentas. Testar primeiro uma conexão; preservar null/desconhecido/parcial em vez de inventar zero.
+A origem Mercado Pago foi comprovada por cadeia proxy→consentimento→itemoriginal, conector606/OpenFinance/não sandbox/atualizado, sem consultar valores. IDs distintos são preservados e comparados pelo backend; migração18/owner/sessão/revisão/inventário impedem ativação por payload do cliente ou replay. Cofrinhos permanecem indisponíveis sem relação explícita da fonte; CDB não cria saldo extra. Relatórios/gastos/metas demonstrativos continuam separados dos dados privados.
 
-A primeira fatia é conta corrente/pagamento. Movimentos e investimentos têm fluxo completo implementado e validado com dados fictícios; os mesmos gates impedem ativação real. Cofrinhos continuam dependentes de natureza/vínculo explícitos da fonte; a tela não inventa cobertura. O trabalho técnico independente continua sem solicitar testes intermediários. As lacunas externas não serão substituídas por fixtures ou por mudança silenciosa de flags.
+Sessão lembrada usa refresh token rotativo em Keychain, sem senha salva. FaceID e cadastro público continuam desligados. Proteção de captura e multitarefa foi confirmada pelo titular; cobertura de outros controles e produtos ainda requer validação final no iPhone. Não existe promessa de riscozero.
 
-## Operação privada
+## Operação
 
-Perfis ficam em `/home/yurilopesm/.config/orbe-finance/`, fora do Metro, diretório0700/arquivos0600. `pluggy.env` contém somente Client ID/Secret; `pluggy-items.json` é inventário técnico privado. Os helpers `provider-profile.py check` e `provider-items.py check` verificam formato/permissões offline e mostram somente readiness/contagem. Autenticação remota é uma operação separada e já foi concluída; não repetir desnecessariamente.
+`financial-release.py enable-owner` verifica fontes/digests/migrações antes de liberar flags. `financial-release.py disable` desliga as leituras, sem revogar consentimento no banco. ORBE_OWNER_LIVE_RELEASE é o kill switch independente. Publicação exige recibo privado e o uso de Metro com integração real é recusado. Nenhum serviço pago contratado.
 
-Não regenerar Client Secret sem necessidade: o anterior é invalidado. Não usar listagem global, refresh não disponível no plano, cookies/scraping ou conectores diretos para contornar o fluxo pessoal. O aviso comercial de acesso real no Dashboard não foi tratado como liberação; o fluxo pessoal é separado. O uso pessoal tem condições e disponibilidade próprias, que precisam ser reconferidas ao ativar.
-
-Referências pesquisadas e histórico estão na [revisão objetiva](security/ACTIVATION-BLOCKERS-20261020.md), [pesquisa Meu Pluggy](security/MEU-PLUGGY-REVIEW.md) e [tasks](../tasks/TASKS.md). Estado técnico atual em [prontidão](RELEASE-READINESS.md). Pesquisa pública não garante ausência de vazamento, não autoriza contato com terceiros e não comprova homologação bancária.
-
-## Atualização21/10 — confirmação e pendência concreta
-
-O titular confirmou OpenFinance nos dois bancos; não é necessário repetir essa pergunta ou pedirnovaautorização bancária. As chaves e flags técnicas faltantes já estão configuradas. O diagnóstico exclusivo de metadados confirmou proxyMPatualizado/vigente/produtoshabilitados, mas encontrou consentimento comitemIddivergente do proxy consultado. A ativação não pode aceitar automaticamente esse registro sem validar a relação. Bradesco ainda não tem item espelhado identificado no inventário privado. Nenhum dadofinanceiro foi consultado. Detalhes/pergunta técnica pronta e demais gates em ACTIVATION-RECHECK-20261021.md eRELEASE-READINESS.md.
+[Política de liberação pessoal](security/OWNER-RELEASE-20261021.md) · [Prontidão](RELEASE-READINESS.md) · [Tasks](../tasks/TASKS.md).

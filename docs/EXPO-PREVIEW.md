@@ -1,33 +1,25 @@
 # Abrir o Orbe no Expo Go
 
-Prévia iOS publicada em21/10/2026, SDK57, sem PC, Metro ou rede local. O teste no aparelho fica para quando o titular estiver disponível.
+Versão iOS publicada em21/10/2026 com liberação pessoal bancária, SDK57. Funciona sem PC, Metro ou rede local.
 
 ![QR remoto do Orbe](assets/orbe-expo-go-20261021.png)
 
-Link direto: exp://u.expo.dev/update/01a15f77-2cb3-7872-a3e3-49625880255e
+Link direto: exp://u.expo.dev/update/01a16085-76f7-7f3b-a8a1-07690266d832
 
-Projeto EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0 · update01a15f77-2cb3-7872-a3e3-49625880255e · grupoa5771241-b969-4c16-8b56-b6d085ba302e · commite33928e.
+Update01a16085-76f7-7f3b-a8a1-07690266d832 · grupo62a04007-c2ad-4a78-96e8-777262246837 · commitd04f9c45b4fc313b14d0e16a620b49343e92c95d · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
 
-## O que está nesta versão
+## Primeiro acesso aos dados
 
-Seu acesso mantém a sessão lembrada e as proteções já confirmadas. Não recrie a conta nem gere novo código. Abra **Seu acesso → Ver minhas movimentações** ou **Ver meus investimentos**. As telas estão disponíveis e indicam que a leitura real ainda está em preparação. A tela de investimentos oferece bruto/líquido/data e filtros quando habilitada; não inventa identificação de cofrinhos ou total duplicado.
+Use sua conta existente. Abra **Ver minhas conexões → Mercado Pago → Preparar conexão → Ativar leitura desta conexão**. Após confirmação, volte a **Ver minhas contas → Atualizar saldos desta conexão**. Movimentações e investimentos têm telas próprias. Valores começam ocultos; use Mostrar valores. Não recrie conta nem altere credenciais.
 
-A demonstração de gastos, carteira, metas e relatórios continua separada do acesso privado. Foram preservados o layout e a identidade visual atuais. Cliente/backend têm fluxos completos de contas, movimentos e investimentos validados com fonte fictícia; **nenhum desses testes comprova homologação de suas contas pessoais**.
+A origem e permissões Mercado Pago foram verificadas com metadados reais. A ativação e a leitura final exigem a sua sessão no app; **nenhum saldo foi consultado por ferramentas e primeirovalor no iPhone ainda não confirmado**. Bradesco conectado no portal pessoal ainda não tem proxy próprio cadastrado nesta aplicação; não consta como ativo. Guia em [ACCOUNT-ACTIVATION](ACCOUNT-ACTIVATION.md).
 
-Leitura/descoberta bancária real continua desligada: liveIntegration/accountReads/movementReads/investmentReads/inventoryDiscovery/privateFinancialDataApprovedfalse. Bridgev8ACTIVE tem `liveApproved:false`; metadata v5 preserva o snapshot anterior.17migrations aplicadas/hashverificadas. Banco guarda somente metadados, sem saldos, movimentos ou posições financeiras.
+Demonstração de gastos/carteira/metas/relatórios permanece separada. Cofrinhos dependem de vínculo/natureza comprovados pela fonte; não há soma fictícia ou saldo duplicado. Layout e identidade preservados; cadastro público/FaceID/recuperação continuam desligados.
 
-## Validação da publicação
+## Evidência da entrega
 
-1201verificações (1069Node+132Python), tiposcliente/backend, exportHermes e auditoria1216fontes/56instâncias aprovados. [CI39642075250](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39642075250) success. Fonte e export comparados com todos os perfis privados antes do upload. Manifesto comschemeorbe e hashlaunchAssetigualaoHBC local; linkQRoficial conferido. Sourcemaps privados.
+Implementação validada em CI39684158931 com1229verificações e tiposcliente/backend; correção administrativa adicional aprovada em [CI39684619830](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39684619830),1231verificações totais. ExportiOS/Hermes final, auditoria1219fontes/56instâncias/advisoriesausentesJS, scansprivados/allowlist46. Manifesto remoto/schemeorbe/hashHBC/URLoficialQR conferidos após publicar. Sourcemaps privados.
 
-Backendv7(em teste depublicação antes da configuraçãoT75a):11casos negativos das rotas desativadas passaram com503/no-store, sem consultar provedor. FixtureSQL de posições/progresso passou instalada comrollback/zeroresíduos/ownerpreservado. Testes integrados1000investimentos e500movimentos são exclusivamente sintéticos.
+Backendbridge15/metadata11 ativos,18migrations imutáveis/hashverificadas. FixtureSQL instalada comrollback/zeroresíduos/ownerpreservado. Oito interruptores financeiros habilitados e digests/fontes confirmados, com kill switch independente. Nove rotas bancárias negaram anônimos401/no-store, sem chamadas ao provedor. Valores permanecem em memória volátil no app; banco próprio guarda somente metadados. Condições/limites em [liberação pessoal](security/OWNER-RELEASE-20261021.md) e [prontidão](RELEASE-READINESS.md).
 
-## Limites restantes
-
-A ativação real depende das evidências de origem Open Finance por banco, fornecedor e runtime/dependências em [prontidão](RELEASE-READINESS.md). Os gates não foram removidos para simular conclusão. Cofrinhos exigem natureza/vínculo explícitos da fonte. Cadastro de terceiros, FaceID e recuperação por e-mail seguem desligados; ExpoGo e orçamentozero mantidos.
-
-Seu acesso já existe. Titular confirmou retomada ao alternar apps, captura e multitarefa; coldrestart/logout/gravação/VoiceOver seguem no roteiro final. Nenhum dado bancário deve ser enviado no chat ou em imagens. Não houve nova autorização bancária, contratação ou leitura de finanças pelas ferramentas.
-
-[Acesso](ACCOUNT-ACCESS.md) · [Ativação](ACCOUNT-ACTIVATION.md) · [Movimentações](MOVEMENT-ACCESS.md) · [Investimentos](INVESTMENT-ACCESS.md).
-
-AtualizaçãoT75a: sem nova préviaExpo ou mudança deQR. Segredos adicionais conferidos; bridge8/metadata5 por mudança deambiente, fontes preservadas e sete smokesoff aprovados. OrigemOF confirmada pelo titular, associaçãoAPI deconsentimento divergente emdiagnóstico técnico; [estado de ativação](security/ACTIVATION-RECHECK-20261021.md).
+Retomada/captura/multitarefa já confirmadas pelo titular. Demais testes físicos ficam ao final; não enviar valores, extratos ou imagens privadas no chat. Nenhum serviço pago contratado.

@@ -1222,10 +1222,10 @@ T75c fechamento:commitc5c6391/CI39681820386success,1212verificações(1069Node+1
 - [x] Resolver associação proxy→consentimento→originalOF606 por metadados restritos.
 - [x] APIserver-only/duploAuth/SQLatômico e ação noapp, testes unit/integration/DDLrollback.
 - [x] Política de liberação pessoal, kill switch, operações enable/disable e guardas publicação.
-- [x] Check/export/audit/scan locais; CI após push.
-- [ ] Aplicar18 e fixture remoto revertido.
-- [ ] Deploybootstrapguardado/configdisabled/liberaçãopessoal/smokes.
-- [ ] PublicarQR remoto e documentação de uso/resultados.
+- [x] Check/export/audit/scan e CI39684158931/39684619830success;1231verificações finais.
+- [x] Aplicar18 e fixture remoto revertido/zeroresíduos/ownerpreservado.
+- [x] Deploybootstrapguardado/configdisabled/liberaçãopessoal/smokes:bridge15/metadata11/8flagstrue/9anônimos401.
+- [x] PublicarQR remoto e documentação de uso/resultados: update01a16085-76f7-7f3b-a8a1-07690266d832/manifesto+hashHBC+QRverificados.
 - [ ] Confirmar primeirovalor noaparelho titular (final, não bloquear trabalho independente).
 
 Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.md. Bradesco ainda sem proxy de aplicação; cofrinhos/reportsreais separados conforme cobertura, não prometerfinalização dessaslacunas.

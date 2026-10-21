@@ -1,5 +1,7 @@
 # Ativação bancária: revisão objetiva de20/10/2026
 
+**Histórico anterior à T76.** A associação Mercado Pago foi resolvida por proxy→consentimento→originalOF. Liberação pessoal atual e mitigação delimitada em [OWNER-RELEASE](OWNER-RELEASE-20261021.md); estado operacional em [prontidão](../RELEASE-READINESS.md). Restrições antigas de publicação exclusivamente sintética foram substituídas pela instrução expressa do titular.
+
 **Pesquisa histórica da c14, preservada para rastreabilidade.** Estado operacional vigente em [prontidão](../RELEASE-READINESS.md) e [ativação](../ACCOUNT-ACTIVATION.md): credenciais autenticadas/configuradas no backend desligado, bridge v5/metadata v4 e um vínculo MPpending, sem contas/valores coletados. O titular já conectou os bancos no portal pessoal; as instruções de preparação abaixo não devem ser repetidas.
 
 T51b2c14/MPG-29. Pesquisa pública e auditoria de dependências; nenhum acesso a conta bancária, login no fornecedor, contato enviado, contrato ou consentimento. A conta pessoal vazia e as credenciais técnicas podem ser preparadas pelo titular; autorização bancária e leitura real do Orbe permanecem pendentes.

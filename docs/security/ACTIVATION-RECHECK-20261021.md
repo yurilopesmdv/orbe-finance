@@ -1,5 +1,7 @@
 # Ativação bancária — verificação objetiva de21/10/2026
 
+**Histórico anterior à T76.** A associação Mercado Pago foi resolvida por proxy→consentimento→originalOF. Liberação pessoal atual e mitigação delimitada em [OWNER-RELEASE](OWNER-RELEASE-20261021.md); estado operacional em [prontidão](../RELEASE-READINESS.md). Restrições antigas de publicação exclusivamente sintética foram substituídas pela instrução expressa do titular.
+
 O titular priorizou a ativação. Esta revisão separa implementação faltante de comprovação externa. Nenhuma leitura financeira ou contato com fornecedor foi feita.
 
 ## Pendência técnica resolvida nesta etapa

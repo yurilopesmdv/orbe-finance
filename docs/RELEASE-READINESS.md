@@ -1,32 +1,28 @@
 # Prontidão do Orbe — 21/10/2026
 
-Login, sessão lembrada e proteções estão publicados. Contas, movimentações e investimentos têm cadeias completas implementadas com dados sintéticos. **Leitura de bancos reais permanece desativada.** Não confundir implementação validada com homologação das contas pessoais.
+A liberação pessoal real foi instalada. Backend bridge15/metadata11 ativos, oito flags conferidas,18migrations imutáveis/hashverificadas. Nove rotas recusam anônimos401/no-store. A conexão Mercado Pago ainda precisa da ação Preparar/Ativar na sessão do titular; isso verifica inventário e consentimento antes de qualquer saldo. **Primeiro valor no iPhone ainda não confirmado.** QR e publicação em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 | Entrega | Estado e limite |
 |---|---|
-| Login pessoal | Conta criada, refresh token rotativo em Keychain; senha não é salva. Cadastro de terceiros/FaceID/recuperação desativados |
-| Proteção | Retomada, captura e multitarefa confirmadas pelo titular. Cold restart/logout/gravação/VoiceOver ficam no teste final |
-| Contas | Descoberta, bindings técnicos, lease, autorização, centavos exatos, transporte/cache/tela preparados |
-| Movimentações | Paginação mensal, identidade opaca, progressoSQL/finalização, HTTP, transporte/cache/tela; fluxo500registros validado |
-| Investimentos | Até1000posições/10páginas, bruto/líquido/data exatos, registroRLS pósstage, commit/finish antes de cache. Fluxo integrado1000posições validado; [guia](INVESTMENT-ACCESS.md) |
-| Cofrinhos | Modelos locais existentes; fonte bancária precisa comprovar natureza e vínculo. Tela informa limitação; nenhum saldo duplicado ou zero inventado |
-| Infraestrutura | 17 migrations imutáveis aplicadas, hashes verificados. FixtureSQL instalada passou com rollback/zeroresíduos/ownerpreservado. Só metadados, sem valores financeiros |
-| Vínculos reais | Um itemMPpending, sem capacidades/aprovaçãoOF. Bradesco consta no portal pessoal, item da aplicação ainda não identificado |
-| Provedor | Credenciais e metadados técnicos do proxyMP conferidos; consentimento devolve associação de item divergente, recusada para ativação. ZeroGETfinanceiro por ferramentas; APIkeys não persistidas |
+| Login pessoal | Conta existente, refresh token rotativo no Keychain, senha não salva. Cadastro público/FaceID/recuperação desligados |
+| Proteção | Retomada/captura/multitarefa confirmadas; coldrestart/logout/gravação/VoiceOver ficam na validação final |
+| Mercado Pago | OrigemOF e permissões para contas/transações/investimentos verificadas por código com metadados reais; ativação pelo proprietário habilitada |
+| Bradesco | Conectado no portal pessoal; proxy próprio ainda ausente no inventário desta aplicação. Não concluído |
+| Contas | Descoberta/ativação/lease/centavos/transporte/cache/tela disponíveis para conexão validada |
+| Movimentações | Leitura mensal paginada, identidade opaca, cache volátil e progressoSQL; cobertura real a confirmar no iPhone |
+| Investimentos | Até1000posições/10páginas, bruto/líquido/data, cache volátil; cobertura real a confirmar no iPhone |
+| Cofrinhos | Sem vínculo/natureza comprovados pela fonte; não inferir nem duplicar valores |
+| Relatórios e categorias | Demonstração separada dos dados reais; ligação ao cache financeiro ainda pendente |
+| Infraestrutura |18migrations verificadas; fixtureSQL instalada comrollback/zeroresíduos/ownerpreservado; banco próprio guarda somente metadados |
 
-## Validação desta entrega
+## Evidências
 
-1212 verificações aprovadas naCI T75c (1069 Node +143 Python), incluindo seis cenários de diagnóstico técnico, incluindo tipos cliente/backend. Logs locais `/tmp/orbe-check-investment-client.log`. Testes integrados verificam fins recusados, registroRLS ausente, sessão bloqueada e gatesoff semrede; o provider é fictício. FixtureSQL real valida claim/commit/finish e replay, sem dados pessoais.
+CI39684158931 passou com implementação completa:1083Node+146Python=1229verificações, tiposcliente/backend, exportiOS/Hermes. Correção administrativa adicional aprovada em [CI39684619830](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39684619830),1231verificações totais (1083Node+148Python). Auditoria recémexportada1219fontes/56instâncias, advisoriesausentesJS; sourcemaps privados. Scans de perfisprivados/allowlist46 aprovados. Validador real confirmou cadeia proxy→consentimento→original606/OpenFinance/não sandbox/atualizado; nenhuma ferramenta consultou valores.
 
-SDK57.0.31/Router57.0.29 preservados. ExportiOS e auditoria do grafo atual1216fontes/56instâncias aprovados; resultado e IDs finais em [EXPO-PREVIEW](EXPO-PREVIEW.md). Scans com todos os perfis privados antes de subir artefatos. Sourcemaps ficam privados. CIs do backend39641198955, cliente39642075250, preparação39643339822 e diagnóstico39681820386 aprovadas.
+Liberação após a instrução expressa do titular em21/10, com política delimitada em [OWNER-RELEASE](security/OWNER-RELEASE-20261021.md). Substitui os bloqueios documentais anteriores exclusivamente sintéticos; não equivale a certificação do fornecedor nem riscozero. Advisories do tooling continuam registrados e mitigados pelo fluxo de publicação restrito, sem dados reais naCLI/assinaturacustomizada/Metroreal. Nenhuma dependência foi silenciosamente considerada corrigida.
 
-Backendv8 publicado continua financeiramente desligado por `liveApproved:false`, independente das envs. Chaves de movimentos e flags de movimentos/investimentos provisionadas, com os11digests conferidos e todas as seisflags financeirasfalse; metadata5 preserva suas fontes. Código local mais novo não equivale ao snapshot remoto; versões publicadas constam em STATE/EXPO-PREVIEW.
+O erro de interpretação da resposta vazia de sucesso de POSTsecrets foi corrigido e testado; as tentativas anteriores voltaram paraflagsfalse. A liberação final foi confirmada por digests/fontes/versões, não presumida pelo POST. `financial-release.py disable` permite desligar; pausa no app e remoção não revogam consentimento no banco.
 
-## Pendências para dados reais
+## Restante
 
-1. Titular confirmouOpenFinance nas duas origens; falta resolver a associação divergente entre proxy e consentimento devolvido pelaAPI e identificar o item espelhado do Bradesco. Concluir comprovação programática da origem por banco e concluir avaliação do fornecedor (retenção/logs/subprocessadores/exclusão). Proxy MeuPluggy e tabelas públicas não comprovam o consentimento original. Nenhum contato externo enviado.
-2. Resolver/mitigar as duas raízes de advisories altos no tooling e validar controles nativos. Exceção existente permite somente dados sintéticos até23/10/2026; não foi estendida. Revisão de fontes não certifica todo binário ExpoGo.
-3. Chaves já preparadas. Falta a liberação técnica versionada após os gates. Descoberta não pode fabricar capacidade ou `verifiedAt`.
-4. Homologação privada no iPhone, uma conexão por vez, e testes físicos restantes agrupados ao final. Dados financeiros não devem entrar em IA/MCP/logs/screenshots/documentos.
-
-ExpoGo e orçamentozero mantidos. A quantidade de testes não garante riscozero nem justifica ativação por atalho. Relatórios/gastos/carteira demonstrativos continuam separados dos dados reais.
+Ativação e primeirovalor via sessão do titular, compartilhamento do Bradesco com esta aplicação, homologação privada por produto, classificação/relatórios reais e cofrinhos conforme evidência. Nenhum desses itens está sendo tratado como concluído. Não pedir imagens/valores financeiros no chat; testes físicos finais agrupados. Sem novas configurações de credenciais exigidas para o Mercado Pago.

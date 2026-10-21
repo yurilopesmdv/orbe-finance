@@ -18,7 +18,7 @@ Cofrinhos não são inferidos por nome ou por ser CDB. A fonte precisa comprovar
 
 ## Configuração
 
-Cliente: `investmentReadsEnabled`, `liveIntegrationEnabled`, `privateFinancialDataApproved`. Backend: `ORBE_INVESTMENT_READS_ENABLED`, `ORBE_BRIDGE_ENABLED`, `ORBE_PRIVATE_DATA_APPROVED` e gate de código do entrypoint. Todos os gates financeiros continuam desligados na prévia. Configuração técnica é somente backend; nenhuma ClientSecret/APIkey vai para o Expo.
+Cliente: `investmentReadsEnabled`, `liveIntegrationEnabled`, `privateFinancialDataApproved`. Backend: `ORBE_INVESTMENT_READS_ENABLED`, `ORBE_BRIDGE_ENABLED`, `ORBE_PRIVATE_DATA_APPROVED` e gate de código do entrypoint. Gates habilitados para uso pessoal na prévia atual; ativação exige sessão do titular e prova de consentimento. Configuração técnica é somente backend; nenhuma ClientSecret/APIkey vai para o Expo.
 
 Migration17 registra progresso técnico, sessão em hash, claim e contagem, sem valores. Migration16 mantém positions e bindings com RLS. Não editar migrations aplicadas. O teste `backend:cloud:test-position-bindings` usa identidades fictícias e rollback, preservando o proprietário configurado. Nenhuma ferramenta de desenvolvimento pode consultar finanças reais.
 
@@ -26,4 +26,4 @@ Migration17 registra progresso técnico, sessão em hash, claim e contagem, sem 
 
 Teste integrado percorre provedor fictício→Auth/HTTP/backend→registroRLS→transporte→sessão/cache com1000posições, resposta maior que128KiB e valores exatos29/39centavos. Também verifica recusa do finish, registro ausente, lock e gateoff semrede. O teste de RPC em memória não substitui a fixtureSQL instalada.
 
-Antes de leitura real ainda são necessárias evidências da origem Open Finance original por banco e fechamento das pendências de fornecedor/runtime em docs/RELEASE-READINESS.md. Tests passarem e conector constar em tabela pública não homologam contas pessoais. Não há promessa de risco zero ou disponibilidade de cofrinhos.
+Mercado Pago tem origemOF e permissões comprovadas por metadados; cobertura de posições ainda depende da validação no iPhone. Bradesco continua sem proxy cadastrado. Política atual em docs/security/OWNER-RELEASE-20261021.md e docs/RELEASE-READINESS.md. Tests passarem e conector constar em tabela pública não homologam contas pessoais. Não há promessa de risco zero ou disponibilidade de cofrinhos.
