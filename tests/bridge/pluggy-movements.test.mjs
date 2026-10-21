@@ -94,3 +94,12 @@ test('projection integrates with local normalizer and preserves manual classific
   assert.equal(ledger.classificationFor(ref).categoryId,'food');assert.equal(ledger.classificationFor(ref).type,'expense');assert.equal(ledger.list({month:'2026-10'},true).summary.netCents,129);
   promote(await normalize(page([])));assert.equal(ledger.list({month:'2026-10'},false).totalCount,1);ledger.close();
 });
+
+
+test('explicit month continuation permits a trusted encrypted cursor only before the next UTC window',async()=>{
+  const cursor='v1.'+'x'.repeat(50);
+  assert.equal((await project(page(),{...context,nextCursor:cursor,continueMonth:true})).kind,'page');
+  assert.deepEqual(await project(page(),{...context,nextCursor:cursor}),{kind:'unavailable'});
+  assert.deepEqual(await project(page(),{...context,nextCursor:cursor,continueMonth:true,window:{dateFrom:'2026-11-01',dateTo:'2026-11-01'}}),{kind:'unavailable'});
+  assert.deepEqual(await project(page([row],next),{...context,nextCursor:cursor,continueMonth:true}),{kind:'unavailable'});
+});

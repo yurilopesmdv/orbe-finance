@@ -6,7 +6,7 @@ import { providerCents } from './pluggy-accounts.ts';
 
 export interface PluggyMovementContext {
   ownerSubject: string; connectionId: string; accountId: string; externalAccountId: string; itemId: string;
-  accountKind: 'BANK'; month: string; window: TransactionWindow; nextCursor: string | null;
+  accountKind: 'BANK'; month: string; window: TransactionWindow; nextCursor: string | null; continueMonth?: boolean;
   windowComplete: boolean; sourceUpdatedAt: string | null;
 }
 interface Snapshot { externalId: string; amountCents: number | null; currency: string; direction: 'credit' | 'debit'; status: 'posted' | 'pending'; occurredAt: string; description: string }
@@ -30,7 +30,7 @@ export async function projectPluggyMovementPage(raw: unknown, rawContext: Pluggy
     const context = fields(rawContext, ['ownerSubject','connectionId','accountId','externalAccountId','itemId','accountKind','month','window','nextCursor','windowComplete','sourceUpdatedAt']);
     const { ownerSubject, connectionId, accountId, externalAccountId, itemId, accountKind, month, nextCursor, windowComplete, sourceUpdatedAt } = context;
     if (![ownerSubject,connectionId,accountId,externalAccountId,itemId].every(uuid) || accountKind !== 'BANK' || typeof windowComplete !== 'boolean') return unavailable;
-    if (!(nextCursor === null || typeof nextCursor === 'string' && nextCursor.length >= 16 && nextCursor.length <= 512 && /^[A-Za-z0-9_-]+$/.test(nextCursor))) return unavailable;
+    if (!(nextCursor === null || typeof nextCursor === 'string' && nextCursor.length >= 16 && nextCursor.length <= 512 && /^[A-Za-z0-9._-]+$/.test(nextCursor))) return unavailable;
     const plan = planTransactionMonth(month, policy);
     if (plan.kind !== 'plan' || sourceUpdatedAt !== null && plan.classifyInstant(sourceUpdatedAt).kind === 'unavailable') return unavailable;
     const windowFields = fields(context.window, ['dateFrom','dateTo']);
@@ -40,7 +40,10 @@ export async function projectPluggyMovementPage(raw: unknown, rawContext: Pluggy
     const signal = policy.signal;
     if (signal?.aborted) return unavailable;
     const page = fields(raw, ['results','next']), rows = page.results, next = page.next;
-    if (!Array.isArray(rows) || rows.length > 500 || (next === null) !== (nextCursor === null)) return unavailable;
+    const continueMonth = Object.hasOwn(context,'continueMonth') ? context.continueMonth : false;
+    if (typeof continueMonth !== 'boolean' || !Array.isArray(rows) || rows.length > 500) return unavailable;
+    const windowIndex = plan.windows.findIndex(candidate => candidate.dateFrom === dateFrom && candidate.dateTo === dateTo);
+    if (continueMonth ? next !== null || nextCursor === null || windowIndex + 1 >= plan.windows.length : (next === null) !== (nextCursor === null)) return unavailable;
     const targets = createPluggyTargets({ itemId: itemId as string, accountIds: [externalAccountId as string] });
     targets.nextTransactions(externalAccountId as string, window, next);
     const snapshots = new Map<string, Readonly<Snapshot>>();

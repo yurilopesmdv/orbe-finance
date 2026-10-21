@@ -15,7 +15,7 @@
 
 ## Verificação atual
 
-1034 testes/typechecks aprovados (916 Node +118 Python), incluindo publicador, identidade interna e projeção backend de movimentos com dados fictícios. A prévia c38 foi publicada com 967 testes; mudanças posteriores são administrativas/backend isolado, sem nova ativação ou atualização do cliente. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+1054 testes/typechecks aprovados (936 Node +118 Python), incluindo publicador, identidade interna e projeção backend de movimentos com dados fictícios. A prévia c38 foi publicada com 967 testes; mudanças posteriores são administrativas/backend isolado, sem nova ativação ou atualização do cliente. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração confirmada por digests; fonte de 23 arquivos bridge e cinco metadata corresponde aos recibos privados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
 
@@ -35,3 +35,5 @@ Atualização21/10: T22c1–c4 prepararam identidade opaca, janelas UTC/Brasíli
 Publicação21/10/T22c5: bridgev6 com código financeirooff e fontes compartilhadas atuais; CI39587278861 success,7smokes503/no-store e5negativosmetadata aprovados. Metadata4 preserva o snapshot anterior e o mesmo protocolo/default128KiB; não foi redeployado. Nenhuma leitura real, flag, chave ou QR novo.
 
 T22c6/c7: cursor cifrado de sessão/lote e manifesto BANK validado em módulos isolados, sem chave real ou nova rota. Relatórios completos e próxima tarefa estão no [checkpoint](../roadmap/STATE.md).
+
+T22c8/c9: transporte privado de movimentações preparado e validado com rede fictícia até o ledger, incluindo múltiplas contas/janelas e500registros. Ainda falta endpoint/coordenador de progresso e cliente; nenhuma consulta bancária real foi habilitada.
