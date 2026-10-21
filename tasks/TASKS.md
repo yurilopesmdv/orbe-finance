@@ -1138,3 +1138,9 @@ T22c23 concluída21/10:1144 testes/typechecks (1022Node+122Python),12cenários d
 SEC-41/[plano](../plan/T22c24-MOVEMENT-SCREEN.md). Tela privada com gatesfalse, sem consulta real na prévia.
 
 T22c24 concluída21/10:1144 testes/typechecks preservados; tela e flagliteralfalse typechecked/exportadas. Runtimeaudit1210fontes/56instâncias, rootsadvisoryausentes/mapsprivados/scans/diff aprovados. Navegaçãoacesso/contas, períodoBrasília2000–2099, moeda/banco,20porpágina e descrição/valor ocultos. Nenhuma consulta comgatesoff, nem misturaDemo. CI23 39632140130 e22 39631758791 success. UI física fica no roteiro final. PróximaT22c25 validação sintética integrada cliente→backend→providerfake→ledger com payload>128KiB, sessão/finishfalhos, antes da publicação.
+
+## T22c25 — done
+
+[Plano](../plan/T22c25-MOVEMENT-INTEGRATED-VALIDATION.md). Validação conjunta da cadeia cliente/HTTP/backend/providerfictício/ledger, além dos testes de módulo.
+
+T22c25 concluída21/10:1148 testes/typechecks (1026Node+122Python), quatro cenários integrados.500movimentos atravessaramSessionModel→runtime/controller→HTTP→backendfixture→Auth/RPCfake→Pluggyfake→HMAC/projeção→ledger; DTO>128KiB e<=1MiB,29centavosexatos, scopeopacolocal distintoAuthowner e nenhumextra/IDexterno noDTO. Nenhuma promoção antes de finish; recusa/lock descartam; gateoffzerochamadas. SQLnãoéprovadopelaRPCfake; fixtures reais15migrations já passaram separadamente. Scan/diff aprovados; CI24 39632749109 success. Sem exportrepetido/EAS/rede financeira. PróximaT22c26 ampliar scanner privado para chaves de movimentos antes de provisionar qualquer chave.
