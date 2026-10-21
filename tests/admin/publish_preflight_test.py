@@ -117,7 +117,7 @@ class PublisherBoundaryTests(unittest.TestCase):
             root, home = base / 'project', base / 'home'
             scripts = root / 'scripts'
             scripts.mkdir(parents=True)
-            for name in ['eas-safe.mjs', 'eas-environment.mjs', 'expo-environment.mjs',
+            for name in ['owner-release-guard.mjs', 'eas-safe.mjs', 'eas-environment.mjs', 'expo-environment.mjs',
                          'publish-preflight.py', 'bridge-deploy.py', 'backend-admin.py']:
                 shutil.copyfile(m.ROOT / 'scripts' / name, scripts / name)
             profiles = home / '.config/orbe-finance'

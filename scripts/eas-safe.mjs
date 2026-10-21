@@ -1,3 +1,4 @@
+import { verifyOwnerRelease } from './owner-release-guard.mjs';
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, openSync, closeSync, existsSync, lstatSync, chmodSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -13,7 +14,9 @@ try {
   if (['init', 'publish'].includes(operation)) {
     const config = JSON.parse(readFileSync(path.join(root, 'app.json'), 'utf8')).expo;
     if (operation === 'publish' && config.scheme !== 'orbe') throw new Error('eas_router_scheme_required');
-    if (config.slug !== 'orbe-finance' || config.extra?.liveIntegrationEnabled !== false || config.runtimeVersion?.policy !== 'sdkVersion' || config.sdkVersion !== '57.0.0') throw new Error('eas_project_configuration_invalid');
+    if (['app.config.js','app.config.ts','app.config.mjs','app.config.cjs'].some(name => existsSync(path.join(root,name))) || config.updates?.codeSigningCertificate || config.updates?.codeSigningMetadata) throw new Error('eas_signing_configuration_rejected');
+    if (config.extra?.liveIntegrationEnabled === true) verifyOwnerRelease(root, directory, config);
+    if (config.slug !== 'orbe-finance' || ![false,true].includes(config.extra?.liveIntegrationEnabled) || config.runtimeVersion?.policy !== 'sdkVersion' || config.sdkVersion !== '57.0.0') throw new Error('eas_project_configuration_invalid');
     if (operation === 'init' && config.extra?.eas?.projectId) throw new Error('eas_project_already_linked');
     if (operation === 'publish') {
       const updatesPackage = path.join(root, 'node_modules/expo-updates/package.json');

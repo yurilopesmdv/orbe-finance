@@ -7,7 +7,7 @@ test('entrypoint serves only disabled handler without reading host env or perfor
   const previousFetch = globalThis.fetch;
   globalThis.Deno = {
     serve(value) { handler = value; },
-    get env() { throw new Error('env_must_not_be_read'); },
+    env: { get(name) { assert.equal(name, 'ORBE_OWNER_LIVE_RELEASE'); return undefined; } },
   };
   globalThis.fetch = () => { throw new Error('network_must_not_be_called'); };
   try {

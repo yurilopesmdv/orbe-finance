@@ -26,7 +26,7 @@ class DisabledDeployGuards(unittest.TestCase):
 
     def test_enabled_entrypoint_is_rejected(self):
         with fixture() as (root, directory):
-            (directory / 'orbe-bridge/index.mjs').write_text(deploy.EXPECTED_ENTRY.replace('liveApproved: false', 'liveApproved: true'))
+            (directory / 'orbe-bridge/index.mjs').write_text(deploy.EXPECTED_ENTRY.replace("Deno.env.get('ORBE_OWNER_LIVE_RELEASE') === 'true'", 'true'))
             with self.assertRaisesRegex(deploy.admin.SafeError, 'bridge_disabled_entrypoint_required'):
                 deploy.artifacts(root, {})
 

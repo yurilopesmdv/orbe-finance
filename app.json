@@ -20,7 +20,7 @@
     ],
     "extra": {
       "dataMode": "synthetic",
-      "liveIntegrationEnabled": false,
+      "liveIntegrationEnabled": true,
       "router": {},
       "eas": {
         "projectId": "69843dfe-ab1b-469e-bb78-c7948bbf1d9b"

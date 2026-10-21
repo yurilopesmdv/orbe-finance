@@ -260,3 +260,12 @@ Páginas de investimentos podem usar decoderexato profileinvestments e leitorHTT
 ## MPG-INV-02 — Metadados técnicos para preparação de ativação
 
 Após instrução explícita do titular para ativar os bancos existentes, é permitido diagnosticar somente os itens presentes no inventário privado por GETitem e GETconsents filtrado nesseitem. Não consultar produto/identidade/listglobal ou inferir banco de valores. Projeção antes de qualquer saída devolve apenas flags técnicas e contagens, semIDexterno/PII/credenciais/respostabruta. APIkeysomenteemmemória, requestsfixos HTTPS/nocache/noredirect/semproxy. ConfirmaçãoOpenFinance pelo titular é evidência declarada, distinta de permissions retornadas pelo consentimento original. Diagnóstico não ativa nem aprova cobertura. Ausência/ambiguidade/endpointnegado continuam desconhecidos, nunca zero ou consentimento válido inventado.
+
+## MPG-ACT-01 — Ativação separada da descoberta
+
+ConfirmarOpenFinancepelotitular não escreveverifiedAt/capacidades. Ativação recebe evidência interna validada, nunca JSON de aprovação enviado peloapp. Exigir item/resolver iguais, um consentimento atual nãorevogado, permissõesOF e produtos eminterseção. UUIDdiferente do proxy permanece recusado até contrato explícito da relação; não normalizar por adivinhação. Observação válida até120segundos, sem data futura. Descoberta técnica concluída/revisão atual/owner/sessão precedem transição pending→active. SQL atômico incrementa revisão, limpa elegibilidade de lease antigo e registra apenas metadados. Falha, replay, pausa/remoção ou sessão revogada não ativa. Prazo bancário indeterminado só com campo expiresAt explícitonull. Não persistir valores ou resposta do provedor.
+
+
+### MPG-ACT-02 — Associação de origem e liberação pessoal
+
+A instrução expressa do titular em21/10 autoriza ativação pessoal emExpoGo. Política operacional em docs/security/OWNER-RELEASE-20261021.md. GETconsents filtrado pelo proxy pode retornar IDoriginal diferente: buscar somente esse ID pela mesma credencial, exigir conectorOF/não sandbox/estado válido/banco coincidente; validar consentimento contra o original, preservar ambos em evidência server-only. Nunca fabricar equivalência de IDs. Ativação não lê valores nem homologa cobertura. Kill switch ORBE_OWNER_LIVE_RELEASE e flags individuais obrigatórios. Recibo privado valida publicação; Metro real e assinatura customizada recusados; desativação operacional disponível. Bradesco sem vínculo não é considerado ativo.

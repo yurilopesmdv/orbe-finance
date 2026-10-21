@@ -22,7 +22,7 @@ class FinancialConfigTests(unittest.TestCase):
     def test_only_missing_disabled_targets_added_and_metadata_preserved(self):
         desired,secrets,_,receipts,posts,request=fixture();prior=dict(secrets)
         result,_=m.apply_disabled(request,desired,receipts,'configure-disabled')
-        self.assertTrue(result['configuration_ready']);self.assertEqual(result['added_secrets'],11)
+        self.assertTrue(result['configuration_ready']);self.assertEqual(result['added_secrets'],13)
         self.assertEqual({r['name'] for r in posts[0]},m.TARGETS)
         self.assertTrue(all(row['value']=='false' for row in posts[0] if row['name'] in m.FLAGS))
         self.assertTrue(all(secrets[k]==v for k,v in prior.items()))

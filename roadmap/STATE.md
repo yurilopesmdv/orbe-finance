@@ -1,5 +1,15 @@
 # Estado de retomada — 21/10/2026
 
+## T76 — entrega de ativação pessoal em andamento (prioridade vigente)
+
+Titular reiterou21/10 que já configurou as plataformas, autorizou consultar Pluggy e pediu bancos funcionando sem nova aprovação. docs/security/OWNER-RELEASE-20261021.md substitui gates documentais anteriores exclusivamente sintéticos. Não prometer riscozero nem ler valores por tools. Integrador único, continuar sem parar em checkpoints.
+
+**Bloqueio MP resolvido:** consentimentos filtrados pelo proxy apontam para item original distinto, acessível mesma credencial, conector606/OpenFinance/não sandbox/UPDATED/SUCCESS, um consentimento vigente não revogado com permissõesOF. Cadeia validada tecnicamente sem GETfinanceiro. Não reescreverIDs. Bradesco ainda sem proxy nesta aplicação, não fingir2bancos.
+
+T76 código preparado: activation-evidence/provider/rest/handler/runtime, endpoint proprietário, migration18 imutável ainda NÃO aplicada, ação Preparar/Ativar noapp. Evidência contém proxy+original+instituição, SQL exige sessão/revisão/inventário/consentimento atuais e libera primeirolease sem cooldown indevido. 13testes novos unit/integration passaram; DDL18+fixture rollback passou. Fullcheck final /tmp/orbe-check-owner-release-final.log passou (tipos e todos os testes). ExportiOS/Hermes e auditoria1219fontes/56instâncias passaram, scanprivado/allowlist46 passou. Validadorreal sourceprovider.read consultou apenasAuth/item/consents e confirmou complete/MP/contas+transações+investimentostrue/reservesfalse, nenhumvalor.
+
+Liberação operacional preparada: ORBE_OWNER_LIVE_RELEASE independente +8flags no total, financial-release.py enable-owner/disable valida18migrations/fontes/digests e altera somenteflags, rollbackfalha. EASprivatereceipt/projetohashes/semassinaturacustomizada, Metrorealrecusado. Fontes46, cliente flagsfinanceirostrue mas AINDA NÃO publicado; backend antigov8 permaneceoff. NÃO encerrar tarefa aqui. Próximos passos: check+export+audit+scans; commit/push/CI; aplicar18+fixture; deploy-disabledbootstrapnovo; configure-disabled adiciona2flagsfalse; enable-owner verifica fontes/digests; smokesanônimos; publicarExpo/verificarmanifesto/QR; registrar evidênciasremotas. Não fazer loginimpersonado/leiturafinanceiraferramentas. Primeirovalor via sessão do titularnoapp. Ver instruções anteriores somente como histórico quando conflitarem comesta seção.
+
 ## Direção vigente
 
 Trabalhar exclusivamente em `/home/yurilopesm/projects/orbe-finance`, main. Não alterar F1 mesmo que cwd/sandbox apontem para ele. Usuário quer continuidade automática e entregas completas; checkpoints servem para retomada, não para pedir autorização/“pode continuar”. Integrador único, sem agentes. Testes físicos no final. Identidade visual depois. ExpoGo/orçamentozero mantidos; sem contato externo/contratação autorizados.

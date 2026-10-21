@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -7,6 +8,7 @@ import { buildExpoEnvironment, ensurePrivateProfile, expoArguments } from './exp
 const root = fileURLToPath(new URL('../', import.meta.url));
 try {
   const args = expoArguments(process.argv.slice(2));
+  if (args[0] === 'start' && JSON.parse(readFileSync(path.join(root,'app.json'),'utf8')).expo.extra?.liveIntegrationEnabled === true) throw new Error('expo_live_local_server_rejected');
   const env = buildExpoEnvironment(root, process.env, args[0] === 'export' ? 'production' : 'development');
   ensurePrivateProfile(env.__UNSAFE_EXPO_HOME_DIRECTORY, path.resolve(root));
   const outputIndex = args.indexOf('--output-dir');

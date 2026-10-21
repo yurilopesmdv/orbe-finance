@@ -126,4 +126,39 @@ do $$ declare g jsonb;begin
  assert not public.orbe_stage_position_bindings(current_setting('orbe.position_owner')::uuid,current_setting('orbe.position_conn')::uuid,2,current_setting('orbe.position_item')::uuid,(g->>'lease_id')::uuid,current_setting('orbe.position_session')::uuid,'[]'),'position_stage_capability_bypass';
  assert public.orbe_resolve_investment_read(current_setting('orbe.position_conn')::uuid,current_setting('orbe.position_owner')::uuid,1,current_setting('orbe.position_lease')::uuid,current_setting('orbe.position_session')::uuid) is null,'position_disabled_capability';end $$;
 reset role;
+-- Activation uses its own pending connection and the same synthetic owner/session.
+insert into public.orbe_connections(id,owner_id,institution,state) values('10000000-0000-4000-8000-000000000153',current_setting('orbe.position_owner')::uuid,'mercado-pago','pending');
+insert into orbe_private.connection_bindings(connection_id,owner_id,external_item_id) values('10000000-0000-4000-8000-000000000153',current_setting('orbe.position_owner')::uuid,'20000000-0000-4000-8000-000000000153');
+do $$ begin
+ assert not has_function_privilege('authenticated','public.orbe_activate_connection(uuid,uuid,bigint,uuid,jsonb)','execute'),'activation_client_permission';
+ assert not has_function_privilege('anon','public.orbe_activate_connection(uuid,uuid,bigint,uuid,jsonb)','execute'),'activation_anon_permission';
+ assert has_function_privilege('service_role','public.orbe_activate_connection(uuid,uuid,bigint,uuid,jsonb)','execute'),'activation_service_missing';
+end $$;
+set local role service_role;
+do $$ declare o uuid:=current_setting('orbe.position_owner')::uuid;c uuid:='10000000-0000-4000-8000-000000000153';i uuid:='20000000-0000-4000-8000-000000000153';s uuid:=current_setting('orbe.position_session')::uuid;e jsonb;g jsonb;l uuid;begin
+ e:=jsonb_build_object('itemId',i,'originalItemId','30000000-0000-4000-8000-000000000153','institution','mercado-pago','observedAt',clock_timestamp(),'proxyConsentExpiresAt',clock_timestamp()+interval '1 day','bankConsentExpiresAt',null,'bankConsentIndefinite',true,'sourceUpdatedAt',null,'capabilities',jsonb_build_object('accounts',true,'transactions',true,'investments',true,'reserves',false));
+ assert not public.orbe_activate_connection(c,o,1,s,e),'activation_before_inventory';
+ g:=public.orbe_begin_pending_inventory(c,o,1);assert g->>'status'='acquired','activation_inventory_grant';l:=(g->>'lease_id')::uuid;
+ assert not public.orbe_activate_connection(c,o,1,s,e),'activation_inventory_inflight';
+ assert public.orbe_commit_pending_inventory(c,o,1,l,i,'[{"externalId":"40000000-0000-4000-8000-000000000153","kind":"unknown","currency":"BRL"}]'),'activation_inventory_commit';
+ assert not public.orbe_activate_connection(c,o,2,s,e),'activation_wrong_revision';
+ assert not public.orbe_activate_connection(c,o,1,'70000000-0000-4000-8000-000000000152',e),'activation_foreign_session';
+ assert not public.orbe_activate_connection(c,'00000000-0000-4000-8000-000000000152',1,s,e),'activation_foreign_owner';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('itemId',gen_random_uuid())),'activation_wrong_item';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('observedAt',clock_timestamp()-interval '121 seconds')),'activation_stale_evidence';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('observedAt',clock_timestamp()+interval '1 minute')),'activation_future_evidence';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('proxyConsentExpiresAt',clock_timestamp()-interval '1 second')),'activation_expired_proxy';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('bankConsentIndefinite',false)),'activation_unknown_expiry';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('bankConsentExpiresAt',clock_timestamp()+interval '1 day')),'activation_contradictory_expiry';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('amount',100)),'activation_extra_financial_data';
+ assert not public.orbe_activate_connection(c,o,1,s,e||jsonb_build_object('capabilities',jsonb_build_object('accounts',false,'transactions',true,'investments',false,'reserves',false))),'activation_transactions_without_account';
+ assert public.orbe_activate_connection(c,o,1,s,e),'activation_valid_transition';
+ assert not public.orbe_activate_connection(c,o,1,s,e),'activation_replay';
+ assert not public.orbe_check_connection_read(c,o,1,l,'accounts'),'activation_old_lease';
+ g:=public.orbe_begin_connection_read(c,o,2);assert g->>'status'='acquired','activation_first_read_cooldown';
+end $$;
+reset role;
+do $$ begin
+ assert exists(select 1 from public.orbe_connections where id='10000000-0000-4000-8000-000000000153' and state='active' and revision=2 and accounts_available and transactions_available and investments_available and not reserves_available and open_finance_verified_at is not null and bank_consent_expires_at is null and last_read_at is null),'activation_state_projection';
+end $$;
 rollback;

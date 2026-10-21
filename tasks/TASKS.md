@@ -1214,3 +1214,18 @@ SpecSEC45/planT75. HelpermovementkeysCSPRNG32bytesdistintas/criaçãoúnica/chec
 T75a remota concluída:CI39643339822success/configready/11digests/seisflagsfalse/bridge8metadata5/fontespreservadas/7smokes503-no-store. Primeiratentativanãoconcluiuconferência, reconciliaçãoidempotenteadicionou0econfirmoutudo; semrotação. T75c: titular confirmouOFdosdoisbancos. HelperdiagnósticosóPOSTauth/GETitem/GETconsentsdeitemconhecido,6testeslocaisaprovados, saídaapenasflagstécnicas. Quatroexecuçõesduranteanálise(4Auth+4item+4consents), nenhumproduto/PII/valor/IDnasaída. MPupdated/proxyvigente/3produtossolicitados; consentretornaitemIddivergente eérecusadoparaativação. Bradescoitemcontinuanãoidentificado. Perguntatécnicaexternaprontanãoenviada,semclaimfalsodeativação.
 
 T75c fechamento:commitc5c6391/CI39681820386success,1212verificações(1069Node+143Python)/tipo/export/runtimeauditCI aprovados. Gitmainatualizado. AplicativoeQRinalterados; configuração11digests/seisflagsfalse pronta. Ativação permanece bloqueada pela associaçãoAPI de consentimento e itemBradesco não identificado, além dos gates de segurança já documentados. ConfirmaçãoOF do titular registrada; não repetirpergunta/novos testes ouGETs como substituto dessaspendências.
+
+
+## T76 — ativação pessoal solicitada em21/10
+
+- [x] Spec/plan de ativação e transiçãoSQL18.
+- [x] Resolver associação proxy→consentimento→originalOF606 por metadados restritos.
+- [x] APIserver-only/duploAuth/SQLatômico e ação noapp, testes unit/integration/DDLrollback.
+- [x] Política de liberação pessoal, kill switch, operações enable/disable e guardas publicação.
+- [x] Check/export/audit/scan locais; CI após push.
+- [ ] Aplicar18 e fixture remoto revertido.
+- [ ] Deploybootstrapguardado/configdisabled/liberaçãopessoal/smokes.
+- [ ] PublicarQR remoto e documentação de uso/resultados.
+- [ ] Confirmar primeirovalor noaparelho titular (final, não bloquear trabalho independente).
+
+Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.md. Bradesco ainda sem proxy de aplicação; cofrinhos/reportsreais separados conforme cobertura, não prometerfinalização dessaslacunas.

@@ -49,8 +49,9 @@ def inspect_metadata(credentials,items,open_request=None,now=None):
     if set(credentials)!={'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET'} or not re.fullmatch(r'[A-Za-z0-9_-]{1,256}',credentials['PLUGGY_CLIENT_ID']) or not re.fullmatch(r'[A-Za-z0-9._~/-]{16,512}',credentials['PLUGGY_CLIENT_SECRET']):raise SafeError('metadata_credentials_invalid')
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),profile.NoRedirect())
     request_fn=open_request or opener.open
+    linked_ids=set()
     def call(path,body=None,key=None):
-        allowed=path=='/auth' and body is not None and key is None or any(path in ('/items/'+row['itemId'],'/consents?itemId='+row['itemId']) for row in items) and body is None and isinstance(key,str)
+        allowed=path=='/auth' and body is not None and key is None or (any(path in ('/items/'+row['itemId'],'/consents?itemId='+row['itemId']) for row in items) or any(path=='/items/'+identifier for identifier in linked_ids)) and body is None and isinstance(key,str)
         if not allowed:raise SafeError('metadata_endpoint_denied')
         headers={'Accept':'application/json','Content-Type':'application/json','Cache-Control':'no-store'}
         if key:headers['X-API-KEY']=key
@@ -81,6 +82,28 @@ def inspect_metadata(credentials,items,open_request=None,now=None):
                     consents['consent_rows_match_proxy']=all(isinstance(r,dict) and r.get('itemId')==identifier for r in rows)
                     consents['consent_required_fields_present']=all(isinstance(r,dict) and all(k in r for k in ('itemId','createdAt','products')) for r in rows)
                     consents['consent_permissions_field_present']=all(isinstance(r,dict) and 'openFinancePermissionsGranted'in r for r in rows)
+            # Follow at most one UUID supplied by the consent endpoint scoped to this known proxy.
+            # GETitem is metadata only; no returned URL, global enumeration or product request.
+            if isinstance(consent_source,dict) and isinstance(consent_source.get('results'),list):
+                candidates={entry.get('itemId') for entry in consent_source['results'] if isinstance(entry,dict) and isinstance(entry.get('itemId'),str)}
+                if len(candidates)==1:
+                    candidate=next(iter(candidates))
+                    if candidate!=identifier and re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}',candidate):
+                        linked_ids.add(candidate)
+                        try:
+                            linked=call('/items/'+candidate,key=key)
+                            connector=linked.get('connector') if isinstance(linked,dict) else None
+                            consents['linked_source_accessible']=isinstance(linked,dict) and linked.get('id')==candidate
+                            consents['linked_source_ready']=isinstance(linked,dict) and linked.get('status')=='UPDATED' and linked.get('executionStatus')=='SUCCESS' and linked.get('error')is None
+                            consents['linked_source_open_finance']=isinstance(connector,dict) and connector.get('isOpenFinance')is True and connector.get('isSandbox')is False
+                            consents['linked_source_institution_matches']=isinstance(connector,dict) and connector.get('id')=={'bradesco':603,'mercado-pago':606}[row['institution']]
+                            if consents['linked_source_accessible'] and consents['linked_source_open_finance'] and consents['linked_source_institution_matches']:
+                                consents['linked_consent']=project_consents(consent_source,candidate,now)
+                        except urllib.error.HTTPError as error:
+                            error.close();consents['linked_source_accessible']=False
+                        except SafeError:
+                            consents['linked_source_schema_confirmed']=False
+                        finally:linked_ids.discard(candidate)
             reports.append({'institution':row['institution'],**item,**consents})
         return {'technical_metadata_only':True,'connections':reports,'financial_reads':0}
     finally:key=None;auth.clear()
