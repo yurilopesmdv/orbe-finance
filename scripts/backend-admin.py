@@ -84,6 +84,11 @@ def client(token, ref):
             headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/json', 'Content-Type': 'application/json'})
         try:
             with opener.open(req, timeout=40) as response:
+                if path == '/secrets' and method == 'POST':
+                    raw = response.read(262145)
+                    if len(raw) > 262144: raise SafeError('management_response_too_large')
+                    # Supabase confirms secret writes with an empty successful response.
+                    return None if not raw.strip() else json.loads(raw)
                 return json.load(response)
         except urllib.error.HTTPError as error:
             raise SafeError('management_http_' + str(error.code)) from None

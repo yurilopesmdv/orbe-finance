@@ -317,5 +317,21 @@ class BackendGuards(unittest.TestCase):
                 admin.main()
             self.assertFalse((root / '.env.local').exists())
 
+class SecretResponseTests(unittest.TestCase):
+    def test_empty_success_accepted_only_for_secret_write(self):
+        from unittest.mock import MagicMock
+        for path,method in [('/secrets','POST'),('/secrets','GET'),('/config/auth','PATCH')]:
+            response=io.BytesIO(b'')
+            opener=MagicMock();opener.open.return_value.__enter__.return_value=response
+            with patch.object(admin.urllib.request,'build_opener',return_value=opener):
+                request=admin.client('invented','a'*20)
+                if path=='/secrets' and method=='POST':self.assertIsNone(request(path,method,[]))
+                else:
+                    with self.assertRaisesRegex(admin.SafeError,'management_unavailable'):request(path,method,[])
+    def test_json_secret_write_response_remains_supported(self):
+        from unittest.mock import MagicMock
+        opener=MagicMock();opener.open.return_value.__enter__.return_value=io.BytesIO(b'[]')
+        with patch.object(admin.urllib.request,'build_opener',return_value=opener):self.assertEqual(admin.client('invented','a'*20)('/secrets','POST',[]),[])
+
 if __name__ == '__main__':
     unittest.main()
