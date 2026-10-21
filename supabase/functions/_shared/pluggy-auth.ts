@@ -1,3 +1,5 @@
+import { prepareInvestmentRead, type AuthorizedInvestmentRead, type ResolveInvestmentBindings, type InvestmentReadResult } from './investment-read.ts';
+import type { InvestmentProjectionContext } from './pluggy-investments.ts';
 import { prepareMovementRead, type AuthorizedMovementRead, type MovementKeyConfiguration, type MovementReadResult } from './movement-read.ts';
 import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { projectAccountInventory } from './account-inventory.ts';
@@ -24,7 +26,7 @@ const object = (value: unknown): value is Record<string, unknown> => typeof valu
 /** Server-only preparation. No deployed composition enables this fixture transport. */
 function createCore(resolve: () => Configuration, options: ExecutionPolicy & { enabled?: boolean; transport?: Transport; clock?: BridgeClock } = {}) {
   const executionMode = options.enabled === true ? resolveExecutionMode(options) : null;
-  if (executionMode === null) return Object.freeze({ authenticate: async () => 'disabled' as const, readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean, _movement?: MovementOperation) => ({ status: 'disabled' as const }), close() {} });
+  if (executionMode === null) return Object.freeze({ authenticate: async () => 'disabled' as const, readInvestmentData: async (_context: InvestmentProjectionContext, _request: AuthorizedInvestmentRead, _resolve: ResolveInvestmentBindings, _signal: AbortSignal): Promise<InvestmentReadResult> => ({ status: 'disabled' }), readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean, _movement?: MovementOperation) => ({ status: 'disabled' as const }), close() {} });
   let clientId: string, clientSecret: string, transport: Transport;
   let now: () => number, setTimer: BridgeClock['setTimer'], clearTimer: BridgeClock['clearTimer'];
   try {
@@ -33,7 +35,7 @@ function createCore(resolve: () => Configuration, options: ExecutionPolicy & { e
     clientId = id; clientSecret = secret; transport = options.transport;
     const clock = options.clock ?? systemClock;
     now = clock.now.bind(clock); setTimer = clock.setTimer.bind(clock); clearTimer = clock.clearTimer.bind(clock);
-  } catch { return Object.freeze({ authenticate: async () => 'unavailable' as const, readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean, _movement?: MovementOperation) => ({ status: 'unavailable' as const }), close() {} }); }
+  } catch { return Object.freeze({ authenticate: async () => 'unavailable' as const, readInvestmentData: async (_context: InvestmentProjectionContext, _request: AuthorizedInvestmentRead, _resolve: ResolveInvestmentBindings, _signal: AbortSignal): Promise<InvestmentReadResult> => ({ status: 'unavailable' }), readData: async (_context: AccountProjectionContext, _signal: AbortSignal, _inventoryMode?: boolean, _movement?: MovementOperation) => ({ status: 'unavailable' as const }), close() {} }); }
   let key: string | null = null, expiresAt = 0, lastNow = -1, epoch = 0, closed = false;
   let expiryTimer: unknown, expiryScheduled = false;
   let inFlight: { controller: AbortController; stop(): void } | null = null;
@@ -193,6 +195,55 @@ function createCore(resolve: () => Configuration, options: ExecutionPolicy & { e
         if (stopRead === cancel) stopRead = null;
       }
     },
+    async readInvestmentData(context: InvestmentProjectionContext, request: AuthorizedInvestmentRead, resolveBindings: ResolveInvestmentBindings, signal: AbortSignal): Promise<InvestmentReadResult> {
+      if (closed) return { status: 'unavailable' };
+      if (signal.aborted) return { status: 'cancelled' };
+      if (stopRead) return { status: 'busy' };
+      const prepared = prepareInvestmentRead(context, request, { enabled: true, mode: executionMode, privateDataApproved: true, now: time });
+      if (prepared.kind !== 'prepared') return { status: 'unavailable' };
+      const itemId = context.itemId;
+      const controller = new AbortController(), generation = epoch;
+      let timer: unknown, scheduled = false, stopped = false;
+      let resolveStop: (result: InvestmentReadResult) => void = () => {};
+      const interrupted = new Promise<InvestmentReadResult>(resolve => { resolveStop = resolve; });
+      const stop = (status: 'cancelled' | 'unavailable') => { if (!stopped) { stopped = true; controller.abort(); resolveStop({ status }); } };
+      const cancel = () => stop('cancelled'); stopRead = cancel;
+      signal.addEventListener('abort', cancel, { once: true });
+      try {
+        const start = time(); timer = setTimer(() => stop('unavailable'), 20000); scheduled = true;
+        if (signal.aborted) cancel();
+        const work = async (): Promise<InvestmentReadResult> => {
+          try {
+            const auth = await port.authenticate(controller.signal);
+            if (auth !== 'ready') return { status: auth };
+            const requestKey = key;
+            const fresh = () => { if (controller.signal.aborted || closed || epoch !== generation || !requestKey || key !== requestKey || time() >= expiresAt || time() - start >= 20000) throw Error(); };
+            const fetch = async (target: string): Promise<Response> => {
+              fresh();
+              const response = await transport(target, { method: 'GET', headers: { Accept: 'application/json', 'X-API-KEY': requestKey!, 'Cache-Control': 'no-store' }, signal: controller.signal, redirect: 'error', credentials: 'omit', cache: 'no-store', referrerPolicy: 'no-referrer' });
+              if (response.status === 401 || response.status === 403) clearKey();
+              fresh(); return response;
+            };
+            const response = await fetch(createPluggyTargets({ itemId, accountIds: [] }).item());
+            let evidence;
+            try {
+              if (response.status === 429) return { status: 'rate_limited' };
+              if (!response.ok || response.status !== 200 || response.redirected) throw Error();
+              evidence = verifyPluggyItem(await readJsonResponse(response, controller.signal), itemId, time(), 'investments');
+            } finally { try { void response.body?.cancel().catch(() => {}); } catch {} }
+            fresh();
+            const result = await prepared.read(evidence, fetch, resolveBindings, controller.signal);
+            fresh(); return result;
+          } catch { return { status: controller.signal.aborted ? 'cancelled' : 'unavailable' }; }
+        };
+        return await Promise.race([interrupted, work()]);
+      } catch { return { status: 'unavailable' }; }
+      finally {
+        prepared.close(); controller.abort(); signal.removeEventListener('abort', cancel);
+        if (scheduled) { try { clearTimer(timer); } catch {} }
+        if (stopRead === cancel) stopRead = null;
+      }
+    },
     close() {
       closed = true; epoch++; clearKey(); stopRead?.(); inFlight?.stop();
       // Captured technical credentials can no longer be used by this instance.
@@ -256,4 +307,11 @@ export function createPluggyMovementsPort(resolve: () => Configuration, resolveK
     },
     close: core.close,
   });
+}
+
+/** Private one-shot investments port; bindings are staged only after full source validation. */
+export function createPluggyInvestmentsPort(resolve: () => Configuration, options: Options & { investmentsEnabled?: boolean } = {}) {
+  if (options.enabled !== true || options.investmentsEnabled !== true || resolveExecutionMode(options) === null) return Object.freeze({ readInvestments: async (_context: InvestmentProjectionContext, _request: AuthorizedInvestmentRead, _resolve: ResolveInvestmentBindings, _signal: AbortSignal): Promise<InvestmentReadResult> => ({ status: 'disabled' }), close() {} });
+  const core = createCore(resolve, options);
+  return Object.freeze({ readInvestments: core.readInvestmentData, close: core.close });
 }

@@ -100,3 +100,11 @@ public.orbe_positions guarda somente IDinterno/conexão/owner/productinvestment/
 ## PORT-13 — Validar snapshot antes de registrar IDs (T23c4c)
 
 Preparação de investimentos valida snapshot/valores/data/status/item antes de expor IDs técnicos ao callback de staging. Handle genuíno é congelado e oferece somente IDsexternosúnicos/receivedRows; mínimosfinanceiros validados ficam emWeakMapprivado do módulo, semPII/extras ou retornoHTTP. Projeção posterior exige essehandle e contexto combindings reais do mesmoitem, devolvendo somente IDsinternos. Clones/forjados/descartados falham; discard remove o vínculo privado, sem promessa de apagar bytes do heap. Wrapper de projeção atual preserva contrato e descarta seu handle nofinally. Nenhum binding fictício externalId=internalId é usado como prova de autorização.
+
+## PORT-14 — Transporte integral de investimentos
+
+Leitura privada é one-shot com lease/sessão/revisão válidos, até10páginas de100 e1000linhas. Contadores, cardinalidade e IDs não podem divergir entre páginas. Validar snapshot integral antes de stage; IDs internos reais vêm de callback autorizado. API key permanece na closure de Auth; consentimento INVESTMENTS deve estar atual. Deadline20s, abort e close descartam resultado; 429 não repete. Não retornar IDs externos/PII nem inferir cobertura completa ou relação de reserva.
+
+## PORT-15 — Confirmação e resposta de investimentos
+
+Claim único por lease e sessãoAuth atual precede fornecedor; commit metadataonly exige claim vigente e contagem0–1000, sem repetir. Finishdedicado só aceita commit concluído e mesma sessão; finishgenérico não passa progresso incompleto. HTTP aceita apenas conexão/revisão/lease, resolve contexto no servidor e registra IDs após validação integral. Antes do commit reautentica e compara contexto pósstage; nenhuma mutação de vínculo prévio é aceita. Falhas não retornam posições. Completo significa paginação concluída, jamais cobertura financeira integral; partialtrue/authoritativefalse são preservados.

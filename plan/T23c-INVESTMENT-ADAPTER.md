@@ -17,3 +17,11 @@ PORT-11/SEC-006; dependeT22c26 eT23a/b1/b2. Integrador único; gates financeiros
 | c10 | c8,c9 | fluxoHTTPfake/export/audit/CI/docs | integração sintética≠homologaçãoreal; checkpointpublicáveloff |
 
 Cada etapa gera plano limitado antes de código e checkpoint. c1 não fazHTTP, provisionaIDs ou suporta múltiplaspáginas: recusa snapshotfragmentado; transporte posterior não pode anunciar completude usandoessa limitação. Dados do titular ficamfora de testes/ferramentas/Git. Nada pago ou contatoexterno.
+
+## Entrega consolidada de transporte — 21/10
+
+Por orientação do titular, c4d/c4e serão implementadas e validadas juntas: collector paginado e port privado de investimentos. Responsável: integrador. Paths: investment-read.ts, pluggy-auth.ts, allowlist e teste integrado do port. Aceite: até10páginas/1000posições, contadores estáveis, sem duplicatas, centavos exatos, staging só após validação integral, sessão/lease/consent vigentes, cancelamento/deadline e nenhuma credencial/ID externo no resultado. Etapas c5–c10 permanecem sequenciais, sem aprovação intermediária.
+
+## Integração do backend (c5/c6)
+
+Paths: migration17, fixture position-bindings, investment-progress-rest/handler/finalize/runtime, configuração e roteamento; integrador único. Progresso metadataonly por sessão/lease, claimúnico/commit≤1000/finishdedicado. ValidaçãoSQL com rollback antes de aplicar; HTTP exige reAuth/resolver atual antes de commit. Stage só IDs após snapshot integral, resolução posterior sem troca de vínculos existentes. Aceite integrado providerfake→HTTP→DTO mínimo e falhas de sessão/commit; entrypoint continua off. Sem acesso financeiro por ferramentas.

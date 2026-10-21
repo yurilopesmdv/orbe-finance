@@ -1192,3 +1192,7 @@ T23c4b concluída21/10:1181 testes/typechecks (1049Node+132Python), trêsnovosca
 PORT-13/[plano](../plan/T23c4c-PREPARED-INVESTMENTS.md). Validar dados antes de registrar vínculos, sem expor payload financeiro ao callback.
 
 T23c4c concluída21/10:1184 testes/typechecks (1052Node+132Python), trêsnovoscasos de handlegenuíno/clones/discard/semvalores/snapshotimutável/invalidosemIDsstaging/gates. Wrapper e15casosanteriores preservados. Dadosmínimosfinanceiros ficamemWeakMapprivado e sóprojetam apósbindingsreais; handleexpõeIDs técnicos/contagem. Scan/allowlist36/diff aprovados. CIc4b 39638051009 success. SemHTTP/deploy/env. Próximac4d collector limitado de páginas com callbackIDsapenas; depois integrarAuthclosure.
+
+### T23c4–c6 — entrega consolidada de investimentos (21/10/2026)
+
+Implementados collector paginado/exato, port com APIkeyprivada/consentINVESTMENTS/deadline20s, staging após validação integral, RPCsfixos, handlerHTTP/Authduplo/contextopósstage/commit e finishdedicado, runtime/flagORBE_INVESTMENT_READS_ENABLED (off). 13cenários novos transporte+HTTP+REST, checkcompleto aprovado `/tmp/orbe-check-investment-backend.log`, tiposbackend aprovados após runtime. Migration17 nova: claimúnico/sessão/lease/commit≤1000/finish; genericfinishpreserva proteção de movimentos. DDL+fixtureSQL passaram comrollback/zeroresíduos/ownerpreservado/zeroGETfinanceiro. Ainda não aplicada: aguardarCI e rodarfixtureinstalada. Próxima c7/c8 cliente integrado. Não publicado nem ativado.

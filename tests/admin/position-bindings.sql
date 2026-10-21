@@ -92,6 +92,30 @@ do $$ begin
 end $$;
 reset role;
 update auth.sessions set not_after=null where id=current_setting('orbe.position_session')::uuid;
+-- One-shot investment progress is independent from values and cannot be replayed.
+set local role service_role;
+do $$ declare o uuid:=current_setting('orbe.position_owner')::uuid;c uuid:=current_setting('orbe.position_conn')::uuid;s uuid:=current_setting('orbe.position_session')::uuid;l uuid:=current_setting('orbe.position_lease')::uuid;g jsonb;n uuid;begin
+ assert not public.orbe_finish_investment_read(c,o,1,l,s),'position_finish_without_claim';
+ assert public.orbe_claim_investment_read(c,o,1,l,'70000000-0000-4000-8000-000000000152') is null,'position_claim_foreign_session';
+ g:=public.orbe_claim_investment_read(c,o,1,l,s);assert g is not null,'position_claim_missing';n:=(g->>'claimId')::uuid;
+ assert public.orbe_claim_investment_read(c,o,1,l,s) is null,'position_claim_replay';
+ assert not public.orbe_finish_connection_read(c,o,1,l,'success'),'position_generic_finish_incomplete';
+ assert not public.orbe_finish_investment_read(c,o,1,l,s),'position_finish_uncommitted';
+ assert not public.orbe_commit_investment_read(c,o,1,l,s,gen_random_uuid(),1),'position_wrong_claim';
+ assert not public.orbe_commit_investment_read(c,o,1,l,s,n,1001),'position_progress_overflow';
+ assert not public.orbe_commit_investment_read(c,o,1,l,'70000000-0000-4000-8000-000000000152',n,1),'position_commit_foreign_session';
+ assert public.orbe_commit_investment_read(c,o,1,l,s,n,1),'position_commit_missing';
+ assert not public.orbe_commit_investment_read(c,o,1,l,s,n,1),'position_commit_replay';
+ assert not public.orbe_finish_investment_read(c,o,1,l,'70000000-0000-4000-8000-000000000152'),'position_finish_foreign_session';
+ assert public.orbe_finish_investment_read(c,o,1,l,s),'position_finish_missing';
+ assert not public.orbe_finish_investment_read(c,o,1,l,s),'position_finish_replay';
+end $$;
+reset role;
+do $$ begin
+ assert not has_table_privilege('authenticated','orbe_private.investment_reads','select,insert,update,delete'),'position_progress_client_access';
+ assert not has_function_privilege('authenticated','public.orbe_claim_investment_read(uuid,uuid,bigint,uuid,uuid)','execute'),'position_progress_client_claim';
+ assert not has_function_privilege('anon','public.orbe_commit_investment_read(uuid,uuid,bigint,uuid,uuid,uuid,integer)','execute'),'position_progress_anon_commit';
+end $$;
 -- Capability changes fence revision and cannot be repaired by staging.
 update public.orbe_connections set investments_available=false,accounts_available=true where id=current_setting('orbe.position_conn')::uuid;
 update orbe_private.connection_reads set lease_expires_at=clock_timestamp()-interval '2 seconds',next_read_at=clock_timestamp()-interval '1 second' where connection_id=current_setting('orbe.position_conn')::uuid;

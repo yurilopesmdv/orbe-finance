@@ -1,3 +1,4 @@
+import { createInvestmentBackendRuntime } from './investment-runtime.ts';
 import { createMovementBackendRuntime } from './movement-runtime.ts';
 import { createAccountBackendRuntime } from './account-runtime.ts';
 import { createInventoryBackendRuntime } from './inventory-runtime.ts';
@@ -9,23 +10,24 @@ export function createFinancialRuntime(read: AccountConfigurationReader, options
   const disabled = Object.freeze({ handler: async (_request: Request) => response(503, 'unavailable'), close() {} });
   if (options.liveApproved !== true) return disabled;
   try {
-    if (read('ORBE_BRIDGE_ENABLED') !== 'true' || read('ORBE_PRIVATE_DATA_APPROVED') !== 'true' || (read('ORBE_ACCOUNT_READS_ENABLED') !== 'true' && read('ORBE_INVENTORY_DISCOVERY_ENABLED') !== 'true' && read('ORBE_MOVEMENT_READS_ENABLED') !== 'true')) return disabled;
+    if (read('ORBE_BRIDGE_ENABLED') !== 'true' || read('ORBE_PRIVATE_DATA_APPROVED') !== 'true' || (read('ORBE_ACCOUNT_READS_ENABLED') !== 'true' && read('ORBE_INVENTORY_DISCOVERY_ENABLED') !== 'true' && read('ORBE_MOVEMENT_READS_ENABLED') !== 'true' && read('ORBE_INVESTMENT_READS_ENABLED') !== 'true')) return disabled;
     const policy = { mode: 'live' as const, liveApproved: true, transport: options.transport };
-    const accountReads = read('ORBE_ACCOUNT_READS_ENABLED') === 'true';
-    const accounts = createAccountBackendRuntime(read, policy), inventory = createInventoryBackendRuntime(read, policy), movements = createMovementBackendRuntime(read,policy);
+    const accountReads = read('ORBE_ACCOUNT_READS_ENABLED') === 'true', movementReads = read('ORBE_MOVEMENT_READS_ENABLED') === 'true';
+    const accounts = createAccountBackendRuntime(read, policy), inventory = createInventoryBackendRuntime(read, policy), movements = createMovementBackendRuntime(read,policy), investments=createInvestmentBackendRuntime(read,policy);
     let closed = false;
     return Object.freeze({
       async handler(request: Request) {
         if (closed) return response(503, 'unavailable');
         try {
           const path = new URL(request.url).pathname;
+          if (['/orbe-bridge/investments/read','/orbe-bridge/investments/finalize'].includes(path) || path === '/orbe-bridge/reads/acquire' && !accountReads && !movementReads) return await investments.handler(request);
           if (['/orbe-bridge/movements/read','/orbe-bridge/movements/finalize'].includes(path) || path === '/orbe-bridge/reads/acquire' && !accountReads) return await movements.handler(request);
           if (path === '/orbe-bridge/accounts/discover') return await inventory.handler(request);
           if (['/orbe-bridge/accounts/read', '/orbe-bridge/reads/acquire', '/orbe-bridge/reads/finalize'].includes(path)) return await accounts.handler(request);
           return response(404, 'not_found');
         } catch { return response(503, 'unavailable'); }
       },
-      close() { if (closed) return; closed = true; accounts.close(); inventory.close(); movements.close(); },
+      close() { if (closed) return; closed = true; accounts.close(); inventory.close(); movements.close(); investments.close(); },
     });
   } catch { return disabled; }
 }
