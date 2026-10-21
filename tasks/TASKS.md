@@ -1154,3 +1154,9 @@ T22c26 concluída21/10:1154 testes/typechecks (1026Node+128Python), seis novosce
 ## T23c0 — done
 
 PORT-11/[plano](../plan/T23c-INVESTMENT-ADAPTER.md). Pesquisa primária21/10 e escopo do adapter de investimentos/reservas. CoberturaOF por conector separada da direta e do consentimento; bruto/líquido, recursos/status e cofrinhos sem heurística documentados. Docs-only, sem novo teste/rede autenticada/financeira. PróximaT23c1 projeção pura vinculada e snapshotúnico.
+
+## T23c1 — done
+
+PORT-11/[plano](../plan/T23c1-INVESTMENT-PROJECTION.md). Projeção pura de snapshot vinculado de investimentos.
+
+T23c1 concluída21/10:1166 testes/typechecks (1038Node+128Python),12casos novos. Snapshotvinculado/contadores exatos, bruto/líquido29c/baseNet/null/negativos/limites, IDOR, dedupeconflito, moedaausente, statusnãoativo, datasestritas, classes porType e gettersPII nunca lidos. Projeção→normalizador→MemoryAssets preserva valuation e subtotalreconciliado0 por relaçãounknown. Scan/allowlist36/diff aprovados; semHTTP/SQL/env/deploy/exportnovo. CIc0 39634489441 success. PróximaT23c2 redeinvestment comitem/página fixos (builder investmentsjáexiste), disablednãoinspeciona, nãoampliarproducts.
