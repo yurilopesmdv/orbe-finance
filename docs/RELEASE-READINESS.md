@@ -15,7 +15,7 @@
 
 ## Verificação atual
 
-977 testes/typechecks aprovados (859 Node +118 Python), incluindo bloqueio real do publicador em fixture antes de iniciar a CLI autenticada. A prévia c38 foi publicada com 967 testes; as dez verificações adicionais cobrem somente o publicador administrativo. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+1008 testes/typechecks aprovados (890 Node +118 Python), incluindo publicador, identidade interna e projeção backend de movimentos com dados fictícios. A prévia c38 foi publicada com 967 testes; mudanças posteriores são administrativas/backend isolado, sem nova ativação ou atualização do cliente. Exportação iOS e auditoria privada do grafo JavaScript: 1205 fontes/56 instâncias, sem braces/node-forge no cliente. Todos os perfis privados comparados com fonte/exportação antes do upload; mapas fora do Git/Metro e sem publicação. CI, update, manifesto e QR atuais em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco casos negativos de autenticação/metadados passaram. Configuração confirmada por digests; fonte de 23 arquivos bridge e cinco metadata corresponde aos recibos privados. Não foi feito teste remoto positivo com a sessão do titular, nem leitura de suas contas por ferramentas.
 
@@ -29,3 +29,5 @@ No backend, sete rotas financeiras desativadas retornaram 503/no-store; cinco ca
 | 4 | Homologação no aparelho | Conferência privada de saldo/moeda/data/parcialidade, uma conexão por vez, e roteiro final de sessão/proteção. Valores não entram em IA/MCP/logs/screenshots/documentos |
 
 Transações, investimentos e cofrinhos reais são fatias posteriores com adaptadores/paginação/cobertura próprios; modelos e relatórios sintéticos não significam integração entregue. Nenhum serviço pago ou build próprio é exigido automaticamente: Expo Go e orçamento zero continuam a direção vigente. Não há garantia de risco zero nem aprovação de todo o runtime/fornecedor pela quantidade de testes.
+
+Atualização21/10: T22c1/c2/c3 prepararam identidade opaca, janelas UTC/Brasília e projeção mínimaBANK de movimentações. Não há transporte bancário de movimentos ligado ao runtime; investimentos/cofrinhos reais continuam posteriores. O primeiro saldo continua condicionado aos gates descritos acima, não à conclusão desses módulos isolados.

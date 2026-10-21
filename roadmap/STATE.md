@@ -4,7 +4,7 @@ Repo `/home/yurilopesm/projects/orbe-finance`, main, independente do F1. Usuári
 
 ## Ação imediata
 
-**c21–c42 e T22c1/c2 concluídas**,996 testes/typechecks (878Node+118Python). Identidade opaca de movimentos e janela mensalIANA preparadas no backend isolado;1200meses validados. Próxima **T22c3** projeção de payload de movimentos com identidadeinterna, direção explícita/centavosexatos/status/descrição mínima, datasfiltradas e cursorinterno confiável; sem rede/rota/ativação. User quer avançar hoje sem testes/aprovações intermediárias. Gates reais continuam fornecedor/OF/runtime; não simular aprovação. Novo módulo não está no entrypoint remoto, allowlist local28fontes.
+**c21–c42 e T22c1/c2/c3 concluídas**,1008 testes/typechecks (890Node+118Python). ProjeçãoBANKmovimentos preparada comHMAC/centavosexatos/UTC-Brasília/minimização/cursorinternoconfiável e integraçãonormalizador/ledgeroverride; sem transporte real. Próxima **T22c4** limite específico do decoder exato para transações:500linhas comextras podem ultrapassar128KiB; manterdefaultcontas128KiB, permitirperfiltransações explícito1MiB comlimites/depth/Unicode e rejeiçãosemperda silenciosa. Depois transporte/cursorautenticado/lease+multiwindow. Módulos novos nãoimportados no entrypoint, allowlistlocal29fontes. Userquer avançarhojesemtestes/aprovaçõesintermediárias; gatesreaisfornecedor/OF/runtime mantidos.
 
 Não parar após cada task ou pedir teste intermediário. Não repetir instruções de conexão/IDs ao titular. Perguntas antigas já respondidas. Há trabalho técnico independente; fornecedor/OF/retenção e homologação não podem ser inventados.
 
