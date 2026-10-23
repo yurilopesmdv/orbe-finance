@@ -1,6 +1,6 @@
 # Prontidão do Orbe — 23/10/2026
 
-**Estado vigenteT77:** home real/autosync/cacheporsessão/5movs2meses,19migrations, backend21/metadata15,8flags/digests/fontesverificados e9smokes401. CI39981649710success/1248checks eCI39983257856ajustefinal. GuiaFINANCIAL-HOME eQR emEXPO-PREVIEW. Saldo confirmado pelo titular; movimento concluído e comlinhas conforme metadados, sem finanças lidas por ferramentas. Nova interface ainda precisa deaceitefísico. Restrições antigas de cooldown900s aplicam-se aos clientes antigos.
+**Estado vigenteT79:** home grafite/violeta e estados porbanco/produto publicados; CI39987827224success/1252checks/types/export/audit1222fontes/56instâncias/scans/contraste. Backend21/metadata15/19migrations preservados. Titular confirmou valores apósT78; aceite visualT79 pendente. MPativo/investimentos sem posições recebidas; BradescoproxyOF603 validado/cadastradopending, falta Conexões→Preparar e ativar leitura na sessão titular. [Cobertura](BANK-COVERAGE.md), [QR](EXPO-PREVIEW.md). Cartões/faturas mapeados emSPEC011/planT80, ainda sem implementação. Nenhum dado financeiro real consultado por ferramentas.
 
 O restante abaixo é histórico das etapas anteriores.
 

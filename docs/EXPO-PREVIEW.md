@@ -4,9 +4,15 @@ Publicação de23/10/2026, iOS/SDK57, remota e independente do PC ou rede local.
 
 ![QR da home financeira](assets/orbe-expo-go-home-20261023.png)
 
-Link direto: exp://u.expo.dev/update/01a1698f-3e7b-762f-bbf8-49a2c9dc8c12
+Link direto: exp://u.expo.dev/update/01a1699f-4286-78c5-8c69-8b8a4fb073f1
 
-Update01a1698f-3e7b-762f-bbf8-49a2c9dc8c12 · grupoc6f1e000-1c1a-4866-9597-4a843231805b · commitae88462b3a0f1d2e534782357f076a8041c20c80 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
+Update01a1699f-4286-78c5-8c69-8b8a4fb073f1 · grupo31b0f9b0-c871-4392-9b54-340ded3a3965 · commit421cc9a98cd72901c9154a16bcdba44c8028b3f8 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
+
+## Identidade e cobertura — T79
+
+Tema grafite/violeta, bancos separados, estados por produto e atalhos preservados. CI39987827224success/1252checks (1104Node+148Python), tipos/export/audit1222fontes/56instâncias/scans e contraste≥4.5; manifesto/scheme/hashHBC/QRoficial verificados.
+
+Mercado Pago ativo, valores confirmados pelo titular; leitura de investimentos retornou0linhas. Bradesco já validado e cadastrado pending. No app, **Conexões → Bradesco → Preparar e ativar leitura**; após confirmação, voltar à home inicia as leituras automaticamente. Não precisa importar extratos. [Cobertura e cofrinhos](BANK-COVERAGE.md). Cartões/faturas estão [mapeados emSPEC011](../specs/011-credit-cards/spec.md), ainda sem implementação.
 
 ## Usar
 

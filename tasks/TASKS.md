@@ -1280,7 +1280,10 @@ Spec010/planT77, integrador único.
 - [x] Diagnóstico somente metadados: um vínculoMPativo, investimentos success/committed/0linhas; Bradesco sem vínculo próprio. Pesquisa oficialAPIguide e issue22cofrinhos aberto.
 - [x] Recibos por conexão/produto/revisão, limpeza e preservação após falha; estados de investimentos sem fingir zero.
 - [x] Tema grafite/violeta centralizado, home e bancos distintos, telas existentes/login/proteção coerentes; guiaBANK-COVERAGE.
-- [ ] Check/export/audit/scans/CI/publicação/QR; aceite visual no iPhone pelo titular.
+- [x] 1252checks/types/export/audit1222fontes/56instâncias/scans/contraste≥4.5.
+- [x] Após titular fornecer IDprivado, validar proxyBradesco→consentimento→origemOF603 e cadastrar pending; MPpreservado/inventário2bancos confirmados, sem finançasportools.
+- [x] CI39987827224success/publicação01a1699f-4286-78c5-8c69-8b8a4fb073f1/manifesto/HBC/QR/documentação.
+- [ ] AtivaçãoBradesco e aceite visual no iPhone pelo titular.
 
 ## T80 — cartões e faturas (mapeamento solicitado)
 
