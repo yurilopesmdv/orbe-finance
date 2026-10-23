@@ -23,3 +23,11 @@ A API atual de logs usa `/analytics/endpoints/logs`, SQL ClickHouse e janela exp
 O validador técnico real foi reexecutado em23/10: origem Mercado Pago Open Finance e permissões de contas/transações/investimentos confirmadas; zero leituras financeiras pelas ferramentas. Isso não confirma a primeira ativação/saldo no iPhone. A conexão Bradesco ainda exige identificação do proxy próprio na aplicação. Não duplicar o item Mercado Pago ou preencher capacidades manualmente.
 
 [Guia vigente](ACCOUNT-ACTIVATION.md) · [Prontidão](RELEASE-READINESS.md) · [Estado de retomada](../roadmap/STATE.md).
+
+## Primeira leitura após ativação — 23/10
+
+O titular confirmou conexão cadastrada e capacidades disponíveis. O diagnóstico técnico confirmou active/revisão2, autorização vigente, inventário existente e lease adquirida; nenhuma leitura havia sido finalizada. A data técnica de origem existia no formato PostgreSQL com offset. O leitor exigia sufixoZ e recusava esse contexto antes de buscar o saldo no provedor.
+
+O contrato agora aceitaISO8601 comZ ou offset explícito até14:00 e fração de até6dígitos, valida calendário/horário/fuso e normalizaUTCmilissegundos para oDTO. Compartilhado com a data técnica de origem de investimentos. Null permanece desconhecido; centavos, valores e controles de autorização não mudam. A regressão atravessa ohandler com o mesmo shape deRPC e provedor fictício. Testes de unidade que só usavamZulu não cobriam essa integração.
+
+A correção é instalada exclusivamente no backend; app e QR de23/10 permanecem válidos. Não reativar a conexão nem trocar credenciais. Depois da instalação, atualizar os saldos novamente. O intervalo entre leituras continua em vigor; falha não é registrada como leitura concluída. O resultado com valores reais só pode ser confirmado na sessão do titular; ferramentas não consultam saldos.

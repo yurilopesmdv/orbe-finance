@@ -1,12 +1,17 @@
 # Estado de retomada — 21/10/2026
 
-## T76f — reparar primeira leitura,23/10/2026 (vigente, EM ANDAMENTO)
+## T76f — primeira leitura corrigida no backend,23/10/2026 (vigente)
 
-Titular confirmou conexão cadastrada/capacidades disponíveis apósT76e. Agora saldosfalham. Diagnóstico técnico confirmou active/rev2/OFverificado/proxyvigente/bancoindefinido/inventário presente/lease atual/sem leitura finalizada. FormatoSQL source_updated_at é offset(+00:00), presente, nãoZulu. Parserpluggy-accounts exigiaZ e recusava contextoRPC antesdechamarprovedor. LogsManagementtentativas400/500 indisponíveis; não confundir com erroFinanceiro ou repetir semnecessidade. Nenhumvalor/PII/ID/corpodeHTTP lido.
+Titular confirmou ativação: Conexão cadastrada/capacidades disponíveis. Primeiro saldo falhou. Diagnóstico técnico: active/rev2/OFverificado/proxyvigente/bancoindefinido/inventário presente/lease atual/sem leitura finalizada. source_updated_at presente comoffsetSQL, parser exigiaZulu: validação recusava contextoRPC antesdoprovedor. LogsManagement400/500 indisponíveis; nãoconfundir comerrofinanceiro. Não pedir novasconfigs/reativação/QR.
 
-Fix preparado: providerInstant aceitaISOZulu/offset≤14:00/fração1–6, valida calendáriocivil/hora/fuso e normalizaUTC3ms; compartilhado para sourceUpdatedAt instantâneo de investimentos. Não alterar cents/null/ownership/lease/consentimento. RegressionhandlercomshapeSQL chama providerfictício e retorna200/29centavos; tiposbridge econtas14/handler7/investimentos18 existentes passaram (conferir contagemhandler); novo caso investimentos adicionadoapós. Disableoperacional agora permitemudançalocalpendente, mantendo fontesremotas/identidade/digestsverificados; enableaindaexigehasheslocaisiguaisdeployment.
+**Corrigido/publicado:** commita3438be, CI39966769243success/1240verificações(1092Node+148Python), tiposcliente/backend e scanprivado/allowlist46 aprovados. providerInstant aceitaZulu/offset≤14:00/fração1–6, valida calendário/hora/fuso e normalizaUTC3ms; compartilhado com origeminstantânea investimentos. Regressões comshapeSQL→handler→providerfictício→DTO/29centavos eoffsetinvestimento passaram. Null/centavos/ownership/lease/consentimento preservados. Nenhuma migration nova,18hashes conferidos. Nenhuma alteraçãocliente: **QR23/10 permanece o atual**, sem novoEAS/export nestaentrega.
 
-Fullcheck aprovado:1092Node+148Python=1240verificações, tiposcliente/backend e scanprivado/allowlist46. **Próxima ação obrigatória:** commit/push/CI. Desligar via financial-release.py disable (semnovaconfigtitular), deploy-disabled novasfontes46, enable-owner+digests/fontes/smokes. Cliente/QR23/10 preservados, não publicarExpo/export semmudançacliente. Não encerrar comfixlocal. Registrarversõesremotas/guias/STATE/Git. Não impersonar nemtestarvaloresreaisportools; primeirovalor precisaação titularessemnovaativação.
+**Remoto:** disableverificado16/12→deployguardado17(setesmokes503)→enable-owner **bridge18/metadata13**,8flagstrue/digests/fontes/identidades confirmados;9rotasanônimas401/no-store passaram. Releasehelperdisable agora permitefontelocalpendente, mantémguardaremota; enableexigehasheslocaisiguaisdeployment. Não reutilizar versões15/11históricas.
+
+**Recuperaçãooperacional:** a tentativaanterior estavaexpirada/incompleta/sem leitura concluída e aindaemcooldown. SQLadministrativoscopadoowner+proxyMP+rev2+estadoactive encerrou exatamente1lease expirada comoutcomefailed/nextReadAthora. Nenhumleaseemcurso/autorizaçãovalor/últimaleiturasucesso alterado; nãosemarcouleituracomoconcluída. Retentativaliberada semesperaresidual. Scriptprivadooperacional/tmp/orbe-recover-failed-read.py só imprimecontagem, não IDs. Não usar como bypassgenérico.
+
+**Resultado ainda pendente:** primeira leiturareal deveocorrer na sessão titular; toolsnão consultaramvalores nemimpersonaramlogin. Próximaação: confirmarGitlimpo/pushdocs e seguirpendênciasBradesco/relatóriosreais/cofrinhos comspecs. Não pedirnovoQRouconfigurações. Usar docs/ACTIVATION-TROUBLESHOOTING.md eRELEASE-READINESS.md.
+
 
 ## T76e — ativação corrigida e publicada,23/10/2026 (vigente)
 

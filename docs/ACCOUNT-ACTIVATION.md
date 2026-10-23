@@ -28,3 +28,6 @@ Sessão lembrada usa refresh token rotativo em Keychain, sem senha salva. FaceID
 
 
 A correção23/10 elimina a necessidade de dois cliques separados. Enquanto prepara e verifica, aguarde na tela; a mensagem de falha aparece junto da conexão. Diagnóstico e limites em [ACTIVATION-TROUBLESHOOTING](ACTIVATION-TROUBLESHOOTING.md).
+
+
+AtualizaçãoT76f23/10: o titular confirmou conexão cadastrada. A falha seguinte ao buscar saldos foi corrigida no backend18/metadata13 (formato de datasSQL). Não reativar nem alterar credenciais/QR: usar Atualizar saldos desta conexão.

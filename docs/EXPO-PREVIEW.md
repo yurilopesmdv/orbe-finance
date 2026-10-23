@@ -26,3 +26,6 @@ Retomada/captura/multitarefa já confirmadas pelo titular. Demais testes físico
 
 
 Correção23/10: preparação e ativação agora são uma única ação. As duas tentativas anteriores ocorreram antes do inventário; causa e diagnóstico seguro em [ACTIVATION-TROUBLESHOOTING](ACTIVATION-TROUBLESHOOTING.md). O backend já havia preparado o inventário real com sucesso; esta correção não muda suas credenciais ou regrasSQL.
+
+
+Backend atualizado em23/10 após falha da primeira leitura: **bridge18/metadata13**, correção de datasSQLoffset/microsegundos, CI39966769243success/1240checks. Este mesmo QR/app continua válido. Titular já confirmou conexão cadastrada; basta atualizar os saldos, sem reativar. Retentativa da falha expirada liberada; primeirovalorreal ainda não confirmado.

@@ -1245,5 +1245,5 @@ Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.
 - [x] Ativação confirmada pelo titular e metadados active/rev2; localizarparser recusando datasSQLoffset.
 - [x] Spec MPG-READ-01/planoT76f; normalização estritaRPC emcontas/investimentos.
 - [x] Regressão handlercomshapeSQL→providerfictício→DTO, calendário/fusoinválidos recusados.
-- [ ] Check/scan/CI; desligar/deploybackend/liberarcomfontesverificadas/smokes.
-- [ ] Guias/STATE/Git e versõesremotas; cliente/QR preservados.
+- [x] Check/scan/CI39966769243success/1240checks; disable/deploy/enable18/13,8flags/digests/fontesverificados e9smokesanônimos401.
+- [x] Guias/STATE/Git e versõesremotas; cliente/QR preservados. Uma lease expirada afetada foi marcadafailed/retentativaliberada, sem mudarautorização ouvalores.
