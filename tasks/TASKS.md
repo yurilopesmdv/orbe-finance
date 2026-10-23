@@ -1236,5 +1236,5 @@ Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.
 - [x] Investigar com metadados reais e logs agregados: ativações90s/44s antes do inventário, preparação real confirmada.
 - [x] Spec MPG-ACT-03/planT76e e ação única comcancelamento/kill switch/SQLpreservado.
 - [x] Typecheck e11testesintegrados, incluindo falha/cooldown/lock/ordem.
-- [ ] Export/audit/scan/CI e nova publicação remota.
-- [ ] QR/guias/STATE/Git atualizados; confirmação física permanece para titular, sem pedir novasconfigs.
+- [x] Export/audit/scan/CI39949557277success/1236verificações e nova publicação remota: update01a168a0-4d1f-7f99-8e92-064aff836b64.
+- [x] QR23/10/guias/STATE/Git atualizados; confirmação física permanece para titular, sem pedir novasconfigs.

@@ -1,14 +1,17 @@
 # Estado de retomada — 21/10/2026
 
-## T76e — correção da ativação,23/10/2026 (vigente)
+## T76e — ativação corrigida e publicada,23/10/2026 (vigente)
 
-Relato do titular: clicou em ativar e permaneceu não confirmado. Não pedir novasconfigs. Diagnóstico técnico inicial seminventário; diagnóstico23/10 já teminventário success, antigo. Logs agregados23/10 mostraram duas chamadasSQL deativação **90s e44s ANTES** do commit de inventário. Portanto o botãopermitiaordeminválida; source Pluggy funcionando e preparação real já executada pelo app. Nenhumvalor/ID/IP/token/corpodelog lido por ferramentas. Consulta oficial do endpointlogs ClickHouse, apenasoperação/status/count/intervalos.
+Titular pediu correção e conclusão sem novasconfigs. Causa confirmada por logs agregados: duaschamadasSQLativação90s/44s ANTES do inventário. Inventárioreal foi registrado comsuccess pelo backend; estadoaindapending e inventáriofora15min em23/10. Origem/permissõesMP revalidadas comsourceadapterreal/zerofinanceirotools. Não culparfornecedor nempedirnovascredenciais.
 
-Correção emandamento: ação única Preparar e ativar leitura; controller prepara120s antesdeativar20s econfirma status, prazototal180s; falhapreparaçãoimpedeativação; cooldown sótentaativar sujeitoaSQLinventáriorecente. Inventoryclientkill obrigatório, lockaborta. UIprogressopertodaconexão, pra zobancárioindeterminado nãoviraNãoinformadaquandoOFcomprovada. Removido controladorUI depreparaçãoseparada.
+Açãoúnica **Preparar e ativar leitura** prepara120s antesdeativar20s/confirmação por status/prazototal180s. Falhapreparaçãoimpedeativar; cooldown sótentaativar sujeito aoSQLinventáriorecente. Lockaborta, clientinventorykillswitchoffzerorede. UI mostra progresso e falha junto da conexão; prazo bancário indeterminado apósOF comprovada não aparece como data ausente. ControladorUI depreparação separada removido. SpecMPG-ACT-03/planoT76e. Não houve alteraçãoSQL/backendnestaentrega.
 
-Typecheck+11cenáriosintegrados passaram; fullcheck anterioràúltimalimpeza também passou, log/tmp/orbe-activation-repair-check.log. ExportfinalHermes/audit1220fontes/56instâncias e scanprivado/allowlist passaram; logs/tmp/orbe-activation-fix-export-final.log e audit-final.log. Confirmar contagem exata no log deaudit antesdeescreverstatusfinal. Backend18migrations/bridge15/metadata11 preservado; nenhuma alteraçãoSQL necessária para esta correção.
+**Publicado:** commit3f981e7, [CI39949557277](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39949557277)success/1236verificações(1088Node+148Python), tiposcliente/backend/exportHermes/audit1217fontes/56instâncias/advisoriesausentesJS/scansprivados+allowlist46 passaram. Update01a168a0-4d1f-7f99-8e92-064aff836b64, grupoaa5860bd-ff2b-4517-b22d-d33eb8e67a3c, linkexp://u.expo.dev/update/01a168a0-4d1f-7f99-8e92-064aff836b64. Manifesto/scheme/hashHBC/QRoficialverificados; QRdocs/assets/orbe-expo-go-20261023.png. AntigoQR21/10preservadohistórico.
 
-**Continuar:** finalizarexport/audit/scan; atualizarguias; commit/push/CI→publicarExpo→verificarmanifesto/QRnovo23/10→docs/roadmapGit. Não deixarapenaspatchlocal. Não pedir titularrefazerconfigurações. Primeiravalidação deativaçãoefinançasna sessão titular ainda pendente; não impersonar. Bradesco não identificado; relatórios/categoriasreais/cofrinhos continuamtasks sem fingirconclusão.
+Backendbridge15/metadata11/18migrations e8flagstrue preservados;9smokesanônimos401/no-store revalidados23/10. Primeiraativação/saldo final via sessão titular ainda não confirmados. Não impersonar nemlerfinançasportools. Nenhumanovaconfigexternaexigida. Diagnóstico emdocs/ACTIVATION-TROUBLESHOOTING.md. CI/publicaçãonãoprovamaceitefísico.
+
+**Próxima ação:** salvar/pushdocsQRfinal; depois avançar Bradesco(vínculoaplicação não identificado), relatórios/classificaçãoreais e cofrinhos apenas comevidência. Não declararprojetocompleto/d doisbancosoperantes. Não ficarparadoesperandotestefísicoparatrabalhoindependente. Testesfísicosfinaisagrupados.
+
 
 ## T76 — liberação pessoal publicada (estado vigente)
 

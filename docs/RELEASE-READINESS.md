@@ -1,6 +1,6 @@
-# Prontidão do Orbe — 21/10/2026
+# Prontidão do Orbe — 23/10/2026
 
-A liberação pessoal real foi instalada. Backend bridge15/metadata11 ativos, oito flags conferidas,18migrations imutáveis/hashverificadas. Nove rotas recusam anônimos401/no-store. A conexão Mercado Pago ainda precisa da ação Preparar/Ativar na sessão do titular; isso verifica inventário e consentimento antes de qualquer saldo. **Primeiro valor no iPhone ainda não confirmado.** QR e publicação em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+A liberação pessoal real foi instalada. Backend bridge15/metadata11 ativos, oito flags conferidas,18migrations imutáveis/hashverificadas. Nove rotas recusam anônimos401/no-store. A conexão Mercado Pago ainda precisa da ação Preparar e ativar leitura na sessão do titular; isso verifica inventário e consentimento antes de qualquer saldo. **Primeiro valor no iPhone ainda não confirmado.** QR e publicação em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 | Entrega | Estado e limite |
 |---|---|
@@ -26,3 +26,8 @@ O erro de interpretação da resposta vazia de sucesso de POSTsecrets foi corrig
 ## Restante
 
 Ativação e primeirovalor via sessão do titular, compartilhamento do Bradesco com esta aplicação, homologação privada por produto, classificação/relatórios reais e cofrinhos conforme evidência. Nenhum desses itens está sendo tratado como concluído. Não pedir imagens/valores financeiros no chat; testes físicos finais agrupados. Sem novas configurações de credenciais exigidas para o Mercado Pago.
+
+
+## Correção23/10
+
+Ativações anteriores chegaram90s/44s antes da preparação concluída; não foi falha de credenciais. Ação única agora prepara antes de verificar/ativar, com cancelamento e comprovação SQL preservados. CI39949557277success/1236verificações, tipos/exportHermes/auditoria1217fontes/56instâncias/scans aprovados. Nova publicação e QR em EXPO-PREVIEW; primeirostatusativo/saldo no iPhone ainda não confirmado. Backend15/metadata11/18migrations preservados,9smokesanônimos401/no-store revalidados.

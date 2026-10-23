@@ -1,6 +1,6 @@
 # Acessar seus bancos no Orbe
 
-A liberação pessoal foi implementada em21/10/2026. Você já possui conta e credenciais configuradas: não recrie o login, não regenere chaves e não envie IDs ou dados bancários no chat. Use o QR remoto atual em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+A liberação pessoal foi implementada em21/10/2026 e o fluxo de ativação corrigido em23/10/2026. Você já possui conta e credenciais configuradas: não recrie o login, não regenere chaves e não envie IDs ou dados bancários no chat. Use o QR remoto atual em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 ## Mercado Pago
 
@@ -25,3 +25,6 @@ Sessão lembrada usa refresh token rotativo em Keychain, sem senha salva. FaceID
 `financial-release.py enable-owner` verifica fontes/digests/migrações antes de liberar flags. `financial-release.py disable` desliga as leituras, sem revogar consentimento no banco. ORBE_OWNER_LIVE_RELEASE é o kill switch independente. Publicação exige recibo privado e o uso de Metro com integração real é recusado. Nenhum serviço pago contratado.
 
 [Política de liberação pessoal](security/OWNER-RELEASE-20261021.md) · [Prontidão](RELEASE-READINESS.md) · [Tasks](../tasks/TASKS.md).
+
+
+A correção23/10 elimina a necessidade de dois cliques separados. Enquanto prepara e verifica, aguarde na tela; a mensagem de falha aparece junto da conexão. Diagnóstico e limites em [ACTIVATION-TROUBLESHOOTING](ACTIVATION-TROUBLESHOOTING.md).
