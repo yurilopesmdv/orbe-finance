@@ -1,5 +1,11 @@
 # Estado de retomada — 21/10/2026
 
+## T76g — saldo confirmado; movimentações bloqueadas pelo intervalo (23/10)
+
+**Titular confirmou que o saldo funcionou apósT76f.** Em seguida relatou movimentaçõesausentes e confirmou mensagem Aguarde o intervalo entre atualizações. Diagnóstico técnico: conexãoactive/rev2/transactions_availabletrue, última leaseoutcomesuccess/completada, nenhum leaseemcurso, cooldown769s no momento da consulta, nenhumregistroemmovement_page_reads. Nenhumextrato/valor/descrição/ID foi consultado. Logo a consulta de movimentos não começou: intervaloSQL900s porconexão compartilhado entreprodutos após leitura bem-sucedida decontas. Não atribuir aoPluggy nemlimparcooldowndeumasincronizaçãobem-sucedida como se fosseerroT76f.
+
+Pedido destaetapa foi verificar o motivo; diagnóstico concluído/sem alteração de código ou flags. Até15min após últimaatualização para consultar movimentos na tela própria. PróximamelhoriaUXpossível: apresentar produto/data de referência e tempo restante; separar cooldowns porproduto exige spec/migration/compatibilidade e preservarleaseúnico/quotas, não fazerbypasslocal ouSQLmanual. Dashboard/relatóriosdemo permanecemseparadosdocacheprivado. Backend18/metadata13 eQR23/10preservados.
+
 ## T76f — primeira leitura corrigida no backend,23/10/2026 (vigente)
 
 Titular confirmou ativação: Conexão cadastrada/capacidades disponíveis. Primeiro saldo falhou. Diagnóstico técnico: active/rev2/OFverificado/proxyvigente/bancoindefinido/inventário presente/lease atual/sem leitura finalizada. source_updated_at presente comoffsetSQL, parser exigiaZulu: validação recusava contextoRPC antesdoprovedor. LogsManagement400/500 indisponíveis; nãoconfundir comerrofinanceiro. Não pedir novasconfigs/reativação/QR.

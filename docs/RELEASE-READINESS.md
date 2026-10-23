@@ -1,6 +1,6 @@
 # Prontidão do Orbe — 23/10/2026
 
-A liberação pessoal real foi instalada. Backend bridge18/metadata13 ativos, oito flags conferidas,18migrations imutáveis/hashverificadas. Nove rotas recusam anônimos401/no-store. A conexão Mercado Pago ainda precisa da ação Preparar e ativar leitura na sessão do titular; isso verifica inventário e consentimento antes de qualquer saldo. **Primeiro valor no iPhone ainda não confirmado.** QR e publicação em [EXPO-PREVIEW](EXPO-PREVIEW.md).
+A liberação pessoal real foi instalada. Backend bridge18/metadata13 ativos, oito flags conferidas,18migrations imutáveis/hashverificadas. Nove rotas recusam anônimos401/no-store. A conexão Mercado Pago ainda precisa da ação Preparar e ativar leitura na sessão do titular; isso verifica inventário e consentimento antes de qualquer saldo. **Titular confirmou a leitura de saldos em23/10.** QR e publicação em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 | Entrega | Estado e limite |
 |---|---|
@@ -36,3 +36,6 @@ Ativações anteriores chegaram90s/44s antes da preparação concluída; não fo
 ## Correção da primeira leitura (T76f)
 
 Datas PostgreSQL com offset/microsegundos agora são normalizadas em contas e origem de investimentos. CI39966769243success/1240verificações, tiposcliente/backend e scans aprovados. Bridge18/metadata13 com fontes/digests conferidos,18migrations preservadas,8flags ativas e9smokesanônimos401/no-store. Uma lease expirada da falha foi encerrada comoutcomefailed e o intervalo residual removido apenas desse caso. Nenhumvalor/consentimento/sessão foi alterado. App/QR23/10 mantidos, sem novoEAS. Primeiro saldo real ainda não confirmado; diagnóstico no guiaACTIVATION-TROUBLESHOOTING.
+
+
+Confirmação23/10/T76g: saldo funcionando pelo titular apósbackend18. Movimentações ainda não iniciadas porque a leitura decontas consumiu o intervalo compartilhado de15min porconexão; mensagem de cooldown confirmada pelo titular. Não há evidência de erro do endpoint financeiro Pluggy nesta tentativa; não consultar extrato pelas ferramentas nem remover intervalo de leitura bem-sucedida.

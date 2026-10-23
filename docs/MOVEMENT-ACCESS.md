@@ -15,3 +15,8 @@ Cliente: `movementReadsEnabled`, `liveIntegrationEnabled` e `privateFinancialDat
 Rotas preparadas: `POST /movements/read` e `POST /movements/finalize`, com aquisição delease já existente. Leitura recebe somente conexão/revisão/lease/mês/cursor internos. Auth/owner/sessão, consentimentos, bindings e lease precedem fonte; sessão e progresso são revalidados antes da resposta. Cursor interno cifrado, identidadeHMAC e progressoSQL sem valores/cursorbruto. Finalizar requer páginas completas e mesma sessão.
 
 Composição atual fecha o port do provedor após cada página: há uma autenticação técnica por página, sem retry automático ou cache financeiro no servidor. Módulos/fontes e evidências: [TASKS](../tasks/TASKS.md), T22c1–c24. Não usar ferramentasIA/MCP para consultar produção financeira.
+
+
+## Intervalo compartilhado confirmado em23/10
+
+O intervalo atual é de15minutos por conexão bancária e é compartilhado entre saldos, movimentações e investimentos. Atualizar saldos não carrega automaticamente as movimentações; a leitura seguinte pode receber a mensagem de intervalo antes de chamar a Pluggy. O titular confirmou saldo funcionando e essa mensagem ao tentar movimentos; o diagnóstico técnico confirmou leitura de contas concluída e nenhum lote de movimentos iniciado. Aguarde a liberação e atualize o período desejado na tela de movimentações. Não é necessário reativar o banco ou alterar credenciais. Um cooldown válido após leitura bem-sucedida não deve ser removido como correção administrativa de falha.

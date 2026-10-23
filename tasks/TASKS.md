@@ -1247,3 +1247,11 @@ Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.
 - [x] Regressão handlercomshapeSQL→providerfictício→DTO, calendário/fusoinválidos recusados.
 - [x] Check/scan/CI39966769243success/1240checks; disable/deploy/enable18/13,8flags/digests/fontesverificados e9smokesanônimos401.
 - [x] Guias/STATE/Git e versõesremotas; cliente/QR preservados. Uma lease expirada afetada foi marcadafailed/retentativaliberada, sem mudarautorização ouvalores.
+
+
+## T76g — motivo das movimentações ausentes (23/10)
+
+- [x] Titular confirmou saldo funcionando apósT76f.
+- [x] Verificar metadados: última lease success/completa, transactions disponível, cooldown769s, nenhum lote de movimento iniciado.
+- [x] Titular confirmou mensagem de intervalo. Regra vigente900s porconexão compartilhado entreprodutos; guias/STATE atualizados, sem mudança de código/flags/QR.
+- [ ] Leitura real de movimentos após intervalo ainda não confirmada; não confundir cooldown com fonte vazia ou falha Pluggy.
