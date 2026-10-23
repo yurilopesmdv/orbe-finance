@@ -53,7 +53,7 @@ def execute(operation):
     for file in migrations:
         if not any(row.get('name')=='orbe_'+file.stem+'_'+hashlib.sha256(file.read_bytes()).hexdigest() for row in history):raise c.SafeError('release_migrations_unverified')
     folder=c.admin.PRIVATE_CONFIG.parent;receipts={slug:c.read_receipt(folder/name) for slug,name in c.SLUGS.items()}
-    if receipts['orbe-bridge'].get('source_hashes')!=c.bridge.artifacts(ROOT,c.bridge.private_canaries(folder,c.admin.private_values())):raise c.SafeError('release_local_sources_unverified')
+    if enabled and receipts['orbe-bridge'].get('source_hashes')!=c.bridge.artifacts(ROOT,c.bridge.private_canaries(folder,c.admin.private_values())):raise c.SafeError('release_local_sources_unverified')
     credentials=c.profile._profile_values(c.profile.directory());keys=c.movement_keys.read_keys(folder)
     api=request('/api-keys?reveal=true');secret=[r.get('api_key') for r in api if r.get('type')=='secret' and r.get('name')=='default']
     if len(secret)!=1:raise c.SafeError('release_backend_key_unavailable')

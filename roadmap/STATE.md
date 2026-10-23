@@ -1,5 +1,13 @@
 # Estado de retomada — 21/10/2026
 
+## T76f — reparar primeira leitura,23/10/2026 (vigente, EM ANDAMENTO)
+
+Titular confirmou conexão cadastrada/capacidades disponíveis apósT76e. Agora saldosfalham. Diagnóstico técnico confirmou active/rev2/OFverificado/proxyvigente/bancoindefinido/inventário presente/lease atual/sem leitura finalizada. FormatoSQL source_updated_at é offset(+00:00), presente, nãoZulu. Parserpluggy-accounts exigiaZ e recusava contextoRPC antesdechamarprovedor. LogsManagementtentativas400/500 indisponíveis; não confundir com erroFinanceiro ou repetir semnecessidade. Nenhumvalor/PII/ID/corpodeHTTP lido.
+
+Fix preparado: providerInstant aceitaISOZulu/offset≤14:00/fração1–6, valida calendáriocivil/hora/fuso e normalizaUTC3ms; compartilhado para sourceUpdatedAt instantâneo de investimentos. Não alterar cents/null/ownership/lease/consentimento. RegressionhandlercomshapeSQL chama providerfictício e retorna200/29centavos; tiposbridge econtas14/handler7/investimentos18 existentes passaram (conferir contagemhandler); novo caso investimentos adicionadoapós. Disableoperacional agora permitemudançalocalpendente, mantendo fontesremotas/identidade/digestsverificados; enableaindaexigehasheslocaisiguaisdeployment.
+
+Fullcheck aprovado:1092Node+148Python=1240verificações, tiposcliente/backend e scanprivado/allowlist46. **Próxima ação obrigatória:** commit/push/CI. Desligar via financial-release.py disable (semnovaconfigtitular), deploy-disabled novasfontes46, enable-owner+digests/fontes/smokes. Cliente/QR23/10 preservados, não publicarExpo/export semmudançacliente. Não encerrar comfixlocal. Registrarversõesremotas/guias/STATE/Git. Não impersonar nemtestarvaloresreaisportools; primeirovalor precisaação titularessemnovaativação.
+
 ## T76e — ativação corrigida e publicada,23/10/2026 (vigente)
 
 Titular pediu correção e conclusão sem novasconfigs. Causa confirmada por logs agregados: duaschamadasSQLativação90s/44s ANTES do inventário. Inventárioreal foi registrado comsuccess pelo backend; estadoaindapending e inventáriofora15min em23/10. Origem/permissõesMP revalidadas comsourceadapterreal/zerofinanceirotools. Não culparfornecedor nempedirnovascredenciais.

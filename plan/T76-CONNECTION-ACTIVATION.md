@@ -21,3 +21,8 @@ Consentimento precisa apontar exatamente para o item original buscado a partir d
 ## T76e — correção do fluxo reportado no iPhone
 
 Integrador único. Paths: activation-controller/runtime, my-connections, testes de integração/presentation, guias. Diagnóstico somente técnico confirmou pending/rev1/sem inventário. Aceite: ação única prepara antes de ativar, falha não avança, cooldown nunca substitui validaçãoSQL, status só afirma ativo após releitura; bloqueio cancela; prazo abrange ambas etapas. Publicar novo cliente após tipos/testes/export/audit/scans/CI; backend/regraSQL preservados.
+
+
+## T76f — reparar primeira leitura (23/10)
+
+Integrador único. Paths pluggy-accounts/pluggy-investments, testes bridge, financial-release(disable seguro duranteedição), docs. Evidência: conexãoactive/rev2, inventário/lease existentes, dataRPCoffset; parserZulu recusaantesdoprovedor. Aceite: formatosSQLZ/offset/microsegundos normalizados, calendário/fusoinválidos recusados, teste handlercomshapeSQL; gates e centavos exatos preservados. Check/scan/CI→desligarbridgecomfontesremotasverificadas→deployguardado→enable/digests/smokes→docsGit. Cliente/QR/migrations preservados. Não lerfinançasportools nem terminar sócomfixlocal.

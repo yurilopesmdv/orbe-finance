@@ -24,3 +24,10 @@ test('throwing adapter error is sanitized without exposing payload',async()=>{co
 test('body byte limit rejects before resolver',async()=>{const f=fixture();assert.equal((await f.handler(request({padding:'x'.repeat(16385)}))).status,400);assert.deepEqual(f.calls,['auth']);f.close();});
 test('deadline ends uncooperative provider and late result cannot return money',async()=>{let resolve;const f=fixture({readAccounts:()=>new Promise(r=>resolve=r)});const pending=f.handler(request());await flush();f.clock.tick(20000);const response=await pending;assert.equal(response.status,504);resolve({status:'unavailable'});await flush();assert.equal(f.clock.timers.size,0);f.close();});
 test('caller abort ends uncooperative Auth without touching resolver',async()=>{let resolve;const f=fixture({authenticate:()=>new Promise(r=>resolve=r)}),parent=new AbortController();const pending=f.handler(request(body,{signal:parent.signal}));await flush();parent.abort();assert.equal((await pending).status,499);resolve(principal);await flush();assert.deepEqual(f.calls,[]);f.close();});
+
+
+test('actual Postgres RPC timestamp shape reaches provider and completes read response',async()=>{
+ const rpcProjection={...projection,sourceUpdatedAt:'2026-10-23T10:00:00.123456+00:00',bindings:projection.bindings.map(row=>({...row,balanceAsOf:'2026-10-23T07:00:00.123456-03:00'}))};
+ const f=fixture({resolve:async()=>({ownerId,connectionId,revision:1,projection:rpcProjection})});
+ try{const response=await f.handler(request());assert.equal(response.status,200);const dto=await response.json();assert.equal(dto.items[0].balanceCents,29);assert.equal(dto.items[0].balanceAsOf,'2026-10-23T10:00:00.123Z');assert.ok(f.calls.includes('read'));assert.ok(f.calls.includes('provider'));}finally{f.close();}
+});

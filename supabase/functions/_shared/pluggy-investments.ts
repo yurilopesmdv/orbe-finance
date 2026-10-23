@@ -1,6 +1,6 @@
 import { resolveExecutionMode, type ExecutionPolicy } from './execution-mode.ts';
 import { exactInteger } from './exact-json.ts';
-import { providerCents } from './pluggy-accounts.ts';
+import { providerCents, providerInstant } from './pluggy-accounts.ts';
 export interface InvestmentProjectionContext { itemId:string;connectionId:string;bindings:readonly Readonly<{externalId:string;internalId:string}>[];sourceUpdatedAt:string|null }
 type Policy=ExecutionPolicy&{enabled?:boolean};
 const unavailable=Object.freeze({kind:'unavailable' as const});
@@ -8,6 +8,7 @@ const record=(raw:unknown):raw is Record<string,unknown>=>typeof raw==='object'&
 const uuid=(raw:unknown):raw is string=>typeof raw==='string'&&raw.length===36&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(raw);
 function fields(raw:unknown,names:readonly string[]){if(!record(raw)||!names.every(name=>Object.hasOwn(raw,name)))throw Error('investment_projection_invalid');return raw;}
 function date(raw:unknown,instantOnly=false):string|null{
+ if(instantOnly)return providerInstant(raw);
  if(raw===null)return null;
  if(typeof raw!=='string'||!(instantOnly?/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/:/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z)?$/).test(raw))throw Error();
  const value=new Date(raw.length===10?raw+'T00:00:00Z':raw);

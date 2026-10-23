@@ -274,3 +274,8 @@ A instrução expressa do titular em21/10 autoriza ativação pessoal emExpoGo. 
 ### MPG-ACT-03 — Ativação com preparação automática
 
 Relato21/10: clicar em ativar voltou ao estado não confirmado; diagnóstico técnico mostrou vínculo pending/revisão1/nenhum inventário iniciado. A ação única deve preparar o inventário e verificar a ativação em sequência na mesma sessão protegida. Falha de preparação impede avançar, exceto cooldown: pode tentar ativação porque o SQL continua exigindo inventário concluído e recente. Não cria evidência nem altera capacidades pelo cliente. Exibir preparação/verificação/falha junto da conexão e resultado confirmado por nova consulta. Prazo total180s, etapas120s/20s; bloquear/segundoplano cancela tudo. Consentimento bancário explicitamente indeterminado não deve aparecer como data ausente após origem verificada.
+
+
+### MPG-READ-01 — Datas técnicas PostgreSQL na leitura
+
+Relato23/10: ativação concluída, primeira leitura recusada. Diagnóstico somente técnico confirmou active/revisão2/permissões vigentes/inventário existente/lease atual, nenhuma leitura finalizada; source_updated_at presente com offset em vez deZ. Contextos de RPC PostgreSQL devem aceitar timestampsISO8601 comZ ou offset até14:00, fração1–6 dígitos, validar calendário/horário/fuso e normalizar UTCmilissegundos antes de produzir DTO. Não inferir datas desconhecidas nem mexer em valores, ownership, consentimento ou lease. Compartilhar contrato entre contas e datas instantâneas de investimentos. Primeiro testar RPCshape→handler→provider fictício para evitar reproduzir apenas fixturesZulu. Correção exclusivamente backend, sem exigir novo QR ou configuração do titular.

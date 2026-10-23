@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createExactJsonDecoder } from '../../supabase/functions/_shared/exact-json.ts';
-import { providerCents, projectPluggyAccounts } from '../../supabase/functions/_shared/pluggy-accounts.ts';
+import { providerCents, providerInstant, projectPluggyAccounts } from '../../supabase/functions/_shared/pluggy-accounts.ts';
 import { normalizeAccountPage } from '../../src/features/sync/accounts.ts';
 import { MemoryAssets } from '../../src/data/local/assets.ts';
 const decode=createExactJsonDecoder(), uid=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
@@ -69,4 +69,15 @@ test('exact provider projection integrates with normalization and invalid batch 
  const store=new MemoryAssets(()=>({subject:ownerSubject,generation:1,unlocked:true})),scope={connectionId,institutionId:'bradesco',product:'account'};
  const result=normalize(page());store.promote(store.beginImport(scope),result.items,result.complete,result.authoritative);assert.equal(store.list({},true).summary.subtotalCents,29);
  const ticket=store.beginImport(scope);assert.throws(()=>normalize(page([{...row,balance:0.001}])));store.abortImport(ticket);assert.equal(store.list({},true).summary.subtotalCents,29);
+});
+
+
+test('PostgreSQL RPC offsets and microseconds normalize without rejecting valid account bindings',()=>{
+ for(const [raw,expected] of [['2026-10-23T10:00:00.123456+00:00','2026-10-23T10:00:00.123Z'],['2026-10-23T07:00:00.123456-03:00','2026-10-23T10:00:00.123Z'],['2026-10-23T23:30:00+14:00','2026-10-23T09:30:00.000Z']]){
+  assert.equal(providerInstant(raw),expected);const result=project(page(),{...context,sourceUpdatedAt:raw,bindings:[{...context.bindings[0],balanceAsOf:raw}]});assert.equal(result.page.sourceUpdatedAt,expected);assert.equal(result.page.items[0].balanceAsOf,expected);assert.equal(result.page.items[0].balanceCents,29);
+ }
+ assert.equal(providerInstant(null),null);
+});
+test('invalid calendar clock timezone and excess precision remain rejected',()=>{
+ for(const raw of ['2026-02-30T10:00:00+00:00','2026-10-23T24:00:00+00:00','2026-10-23T10:60:00Z','2026-10-23T10:00:60Z','2026-10-23T10:00:00+14:01','2026-10-23T10:00:00-15:00','2026-10-23T10:00:00+03:99','2026-10-23T10:00:00.1234567Z','2026-10-23T10:00:00','0000-01-01T00:00:00Z'])assert.throws(()=>providerInstant(raw),/^Error: provider_account_invalid$/);
 });

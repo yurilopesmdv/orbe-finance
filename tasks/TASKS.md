@@ -1238,3 +1238,12 @@ Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.
 - [x] Typecheck e11testesintegrados, incluindo falha/cooldown/lock/ordem.
 - [x] Export/audit/scan/CI39949557277success/1236verificações e nova publicação remota: update01a168a0-4d1f-7f99-8e92-064aff836b64.
 - [x] QR23/10/guias/STATE/Git atualizados; confirmação física permanece para titular, sem pedir novasconfigs.
+
+
+## T76f — leitura após ativação (23/10)
+
+- [x] Ativação confirmada pelo titular e metadados active/rev2; localizarparser recusando datasSQLoffset.
+- [x] Spec MPG-READ-01/planoT76f; normalização estritaRPC emcontas/investimentos.
+- [x] Regressão handlercomshapeSQL→providerfictício→DTO, calendário/fusoinválidos recusados.
+- [ ] Check/scan/CI; desligar/deploybackend/liberarcomfontesverificadas/smokes.
+- [ ] Guias/STATE/Git e versõesremotas; cliente/QR preservados.

@@ -8,11 +8,17 @@ function invalid(): never { throw Error('provider_account_invalid'); }
 function uuid(value: unknown): string {
   if (typeof value !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value)) return invalid(); return value;
 }
-function timestamp(value: unknown): string | null {
+/** Technical instants from Postgres/RPC or provider; normalize only after civil validation. */
+export function providerInstant(value: unknown): string | null {
   if (value === null) return null;
-  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.[0-9]{1,3})?Z$/.test(value)) return invalid();
-  const parsed = new Date(value);
-  if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0,19) !== value.slice(0,19)) return invalid(); return parsed.toISOString();
+  if (typeof value !== 'string') return invalid();
+  const match=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,6}))?(Z|[+-]\d{2}:\d{2})$/.exec(value);
+  if(!match||Number(match[1])<1||Number(match[4])>23||Number(match[5])>59||Number(match[6])>59)return invalid();
+  const zone=match[8]!;
+  if(zone!=='Z') { const hours=Number(zone.slice(1,3)),minutes=Number(zone.slice(4));if(hours>14||minutes>59||hours===14&&minutes!==0)return invalid(); }
+  const civil=value.slice(0,10),day=new Date(civil+'T00:00:00Z');
+  if(!Number.isFinite(day.getTime())||day.toISOString().slice(0,10)!==civil)return invalid();
+  const parsed=new Date(value);if(!Number.isFinite(parsed.getTime()))return invalid();return parsed.toISOString();
 }
 export function providerCents(value: unknown): number | null {
   if (value === null) return null;
@@ -33,12 +39,12 @@ export function projectPluggyAccounts(raw: unknown, rawContext: AccountProjectio
   if (policy.enabled !== true || resolveExecutionMode(policy) === null) return Object.freeze({ kind: 'disabled' as const });
   try {
     if (!object(rawContext) || !Object.hasOwn(rawContext,'itemId') || !Object.hasOwn(rawContext,'connectionId') || !['bindings','sourceUpdatedAt','coverageApproved'].every(key => Object.hasOwn(rawContext,key)) || !Array.isArray(rawContext.bindings) || rawContext.bindings.length > 1000 || typeof rawContext.coverageApproved !== 'boolean') return invalid();
-    const itemId = uuid(rawContext.itemId), connectionId = uuid(rawContext.connectionId), sourceUpdatedAt = timestamp(rawContext.sourceUpdatedAt);
+    const itemId = uuid(rawContext.itemId), connectionId = uuid(rawContext.connectionId), sourceUpdatedAt = providerInstant(rawContext.sourceUpdatedAt);
     const coverageApproved = rawContext.coverageApproved;
     const bindings = new Map<string, Readonly<Binding>>(), internal = new Set<string>();
     for (const candidate of rawContext.bindings) {
       if (!object(candidate) || !Object.hasOwn(candidate,'externalId') || !Object.hasOwn(candidate,'internalId') || !['balanceAsOf','relation'].every(key => Object.hasOwn(candidate,key)) || !['distinct','unknown'].includes(candidate.relation as string)) return invalid();
-      const externalId = uuid(candidate.externalId), internalId = uuid(candidate.internalId), balanceAsOf = timestamp(candidate.balanceAsOf);
+      const externalId = uuid(candidate.externalId), internalId = uuid(candidate.internalId), balanceAsOf = providerInstant(candidate.balanceAsOf);
       if (bindings.has(externalId) || internal.has(internalId)) return invalid();
       bindings.set(externalId,Object.freeze({ externalId, internalId, balanceAsOf, relation: candidate.relation as Binding['relation'] })); internal.add(internalId);
     }
