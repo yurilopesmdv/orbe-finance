@@ -4,9 +4,9 @@ Publicação de23/10/2026, iOS/SDK57, remota e independente do PC ou rede local.
 
 ![QR da home financeira](assets/orbe-expo-go-home-20261023.png)
 
-Link direto: exp://u.expo.dev/update/01a16982-acae-7fbf-bf18-f3dda38e795a
+Link direto: exp://u.expo.dev/update/01a1698f-3e7b-762f-bbf8-49a2c9dc8c12
 
-Update01a16982-acae-7fbf-bf18-f3dda38e795a · grupo0b7fe19c-9cd6-47a8-bf3b-a77b41ecfc9e · commit876295e417acb32d3ea81c2b40c468ae6c774be3 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
+Update01a1698f-3e7b-762f-bbf8-49a2c9dc8c12 · grupoc6f1e000-1c1a-4866-9597-4a843231805b · commitae88462b3a0f1d2e534782357f076a8041c20c80 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
 
 ## Usar
 
@@ -18,7 +18,13 @@ O intervalo porproduto é30s e não bloqueia outros produtos por15min. Apenas um
 
 Investimentos com sobreposição desconhecida ficam separados do consolidado; cofres/reservas não são inventados nem duplicados. Bradesco ainda semproxypróprio identificado. Datas, cobertura e disponibilidade da fonte continuam relevantes; atualização no Orbe não equivale a forçar atualização bancária emtempo real. [Guia completo](FINANCIAL-HOME.md).
 
-## Verificações
+## Correção dos valores — T78
+
+O formatador monetário compartilhado agora funciona sem Intl.NumberFormat/formatToParts do aparelho. A mensagem Valor indisponível era também usada para falha de formatação de valores válidos; Não informado continua reservado ao valor ausente. Home e telas completas preservadas. Abra o QR atualizado e toque Mostrar valores e descrições; não precisa refazer conexões. A confirmação no iPhone segue pendente, sem consulta de valores reais pelas ferramentas.
+
+CI39985350908 aprovada, 1249 verificações (1101Node+148Python), tipos/export/auditoria1220fontes/56instâncias/scans; manifesto/scheme/hashHBC/QR oficial conferidos. Backend e banco sem alterações nesta correção.
+
+## Verificações anteriores
 
 CI39981649710success/1248verificações(1100Node+148Python), tiposcliente/backend, SQL/RLSdraft e instalado comrollback/zeroresíduos/ownerpreservado. Ajustefinal de navegaçãoCI39983257856. ExportHermes/audit1220fontes/56instâncias/advisoriesausentesJS, scansprivados/allowlist46; sourcemaps privados. Manifesto/scheme/hashHBC/URLoficialQR conferidos depois de publicar.
 

@@ -1272,4 +1272,4 @@ Spec010/planT77, integrador único.
 - [x] Spec MONEY-02/planoT78: preservar home e detalhes; diagnosticar apresentação sem consultar finanças.
 - [x] Formatador pt-BR determinístico, centavos exatos e moeda explícita, sem Intl. Regressão de runtime sem Intl/incompleto/comerro; null/oculto/inválido continuam distintos.
 - [x] Check completo, export iOS, scan de perfis privados.
-- [ ] Auditoria final/CI/publicação/manifesto/QR/documentação do release.
+- [x] Auditoria final/CI39985350908/1249checks/publicação01a1698f-3e7b-762f-bbf8-49a2c9dc8c12/manifesto/hashHBC/QR/documentação. Aceite físico pendente.

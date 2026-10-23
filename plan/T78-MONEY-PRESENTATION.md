@@ -7,3 +7,5 @@ Titular vê movimentos recebidos, mas valores indisponíveis em todas as telas. 
 3. Tipos/testes/export/audit/scans/CI; publicar e verificar QR; documentar entrega e limite do aceite físico.
 
 Sem alteração de importação, schema, consentimento ou telas de detalhe; sem consultas financeiras por ferramentas.
+
+Concluído: CI39985350908success/1249checks/export/audit/scans; update01a1698f-3e7b-762f-bbf8-49a2c9dc8c12/manifesto/HBC/QR verificados. Backend inalterado; aceite físico ainda não confirmado.

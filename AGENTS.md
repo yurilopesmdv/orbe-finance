@@ -1,6 +1,6 @@
 # Trabalho no Orbe Finance
 
-Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T77,23/10/2026**, [SPEC-010](specs/010-financial-home/spec.md), [plano](plan/T77-FINANCIAL-HOME.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
+Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T78,23/10/2026**, [SPEC-010](specs/010-financial-home/spec.md), [plano](plan/T77-FINANCIAL-HOME.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
 
 ## Direção autorizada
 
