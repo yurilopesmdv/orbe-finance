@@ -1,3 +1,4 @@
+import {palette} from '../../src/components/theme.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -50,7 +51,7 @@ test('native adapter selects screen prevention and full app switcher blur withou
 test('private React boundary omits sensitive children in every blocked state',()=>{
   const secret={type:'SecretField',props:{value:'synthetic-private-canary'}};
   for(const snapshot of [{phase:'preparing',active:true},{phase:'unavailable',active:true},{phase:'ready',active:false},{phase:'closed',active:false}]){
-    const {PrivateScreen}=load('../../src/components/private-screen.tsx',{'react-native':{Pressable:'Pressable',Text:'Text',View:'View',StyleSheet:{create:v=>v}},'react-native-safe-area-context':{SafeAreaView:'SafeArea'},'expo-router':{useRouter:()=>({replace(){}})},'@/features/privacy/provider':{useScreenProtection:()=>({snapshot,retry(){}})}});
+    const {PrivateScreen}=load('../../src/components/private-screen.tsx',{'@/components/theme':{palette},'react-native':{Pressable:'Pressable',Text:'Text',View:'View',StyleSheet:{create:v=>v}},'react-native-safe-area-context':{SafeAreaView:'SafeArea'},'expo-router':{useRouter:()=>({replace(){}})},'@/features/privacy/provider':{useScreenProtection:()=>({snapshot,retry(){}})}});
     const output=PrivateScreen({children:secret});assert.notEqual(output,secret);assert.ok(!JSON.stringify(output).includes('synthetic-private-canary'));
   }
 });

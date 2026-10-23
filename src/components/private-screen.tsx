@@ -1,3 +1,4 @@
+import {palette} from '@/components/theme';
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,7 +15,7 @@ export function PrivateScreen({ children }: { children: ReactNode }) {
   </View></SafeAreaView>;
 }
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F6F8F3' }, page: { flex: 1, justifyContent: 'center', padding: 28, gap: 18 },
-  title: { color: '#152F29', fontSize: 24, fontWeight: '600' }, body: { color: '#52675D', fontSize: 16, lineHeight: 24 },
-  button: { backgroundColor: '#173F33', padding: 16, borderRadius: 12, minHeight: 48 }, buttonText: { color: '#FFFFFF', textAlign: 'center', fontWeight: '600' },
+  safe: { flex: 1, backgroundColor: palette.background }, page: { flex: 1, justifyContent: 'center', padding: 28, gap: 18 },
+  title: { color: palette.ink, fontSize: 24, fontWeight: '600' }, body: { color: palette.muted, fontSize: 16, lineHeight: 24 },
+  button: { backgroundColor: palette.accent, padding: 16, borderRadius: 12, minHeight: 48 }, buttonText: { color: palette.onAccent, textAlign: 'center', fontWeight: '600' },
 });

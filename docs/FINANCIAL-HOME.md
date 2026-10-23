@@ -38,3 +38,7 @@ Backendbridge21/metadata15,19migrationshashverificadas/fixtureSQLinstalada comro
 ## Correção T78 — apresentação monetária
 
 “Valor indisponível” era a mensagem de falha de formatação, diferente de “Não informado” (valor ausente na fonte). O formatador compartilhado agora usa diretamente centavos inteiros e agrupamento pt-BR, sem depender de Intl.NumberFormat/formatToParts no aparelho. Não há conversão de moeda ou arredondamento. Home e telas completas de contas, investimentos e movimentações permanecem disponíveis. Regressões simulam Intl ausente, incompleto e lançando erro; dados reais não foram consultados no diagnóstico. A confirmação no iPhone permanece necessária.
+
+## T79 — identidade pessoal e bancos
+
+Tema grafite/violeta com texto claro, identificação individual de Mercado Pago e Bradesco e ações de navegação preservadas. Banco sem vínculo aparece explicitamente e fica fora dos totais. Investimentos vazios têm mensagem de leitura sem posições; recibos por conexão/produto/revisão diferenciam espera, falha e sucesso. Consulte [cobertura e vínculo Bradesco](BANK-COVERAGE.md). Cofrinhos Mercado Pago não foram disponibilizados nesta integração; não são estimados.

@@ -6,7 +6,7 @@ const icons = { overview: '◉', movements: '↕', portfolio: '▤', settings: '
 export default function TabLayout() {
   return <Tabs screenOptions={({ route }) => ({
     headerShown: false,
-    tabBarActiveTintColor: palette.green,
+    tabBarActiveTintColor: palette.accent,
     tabBarInactiveTintColor: palette.muted,
     tabBarStyle: { backgroundColor: palette.surface, borderTopColor: palette.line },
     tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },

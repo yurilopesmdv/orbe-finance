@@ -64,4 +64,4 @@ export default function GoalsScreen() {
     </Card>)}
   </Screen>;
 }
-const styles = StyleSheet.create({ label: { fontSize: 15, color: palette.ink, fontWeight: '600' }, input: { borderWidth: 1, borderColor: palette.line, borderRadius: 10, padding: 14, minHeight: 48, color: palette.ink, fontSize: 16 }, error: { fontSize: 15, lineHeight: 23, color: '#8B2424' } });
+const styles = StyleSheet.create({ label: { fontSize: 15, color: palette.ink, fontWeight: '600' }, input: { borderWidth: 1, borderColor: palette.line, borderRadius: 10, padding: 14, minHeight: 48, color: palette.ink, fontSize: 16 }, error: { fontSize: 15, lineHeight: 23, color: palette.danger } });

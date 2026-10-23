@@ -1,3 +1,4 @@
+import {productCoverage,coverageLabels} from '@/features/finance/coverage';
 import { useFinance } from '@/features/finance/provider';
 import {useState,useSyncExternalStore} from 'react';
 import {Redirect,useRouter} from 'expo-router';
@@ -36,14 +37,14 @@ export default function MyInvestmentsScreen(){
    <Card title="Filtros">{['BRL','USD','EUR'].map(value=><Action key={value} title={value} secondary selected={currency===value} onPress={()=>{setCurrency(value);setOffset(0);}}/>)}<Action title="Todos os bancos" secondary selected={institution===undefined} onPress={()=>{setInstitution(undefined);setOffset(0);}}/>{[...new Set(connections.map(row=>row.institution))].map(value=><Action key={value} title={institutionLabels[value]} secondary selected={institution===value} onPress={()=>{setInstitution(value);setOffset(0);}}/>)}</Card>
    {!available&&<Body>As conexões ainda não estão disponíveis. Volte e abra esta tela novamente para tentar.</Body>}
    {available&&connections.length===0&&<Body>Nenhuma conexão disponível nesta sessão. Isso não confirma ausência de investimentos.</Body>}
-   {connections.map(row=><Card key={row.id} title={institutionLabels[row.institution]}><Action title={snapshot.phase==='loading'?'Atualizando…':'Atualizar investimentos'} disabled={!client||finance.snapshot.phase==='syncing'||snapshot.phase==='loading'||snapshot.phase==='closed'||row.state!=='active'||row.capabilities.investments!==true} onPress={()=>{setOffset(0);void finance.hub?.synchronize(true,{connectionId:row.id,product:'investments'});}}/></Card>)}
+   {connections.map(row=><Card key={row.id} title={institutionLabels[row.institution]}><Body>{coverageLabels[productCoverage(row,'investments',finance.snapshot.reads)]}</Body><Action title={snapshot.phase==='loading'?'Atualizando…':'Atualizar investimentos'} disabled={!client||finance.snapshot.phase==='syncing'||snapshot.phase==='loading'||snapshot.phase==='closed'||row.state!=='active'||row.capabilities.investments!==true} onPress={()=>{setOffset(0);void finance.hub?.synchronize(true,{connectionId:row.id,product:'investments'});}}/></Card>)}
    {snapshot.notice!=='none'&&<Body>{notices[snapshot.notice]}</Body>}
-   {items.length===0&&<Card title="Nenhuma posição disponível nesta consulta"><Body>Atualize o banco desejado. Uma lista vazia pode ser falta de leitura, filtro ou cobertura parcial; não significa patrimônio zero.</Body></Card>}
+   {items.length===0&&<Card title="Nenhuma posição disponível nesta consulta"><Body>A sincronização é automática. Confira acima o resultado de cada banco: uma leitura concluída sem posições significa que a fonte não retornou investimentos utilizáveis, não que você não tenha dinheiro investido. Os filtros também podem ocultar posições.</Body></Card>}
    {items.slice(offset,offset+20).map(row=><Card key={row.id} title={classes[row.assetClass??'unknown']}><Body>{institutionLabels[row.institutionId as ConnectionMetadata['institution']]}</Body><Body>Valor líquido</Body><Money cents={row.netCents??null} currency={row.currency}/>{row.netCents==null&&<Body>Líquido não informado pela fonte.</Body>}<Body>Valor bruto</Body><Money cents={row.grossCents??null} currency={row.currency}/>{row.grossCents==null&&<Body>Bruto não informado pela fonte.</Body>}<Body>Data da posição: {row.asOf?metadataDateLabel(row.asOf):'Não informada'}</Body><Body>Relação com saldo da conta não confirmada. Fora do total consolidado.</Body></Card>)}
    {offset>0&&<Action title="Página anterior" secondary onPress={()=>setOffset(n=>Math.max(0,n-20))}/>}
    {offset+20<items.length&&<Action title="Próxima página" secondary onPress={()=>setOffset(n=>n+20)}/>}
   </>}
-  <Card title="Cofrinhos e reservas"><Body>A separação de cofrinhos depende de identificação explícita do banco. Um CDB não será contado novamente como reserva. A disponibilidade ainda não foi confirmada.</Body></Card>
+  <Card title="Cofrinhos e reservas"><Body>O Meu Pluggy não disponibilizou os cofrinhos do Mercado Pago nesta integração. Eles não são incluídos por estimativa. Consulte o app do banco para ver os valores não recebidos aqui.</Body></Card>
   <Action title="Ver minhas contas" secondary onPress={()=>router.push('/my-accounts')}/>
  </Screen>;
 }

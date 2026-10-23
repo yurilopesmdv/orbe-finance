@@ -1,3 +1,4 @@
+import {palette} from '@/components/theme';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { runtime } from '@/config/runtime';
@@ -35,16 +36,16 @@ export default function WelcomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F6F8F3' },
+  safe: { flex: 1, backgroundColor: palette.background },
   page: { padding: 28, paddingTop: 36, flexGrow: 1, maxWidth: 600, width: '100%', alignSelf: 'center' },
-  wordmark: { fontSize: 32, fontWeight: '700', letterSpacing: -1.5, color: '#173F33', marginBottom: 48 },
-  badge: { backgroundColor: '#E1EBE2', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 10, alignSelf: 'flex-start', marginBottom: 24 },
-  badgeText: { fontSize: 11, fontWeight: '700', letterSpacing: 1, color: '#234F3D' },
-  title: { fontSize: 38, lineHeight: 44, letterSpacing: -1.3, fontWeight: '600', color: '#152F29', marginBottom: 18 },
-  description: { fontSize: 17, lineHeight: 26, color: '#52675D', marginBottom: 32 },
-  card: { backgroundColor: '#FFFFFF', borderRadius: 22, borderWidth: 1, borderColor: '#DCE3DA', padding: 22, marginBottom: 32 },
-  cardTitle: { fontSize: 20, lineHeight: 27, fontWeight: '600', color: '#173F33', marginBottom: 12 },
-  body: { fontSize: 15, lineHeight: 24, color: '#52675D' },
-  divider: { height: 1, backgroundColor: '#E5EAE2', marginVertical: 18 },
-  footnote: { fontSize: 12, lineHeight: 20, color: '#52675D', marginTop: 'auto' },
+  wordmark: { fontSize: 32, fontWeight: '700', letterSpacing: -1.5, color: palette.accent, marginBottom: 48 },
+  badge: { backgroundColor: palette.accentSoft, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 10, alignSelf: 'flex-start', marginBottom: 24 },
+  badgeText: { fontSize: 11, fontWeight: '700', letterSpacing: 1, color: palette.accent },
+  title: { fontSize: 38, lineHeight: 44, letterSpacing: -1.3, fontWeight: '600', color: palette.ink, marginBottom: 18 },
+  description: { fontSize: 17, lineHeight: 26, color: palette.muted, marginBottom: 32 },
+  card: { backgroundColor: palette.surface, borderRadius: 22, borderWidth: 1, borderColor: palette.line, padding: 22, marginBottom: 32 },
+  cardTitle: { fontSize: 20, lineHeight: 27, fontWeight: '600', color: palette.accent, marginBottom: 12 },
+  body: { fontSize: 15, lineHeight: 24, color: palette.muted },
+  divider: { height: 1, backgroundColor: palette.line, marginVertical: 18 },
+  footnote: { fontSize: 12, lineHeight: 20, color: palette.muted, marginTop: 'auto' },
 });

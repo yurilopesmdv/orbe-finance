@@ -59,5 +59,5 @@ export default function CreateAccountScreen() {
 const styles = StyleSheet.create({
   label: { fontSize: 15, fontWeight: '600', color: palette.ink },
   input: { borderWidth: 1, borderColor: palette.line, color: palette.ink, borderRadius: 10, padding: 14, minHeight: 48, fontSize: 17, backgroundColor: palette.background },
-  error: { color: '#8B2424', fontSize: 15, lineHeight: 23 },
+  error: { color: palette.danger, fontSize: 15, lineHeight: 23 },
 });

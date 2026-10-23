@@ -1,6 +1,6 @@
 # Specs do Orbe Finance
 
-Versão documental 0.1 — 16/10/2026, America/Sao_Paulo. Atualização20/10/2026: prévia sintética e acesso privado publicados; estado de implementação em [STATE](../roadmap/STATE.md), integração bancária real ainda não validada. Execução sintética autorizada em 16/10/2026, uma task por vez.
+Versão documental 0.1 — 16/10/2026, America/Sao_Paulo. Atualização23/10/2026: leitura pessoal Mercado Pago em uso, valores confirmados pelo titular; cobertura dos demais produtos/bancos em [STATE](../roadmap/STATE.md). Execução sintética autorizada em 16/10/2026, uma task por vez.
 
 A ordem de trabalho é **spec → plan → tasks → implement → validate**. As specs precedem cada implementação; consultar tasks/STATE para progresso e evidências atuais. Requisitos usam DEVE para comportamento obrigatório, PODERÁ para evolução. Decisões técnicas propostas estão no plano, separadas dos requisitos de produto.
 
@@ -16,6 +16,8 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. A
 | [007 — Relatórios](007-reports/spec.md) | Profundidade por detalhe progressivo, sem serviços externos |
 | [008 — Contas PF](008-personal-data/spec.md) | Persistência PF e origem exclusivamente Open Finance |
 | [009 — Meu Pluggy](009-meu-pluggy/spec.md) | Fornecedor selecionado, automação PF e controles da ponte |
+| [010 — Home financeira](010-financial-home/spec.md) | Sincronização, totais, cobertura e identidade pessoal |
+| [011 — Cartões](011-credit-cards/spec.md) | Resumo, faturas, compras e conciliação; planejada |
 
 ## Processo e controle de mudança
 
@@ -27,7 +29,7 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. A
 6. Alteração de escopo atualiza spec e ADR antes de abrir as tasks correspondentes. Histórico Git preserva versões; IDs de requisitos não são reutilizados.
 7. Validação relaciona requisito → task → cenário → evidência e registra falhas/limites.
 
-Estados: draft, ready, implementing, validated, deferred. As dez specs estão ready somente para a fatia R1 sintética após T06. Requisitos bancários/nativos reais continuam pendentes; ready não significa validated. SPEC-009 prevalece nas decisões da automação PF; [plano Meu Pluggy](../plan/MEU-PLUGGY.md) é a entrada técnica vigente. Ready exige resolver as decisões que bloqueiam aquela fatia; não exige concluir todos os bancos antes de uma fatia sintética autorizada. O caminho prioritário é uso pessoal, Bradesco/Mercado Pago PF e senha. Gratuidade é preferência subordinada à privacidade; Expo Go permanece ambiente sintético até decisão de runtime para dados reais. A exigência original de Face ID permanece rastreada, condicionada ao runtime.
+Estados: draft, ready, implementing, validated, deferred. As dez specs estão ready somente para a fatia R1 sintética após T06. Requisitos bancários/nativos reais continuam pendentes; ready não significa validated. SPEC-009 prevalece nas decisões da automação PF; [plano Meu Pluggy](../plan/MEU-PLUGGY.md) é a entrada técnica vigente. Ready exige resolver as decisões que bloqueiam aquela fatia; não exige concluir todos os bancos antes de uma fatia sintética autorizada. O caminho prioritário é uso pessoal, Bradesco/Mercado Pago PF e senha. Gratuidade é preferência subordinada à privacidade; Uso pessoal real no Expo Go foi autorizado pelo titular e está delimitado em OWNER-RELEASE; gates sintéticos antigos são históricos. A exigência original de Face ID permanece rastreada, condicionada ao runtime.
 
 Próximos documentos: [plano](../plan/PLAN.md), [microtasks](../tasks/TASKS.md), [roadmap](../roadmap/ROADMAP.md) e [estado de retomada](../roadmap/STATE.md).
 

@@ -1273,3 +1273,17 @@ Spec010/planT77, integrador único.
 - [x] Formatador pt-BR determinístico, centavos exatos e moeda explícita, sem Intl. Regressão de runtime sem Intl/incompleto/comerro; null/oculto/inválido continuam distintos.
 - [x] Check completo, export iOS, scan de perfis privados.
 - [x] Auditoria final/CI39985350908/1249checks/publicação01a1698f-3e7b-762f-bbf8-49a2c9dc8c12/manifesto/hashHBC/QR/documentação. Aceite físico pendente.
+
+## T79 — bancos, investimentos e identidade pessoal
+
+- [x] SPEC010BANK01/INV01/RES01/UI01 e planoT79.
+- [x] Diagnóstico somente metadados: um vínculoMPativo, investimentos success/committed/0linhas; Bradesco sem vínculo próprio. Pesquisa oficialAPIguide e issue22cofrinhos aberto.
+- [x] Recibos por conexão/produto/revisão, limpeza e preservação após falha; estados de investimentos sem fingir zero.
+- [x] Tema grafite/violeta centralizado, home e bancos distintos, telas existentes/login/proteção coerentes; guiaBANK-COVERAGE.
+- [ ] Check/export/audit/scans/CI/publicação/QR; aceite visual no iPhone pelo titular.
+
+## T80 — cartões e faturas (mapeamento solicitado)
+
+- [x] SPEC011 e planoT80a–i com fontes oficiais, contratos de faturas/CREDIT, orçamentozero e segurança.
+- [x] Registrar lacuna atual: CREDIT excluído de saldos e manifesto de movimentos; sem integração completa ou ativação de cartão.
+- [ ] T80a–i: implementar em sequência conforme plano; não confundir planejamento concluído com recurso disponível.

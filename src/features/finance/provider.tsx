@@ -10,7 +10,7 @@ import {createAccountScopeId} from '../accounts/native-scope';
 import {publicAuthConfig} from '../../config/auth';
 import {runtime} from '../../config/runtime';
 import {createFinanceHub,type FinanceHub,type FinanceSnapshot} from './hub';
-const Context=createContext<FinanceHub|null>(null),idle:Readonly<FinanceSnapshot>=Object.freeze({phase:'idle',connections:[],progress:'',completedAt:null,nextAt:null,revision:0}),idleSnapshot=()=>idle,idleSubscribe=()=>()=>{};
+const Context=createContext<FinanceHub|null>(null),idle:Readonly<FinanceSnapshot>=Object.freeze({phase:'idle',reads:[],connections:[],progress:'',completedAt:null,nextAt:null,revision:0}),idleSnapshot=()=>idle,idleSubscribe=()=>()=>{};
 export function FinanceProvider({children}:{children:ReactNode}){
  const auth=useAuth(),protection=useScreenProtectionModel(),screen=useScreenProtection(),[hub,setHub]=useState<FinanceHub|null>(null);
  useEffect(()=>{

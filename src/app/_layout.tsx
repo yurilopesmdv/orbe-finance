@@ -1,3 +1,4 @@
+import {palette} from '@/components/theme';
 import { FinanceProvider } from '@/features/finance/provider';
 import { ScreenProtectionProvider } from '@/features/privacy/provider';
 import { Stack } from 'expo-router';
@@ -11,8 +12,8 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ScreenProtectionProvider><AuthProvider><PrivacyProvider><FinanceProvider><DemoProvider>
-      <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F6F8F3' } }} />
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: palette.background } }} />
       </DemoProvider></FinanceProvider></PrivacyProvider></AuthProvider></ScreenProtectionProvider>
     </SafeAreaProvider>
   );
