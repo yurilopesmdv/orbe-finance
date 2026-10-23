@@ -21,3 +21,5 @@ Leitura de saldos confirmada pelo titular. Diagnóstico técnico posterior confi
 SQL/RLS: cooldown mesmo produto, produtos sequenciais sem espera900s, lease concorrente bloqueada, produto errado recusado, owner/revisão/consentimento/capacidade, protocolo antigo preservado. Hub: carga automática/ordem/retenção entre navegação/falhas/lock/purge/timer e totais sem duplicar. Tipos/check/exportiOS/audit/scans/CI. Instalado e QR remoto verificado. Nenhum valor real por ferramentas; aceite de cobertura só pelo titular.
 
 - RECENT-01: sincronizar mês atual e anterior para a home, mantendo cada mês no cache; intervalo porproduto pode adiar o segundo período por30s, com nova tentativa automática. Ver todas abre o mês do movimento mais recente exibido. Não declarar histórico completo.
+
+- HOME-03: ao retornar à home, reconsultar metadados e sincronizar só os produtos sem cache recente; não fechar caches. Conexões inativas/removidas não entram no subtotal da home.

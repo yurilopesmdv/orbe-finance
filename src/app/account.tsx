@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {Redirect,useRouter} from 'expo-router';
+import {useState,useCallback} from 'react';
+import {Redirect,useRouter,useFocusEffect} from 'expo-router';
 import {Pressable,StyleSheet,Text,View} from 'react-native';
 import {Action,Body,Card,Screen,palette} from '@/components/ui';
 import {Money,usePrivacy} from '@/components/privacy';
@@ -10,14 +10,16 @@ import {occurrenceMonth} from '@/domain/money';
 import {institutionLabels,metadataDateLabel} from '@/features/connections/presentation';
 export default function AccountScreen(){
  const auth=useAuth(),router=useRouter(),finance=useFinance(),privacy=usePrivacy(),[currency,setCurrency]=useState('BRL');
+ useFocusEffect(useCallback(()=>{void finance.hub?.synchronize(false);},[finance.hub]));
  if(auth.snapshot.state!=='unlocked')return <Redirect href="/login"/>;
  const hub=finance.hub,state=finance.snapshot,busy=state.phase==='syncing',month=occurrenceMonth(new Date().toISOString()),previousDate=new Date(month+'-15T12:00:00Z');previousDate.setUTCMonth(previousDate.getUTCMonth()-1);const previous=previousDate.toISOString().slice(0,7);
  let accounts:ReturnType<NonNullable<typeof hub>['clients']['accounts']['controller']['query']>['items']=[],investments:typeof accounts=[],recent:ReturnType<NonNullable<typeof hub>['clients']['movements']['controller']['query']>|null=null,prior:ReturnType<NonNullable<typeof hub>['clients']['movements']['controller']['query']>|null=null;
  try{if(hub&&state.phase!=='closed'){accounts=hub.clients.accounts.controller.query().items;investments=hub.clients.investments.controller.query().items;recent=hub.clients.movements.controller.query({month,currency,limit:5,offset:0});prior=hub.clients.movements.controller.query({month:previous,currency,limit:5,offset:0});}}catch{}
+ const activeIds=new Set(state.connections.filter(row=>row.state==='active').map(row=>row.id));accounts=accounts.filter(row=>activeIds.has(row.connectionId));investments=investments.filter(row=>activeIds.has(row.connectionId));
  const accountState=hub?.clients.accounts.controller.getSnapshot(),investmentState=hub?.clients.investments.controller.getSnapshot(),movementState=hub?.clients.movements.controller.getSnapshot();
  const recentItems=[...(recent?.items??[]),...(prior?.items??[])].slice(0,5),historyMonth=recentItems.length?occurrenceMonth(recentItems[0]!.occurredAt):month;
  const openMovements=()=>router.push({pathname:'/my-movements',params:{month:historyMonth}});
- const totals=summarizeHome(accounts,investments,currency,accountState?.phase==='ready',investmentState?.phase==='ready');
+ const totals=summarizeHome(accounts,investments,currency,activeIds.size>0&&accountState?.phase==='ready',activeIds.size>0&&investmentState?.phase==='ready');
  const progress=state.progress.replace('mercado-pago','Mercado Pago').replace('bradesco','Bradesco').replace('accounts','contas').replace('transactions','movimentações').replace('investments','investimentos');
  const links=[{title:'Contas',path:'/my-accounts'},{title:'Investimentos',path:'/my-investments'},{title:'Conexões',path:'/my-connections'}] as const;
  return <Screen title="Visão geral" subtitle="Seus bancos e investimentos em um só lugar." demonstration={false}>
