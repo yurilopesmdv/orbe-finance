@@ -1265,4 +1265,4 @@ Spec010/planT77, integrador único.
 - [x] T77b: hub/providerroot/cacheporsessão/filaúnica/autoaoabrir+15min, retry30s/60s e purgebackground/lock.
 - [x] T77c: homereal/account, subtotais/moedas/bancos/cofrinhosexplícitos/5movs2meses, detalhesreusamcache e fila.
 - [x] QA1248verificações/tipos/exportiOS/audit1220fontes/56instâncias/scansprivados.
-- [ ] T77d: CI→migration19+fixture→disable/deploy/enable/fontes/digests/smokes→Expo/manifesto/QRnovo→docs/STATE/Git.
+- [x] T77d: CI39981649710/39983257856;19migrations+fixture; bridge21/metadata15/digests/fontes/9smokes401; Expo01a16982-acae-7fbf-bf18-f3dda38e795a/manifesto/HBC/QRverificados; docs/STATE/Git.

@@ -1,31 +1,27 @@
-# Abrir o Orbe no Expo Go
+# Orbe — nova home financeira no Expo Go
 
-Versão iOS corrigida publicada em23/10/2026 com liberação pessoal bancária, SDK57. Funciona sem PC, Metro ou rede local.
+Publicação de23/10/2026, iOS/SDK57, remota e independente do PC ou rede local.
 
-![QR remoto do Orbe](assets/orbe-expo-go-20261023.png)
+![QR da home financeira](assets/orbe-expo-go-home-20261023.png)
 
-Link direto: exp://u.expo.dev/update/01a168a0-4d1f-7f99-8e92-064aff836b64
+Link direto: exp://u.expo.dev/update/01a16982-acae-7fbf-bf18-f3dda38e795a
 
-Update01a168a0-4d1f-7f99-8e92-064aff836b64 · grupoaa5860bd-ff2b-4517-b22d-d33eb8e67a3c · commit3f981e795d5dce06fb226bfa6d77db00b3bc4b90 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
+Update01a16982-acae-7fbf-bf18-f3dda38e795a · grupo0b7fe19c-9cd6-47a8-bf3b-a77b41ecfc9e · commit876295e417acb32d3ea81c2b40c468ae6c774be3 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
 
-## Primeiro acesso aos dados
+## Usar
 
-Use sua conta existente. Abra **Ver minhas conexões → Mercado Pago → Preparar e ativar leitura**. Após confirmação, volte a **Ver minhas contas → Atualizar saldos desta conexão**. Movimentações e investimentos têm telas próprias. Valores começam ocultos; use Mostrar valores. Não recrie conta nem altere credenciais.
+Abra este QR com o Expo Go e use sua conta existente. A home privada agora mostra saldo consolidado, subtotais de contas e investimentos, valores por banco e até5movimentos recentes de2meses. Toque **Mostrar valores e descrições** para revelar as informações, inicialmente ocultas. **Ver todas** abre o histórico no período correspondente.
 
-A origem e permissões Mercado Pago foram verificadas com metadados reais. A ativação e a leitura final exigem a sua sessão no app; **nenhum saldo foi consultado por ferramentas e primeirovalor no iPhone ainda não confirmado**. Bradesco conectado no portal pessoal ainda não tem proxy próprio cadastrado nesta aplicação; não consta como ativo. Guia em [ACCOUNT-ACTIVATION](ACCOUNT-ACTIVATION.md).
+Os dados são carregados automaticamente ao abrir/retomar e atualizados durante o uso. Mudar de página mantém os dados da sessão; as telas completas usam o mesmo cache. Atualizar na home é opcional. Ao retornar à home, as conexões são revalidadas e produtos com cache recente não são consultados novamente.
 
-Demonstração de gastos/carteira/metas/relatórios permanece separada. Cofrinhos dependem de vínculo/natureza comprovados pela fonte; não há soma fictícia ou saldo duplicado. Layout e identidade preservados; cadastro público/FaceID/recuperação continuam desligados.
+O intervalo porproduto é30s e não bloqueia outros produtos por15min. Apenas uma leitura por banco fica em andamento. O segundo mês pode aguardar um breve intervalo, com continuação automática. Ao bloquear/background/logout, dados e requisições são limpos; o app recarrega ao retornar. Não há persistência financeira em disco ou processamento em segundo plano.
 
-## Evidência da entrega
+Investimentos com sobreposição desconhecida ficam separados do consolidado; cofres/reservas não são inventados nem duplicados. Bradesco ainda semproxypróprio identificado. Datas, cobertura e disponibilidade da fonte continuam relevantes; atualização no Orbe não equivale a forçar atualização bancária emtempo real. [Guia completo](FINANCIAL-HOME.md).
 
-Correção da ativação aprovada em [CI39949557277](https://github.com/yurilopesmdv/orbe-finance/actions/runs/39949557277),1236verificações (1088Node+148Python) e tiposcliente/backend. ExportiOS/Hermes final, auditoria1217fontes/56instâncias/advisoriesausentesJS, scansprivados/allowlist46. Manifesto remoto/schemeorbe/hashHBC/URLoficialQR conferidos após publicar. Sourcemaps privados.
+## Verificações
 
-Backendbridge15/metadata11 ativos,18migrations imutáveis/hashverificadas. FixtureSQL instalada comrollback/zeroresíduos/ownerpreservado. Oito interruptores financeiros habilitados e digests/fontes confirmados, com kill switch independente. Nove rotas bancárias negaram anônimos401/no-store, sem chamadas ao provedor. Valores permanecem em memória volátil no app; banco próprio guarda somente metadados. Condições/limites em [liberação pessoal](security/OWNER-RELEASE-20261021.md) e [prontidão](RELEASE-READINESS.md).
+CI39981649710success/1248verificações(1100Node+148Python), tiposcliente/backend, SQL/RLSdraft e instalado comrollback/zeroresíduos/ownerpreservado. Ajustefinal de navegaçãoCI39983257856. ExportHermes/audit1220fontes/56instâncias/advisoriesausentesJS, scansprivados/allowlist46; sourcemaps privados. Manifesto/scheme/hashHBC/URLoficialQR conferidos depois de publicar.
 
-Retomada/captura/multitarefa já confirmadas pelo titular. Demais testes físicos ficam ao final; não enviar valores, extratos ou imagens privadas no chat. Nenhum serviço pago contratado.
+Backendbridge21/metadata15,19migrations imutáveis/hashverificadas,8flags ativas/digests/fontes/identidades confirmados.9rotasanônimas401/no-store. Valores reais nunca foram consultados pelas ferramentas; a validação da nova interface no aparelho fica para o titular. Saldo e leitura anterior de movimentos já foram confirmados por titular/metadados, respectivamente. Cadastro público/FaceID/recuperação continuam desligados. Nenhum serviço pago contratado.
 
-
-Correção23/10: preparação e ativação agora são uma única ação. As duas tentativas anteriores ocorreram antes do inventário; causa e diagnóstico seguro em [ACTIVATION-TROUBLESHOOTING](ACTIVATION-TROUBLESHOOTING.md). O backend já havia preparado o inventário real com sucesso; esta correção não muda suas credenciais ou regrasSQL.
-
-
-Backend atualizado em23/10 após falha da primeira leitura: **bridge18/metadata13**, correção de datasSQLoffset/microsegundos, CI39966769243success/1240checks. Este mesmo QR/app continua válido. Titular já confirmou conexão cadastrada; basta atualizar os saldos, sem reativar. Retentativa da falha expirada liberada; primeirovalorreal ainda não confirmado.
+[Prontidão](RELEASE-READINESS.md) · [Specs](../specs/010-financial-home/spec.md) · [Roadmap](../roadmap/STATE.md).

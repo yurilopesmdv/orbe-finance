@@ -1,5 +1,10 @@
 # Prontidão do Orbe — 23/10/2026
 
+**Estado vigenteT77:** home real/autosync/cacheporsessão/5movs2meses,19migrations, backend21/metadata15,8flags/digests/fontesverificados e9smokes401. CI39981649710success/1248checks eCI39983257856ajustefinal. GuiaFINANCIAL-HOME eQR emEXPO-PREVIEW. Saldo confirmado pelo titular; movimento concluído e comlinhas conforme metadados, sem finanças lidas por ferramentas. Nova interface ainda precisa deaceitefísico. Restrições antigas de cooldown900s aplicam-se aos clientes antigos.
+
+O restante abaixo é histórico das etapas anteriores.
+
+
 A liberação pessoal real foi instalada. Backend bridge18/metadata13 ativos, oito flags conferidas,18migrations imutáveis/hashverificadas. Nove rotas recusam anônimos401/no-store. A conexão Mercado Pago ainda precisa da ação Preparar e ativar leitura na sessão do titular; isso verifica inventário e consentimento antes de qualquer saldo. **Titular confirmou a leitura de saldos em23/10.** QR e publicação em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 | Entrega | Estado e limite |
