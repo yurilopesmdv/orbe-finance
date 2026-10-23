@@ -23,3 +23,5 @@ SQL/RLS: cooldown mesmo produto, produtos sequenciais sem espera900s, lease conc
 - RECENT-01: sincronizar mês atual e anterior para a home, mantendo cada mês no cache; intervalo porproduto pode adiar o segundo período por30s, com nova tentativa automática. Ver todas abre o mês do movimento mais recente exibido. Não declarar histórico completo.
 
 - HOME-03: ao retornar à home, reconsultar metadados e sincronizar só os produtos sem cache recente; não fechar caches. Conexões inativas/removidas não entram no subtotal da home.
+
+- MONEY-02 (T78): a apresentação monetária pt-BR deve funcionar sem Intl.NumberFormat/formatToParts do aparelho. Centavos inteiros seguros, sinal, agrupamento e moeda explícita; null permanece não informado, ocultação precede formatação. Preservar telas detalhadas. Validar com APIs Intl ausentes e lançando erro, sem consultar valores reais.

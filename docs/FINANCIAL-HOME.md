@@ -34,3 +34,7 @@ Validação local:1248verificações, tiposcliente/backend, SQL/RLS emrollback/z
 ## Publicação instalada
 
 Backendbridge21/metadata15,19migrationshashverificadas/fixtureSQLinstalada comrollback/zeroresíduos/ownerpreservado.8flags/digests/fontes/identidades verificados;9rotasanônimas401/no-store. Clienteupdate01a16982-acae-7fbf-bf18-f3dda38e795a, grupo0b7fe19c-9cd6-47a8-bf3b-a77b41ecfc9e, commit876295e417acb32d3ea81c2b40c468ae6c774be3; manifesto/scheme/HBC/QRoficial conferidos. CI39981649710success eCI39983257856 da conferênciafinal; QR em EXPO-PREVIEW. Ao retornar à home, metadados são revalidados sem apagar os caches; produtos recentes não são buscados novamente desnecessariamente.
+
+## Correção T78 — apresentação monetária
+
+“Valor indisponível” era a mensagem de falha de formatação, diferente de “Não informado” (valor ausente na fonte). O formatador compartilhado agora usa diretamente centavos inteiros e agrupamento pt-BR, sem depender de Intl.NumberFormat/formatToParts no aparelho. Não há conversão de moeda ou arredondamento. Home e telas completas de contas, investimentos e movimentações permanecem disponíveis. Regressões simulam Intl ausente, incompleto e lançando erro; dados reais não foram consultados no diagnóstico. A confirmação no iPhone permanece necessária.

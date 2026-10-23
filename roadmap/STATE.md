@@ -1,5 +1,9 @@
 # Estado de retomada — 21/10/2026
 
+## T78 — correção de apresentação monetária (em publicação)
+
+Titular relata movimentos recentes presentes mas todos valores indisponíveis. Mensagem vem exclusivamente do catch do formatador compartilhado; null produz Não informado; normalização valida centavos antes do cache. Dependência Intl.NumberFormat/formatToParts removida para evitar incompatibilidade nativa. Sem diagnóstico de valores reais ou afirmação de reprodução no iPhone. Formatação por strings de centavos seguros/agrupamento pt-BR/moeda explícita, mantendo ocultação/null/validação. Home e detalhes preservados. Spec010MONEY02/planT78; check completo/export/scan aprovados, audit/CI/publish pendentes. Próxima ação concluir entrega remota e QR, sem esperar aprovação.
+
 ## T77 — home financeira e sincronização automática publicadas23/10 (VIGENTE)
 
 Titular pediu corrigir experiência: saldo/investimentos/cofres/movimentosrecentes na home e importação automática sem navegaratualizarcada tela. Diagnóstico real sómetadados: consulta anterior de movimentos finalizada e comlinhas; foco de rota destruía caches, cooldown900s compartilhado bloqueavaprodutos. Não consultarfinançasportools nem pedirnovasconfigs.

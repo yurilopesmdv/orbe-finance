@@ -3,11 +3,13 @@ import { assertCents } from '../domain/money.ts';
 export function formatCents(cents: number, currency = 'BRL') {
   assertCents(cents);
   if (!/^[A-Z]{3}$/.test(currency)) throw new Error('invalid_currency');
-  const value = BigInt(cents), units = value / 100n;
-  const fraction = ((value < 0n ? -value : value) % 100n).toString().padStart(2, '0');
-  const whole = cents < 0 && units === 0n ? -0 : Number(units);
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency, minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    .formatToParts(whole).map(part => part.type === 'fraction' ? fraction : part.value).join('');
+  // Do not depend on optional Intl methods in the native JS runtime.
+  // Work on decimal strings so even the largest safe cent amount stays exact.
+  const digits = Math.abs(cents).toString().padStart(3, '0');
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const fraction = digits.slice(-2);
+  const symbol = currency === 'BRL' ? 'R$' : currency === 'USD' ? 'US$' : currency === 'EUR' ? '€' : currency;
+  return `${cents < 0 ? '-' : ''}${symbol} ${whole},${fraction}`;
 }
 export function moneyLabel(cents: number | null, hidden: boolean, currency = 'BRL') {
   if (hidden) return 'Valor oculto';

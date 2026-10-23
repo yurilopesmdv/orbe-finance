@@ -19,3 +19,20 @@ test('strict helper rejects unsafe or fractional money and invalid currency', ()
 test('same UI label hides value before parsing and distinguishes unknown from zero', () => {
   assert.equal(moneyLabel(Number.MAX_SAFE_INTEGER + 1, true, 'invalid'), 'Valor oculto'); assert.equal(moneyLabel(null, false), 'Não informado'); assert.equal(moneyLabel(Infinity, false), 'Valor indisponível'); assert.equal(normalize(moneyLabel(0, false)), 'R$ 0,00');
 });
+
+test('native runtime without Intl formats balances and movement cents exactly', () => {
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, 'Intl');
+  try {
+    for (const intl of [undefined, { NumberFormat() { throw Error('unsupported_native_formatter'); } }, { NumberFormat() { return { format() { return 'incomplete'; } }; } }]) {
+      Object.defineProperty(globalThis, 'Intl', { configurable: true, writable: true, value: intl });
+      assert.equal(moneyLabel(536, false), 'R$ 5,36');
+      assert.equal(moneyLabel(29, false), 'R$ 0,29');
+      assert.equal(moneyLabel(-1, false), '-R$ 0,01');
+      assert.equal(moneyLabel(Number.MAX_SAFE_INTEGER, false), 'R$ 90.071.992.547.409,91');
+      assert.equal(moneyLabel(123456, false, 'EUR'), '€ 1.234,56');
+      assert.equal(moneyLabel(123456, false, 'JPY'), 'JPY 1.234,56');
+      assert.equal(moneyLabel(null, false), 'Não informado');
+      assert.equal(moneyLabel(536, true), 'Valor oculto');
+    }
+  } finally { Object.defineProperty(globalThis, 'Intl', descriptor); }
+});

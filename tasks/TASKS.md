@@ -1266,3 +1266,10 @@ Spec010/planT77, integrador único.
 - [x] T77c: homereal/account, subtotais/moedas/bancos/cofrinhosexplícitos/5movs2meses, detalhesreusamcache e fila.
 - [x] QA1248verificações/tipos/exportiOS/audit1220fontes/56instâncias/scansprivados.
 - [x] T77d: CI39981649710/39983257856;19migrations+fixture; bridge21/metadata15/digests/fontes/9smokes401; Expo01a16982-acae-7fbf-bf18-f3dda38e795a/manifesto/HBC/QRverificados; docs/STATE/Git.
+
+## T78 — correção dos valores indisponíveis
+
+- [x] Spec MONEY-02/planoT78: preservar home e detalhes; diagnosticar apresentação sem consultar finanças.
+- [x] Formatador pt-BR determinístico, centavos exatos e moeda explícita, sem Intl. Regressão de runtime sem Intl/incompleto/comerro; null/oculto/inválido continuam distintos.
+- [x] Check completo, export iOS, scan de perfis privados.
+- [ ] Auditoria final/CI/publicação/manifesto/QR/documentação do release.
