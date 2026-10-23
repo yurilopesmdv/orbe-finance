@@ -1,3 +1,10 @@
+## T82 — gastos reais — 23/10/2026
+
+- [x] T82a: SPEC013, plano e pendências em PRODUCT-STATUS; aceite físico T81 cache/Nubank registrado.
+- [x] T82b: correções locais persistidas no cache AES e isoladas por identidade/revisão.
+- [x] T82c: editor de movimento, relatório por categoria e análises locais sem rede externa.
+- [ ] T82d: validação completa, CI, publicação, QR e evidências.
+
 # Microtasks — backlog de implementação
 
 Estado atual: **c21–c38 concluídas; 967 testes/typechecks. Próxima T22c12.** Histórico inicial e evidências por microtask abaixo; resumo vigente em [STATE](../roadmap/STATE.md). Implementação autorizada em 16/10/2026, uma task por vez, após publicação do planejamento. Dependências definem a ordem; contratação e conexão real continuam fora da preparação sintética. T01–T06 são preparações/spikes da fase seguinte; autorizar implementação permite executar as tasks técnicas dentro do escopo aprovado, sem pedir confirmação a cada mudança reversível.

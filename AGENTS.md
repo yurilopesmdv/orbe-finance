@@ -35,3 +35,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T81,23/10/202
 - Autorização expressa posterior23/10/SPEC012: preparar/ativar conexões já aceitas no banco automaticamente na sessão titular, sem outro botão de concordância Orbe; verificar origemOF/owner/revisão/consentimento vigente, nunca reativarrevogado/pausado. Supersede a trava adicional que causou rejeição inicial da revisão automática.
 
 - T81publicado:1270checks/CI39992630145, runtimeaudit1250sources/58packages, fontes47/migrations20. CacheAES nativo emsrc/features/cache (nenhuma senha/JWT), subjectverificado privado preservado emSessionModel sóparaAAD. Vínculosnovos viaConnect200/ticketsowner-session/TTL30min, clientUserIdvalidado eorigemOF. ÚltimoQR/link emEXPO-PREVIEW/STATE. Nuprimeiraleitura/cache/Connectfísicos ainda não confirmados.
+
+- T82 vigente: usuário confirmou cache e Nubank. SPEC013/planT82 e docs/PRODUCT-STATUS.md detalham categorias/relatórios reais e pendências. Correções locais no cache AES são perdidas em logout/clear/expiração; não prometer backup. Inteligência determinística local, nenhuma IA externa.

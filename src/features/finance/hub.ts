@@ -1,3 +1,6 @@
+import {applyCorrections,validateCorrections,movementKey,type Correction} from './classifications.ts';
+import {queryMovements,type MovementFilters} from '../../data/local/query.ts';
+import {spendingReport} from '../../data/local/reports.ts';
 import {normalizeConnection} from '../../domain/connections.ts';
 import type {CacheVault} from '../cache/vault.ts';
 import type { ConnectionMetadata, StatusResult } from '../connections/status.ts';
@@ -17,10 +20,11 @@ interface Ports {activate?:(id:string)=>Promise<boolean>;cache?:{vault:CacheVaul
 /** Owns foreground financial state independently of navigation. Optional encrypted device cache; no logging or telemetry. */
 export function createFinanceHub(session:SessionAccess,protection:Protection,ports:Ports){
  const now=ports.now??Date.now,set=ports.set??((fn,ms)=>setTimeout(fn,ms)),clear=ports.clear??(id=>clearTimeout(id as ReturnType<typeof setTimeout>));
+ let corrections:Correction[]=[],restoreComplete=false;
  const clients=ports.clients,listeners=new Set<()=>void>(),stops:(()=>void)[]=[],success=new Map<string,number>();let queued=false,restored=false,closed=false,busy=false,timer:unknown,controller:AbortController|null=null;
  let snapshot:Readonly<FinanceSnapshot>=Object.freeze({phase:'idle',reads:[],connections:[],progress:'',completedAt:null,nextAt:null,revision:0});
  const emit=(patch:Partial<FinanceSnapshot>={})=>{snapshot=Object.freeze({...snapshot,...patch,revision:snapshot.revision+1});for(const fn of listeners){try{fn();}catch{}}};
- const close=()=>{if(closed)return;closed=true;controller?.abort();clear(timer);for(const stop of stops){try{stop();}catch{}}for(const client of Object.values(clients))client.close();success.clear();emit({phase:'closed',reads:[],connections:[],progress:'',completedAt:null,nextAt:null});listeners.clear();};
+ const close=()=>{if(closed)return;closed=true;controller?.abort();clear(timer);for(const stop of stops){try{stop();}catch{}}for(const client of Object.values(clients))client.close();success.clear();corrections=[];emit({phase:'closed',reads:[],connections:[],progress:'',completedAt:null,nextAt:null});listeners.clear();};
  const current=()=>{const screen=protection.getSnapshot();if(closed||session.getSnapshot().state!=='unlocked'||screen.phase!=='ready'||!screen.active){close();throw Error('finance_locked');}session.assertUnlocked();};
  const watch=()=>{try{current();}catch{}};
  try{current();stops.push(session.subscribe(watch),protection.subscribe(watch));for(const client of Object.values(clients))stops.push(client.controller.subscribe(()=>{if(!closed)emit();}));}catch{close();}
@@ -42,7 +46,7 @@ export function createFinanceHub(session:SessionAccess,protection:Protection,por
  };
  const saveCache=async()=>{
   if(!ports.cache||closed)return;
-  try{current();const data={connections:snapshot.connections,reads:snapshot.reads,accounts:clients.accounts.controller.exportCache(),movements:clients.movements.controller.exportCache(),investments:clients.investments.controller.exportCache()};const ok=await ports.cache.vault.save(ports.cache.owner,data);if(!closed)emit({cacheState:ok?'saved':'unavailable',cacheSavedAt:ok?now():snapshot.cacheSavedAt});}catch{if(!closed)emit({cacheState:'unavailable'});}
+  try{current();const data={corrections,connections:snapshot.connections,reads:snapshot.reads,accounts:clients.accounts.controller.exportCache(),movements:clients.movements.controller.exportCache(),investments:clients.investments.controller.exportCache()};const ok=await ports.cache.vault.save(ports.cache.owner,data);if(!closed)emit({cacheState:ok?'saved':'unavailable',cacheSavedAt:ok?now():snapshot.cacheSavedAt});return ok;}catch{if(!closed)emit({cacheState:'unavailable'});}
  };
  const restoreCache=async()=>{
   if(restored||!ports.cache)return;restored=true;
@@ -52,6 +56,7 @@ export function createFinanceHub(session:SessionAccess,protection:Protection,por
    if(!data||!Array.isArray(data.connections)||!Array.isArray(data.reads)||data.connections.length>100||data.reads.length>1000)throw Error();
    const eligible=snapshot.connections.filter(connection=>normalizeConnection(connection,{integrationEnabled:true,privateDataApproved:true,now:now()}).readableProducts.length>0&&data.connections.some((old:ConnectionMetadata)=>old.id===connection.id&&old.revision===connection.revision&&old.institution===connection.institution));
    for(const [name,client] of Object.entries(clients)){const stored=name==='accounts'?data.accounts:name==='movements'?data.movements:data.investments;const product=name==='accounts'?'accounts':name==='movements'?'transactions':'investments';client.controller.restoreCache(stored,eligible.filter(connection=>connection.capabilities[product]===true));}
+   corrections=validateCorrections(data.corrections??[]).filter(c=>eligible.some(b=>c.source==='connection:'+b.id&&c.revision===b.revision));
    const reads=data.reads.filter((read:ProductReadState)=>eligible.some(connection=>connection.id===read.connectionId&&connection.revision===read.revision&&connection.sourceUpdatedAt===data.connections.find((old:ConnectionMetadata)=>old.id===connection.id)?.sourceUpdatedAt)&&['accounts','transactions','investments'].includes(read.product)&&Number.isSafeInteger(read.lastSuccessAt)&&read.lastSuccessAt!>0&&read.lastSuccessAt!<=now()&&(read.month===null||/^\d{4}-\d{2}$/.test(read.month)));
    for(const read of reads)if(read.status==='complete')success.set([read.connectionId,read.revision,read.product,read.month??''].join(':'),read.lastSuccessAt!);
    emit({reads:Object.freeze(reads),cacheState:'restored',cacheSavedAt:cached.savedAt});
@@ -62,7 +67,7 @@ export function createFinanceHub(session:SessionAccess,protection:Protection,por
   try{
    const result=await ports.status(controller.signal);current();if(result.status!=='complete')throw Error();for(const connection of result.connections){const old=snapshot.connections.find(row=>row.id===connection.id);if(old&&old.sourceUpdatedAt!==connection.sourceUpdatedAt)for(const key of success.keys())if(key.startsWith(connection.id+':'))success.delete(key);}
    emit({connections:Object.freeze([...result.connections]),reads:Object.freeze(snapshot.reads.filter(read=>result.connections.some(connection=>connection.id===read.connectionId&&connection.revision===read.revision&&connection.state==='active')))});
-   await restoreCache();current();
+   await restoreCache();current();restoreComplete=true;
    if(ports.activate){for(const connection of snapshot.connections){if(connection.state!=='pending')continue;emit({progress:'Preparando '+connection.institution});if(!await ports.activate(connection.id))failed=true;current();}const refreshed=await ports.status(controller.signal);current();if(refreshed.status==='complete')emit({connections:refreshed.connections});}
    const month=only?.month??occurrenceMonth(new Date(now()).toISOString());
    for(const connection of snapshot.connections){if(connection.state!=='active'||only&&connection.id!==only.connectionId)continue;
@@ -80,6 +85,14 @@ export function createFinanceHub(session:SessionAccess,protection:Protection,por
   }catch{if(!closed)emit({phase:'partial',progress:''});return false;}
   finally{controller?.abort();controller=null;busy=false;if(!closed){const delay=queued?0:cooldown?30000:failed||!finished?60000:900000;queued=false;emit({nextAt:now()+delay});timer=set(()=>{void synchronize(false);},delay);}}
  }
- return Object.freeze({clients,getSnapshot:()=>snapshot,subscribe(fn:()=>void){if(closed)return()=>{};listeners.add(fn);return()=>{listeners.delete(fn);};},synchronize,close});
+ const classifiedRows=()=>{current();return applyCorrections(clients.movements.controller.exportCache().movements.filter(row=>snapshot.connections.some(c=>normalizeConnection(c,{integrationEnabled:true,privateDataApproved:true,now:now()}).readableProducts.includes('transactions')&&row.source==='connection:'+c.id)),corrections,snapshot.connections);};
+ return Object.freeze({clients,
+ queryMovements(filters:MovementFilters){return queryMovements(classifiedRows(),filters,false);},
+ spendingReport(filters:Omit<MovementFilters,'offset'|'limit'>){return spendingReport(classifiedRows(),filters,false);},
+ async classify(ref:Pick<Correction,'source'|'accountId'|'externalId'>,fields:Pick<Correction,'categoryId'|'type'>|null){
+  current();if(!restoreComplete||!ports.cache)return false;
+  const row=classifiedRows().find(item=>movementKey(item)===movementKey(ref));const connection=snapshot.connections.find(c=>'connection:'+c.id===ref.source&&c.state==='active');if(!row||!connection)return false;
+  const next=corrections.filter(c=>movementKey(c)!==movementKey(ref));if(fields)next.push({source:ref.source,accountId:ref.accountId,externalId:ref.externalId,revision:connection.revision,...fields});corrections=validateCorrections(next);emit();return await saveCache()===true;
+ },getSnapshot:()=>snapshot,subscribe(fn:()=>void){if(closed)return()=>{};listeners.add(fn);return()=>{listeners.delete(fn);};},synchronize,close});
 }
 export type FinanceHub=ReturnType<typeof createFinanceHub>;

@@ -40,3 +40,5 @@ Expo Go permanece restrito a dados sintéticos até fechar os gates de runtime, 
 [Como executar e validar](docs/DESENVOLVIMENTO.md). Auditoria de dependências e limites em [DEPENDENCIES](docs/security/DEPENDENCIES.md).
 
 [Acesso às contas](docs/ACCOUNT-ACCESS.md) · [Ativação conjunta e pendências](docs/ACCOUNT-ACTIVATION.md). Tela e cadeia de saldos preparadas em fixtures; gates reais continuam desligados. Retomada sem senha/captura/multitarefa confirmadas pelo titular.
+
+Situação atual e pendências: [PRODUCT-STATUS](docs/PRODUCT-STATUS.md). Categorias e relatórios reais: [SPEC013](specs/013-real-spending/spec.md).

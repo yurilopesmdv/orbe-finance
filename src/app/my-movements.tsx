@@ -1,3 +1,4 @@
+import {MovementCard} from '@/features/finance/movement-card';
 import { useFinance } from '@/features/finance/provider';
 import { useState, useSyncExternalStore } from 'react';
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
@@ -29,11 +30,11 @@ export default function MyMovementsScreen(){
  if(auth.snapshot.state!=='unlocked')return <Redirect href="/login"/>;
  let result:ReturnType<Client['controller']['query']>|null=null;
  const protectedNow=screen.snapshot.phase==='ready'&&screen.snapshot.active;
- if(enabled&&protectedNow&&client&&snapshot.phase!=='closed'){try{result=client.controller.query({month,currency,institutionId:institution,offset,limit:20});}catch{/* Closed caches never render financial content. */}}
+ if(enabled&&protectedNow&&client&&snapshot.phase!=='closed'){try{result=finance.hub?.queryMovements({month,currency,institutionId:institution,offset,limit:20})??null;}catch{/* Closed caches never render financial content. */}}
  return <Screen title="Minhas movimentações" subtitle="Movimentos das contas, por período e banco." demonstration={false}>
   <Action title="Voltar à visão geral" secondary onPress={()=>router.replace('/account')}/>
   {!enabled?<Card title="Movimentações em preparação"><Body>Seu acesso está pronto. A leitura de movimentos ainda não foi ativada nesta versão. Nenhum extrato real é consultado por esta tela.</Body></Card>:!protectedNow?<Card title="Acesso protegido"><Body>Aguarde a proteção de tela ficar pronta para consultar seus movimentos.</Body></Card>:<>
-   <Body>Somente movimentos de contas correntes e de pagamento. Compras de cartão, investimentos e cofrinhos não fazem parte desta leitura. Os dados são descartados ao sair do primeiro plano ou da sessão.</Body>
+   <Body>Somente movimentos de contas correntes e de pagamento. Compras de cartão, investimentos e cofrinhos não fazem parte desta leitura. O cache protegido permanece neste iPhone ao fechar o app. Sair da conta ou apagar o cache também remove suas classificações locais.</Body>
    <Action title={privacy.hidden?'Mostrar valores e descrições':'Ocultar valores e descrições'} secondary onPress={privacy.toggle}/>
    <Card title="Período"><Body>{monthLabel(month)}</Body><Action title="Mês anterior" secondary disabled={month<='2000-01'||snapshot.phase==='loading'} onPress={()=>{setMonth(shiftMonth(month,-1));setOffset(0);}}/><Action title="Mês seguinte" secondary disabled={month>='2099-12'||snapshot.phase==='loading'} onPress={()=>{setMonth(shiftMonth(month,1));setOffset(0);}}/></Card>
    <Card title="Filtros"><Body>Moeda: {currency}. Cada moeda é apresentada separadamente.</Body>{['BRL','USD','EUR'].map(value=><Action key={value} title={value} secondary selected={currency===value} onPress={()=>{setCurrency(value);setOffset(0);}}/>)}<Action title="Todos os bancos" secondary selected={institution===undefined} onPress={()=>{setInstitution(undefined);setOffset(0);}}/>{[...new Set(connections.map(row=>row.institution))].map(value=><Action key={value} title={institutionLabels[value]} secondary selected={institution===value} onPress={()=>{setInstitution(value);setOffset(0);}}/>)}</Card>
@@ -43,10 +44,11 @@ export default function MyMovementsScreen(){
    {snapshot.notice!=='none'&&<Body>{notices[snapshot.notice]}</Body>}
    {result&&result.totalCount===0&&<Card title="Sem movimentos disponíveis nesta consulta"><Body>Atualize a conexão para o período desejado. Uma lista vazia pode indicar que ainda não houve leitura, filtros sem resultados ou cobertura parcial; ela não confirma movimentação zero.</Body></Card>}
    {result&&result.totalCount>0&&<Body>{result.totalCount} movimento(s) disponível(is) nesta sessão e nestes filtros. Cobertura parcial.</Body>}
-   {result?.items.map(item=><Card key={JSON.stringify([item.source,item.accountId,item.externalId])} title={item.direction==='debit'?'Saída da conta':'Entrada na conta'}><Money cents={item.amountCents} currency={item.currency}/><Body>{privacy.hidden?'Descrição oculta':item.description||'Sem descrição disponível'}</Body><Body>{metadataDateLabel(item.occurredAt)} · {institutionLabels[item.institutionId as ConnectionMetadata['institution']]} · {item.status==='posted'?'Confirmado':'Pendente'}</Body><Body>Tipo financeiro e categoria ainda não confirmados. Uma saída não significa necessariamente consumo.</Body></Card>)}
+   {result?.items.map(item=><MovementCard key={JSON.stringify([item.source,item.accountId,item.externalId])} item={item}/>)}
    {offset>0&&<Action title="Página anterior" secondary onPress={()=>setOffset(value=>Math.max(0,value-20))}/>}
    {result?.nextOffset!==null&&result?.nextOffset!==undefined&&<Action title="Próxima página" secondary onPress={()=>setOffset(result.nextOffset!)}/>}
   </>}
+  <Action title="Gastos por categoria e análises" secondary onPress={()=>router.push('/my-reports')}/>
   <Action title="Ver minhas contas" secondary onPress={()=>router.push('/my-accounts')}/>
   <Action title="Ver minhas conexões" secondary onPress={()=>router.push('/my-connections')}/>
  </Screen>;

@@ -35,3 +35,5 @@ Estados: draft, ready, implementing, validated, deferred. As dez specs estão re
 Próximos documentos: [plano](../plan/PLAN.md), [microtasks](../tasks/TASKS.md), [roadmap](../roadmap/ROADMAP.md) e [estado de retomada](../roadmap/STATE.md).
 
 - [010 — Home financeira e sincronização automática](010-financial-home/spec.md): contrato vigente da experiência privada consolidada solicitada23/10.
+
+- [SPEC013 — categorias e análises reais](013-real-spending/spec.md): evolução real de SPEC007, sem alterar a demonstração.

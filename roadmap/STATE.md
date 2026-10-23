@@ -1,3 +1,9 @@
+# T82 — categorias e relatórios reais (VIGENTE)
+
+23/10/2026: titular confirmou cache e Nubank funcionando. Solicitou edição/classificação, gastos por categoria, gráficos e inteligência, com pendências claras. SPEC013 → planT82. Implementação local em andamento: correções fonte/conta/movimento/revisão no cache AES, relatório real /my-reports e editor em /my-movements. Sem dados financeiros por ferramentas, IA externa ou backend novo. Situação do produto em docs/PRODUCT-STATUS.md. T80 cartões permanece pendente; categorias próprias/regras/orçamentos/comparação real não incluídas nesta primeira entrega.
+
+Validação local: 1276 verificações (1128 Node + 148 Python), tipos cliente/backend, exportação iOS/Hermes, auditoria 1253 fontes/58 instâncias e scan privado/allowlist47 aprovados. Próxima ação: Git/CI → publicação Expo e QR/documentação. Backend/migrations inalterados. Teste físico T82 pendente; não bloqueia publicação.
+
 # Estado de retomada — 21/10/2026
 
 ## T81 — carteira automática/Nubank/cache publicados (VIGENTE)
