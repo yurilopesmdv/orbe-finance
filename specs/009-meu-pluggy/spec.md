@@ -269,3 +269,8 @@ ConfirmarOpenFinancepelotitular não escreveverifiedAt/capacidades. Ativação r
 ### MPG-ACT-02 — Associação de origem e liberação pessoal
 
 A instrução expressa do titular em21/10 autoriza ativação pessoal emExpoGo. Política operacional em docs/security/OWNER-RELEASE-20261021.md. GETconsents filtrado pelo proxy pode retornar IDoriginal diferente: buscar somente esse ID pela mesma credencial, exigir conectorOF/não sandbox/estado válido/banco coincidente; validar consentimento contra o original, preservar ambos em evidência server-only. Nunca fabricar equivalência de IDs. Ativação não lê valores nem homologa cobertura. Kill switch ORBE_OWNER_LIVE_RELEASE e flags individuais obrigatórios. Recibo privado valida publicação; Metro real e assinatura customizada recusados; desativação operacional disponível. Bradesco sem vínculo não é considerado ativo.
+
+
+### MPG-ACT-03 — Ativação com preparação automática
+
+Relato21/10: clicar em ativar voltou ao estado não confirmado; diagnóstico técnico mostrou vínculo pending/revisão1/nenhum inventário iniciado. A ação única deve preparar o inventário e verificar a ativação em sequência na mesma sessão protegida. Falha de preparação impede avançar, exceto cooldown: pode tentar ativação porque o SQL continua exigindo inventário concluído e recente. Não cria evidência nem altera capacidades pelo cliente. Exibir preparação/verificação/falha junto da conexão e resultado confirmado por nova consulta. Prazo total180s, etapas120s/20s; bloquear/segundoplano cancela tudo. Consentimento bancário explicitamente indeterminado não deve aparecer como data ausente após origem verificada.

@@ -5,7 +5,7 @@ A liberação pessoal foi implementada em21/10/2026. Você já possui conta e cr
 ## Mercado Pago
 
 1. Entre com sua conta existente e abra **Ver minhas conexões**.
-2. Na conexão Mercado Pago, toque em **Preparar conexão**. Isso registra somente os identificadores técnicos das contas. Quando terminar, toque em **Ativar leitura desta conexão**. O servidor confere o consentimento original Open Finance e a sessão do proprietário antes de ativar.
+2. Na conexão Mercado Pago, toque em **Preparar e ativar leitura**. A preparação e a verificação do consentimento são feitas em sequência, sem outro botão. O servidor confere o consentimento original Open Finance e a sessão do proprietário antes de ativar.
 3. Volte e abra **Ver minhas contas → Atualizar saldos desta conexão**. Movimentações e investimentos têm telas próprias com atualização por conexão. Cada consulta respeita limites e intervalos; aguarde quando o app informar cooldown.
 
 A ativação confirma o vínculo e permissões, não a exatidão de cada produto. Verifique no próprio aparelho a moeda/data/cobertura. Ausência de informação não significa zero. Os valores ficam em memória durante o uso e são descartados ao bloquear/sair do primeiro plano; não são armazenados no banco próprio nem enviados às ferramentas de desenvolvimento. Os termos de retenção do banco e Pluggy continuam aplicáveis.

@@ -5,7 +5,7 @@ export default function AccountScreen() {
   const auth = useAuth(), router = useRouter();
   if (auth.snapshot.state !== 'unlocked') return <Redirect href="/login" />;
   return <Screen title="Seu acesso está pronto" subtitle="Você entrou com sua conta do Orbe." demonstration={false}>
-    <Card title="Suas conexões bancárias"><Body>Na primeira vez, abra Minhas conexões, prepare a conexão e ative a leitura. Depois atualize suas contas, movimentações e investimentos. Os dados demonstrativos ficam separados dos seus dados.</Body></Card>
+    <Card title="Suas conexões bancárias"><Body>Na primeira vez, abra Minhas conexões e toque em Preparar e ativar leitura. Depois atualize suas contas, movimentações e investimentos. Os dados demonstrativos ficam separados dos seus dados.</Body></Card>
     <Action title="Ver minhas contas" onPress={() => router.push('/my-accounts')} />
     <Action title="Ver meus investimentos" onPress={() => router.push('/my-investments')} />
     <Action title="Ver minhas movimentações" onPress={() => router.push('/my-movements')} />

@@ -1229,3 +1229,12 @@ T75c fechamento:commitc5c6391/CI39681820386success,1212verificações(1069Node+1
 - [ ] Confirmar primeirovalor noaparelho titular (final, não bloquear trabalho independente).
 
 Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.md. Bradesco ainda sem proxy de aplicação; cofrinhos/reportsreais separados conforme cobertura, não prometerfinalização dessaslacunas.
+
+
+## T76e — reparar sequência preparação/ativação (23/10)
+
+- [x] Investigar com metadados reais e logs agregados: ativações90s/44s antes do inventário, preparação real confirmada.
+- [x] Spec MPG-ACT-03/planT76e e ação única comcancelamento/kill switch/SQLpreservado.
+- [x] Typecheck e11testesintegrados, incluindo falha/cooldown/lock/ordem.
+- [ ] Export/audit/scan/CI e nova publicação remota.
+- [ ] QR/guias/STATE/Git atualizados; confirmação física permanece para titular, sem pedir novasconfigs.

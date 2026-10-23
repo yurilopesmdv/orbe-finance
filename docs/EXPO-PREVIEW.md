@@ -10,7 +10,7 @@ Update01a16085-76f7-7f3b-a8a1-07690266d832 · grupo62a04007-c2ad-4a78-96e8-77726
 
 ## Primeiro acesso aos dados
 
-Use sua conta existente. Abra **Ver minhas conexões → Mercado Pago → Preparar conexão → Ativar leitura desta conexão**. Após confirmação, volte a **Ver minhas contas → Atualizar saldos desta conexão**. Movimentações e investimentos têm telas próprias. Valores começam ocultos; use Mostrar valores. Não recrie conta nem altere credenciais.
+Use sua conta existente. Abra **Ver minhas conexões → Mercado Pago → Preparar e ativar leitura**. Após confirmação, volte a **Ver minhas contas → Atualizar saldos desta conexão**. Movimentações e investimentos têm telas próprias. Valores começam ocultos; use Mostrar valores. Não recrie conta nem altere credenciais.
 
 A origem e permissões Mercado Pago foram verificadas com metadados reais. A ativação e a leitura final exigem a sua sessão no app; **nenhum saldo foi consultado por ferramentas e primeirovalor no iPhone ainda não confirmado**. Bradesco conectado no portal pessoal ainda não tem proxy próprio cadastrado nesta aplicação; não consta como ativo. Guia em [ACCOUNT-ACTIVATION](ACCOUNT-ACTIVATION.md).
 

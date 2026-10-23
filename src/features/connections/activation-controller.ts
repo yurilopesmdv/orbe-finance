@@ -1,10 +1,11 @@
 import type { SessionAccess } from '../sync/session-cache.ts';
 import type { ScreenSnapshot } from '../privacy/screen-protection.ts';
 import type { StatusResult } from '../connections/status.ts';
+import type { DiscoveryGatewayResult } from '../accounts/discovery-gateway.ts';
 import type { ActivationGatewayResult } from './activation-gateway.ts';
 interface Protection { getSnapshot(): ScreenSnapshot; subscribe(listener: () => void): () => void }
-interface Ports { status(signal: AbortSignal): Promise<StatusResult>; activate(input: { connectionId: string; revision: number }, signal: AbortSignal): Promise<ActivationGatewayResult> }
-export interface ActivationSnapshot { readonly phase: 'idle' | 'loading' | 'ready' | 'error' | 'closed'; readonly notice: 'none' | 'activated' | 'origin_unconfirmed' | 'uncertain' | 'unavailable' | 'cooldown' | 'cancelled' }
+interface Ports { prepare(input: { connectionId: string; revision: number }, signal: AbortSignal): Promise<DiscoveryGatewayResult>; status(signal: AbortSignal): Promise<StatusResult>; activate(input: { connectionId: string; revision: number }, signal: AbortSignal): Promise<ActivationGatewayResult> }
+export interface ActivationSnapshot { readonly phase: 'idle' | 'loading' | 'ready' | 'error' | 'closed'; readonly notice: 'none' | 'preparing' | 'verifying' | 'preparation_unavailable' | 'activated' | 'origin_unconfirmed' | 'uncertain' | 'unavailable' | 'cooldown' | 'cancelled' }
 const fail = (): never => { throw Error('activation_access_unavailable'); };
 const uuid = (value: unknown): value is string => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
 export function createActivationController(session: SessionAccess, protection: Protection, ports: Ports, policy: { enabled?: boolean; privateDataApproved?: boolean } = {}) {
@@ -29,7 +30,7 @@ export function createActivationController(session: SessionAccess, protection: P
         const controller = new AbortController(); let settle: (value: boolean) => void = () => {};
         const stopped = new Promise<boolean>(resolve => { settle = resolve; });
         const cancel = () => { controller.abort(); settle(false); }; pending = { controller, cancel }; emit('loading', 'none');
-        const timer = setTimeout(() => { cancel(); if (!closed) emit('error', 'unavailable'); }, 30000);
+        const timer = setTimeout(() => { cancel(); if (!closed) emit('error', 'unavailable'); }, 180000);
         const fresh = () => { current(); if (controller.signal.aborted) return fail(); };
         try {
           const work = async () => {
@@ -38,6 +39,13 @@ export function createActivationController(session: SessionAccess, protection: P
             const selected = metadata.connections.find(row => row.id === connectionId);
             if (!selected || selected.state !== 'pending' || !Number.isSafeInteger(selected.revision) || selected.revision < 1) return fail();
             const input = Object.freeze({ connectionId: selected.id, revision: selected.revision });
+            emit('loading','preparing');
+            const preparation=await ports.prepare(input,controller.signal);fresh();
+            if(preparation.status!=='complete'&&preparation.status!=='rate_limited'){
+              emit('error',preparation.status==='cancelled'?'cancelled':'preparation_unavailable');return false;
+            }
+            // Cooldown can mean a recent completed inventory. SQL still proves it before activation.
+            emit('loading','verifying');
             const result = await ports.activate(input, controller.signal); fresh();
             if(result.status==='activated'){
               const confirmed=await ports.status(controller.signal);fresh();

@@ -16,3 +16,8 @@ Cada etapa preserva checkpoint e vai à próxima sem esperar autorização entre
 ## Contrato de evidência
 
 Consentimento precisa apontar exatamente para o item original buscado a partir da resposta filtrada pelo proxy conhecido. O original deve ser OpenFinance/não sandbox/UPDATED/SUCCESS do banco cadastrado (603Bradesco/606MP). IDs distintos proxy/original são preservados; UUID diferente isolado não basta. Não corrigir identificadores no payload. Produto habilitado e permissãoOF são interseção: contas exigem saldos/listagem, movimentos exigem contas+transações, investimentos permissão específica. Consentimento revogado/expirado/ambíguo, origem declarada sem prova programática ou associação divergente não gera evidência de ativação. Expiração bancária nula só representa prazo indeterminado quando o campo explícito existe no consentimento válido; ausência é desconhecida.
+
+
+## T76e — correção do fluxo reportado no iPhone
+
+Integrador único. Paths: activation-controller/runtime, my-connections, testes de integração/presentation, guias. Diagnóstico somente técnico confirmou pending/rev1/sem inventário. Aceite: ação única prepara antes de ativar, falha não avança, cooldown nunca substitui validaçãoSQL, status só afirma ativo após releitura; bloqueio cancela; prazo abrange ambas etapas. Publicar novo cliente após tipos/testes/export/audit/scans/CI; backend/regraSQL preservados.

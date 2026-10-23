@@ -1,5 +1,15 @@
 # Estado de retomada — 21/10/2026
 
+## T76e — correção da ativação,23/10/2026 (vigente)
+
+Relato do titular: clicou em ativar e permaneceu não confirmado. Não pedir novasconfigs. Diagnóstico técnico inicial seminventário; diagnóstico23/10 já teminventário success, antigo. Logs agregados23/10 mostraram duas chamadasSQL deativação **90s e44s ANTES** do commit de inventário. Portanto o botãopermitiaordeminválida; source Pluggy funcionando e preparação real já executada pelo app. Nenhumvalor/ID/IP/token/corpodelog lido por ferramentas. Consulta oficial do endpointlogs ClickHouse, apenasoperação/status/count/intervalos.
+
+Correção emandamento: ação única Preparar e ativar leitura; controller prepara120s antesdeativar20s econfirma status, prazototal180s; falhapreparaçãoimpedeativação; cooldown sótentaativar sujeitoaSQLinventáriorecente. Inventoryclientkill obrigatório, lockaborta. UIprogressopertodaconexão, pra zobancárioindeterminado nãoviraNãoinformadaquandoOFcomprovada. Removido controladorUI depreparaçãoseparada.
+
+Typecheck+11cenáriosintegrados passaram; fullcheck anterioràúltimalimpeza também passou, log/tmp/orbe-activation-repair-check.log. ExportfinalHermes/audit1220fontes/56instâncias e scanprivado/allowlist passaram; logs/tmp/orbe-activation-fix-export-final.log e audit-final.log. Confirmar contagem exata no log deaudit antesdeescreverstatusfinal. Backend18migrations/bridge15/metadata11 preservado; nenhuma alteraçãoSQL necessária para esta correção.
+
+**Continuar:** finalizarexport/audit/scan; atualizarguias; commit/push/CI→publicarExpo→verificarmanifesto/QRnovo23/10→docs/roadmapGit. Não deixarapenaspatchlocal. Não pedir titularrefazerconfigurações. Primeiravalidação deativaçãoefinançasna sessão titular ainda pendente; não impersonar. Bradesco não identificado; relatórios/categoriasreais/cofrinhos continuamtasks sem fingirconclusão.
+
 ## T76 — liberação pessoal publicada (estado vigente)
 
 Titular autorizou ativação pessoal real emExpoGo com acessos existentes, sem novas aprovações. docs/security/OWNER-RELEASE-20261021.md substitui gates históricos exclusivamente sintéticos. Integrador único. Não ler valores por tools, não impersonar sessão, não prometer riscozero.

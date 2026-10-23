@@ -3,7 +3,7 @@ import {SessionModel}from'../../src/features/auth/session.ts';
 import {createActivationRuntime}from'../../src/features/connections/activation-runtime.ts';
 import {createActivationBackendRuntime}from'../../supabase/functions/_shared/activation-runtime.ts';
 const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`,owner=id(1),sid=id(2),conn=id(3),item=id(4),origin='https://vvaufaoahotmaocrcyij.supabase.co';
-const json=value=>new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}}),flags={connectionActivationEnabled:true,liveIntegrationEnabled:true,privateFinancialDataApproved:true};
+const json=value=>new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}}),flags={inventoryDiscoveryEnabled:true,connectionActivationEnabled:true,liveIntegrationEnabled:true,privateFinancialDataApproved:true};
 async function fixture(options={}){
  const now=Date.now(),expiry=new Date(now+86400000).toISOString(),calls=[],clientCalls=[];let commitCount=0;
  const metadata={id:conn,institution:'mercado-pago',state:'pending',revision:1,capabilities:{accounts:null,transactions:null,investments:null,reserves:null},openFinanceVerifiedAt:null,proxyConsentExpiresAt:null,bankConsentExpiresAt:null,authorizationExpiresAt:null,sourceUpdatedAt:null,lastReadAt:null};
@@ -24,7 +24,7 @@ async function fixture(options={}){
  }});
  const listeners=new Set(),protection={getSnapshot:()=>({phase:'ready',active:true}),subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn)}};
  const client=createActivationRuntime(session,protection,()=>({origin,publishableKey:config.ORBE_PUBLISHABLE_KEY}),async(url,init)=>{
-  clientCalls.push(url);if(url.endsWith('/connections/status'))return json({connections:[metadata]});
+  clientCalls.push(url);if(url.endsWith('/accounts/discover')){if(options.preparationFail)return new Response('{}',{status:503});if(options.preparationCooldown)return new Response('{}',{status:429});if(options.preparationLock)session.lock();return json({status:'complete',registeredAccounts:1});}if(url.endsWith('/connections/status'))return json({connections:[metadata]});
   const target=new URL(url);target.pathname=target.pathname.slice('/functions/v1'.length);const response=await backend.handler(new Request(target,init));const text=await response.clone().text();for(const sensitive of [owner,sid,item,'PRIVATE_EXTRA','fixture-provider-key'])assert.ok(!text.includes(sensitive));return response;
  },options.flags??flags);
  return {client,calls,clientCalls,raw:(body,authorized=true)=>backend.handler(new Request(origin+'/orbe-bridge/connections/activate',{method:'POST',headers:{'Content-Type':'application/json',...(authorized?{Authorization:'Bearer '+token}:{})},body:JSON.stringify(body)})),commits:()=>commitCount,close(){if(client.kind==='ready')client.close();backend.close();}};
@@ -36,3 +36,12 @@ test('lock aborts before commit and closes activation action',async()=>{const f=
 test('activation gate off means zero status Auth provider or SQL calls',async()=>{const f=await fixture({flags:{...flags,connectionActivationEnabled:false}});try{assert.equal(f.client.kind,'disabled');assert.deepEqual(f.calls,[]);assert.deepEqual(f.clientCalls,[]);}finally{f.close();}});
 
 test('activation rejects missing bearer and client-supplied approval before provider or commit',async()=>{for(const authorized of [false,true]){const f=await fixture();try{const response=await f.raw({connectionId:conn,revision:1,approved:true},authorized);assert.equal(response.status,authorized?400:401);assert.equal(f.commits(),0);assert.ok(!f.calls.some(url=>url.startsWith('https://api.pluggy.ai/')));}finally{f.close();}}});
+
+
+test('single activation action prepares inventory before committing activation',async()=>{const f=await fixture();try{assert.equal(await f.client.controller.run(conn),true);const preparation=f.clientCalls.findIndex(u=>u.endsWith('/accounts/discover')),activation=f.clientCalls.findIndex(u=>u.endsWith('/connections/activate'));assert.ok(preparation>=0&&activation>preparation);}finally{f.close();}});
+test('failed preparation does not call activation or provider and explains pending state',async()=>{const f=await fixture({preparationFail:true});try{assert.equal(await f.client.controller.run(conn),false);assert.equal(f.client.controller.getSnapshot().notice,'preparation_unavailable');assert.equal(f.commits(),0);assert.ok(!f.clientCalls.some(u=>u.endsWith('/connections/activate')));assert.equal(f.calls.length,0);}finally{f.close();}});
+test('preparation cooldown can use prior inventory only subject to activation SQL gate',async()=>{for(const denied of [false,true]){const f=await fixture({preparationCooldown:true,commitFalse:denied});try{assert.equal(await f.client.controller.run(conn),!denied);assert.equal(f.commits(),1);assert.equal(f.client.controller.getSnapshot().notice,denied?'unavailable':'activated');}finally{f.close();}}});
+test('locking during preparation cancels before activation',async()=>{const f=await fixture({preparationLock:true});try{assert.equal(await f.client.controller.run(conn),false);assert.equal(f.client.controller.getSnapshot().phase,'closed');assert.equal(f.commits(),0);assert.ok(!f.clientCalls.some(u=>u.endsWith('/connections/activate')));}finally{f.close();}});
+
+
+test('inventory client kill switch prevents the combined flow from making requests',async()=>{const f=await fixture({flags:{...flags,inventoryDiscoveryEnabled:false}});try{assert.equal(f.client.kind,'disabled');assert.deepEqual(f.clientCalls,[]);assert.deepEqual(f.calls,[]);}finally{f.close();}});
