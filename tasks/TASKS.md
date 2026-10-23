@@ -1255,3 +1255,14 @@ Responsável integrador único; paths/aceites em plan/T76-CONNECTION-ACTIVATION.
 - [x] Verificar metadados: última lease success/completa, transactions disponível, cooldown769s, nenhum lote de movimento iniciado.
 - [x] Titular confirmou mensagem de intervalo. Regra vigente900s porconexão compartilhado entreprodutos; guias/STATE atualizados, sem mudança de código/flags/QR.
 - [ ] Leitura real de movimentos após intervalo ainda não confirmada; não confundir cooldown com fonte vazia ou falha Pluggy.
+
+
+## T77 — home financeira e sincronização automática (23/10)
+
+Spec010/planT77, integrador único.
+
+- [x] T77a: migration19/protocoloopcionalproduto/limite30s eleaseexclusiva120s, clienteantigocompatível; SQLdraft+fixture emrollback/zeroresíduos/ownerpreservado.
+- [x] T77b: hub/providerroot/cacheporsessão/filaúnica/autoaoabrir+15min, retry30s/60s e purgebackground/lock.
+- [x] T77c: homereal/account, subtotais/moedas/bancos/cofrinhosexplícitos/5movs2meses, detalhesreusamcache e fila.
+- [x] QA1248verificações/tipos/exportiOS/audit1220fontes/56instâncias/scansprivados.
+- [ ] T77d: CI→migration19+fixture→disable/deploy/enable/fontes/digests/smokes→Expo/manifesto/QRnovo→docs/STATE/Git.

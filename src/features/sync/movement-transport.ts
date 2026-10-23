@@ -26,7 +26,7 @@ export function createMovementTransport(session:HttpSession,resolveConfig:()=>Au
   try{return await work();}catch(error){closed=true;throw error;}finally{pending=false;}
  };
  return Object.freeze<ProductTransport>({
-  acquire(input,signal){return exclusive(signal,async()=>{if(acquired)return invalid();const captured=scope(input);acquired=true;revision=captured.revision;const raw=await request('acquire',captured,signal);if(record(raw)&&raw.status==='acquired'&&uuid(raw.leaseId)&&raw.revision===revision)leaseId=raw.leaseId;else closed=true;return raw;});},
+  acquire(input,signal){return exclusive(signal,async()=>{if(acquired)return invalid();const captured=scope(input);acquired=true;revision=captured.revision;const raw=await request('acquire',{...captured,product:'transactions'},signal);if(record(raw)&&raw.status==='acquired'&&uuid(raw.leaseId)&&raw.revision===revision)leaseId=raw.leaseId;else closed=true;return raw;});},
   readPage(input:PageRequest,signal){return exclusive(signal,async()=>{
    const captured=scope(input);if(!['leaseId','product','cursor'].every(key=>Object.hasOwn(input,key))||!acquired||!leaseId||input.leaseId!==leaseId||input.product!=='transactions'||!cursor(input.cursor)||input.cursor!==expectedCursor||finished)return invalid();
    const incoming=input.cursor,raw=await request('movementRead',{...captured,leaseId,month:context.month,cursor:incoming},signal);

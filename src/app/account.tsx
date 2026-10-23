@@ -1,17 +1,43 @@
-import { Redirect, useRouter } from 'expo-router';
-import { Action, Body, Card, Screen } from '@/components/ui';
-import { useAuth } from '@/features/auth/provider';
-export default function AccountScreen() {
-  const auth = useAuth(), router = useRouter();
-  if (auth.snapshot.state !== 'unlocked') return <Redirect href="/login" />;
-  return <Screen title="Seu acesso está pronto" subtitle="Você entrou com sua conta do Orbe." demonstration={false}>
-    <Card title="Suas conexões bancárias"><Body>Na primeira vez, abra Minhas conexões e toque em Preparar e ativar leitura. Depois atualize suas contas, movimentações e investimentos. Os dados demonstrativos ficam separados dos seus dados.</Body></Card>
-    <Action title="Ver minhas contas" onPress={() => router.push('/my-accounts')} />
-    <Action title="Ver meus investimentos" onPress={() => router.push('/my-investments')} />
-    <Action title="Ver minhas movimentações" onPress={() => router.push('/my-movements')} />
-    <Action title="Ver minhas conexões" onPress={() => router.push('/my-connections')} />
-    <Action title="Explorar os dados demonstrativos" onPress={() => router.push('/(tabs)/overview')} />
-    <Card title="Sua sessão"><Body>{auth.model?.hasRememberedAccess() ? 'Seu acesso será retomado automaticamente neste iPhone por até 30 dias, com internet. Sua senha não é salva. Ao ir para segundo plano, o conteúdo é bloqueado; ao voltar, o Orbe valida a sessão novamente.' : 'Seu acesso não está salvo neste iPhone. Ao sair do primeiro plano, entre novamente com sua senha. A senha não é salva pelo aplicativo.'}</Body><Body>Face ID não está disponível no Expo Go. Use Sair da conta para remover o acesso salvo deste aparelho.</Body>{auth.snapshot.error === 'secure_storage' && <Body>Não foi possível salvar o acesso no armazenamento seguro. Esta sessão funciona sem memorização.</Body>}</Card>
-    <Action title="Sair da conta" secondary onPress={() => { void auth.model?.logout(); }} />
-  </Screen>;
+import {useState} from 'react';
+import {Redirect,useRouter} from 'expo-router';
+import {Pressable,StyleSheet,Text,View} from 'react-native';
+import {Action,Body,Card,Screen,palette} from '@/components/ui';
+import {Money,usePrivacy} from '@/components/privacy';
+import {useAuth} from '@/features/auth/provider';
+import {useFinance} from '@/features/finance/provider';
+import {summarizeHome} from '@/features/finance/summary';
+import {occurrenceMonth} from '@/domain/money';
+import {institutionLabels,metadataDateLabel} from '@/features/connections/presentation';
+export default function AccountScreen(){
+ const auth=useAuth(),router=useRouter(),finance=useFinance(),privacy=usePrivacy(),[currency,setCurrency]=useState('BRL');
+ if(auth.snapshot.state!=='unlocked')return <Redirect href="/login"/>;
+ const hub=finance.hub,state=finance.snapshot,busy=state.phase==='syncing',month=occurrenceMonth(new Date().toISOString()),previousDate=new Date(month+'-15T12:00:00Z');previousDate.setUTCMonth(previousDate.getUTCMonth()-1);const previous=previousDate.toISOString().slice(0,7);
+ let accounts:ReturnType<NonNullable<typeof hub>['clients']['accounts']['controller']['query']>['items']=[],investments:typeof accounts=[],recent:ReturnType<NonNullable<typeof hub>['clients']['movements']['controller']['query']>|null=null,prior:ReturnType<NonNullable<typeof hub>['clients']['movements']['controller']['query']>|null=null;
+ try{if(hub&&state.phase!=='closed'){accounts=hub.clients.accounts.controller.query().items;investments=hub.clients.investments.controller.query().items;recent=hub.clients.movements.controller.query({month,currency,limit:5,offset:0});prior=hub.clients.movements.controller.query({month:previous,currency,limit:5,offset:0});}}catch{}
+ const accountState=hub?.clients.accounts.controller.getSnapshot(),investmentState=hub?.clients.investments.controller.getSnapshot(),movementState=hub?.clients.movements.controller.getSnapshot();
+ const recentItems=[...(recent?.items??[]),...(prior?.items??[])].slice(0,5),historyMonth=recentItems.length?occurrenceMonth(recentItems[0]!.occurredAt):month;
+ const openMovements=()=>router.push({pathname:'/my-movements',params:{month:historyMonth}});
+ const totals=summarizeHome(accounts,investments,currency,accountState?.phase==='ready',investmentState?.phase==='ready');
+ const progress=state.progress.replace('mercado-pago','Mercado Pago').replace('bradesco','Bradesco').replace('accounts','contas').replace('transactions','movimentações').replace('investments','investimentos');
+ const links=[{title:'Contas',path:'/my-accounts'},{title:'Investimentos',path:'/my-investments'},{title:'Conexões',path:'/my-connections'}] as const;
+ return <Screen title="Visão geral" subtitle="Seus bancos e investimentos em um só lugar." demonstration={false}>
+  <View style={styles.status}><Text style={styles.statusText}>{busy?'Atualizando '+progress:state.completedAt?'Atualização no Orbe: '+metadataDateLabel(new Date(state.completedAt).toISOString()):'Preparando sua visão financeira…'}</Text><Pressable accessibilityRole="button" accessibilityLabel="Atualizar todos os dados" disabled={busy||!hub} onPress={()=>{void hub?.synchronize(true);}}><Text style={styles.refresh}>{busy?'Aguarde':'Atualizar'}</Text></Pressable></View>
+  <View style={styles.hero}><Text style={styles.heroLabel}>SALDO CONSOLIDADO · {currency}</Text><Money cents={totals.consolidated} currency={currency} prominent/><Text style={styles.caption}>{state.connections.filter(row=>row.state==='active').length} conexão(ões) ativa(s){totals.partial||state.phase==='partial'?' · visão parcial':''}</Text><Pressable accessibilityRole="button" onPress={privacy.toggle}><Text style={styles.refresh}>{privacy.hidden?'Mostrar valores e descrições':'Ocultar valores e descrições'}</Text></Pressable></View>
+  <View style={styles.links}>{['BRL','USD','EUR'].map(value=><Pressable key={value} accessibilityRole="button" accessibilityState={{selected:currency===value}} onPress={()=>setCurrency(value)} style={styles.link}><Text style={styles.linkText}>{value}{currency===value?' ✓':''}</Text></Pressable>)}</View>
+  <View style={styles.grid}><View style={styles.tile}><Text style={styles.tileTitle}>Em contas</Text><Money cents={totals.accountsTotal} currency={currency}/><Body>Saldos de todas as contas nesta moeda.</Body></View><View style={styles.tile}><Text style={styles.tileTitle}>Investimentos</Text><Money cents={totals.investmentsTotal} currency={currency}/><Body>Valor líquido informado.</Body></View></View>
+  {totals.overlapUnknown&&<Body>Investimentos com composição ainda não confirmada aparecem separados do saldo consolidado, evitando contar o mesmo dinheiro duas vezes.</Body>}
+  <View style={styles.links}>{links.map(link=><Pressable key={link.path} accessibilityRole="button" onPress={()=>router.push(link.path)} style={styles.link}><Text style={styles.linkText}>{link.title}</Text></Pressable>)}</View>
+  {state.phase==='partial'&&<Card title={state.progress==='intervalo'?'Concluindo o histórico automaticamente':'Atualização parcial'}><Body>{state.progress==='intervalo'?'Aguardando um breve intervalo para consultar o outro período. Você pode navegar normalmente; a atualização continua automaticamente.':'Algumas informações ainda não puderam ser atualizadas. Os dados válidos desta sessão continuam disponíveis; o app tentará novamente automaticamente.'}</Body></Card>}
+  {state.connections.length===0&&!busy&&<Card title="Conecte seus bancos"><Body>Gerencie suas conexões para começar a acompanhar os dados.</Body><Action title="Minhas conexões" onPress={()=>router.push('/my-connections')}/></Card>}
+  <Card title="Por banco">{state.connections.map(connection=><View key={connection.id} style={styles.bank}><Text style={styles.tileTitle}>{institutionLabels[connection.institution]}</Text><Money cents={summarizeHome(accounts.filter(row=>row.connectionId===connection.id),[],currency,accounts.some(row=>row.connectionId===connection.id)).accountsTotal} currency={currency}/><Body>{connection.state==='active'?'Conexão ativa':connection.state==='pending'?'Em preparação':'Conexão precisa de atenção'}</Body></View>)}</Card>
+  <Card title="Cofrinhos e reservas"><Body>A fonte ainda não identifica cofrinhos separadamente. Eles não são somados novamente quando podem fazer parte dos investimentos ou do saldo.</Body></Card>
+  <View style={styles.section}><Text style={styles.sectionTitle}>Movimentações recentes</Text><Pressable accessibilityRole="button" onPress={openMovements}><Text style={styles.refresh}>Ver todas</Text></Pressable></View>
+  <Body>Últimos 2 meses · {currency} · até 5 mais recentes</Body>
+  {recentItems.map(item=><View key={JSON.stringify([item.accountId,item.externalId])} style={styles.movement}><View style={styles.movementText}><Text style={styles.tileTitle}>{privacy.hidden?'Descrição protegida':item.description||'Movimentação'}</Text><Text style={styles.caption}>{metadataDateLabel(item.occurredAt)} · {institutionLabels[item.institutionId as keyof typeof institutionLabels]??'Banco'}</Text></View><View><Text style={styles.caption}>{item.direction==='debit'?'Saída':'Entrada'}</Text><Money cents={item.amountCents} currency={item.currency}/></View></View>)}
+  {!recentItems.length&&<Card title={movementState?.phase==='ready'?'Sem movimentos recebidos neste período':busy?'Buscando suas movimentações':'Movimentações ainda não disponíveis'}><Body>{movementState?.phase==='ready'?'As consultas terminaram sem itens recebidos para este período e moeda. Você pode consultar outros meses no histórico.':'A sincronização acontece automaticamente. Falha ou ausência de informação não significa movimentação zero.'}</Body></Card>}
+  <Action title="Ver minhas movimentações" secondary onPress={openMovements}/>
+  <Body>Os dados permanecem ao navegar pelo app. Ao bloquear ou sair do primeiro plano, são apagados da memória e atualizados automaticamente quando você volta.</Body>
+  <Action title="Sair da conta" secondary onPress={()=>{void auth.model?.logout();}}/>
+ </Screen>;
 }
+const styles=StyleSheet.create({status:{flexDirection:'row',gap:12,alignItems:'center'},statusText:{flex:1,fontSize:12,color:palette.muted},refresh:{fontSize:14,fontWeight:'600',color:palette.green,paddingVertical:8},hero:{padding:24,borderRadius:24,backgroundColor:'#E1EBE2',gap:12},heroLabel:{fontSize:11,fontWeight:'700',letterSpacing:1,color:palette.green},caption:{fontSize:12,color:palette.muted,lineHeight:18},grid:{flexDirection:'row',gap:12},tile:{flex:1,padding:16,borderRadius:18,backgroundColor:palette.surface,borderWidth:1,borderColor:palette.line,gap:8},tileTitle:{fontSize:15,fontWeight:'600',color:palette.ink},links:{flexDirection:'row',gap:8},link:{flex:1,backgroundColor:'#E1EBE2',paddingVertical:14,borderRadius:12,alignItems:'center'},linkText:{fontSize:13,fontWeight:'600',color:palette.green},bank:{gap:6,paddingVertical:8,borderBottomColor:palette.line,borderBottomWidth:1},section:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',gap:12},sectionTitle:{fontSize:20,fontWeight:'600',color:palette.ink},movement:{backgroundColor:palette.surface,padding:16,borderRadius:16,flexDirection:'row',gap:12,alignItems:'center'},movementText:{flex:1,gap:5}});

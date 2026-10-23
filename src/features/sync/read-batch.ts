@@ -82,7 +82,7 @@ export async function runReadBatch(rawConnection: unknown, ports: BatchPorts, op
     }
     if (grant.status !== 'acquired' || !uuid(grant.leaseId) || grant.revision !== scope.revision) invalid();
     const leaseId = grant.leaseId, expiresAt = instant(grant.expiresAt), nextReadAt = instant(grant.nextReadAt);
-    if (Date.parse(expiresAt) <= clock.now() || Date.parse(expiresAt) > clock.now() + 180000 || Date.parse(nextReadAt) - Date.parse(expiresAt) !== 780000) invalid();
+    if (Date.parse(expiresAt) <= clock.now() || Date.parse(expiresAt) > clock.now() + 180000 || ![780000,-90000].includes(Date.parse(nextReadAt) - Date.parse(expiresAt))) invalid();
     deadline = Math.min(Date.parse(expiresAt), metadata.authorizationExpiresAt === null ? Infinity : Date.parse(metadata.authorizationExpiresAt));
     assertFresh(); staged = true;
     leaseTimer = clock.setTimer(abort, Math.max(1, deadline - clock.now())); leaseTimerSet = true;

@@ -21,7 +21,7 @@ export function createAccountBackendRuntime(read:AccountConfigurationReader,opti
   const {origin,publishableKey,secretKey,clientId,clientSecret}=configuration;
   const auth=createSupabasePorts({origin,publishableKey},transport),lease=createLeasePorts(()=>({origin,secretKey}),{enabled:true,privateDataApproved:true,transport}),resolve=createAccountBindingResolver(()=>({origin,secretKey}),{enabled:true,mode,privateDataApproved:true,transport});
   provider=createPluggyAccountsPort(()=>({clientId,clientSecret}),{enabled:true,mode,privateDataApproved:true,transport});
-  const router=createAccountRouter({authenticate:auth.authenticate,resolve,check:lease.check,acquire:lease.acquire,finish:lease.finish,readAccounts:provider.readAccounts},{enabled:true,mode,privateDataApproved:true});
+  const router=createAccountRouter({authenticate:auth.authenticate,resolve,check:lease.check,acquire:lease.acquire,finish:lease.finish,readAccounts:provider.readAccounts},{enabled:true,mode,privateDataApproved:true,allowedProducts:[...(read('ORBE_ACCOUNT_READS_ENABLED')==='true'?['accounts']:[]),...(read('ORBE_MOVEMENT_READS_ENABLED')==='true'?['transactions']:[]),...(read('ORBE_INVESTMENT_READS_ENABLED')==='true'?['investments']:[])]});
   const active=new Set<AbortController>();let closed=false;
   return Object.freeze({
    async handler(request:Request):Promise<Response>{

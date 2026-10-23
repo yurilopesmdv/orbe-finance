@@ -118,7 +118,7 @@ do $$ begin
 end $$;
 -- Capability changes fence revision and cannot be repaired by staging.
 update public.orbe_connections set investments_available=false,accounts_available=true where id=current_setting('orbe.position_conn')::uuid;
-update orbe_private.connection_reads set lease_expires_at=clock_timestamp()-interval '2 seconds',next_read_at=clock_timestamp()-interval '1 second' where connection_id=current_setting('orbe.position_conn')::uuid;
+update orbe_private.connection_reads set started_at=clock_timestamp()-interval '3 minutes',lease_expires_at=clock_timestamp()-interval '2 seconds',next_read_at=clock_timestamp()-interval '1 second' where connection_id=current_setting('orbe.position_conn')::uuid;
 set local role service_role;
 do $$ declare g jsonb;begin
  g:=public.orbe_begin_connection_read(current_setting('orbe.position_conn')::uuid,current_setting('orbe.position_owner')::uuid,2);assert g->>'status'='acquired','position_disabled_new_lease';
@@ -161,4 +161,29 @@ reset role;
 do $$ begin
  assert exists(select 1 from public.orbe_connections where id='10000000-0000-4000-8000-000000000153' and state='active' and revision=2 and accounts_available and transactions_available and investments_available and not reserves_available and open_finance_verified_at is not null and bank_consent_expires_at is null and last_read_at is null),'activation_state_projection';
 end $$;
+-- Product admission keeps one active lease while separating cooldowns.
+insert into public.orbe_connections(id,owner_id,institution,state,open_finance_verified_at,proxy_consent_expires_at,accounts_available,transactions_available,investments_available)
+values('10000000-0000-4000-8000-000000000155',current_setting('orbe.position_owner')::uuid,'mercado-pago','active',clock_timestamp(),clock_timestamp()+interval '1 day',true,true,true);
+set local role service_role;
+do $$ declare c uuid:='10000000-0000-4000-8000-000000000155';o uuid:=current_setting('orbe.position_owner')::uuid;g jsonb;l uuid;begin
+ assert not has_function_privilege('authenticated','public.orbe_begin_product_read(uuid,uuid,bigint,text)','execute'),'product_rpc_public';
+ assert public.orbe_begin_product_read(c,o,9,'accounts')->>'status'='unavailable','product_revision';
+ assert public.orbe_begin_product_read(c,'00000000-0000-4000-8000-000000000152',1,'accounts')->>'status'='unavailable','product_owner';
+ assert public.orbe_begin_product_read(c,o,1,'reserves')->>'status'='unavailable','product_invalid';
+ g:=public.orbe_begin_product_read(c,o,1,'accounts');assert g->>'status'='acquired','product_accounts';l:=(g->>'lease_id')::uuid;
+ assert (g->>'next_read_at')::timestamptz-(g->>'lease_expires_at')::timestamptz=interval '-90 seconds','product_admission_clock';
+ assert public.orbe_check_connection_read(c,o,1,l,'accounts'),'product_correct_lease';
+ assert not public.orbe_check_connection_read(c,o,1,l,'transactions'),'product_wrong_lease';
+ assert public.orbe_begin_product_read(c,o,1,'transactions')->>'status'='busy','product_no_parallel';
+ assert public.orbe_finish_connection_read(c,o,1,l,'success'),'product_finish_accounts';
+ assert public.orbe_begin_product_read(c,o,1,'accounts')->>'status'='cooldown','product_same_throttled';
+ g:=public.orbe_begin_product_read(c,o,1,'transactions');assert g->>'status'='acquired','product_sequential_movements';l:=(g->>'lease_id')::uuid;
+ assert public.orbe_check_connection_read(c,o,1,l,'transactions'),'product_movement_lease';
+ assert not public.orbe_check_connection_read(c,o,1,l,'accounts'),'product_movement_wrong_cap';
+ assert public.orbe_finish_connection_read(c,o,1,l,'failed'),'product_finish_failed';
+ g:=public.orbe_begin_product_read(c,o,1,'investments');assert g->>'status'='acquired','product_sequential_investments';l:=(g->>'lease_id')::uuid;
+ assert public.orbe_finish_connection_read(c,o,1,l,'cancelled'),'product_finish_cancelled';
+ assert public.orbe_begin_connection_read(c,o,1)->>'status'='cooldown','legacy_retains_admission';
+end $$;
+reset role;
 rollback;

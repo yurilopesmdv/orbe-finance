@@ -17,7 +17,7 @@ export function createInvestmentTransport(session:HttpSession,config:()=>AuthCon
  const scope=(raw:{connectionId:string;revision:number})=>{if(!raw||raw.connectionId!==context.connectionId||!Number.isSafeInteger(raw.revision)||raw.revision<1||revision!==null&&raw.revision!==revision)return invalid();return Object.freeze({connectionId:raw.connectionId,revision:raw.revision});};
  const exclusive=async<T>(signal:AbortSignal,work:()=>Promise<T>):Promise<T>=>{if(closed||pending||signal.aborted)return invalid();pending=true;try{return await work();}catch(e){closed=true;throw e;}finally{pending=false;}};
  return Object.freeze<ProductTransport>({
-  acquire(input,signal){return exclusive(signal,async()=>{if(acquired)return invalid();const captured=scope(input);acquired=true;revision=captured.revision;const raw=await request('acquire',captured,signal);if(record(raw)&&raw.status==='acquired'&&uuid(raw.leaseId)&&raw.revision===revision)leaseId=raw.leaseId;else closed=true;return raw;});},
+  acquire(input,signal){return exclusive(signal,async()=>{if(acquired)return invalid();const captured=scope(input);acquired=true;revision=captured.revision;const raw=await request('acquire',{...captured,product:'investments'},signal);if(record(raw)&&raw.status==='acquired'&&uuid(raw.leaseId)&&raw.revision===revision)leaseId=raw.leaseId;else closed=true;return raw;});},
   readPage(input,signal){return exclusive(signal,async()=>{
    const captured=scope(input);if(!acquired||!leaseId||input.leaseId!==leaseId||input.product!=='investments'||input.cursor!==null||read)return invalid();read=true;
    const raw=await request('investmentRead',{...captured,leaseId},signal);

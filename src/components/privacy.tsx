@@ -15,5 +15,5 @@ export const usePrivacy = () => useContext(Context);
 export function Money({ cents, prominent = false, currency = 'BRL' }: { cents: number | null; prominent?: boolean; currency?: string }) {
   const { hidden } = usePrivacy();
   const text = moneyLabel(cents, hidden, currency);
-  return <Text style={{ fontSize: prominent ? 32 : 22, fontWeight: '600', color: palette.ink }} accessibilityLabel={text}>{text}</Text>;
+  return <Text style={{ fontSize: prominent ? 32 : 22, fontWeight: '600', color: palette.ink }} accessibilityLabel={text} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6}>{text}</Text>;
 }

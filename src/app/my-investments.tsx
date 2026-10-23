@@ -1,5 +1,6 @@
-import {useCallback,useState,useSyncExternalStore} from 'react';
-import {Redirect,useFocusEffect,useRouter} from 'expo-router';
+import { useFinance } from '@/features/finance/provider';
+import {useState,useSyncExternalStore} from 'react';
+import {Redirect,useRouter} from 'expo-router';
 import {fetch as expoFetch} from 'expo/fetch';
 import {Action,Body,Card,Screen} from '@/components/ui';
 import {Money,usePrivacy} from '@/components/privacy';
@@ -18,30 +19,24 @@ const classes={fixed_income:'Renda fixa',fund:'Fundo',equity:'Renda variável',o
 const notices:Record<InvestmentsSnapshot['notice'],string>={none:'',updated:'Leitura concluída.',partial:'Cobertura parcial. Os valores recebidos podem não representar todos os investimentos do banco.',unavailable:'Não foi possível confirmar a atualização. Valores anteriores válidos desta sessão foram preservados.',cooldown:'Aguarde o intervalo entre atualizações.',busy:'Já há uma atualização em andamento.',cancelled:'Leitura interrompida. Entre novamente para atualizar.'};
 export default function MyInvestmentsScreen(){
  const auth=useAuth(),router=useRouter(),screen=useScreenProtection(),protection=useScreenProtectionModel(),privacy=usePrivacy();
- const[client,setClient]=useState<Client|null>(null),[connections,setConnections]=useState<readonly Readonly<ConnectionMetadata>[]>([]),[available,setAvailable]=useState(false),[currency,setCurrency]=useState('BRL'),[institution,setInstitution]=useState<string>(),[offset,setOffset]=useState(0);
+ const finance=useFinance(),client=finance.hub?.clients.investments??null,connections=finance.snapshot.connections,available=finance.snapshot.phase!=='idle',listing=finance.snapshot.phase==='syncing';
+ const[currency,setCurrency]=useState('BRL'),[institution,setInstitution]=useState<string>(),[offset,setOffset]=useState(0);
  const snapshot=useSyncExternalStore(client?.controller.subscribe??idleSubscribe,client?.controller.getSnapshot??idleSnapshot,idleSnapshot);
  const enabled=runtime.investmentReadsEnabled&&runtime.liveIntegrationEnabled&&runtime.privateFinancialDataApproved,protectedNow=screen.snapshot.phase==='ready'&&screen.snapshot.active;
- useFocusEffect(useCallback(()=>{
-  setClient(null);setConnections([]);setAvailable(false);setOffset(0);
-  if(!enabled||!auth.model||auth.snapshot.state!=='unlocked'||!protection||!protectedNow)return;
-  const instance=createInvestmentsRuntime(auth.model,protection,()=>publicAuthConfig,expoFetch,createAccountScopeId,runtime);if(instance.kind!=='ready')return;
-  const abort=new AbortController();let active=true;setClient(instance);
-  void instance.connections(abort.signal).then(result=>{if(active&&result.status==='complete'){setConnections(result.connections);setAvailable(true);}}).catch(()=>{});
-  return()=>{active=false;abort.abort();instance.close();};
- },[enabled,auth.model,auth.snapshot.state,protection,protectedNow]));
+
  if(auth.snapshot.state!=='unlocked')return <Redirect href="/login"/>;
  let result:ReturnType<Client['controller']['query']>|null=null;
  if(enabled&&protectedNow&&client&&snapshot.phase!=='closed'){try{result=client.controller.query({currency,institutionId:institution});}catch{}}
  const items=result?.items.filter(row=>row.product==='investment')??[];
  return <Screen title="Meus investimentos" subtitle="Posições recebidas dos bancos, separadas por moeda." demonstration={false}>
-  <Action title="Voltar ao meu acesso" secondary onPress={()=>router.replace('/account')}/>
+  <Action title="Voltar à visão geral" secondary onPress={()=>router.replace('/account')}/>
   {!enabled?<Card title="Investimentos em preparação"><Body>A tela está pronta, mas a leitura bancária ainda não foi ativada nesta versão. Nenhuma posição real é consultada aqui.</Body></Card>:!protectedNow?<Card title="Acesso protegido"><Body>Aguarde a proteção de tela para consultar.</Body></Card>:<>
    <Body>Os dados ficam apenas na memória desta sessão. Uma posição com relação desconhecida ao saldo da conta não compõe um total consolidado, para evitar contagem duplicada.</Body>
    <Action title={privacy.hidden?'Mostrar valores':'Ocultar valores'} secondary onPress={privacy.toggle}/>
    <Card title="Filtros">{['BRL','USD','EUR'].map(value=><Action key={value} title={value} secondary selected={currency===value} onPress={()=>{setCurrency(value);setOffset(0);}}/>)}<Action title="Todos os bancos" secondary selected={institution===undefined} onPress={()=>{setInstitution(undefined);setOffset(0);}}/>{[...new Set(connections.map(row=>row.institution))].map(value=><Action key={value} title={institutionLabels[value]} secondary selected={institution===value} onPress={()=>{setInstitution(value);setOffset(0);}}/>)}</Card>
    {!available&&<Body>As conexões ainda não estão disponíveis. Volte e abra esta tela novamente para tentar.</Body>}
    {available&&connections.length===0&&<Body>Nenhuma conexão disponível nesta sessão. Isso não confirma ausência de investimentos.</Body>}
-   {connections.map(row=><Card key={row.id} title={institutionLabels[row.institution]}><Action title={snapshot.phase==='loading'?'Atualizando…':'Atualizar investimentos'} disabled={!client||snapshot.phase==='loading'||snapshot.phase==='closed'||row.state!=='active'||row.capabilities.investments!==true} onPress={()=>{setOffset(0);void client?.controller.refresh(row.id);}}/></Card>)}
+   {connections.map(row=><Card key={row.id} title={institutionLabels[row.institution]}><Action title={snapshot.phase==='loading'?'Atualizando…':'Atualizar investimentos'} disabled={!client||finance.snapshot.phase==='syncing'||snapshot.phase==='loading'||snapshot.phase==='closed'||row.state!=='active'||row.capabilities.investments!==true} onPress={()=>{setOffset(0);void finance.hub?.synchronize(true,{connectionId:row.id,product:'investments'});}}/></Card>)}
    {snapshot.notice!=='none'&&<Body>{notices[snapshot.notice]}</Body>}
    {items.length===0&&<Card title="Nenhuma posição disponível nesta consulta"><Body>Atualize o banco desejado. Uma lista vazia pode ser falta de leitura, filtro ou cobertura parcial; não significa patrimônio zero.</Body></Card>}
    {items.slice(offset,offset+20).map(row=><Card key={row.id} title={classes[row.assetClass??'unknown']}><Body>{institutionLabels[row.institutionId as ConnectionMetadata['institution']]}</Body><Body>Valor líquido</Body><Money cents={row.netCents??null} currency={row.currency}/>{row.netCents==null&&<Body>Líquido não informado pela fonte.</Body>}<Body>Valor bruto</Body><Money cents={row.grossCents??null} currency={row.currency}/>{row.grossCents==null&&<Body>Bruto não informado pela fonte.</Body>}<Body>Data da posição: {row.asOf?metadataDateLabel(row.asOf):'Não informada'}</Body><Body>Relação com saldo da conta não confirmada. Fora do total consolidado.</Body></Card>)}

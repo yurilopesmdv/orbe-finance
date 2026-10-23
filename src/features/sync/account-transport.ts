@@ -21,7 +21,7 @@ export function createAccountTransport(session: Session, resolveConfig: () => Au
  const request=createSessionJsonClient(session,resolveConfig,transport,timeoutMs);
  function scope(input:BatchScope){if(!record(input)||!Object.hasOwn(input,'connectionId')||!Object.hasOwn(input,'revision')||input.connectionId!==context.connectionId||!Number.isSafeInteger(input.revision)||input.revision<1)return invalid();return{connectionId:input.connectionId,revision:input.revision};}
  return Object.freeze<ProductTransport>({
-  async acquire(input,signal){return request('acquire',scope(input),signal);},
+  async acquire(input,signal){return request('acquire',{...scope(input),product:'accounts'},signal);},
   async readPage(input:PageRequest,signal){const value=scope(input);if(input.product!=='accounts'||input.cursor!==null||!uuid(input.leaseId))return invalid();const leaseId=input.leaseId;
    const raw=await request('read',{...value,leaseId,cursor:null},signal);
    if(!record(raw)||!['connectionId','revision','leaseId','product','rowCount','complete','partial','items'].every(key=>Object.hasOwn(raw,key))||raw.connectionId!==value.connectionId||raw.revision!==value.revision||raw.leaseId!==leaseId||raw.product!=='accounts'||raw.complete!==true||raw.nextCursor!==null||typeof raw.partial!=='boolean'||!Array.isArray(raw.items)||raw.rowCount!==raw.items.length)return invalid();

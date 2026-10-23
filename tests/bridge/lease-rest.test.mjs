@@ -132,3 +132,8 @@ test('simultaneous connections never reuse the other request scope', async () =>
   const other = { connectionId: '10000000-0000-4000-8000-000000000002', ownerId: '00000000-0000-4000-8000-000000000002', revision: 1 };
   const results = await Promise.all([ports.acquire(scope(), signal()), ports.acquire(other, signal())]); assert.deepEqual(results.map(result => result.status), ['acquired', 'unavailable']); assert.equal(calls[0].p_owner_id, scope().ownerId); assert.equal(calls[1].p_owner_id, other.ownerId);
 });
+
+test('product admission uses dedicated RPC and strict short cooldown lease format',async()=>{
+ const f=fixture([grant({next_read_at:new Date(now+30000).toISOString()})]);const result=await f.ports.acquire({...scope(),product:'transactions'},signal());assert.equal(result.status,'acquired');assert.ok(f.calls[0].url.endsWith('/orbe_begin_product_read'));assert.equal(JSON.parse(f.calls[0].init.body).p_product,'transactions');
+ const wrong=fixture([grant()]);await assert.rejects(wrong.ports.acquire({...scope(),product:'accounts'},signal()));
+});

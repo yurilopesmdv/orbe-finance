@@ -1,6 +1,6 @@
 import type { BridgeClock } from './bridge.ts';
 import { readJsonResponse } from './http-json.ts';
-export interface ReadScope { connectionId: string; ownerId: string; revision: number }
+export interface ReadScope { connectionId: string; ownerId: string; revision: number; product?: ReadProduct }
 export type ReadProduct = 'accounts' | 'transactions' | 'investments' | 'reserves';
 export type ReadOutcome = 'success' | 'failed' | 'cancelled';
 export type AcquireResult =
@@ -14,7 +14,7 @@ export interface LeasePorts {
 }
 type Configuration = { origin: string; secretKey: string };
 type Transport = (url: string, init: RequestInit) => Promise<Response>;
-const endpoints = Object.freeze({ begin: 'orbe_begin_connection_read', check: 'orbe_check_connection_read', finish: 'orbe_finish_connection_read' });
+const endpoints = Object.freeze({ begin: 'orbe_begin_connection_read', product: 'orbe_begin_product_read', check: 'orbe_check_connection_read', finish: 'orbe_finish_connection_read' });
 const products = ['accounts', 'transactions', 'investments', 'reserves'];
 const outcomes = ['success', 'failed', 'cancelled'];
 const object = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -23,7 +23,8 @@ function unavailable(): never { throw new Error('lease_unavailable'); }
 function active(signal: AbortSignal) { if (signal.aborted) unavailable(); }
 function scope(input: ReadScope): Readonly<ReadScope> {
   if (!object(input) || !['connectionId', 'ownerId', 'revision'].every(key => Object.hasOwn(input, key)) || !uuid(input.connectionId) || !uuid(input.ownerId) || !Number.isSafeInteger(input.revision) || input.revision < 1) throw new Error('lease_request_invalid');
-  return Object.freeze({ connectionId: input.connectionId, ownerId: input.ownerId, revision: input.revision });
+  if(input.product!==undefined&&!['accounts','transactions','investments'].includes(input.product))throw Error('lease_request_invalid');
+  return Object.freeze({ connectionId: input.connectionId, ownerId: input.ownerId, revision: input.revision, ...(input.product?{product:input.product}:{}) });
 }
 function instant(value: unknown): string {
   if (typeof value !== 'string') return unavailable();
@@ -43,7 +44,7 @@ export function parseLeaseGrant(raw: unknown, expected: ReadScope, now: number):
   if (raw.status !== 'acquired' || !uuid(raw.lease_id) || raw.revision !== expected.revision) return unavailable();
   const expiresAt = instant(raw.lease_expires_at), nextReadAt = instant(raw.next_read_at);
   const expiration = Date.parse(expiresAt), next = Date.parse(nextReadAt);
-  if (expiration <= now || expiration > now + 180000 || next - expiration !== 780000) return unavailable();
+  if (expiration <= now || expiration > now + 180000 || next - expiration !== (expected.product ? -90000 : 780000)) return unavailable();
   return Object.freeze({ status: 'acquired', leaseId: raw.lease_id, revision: expected.revision, expiresAt, nextReadAt });
 }
 export function createLeasePorts(resolveConfig: () => Configuration, options: { enabled?: boolean; privateDataApproved?: boolean; transport?: Transport; clock?: BridgeClock } = {}): Readonly<LeasePorts> {
@@ -87,7 +88,7 @@ export function createLeasePorts(resolveConfig: () => Configuration, options: { 
   return Object.freeze({
     async acquire(input: ReadScope, signal: AbortSignal) {
       const value = scope(input);
-      return timed(signal, async child => parseLeaseGrant(await rpc('begin', { ...body(value), p_expected_revision: value.revision }, child), value, clock.now()));
+      return timed(signal, async child => parseLeaseGrant(await rpc(value.product?'product':'begin', { ...body(value), p_expected_revision: value.revision, ...(value.product?{p_product:value.product}:{}) }, child), value, clock.now()));
     },
     async check(input: ReadScope, leaseId: string, product: ReadProduct, signal: AbortSignal) {
       const value = scope(input); if (!uuid(leaseId) || !products.includes(product)) throw new Error('lease_request_invalid');

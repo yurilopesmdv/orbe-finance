@@ -9,7 +9,7 @@ const config={ORBE_BRIDGE_ENABLED:'true',ORBE_MOVEMENT_READS_ENABLED:'true',ORBE
 const session=new SessionModel({origin,signIn:async()=>({accessToken:token,expiresAt:now+600000}),signOut:async()=>{}},Date.now,()=>()=>{});await session.login('fixture@example.invalid','fixture-only');
 const backend=createMovementBackendRuntime(name=>config[name],{fixtureOnly:true,transport:async(url,init)=>{calls.push(url);
  if(url===origin+'/auth/v1/user')return json({id:owner,is_anonymous:false});if(url.endsWith('/orbe_has_session'))return json(true);
- if(url.endsWith('/orbe_begin_connection_read'))return json({status:'acquired',lease_id:leaseId,revision:1,lease_expires_at:expiresAt,next_read_at:new Date(now+890000).toISOString()});
+ if(url.endsWith('/orbe_begin_connection_read')||url.endsWith('/orbe_begin_product_read'))return json({status:'acquired',lease_id:leaseId,revision:1,lease_expires_at:expiresAt,next_read_at:new Date(Date.parse(expiresAt)+(url.endsWith('/orbe_begin_product_read')?-90000:780000)).toISOString()});
  if(url.endsWith('/orbe_resolve_movement_read'))return json({ownerId:owner,sessionId,connectionId,revision:1,leaseId,leaseExpiresAt:expiresAt,projection:{itemId,connectionId,bindings:[{externalId,internalId,balanceAsOf:null,relation:'unknown'}],sourceUpdatedAt:null,coverageApproved:false}});
  if(url.endsWith('/orbe_claim_movement_page')){claimCount++;const p=JSON.parse(init.body);assert.equal(p.p_session_id,sessionId);assert.equal(p.p_owner_id,owner);return json({claimId,pageNumber:1,leaseExpiresAt:expiresAt})}
  if(url.endsWith('/orbe_commit_movement_page')){commitCount++;const p=JSON.parse(init.body);assert.equal(p.p_row_count,500);assert.equal(p.p_next_hash,null);return json(true)}

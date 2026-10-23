@@ -33,7 +33,7 @@ export function createInvestmentBackendRuntime(read:AccountConfigurationReader,o
    const provider=createPluggyInvestmentsPort(()=>({clientId,clientSecret}),{...policy,investmentsEnabled:true,transport:scoped});providers.add(provider);
    try{return await provider.readInvestments(context,request,resolveBindings,signal);}finally{provider.close();providers.delete(provider);}
   }},policy);
-  const finalize=createInvestmentFinalizeHandler({authenticate,finish:progress.finish},policy),acquire=createReadLeaseHandler({authenticate,acquire:lease.acquire,finish:async()=>false},policy);
+  const finalize=createInvestmentFinalizeHandler({authenticate,finish:progress.finish},policy),acquire=createReadLeaseHandler({authenticate,acquire:lease.acquire,finish:async()=>false},{...policy,allowedProducts:[...(read('ORBE_ACCOUNT_READS_ENABLED')==='true'?['accounts']:[]),...(read('ORBE_MOVEMENT_READS_ENABLED')==='true'?['transactions']:[]),...(read('ORBE_INVESTMENT_READS_ENABLED')==='true'?['investments']:[])]});
   return Object.freeze({
    async handler(request:Request):Promise<Response>{
     if(closed)return response(503,'unavailable');if(active.size>=4)return response(429,'rate_limited');

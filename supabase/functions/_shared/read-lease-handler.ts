@@ -10,7 +10,7 @@ class Failure extends Error { readonly status: number; readonly code: string; co
 function fail(status=503, code='unavailable'): never { throw new Failure(status,code); }
 const response=(status:number,body:unknown)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',Pragma:'no-cache','X-Content-Type-Options':'nosniff'}});
 function instant(value: unknown): number { if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value)))fail(); const civil = new Date(value.slice(0,10)+'T00:00:00Z'); if (!Number.isFinite(civil.getTime()) || civil.toISOString().slice(0,10)!==value.slice(0,10) || Number(value.slice(11,13))>23 || Number(value.slice(14,16))>59 || Number(value.slice(17,19))>59) fail(); return Date.parse(value); }
-export function createReadLeaseHandler(ports: Ports, options:ExecutionPolicy & {enabled?:boolean;clock?:BridgeClock}={}){
+export function createReadLeaseHandler(ports: Ports, options:ExecutionPolicy & {enabled?:boolean;clock?:BridgeClock;allowedProducts?:readonly string[]}={}){
  if(options.enabled!==true||resolveExecutionMode(options)===null)return async(_request:Request)=>response(503,{error:'unavailable'});
  const clock=options.clock??clockDefault;
  return async(request:Request):Promise<Response>=>{
@@ -29,9 +29,11 @@ export function createReadLeaseHandler(ports: Ports, options:ExecutionPolicy & {
    const work=async()=>{
     const first=principal(await ports.authenticate(token,controller.signal));fresh(first.expiresAt);
     let body:unknown;try{body=await readJsonResponse(new Response(request.body,{headers:request.headers}),controller.signal,16384);}catch{fresh(first.expiresAt);fail(400,'invalid_request');}fresh(first.expiresAt);
-    const keys=acquiring?'connectionId,revision':'connectionId,leaseId,outcome,revision';
+    const explicit=acquiring&&record(body)&&Object.hasOwn(body,'product');
+    const keys=acquiring?(explicit?'connectionId,product,revision':'connectionId,revision'):'connectionId,leaseId,outcome,revision';
     if(!record(body)||Object.keys(body).sort().join(',')!==keys||!uuid(body.connectionId)||!Number.isSafeInteger(body.revision)||(body.revision as number)<1||!acquiring&&(!uuid(body.leaseId)||!['success','failed','cancelled'].includes(body.outcome as string)))fail(400,'invalid_request');
-    const scope:Readonly<ReadScope>=Object.freeze({ownerId:first.subject,connectionId:body.connectionId,revision:body.revision as number});
+    if(explicit&&(!['accounts','transactions','investments'].includes(body.product as string)||options.allowedProducts&&!options.allowedProducts.includes(body.product as string)))fail(400,'invalid_request');
+    const scope:Readonly<ReadScope>=Object.freeze({ownerId:first.subject,connectionId:body.connectionId,revision:body.revision as number,...(explicit?{product:body.product as 'accounts'|'transactions'|'investments'}:{})});
     let output:unknown;
     if(acquiring){
      const result=await ports.acquire(scope,controller.signal);fresh(first.expiresAt);
@@ -39,7 +41,7 @@ export function createReadLeaseHandler(ports: Ports, options:ExecutionPolicy & {
      else if(result.status==='cooldown'){const next=instant(result.nextReadAt);if(next<=now()||next>now()+960000)fail();output={status:'cooldown',nextReadAt:result.nextReadAt};}
      else if(result.status==='acquired'){
       const expires=instant(result.expiresAt),next=instant(result.nextReadAt);
-      if(!uuid(result.leaseId)||result.revision!==scope.revision||expires<=now()||expires>now()+180000||next-expires!==780000)fail();
+      if(!uuid(result.leaseId)||result.revision!==scope.revision||expires<=now()||expires>now()+180000||next-expires!==(explicit?-90000:780000))fail();
       output={status:'acquired',leaseId:result.leaseId,revision:result.revision,expiresAt:result.expiresAt,nextReadAt:result.nextReadAt};
      }else fail();
     }else{if(await ports.finish(scope,body.leaseId as string,body.outcome as ReadOutcome,controller.signal)!==true)fail(409,'read_not_available');fresh(first.expiresAt);output={status:'complete'};}

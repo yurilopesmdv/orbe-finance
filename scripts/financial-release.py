@@ -49,7 +49,7 @@ def execute(operation):
     if ref!=c.REF:raise c.SafeError('release_project_invalid')
     request=c.admin.client(token,ref);_,history,_=c.admin.inspect(request)
     migrations=list((ROOT/'supabase/migrations').glob('*.sql'))
-    if len(migrations)!=18:raise c.SafeError('release_migrations_unverified')
+    if len(migrations)!=19:raise c.SafeError('release_migrations_unverified')
     for file in migrations:
         if not any(row.get('name')=='orbe_'+file.stem+'_'+hashlib.sha256(file.read_bytes()).hexdigest() for row in history):raise c.SafeError('release_migrations_unverified')
     folder=c.admin.PRIVATE_CONFIG.parent;receipts={slug:c.read_receipt(folder/name) for slug,name in c.SLUGS.items()}

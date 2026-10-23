@@ -8,7 +8,7 @@ export function Screen({ title, subtitle, children, demonstration = true }: { ti
   const content = <SafeAreaView style={ui.safe} edges={['top', 'left', 'right']}>
     <ScrollView contentContainerStyle={ui.page}>
       <Text style={ui.brand}>orbe</Text>
-      <Text style={ui.badge}>{demonstration ? 'DEMONSTRAÇÃO · DADOS INVENTADOS' : 'ACESSO AO ORBE · BANCOS DESCONECTADOS'}</Text>
+      <Text style={ui.badge}>{demonstration ? 'DEMONSTRAÇÃO · DADOS INVENTADOS' : 'ÁREA PRIVADA · DADOS PROTEGIDOS'}</Text>
       <Text accessibilityRole="header" style={ui.title}>{title}</Text>
       <Text style={ui.subtitle}>{subtitle}</Text>
       {children}
