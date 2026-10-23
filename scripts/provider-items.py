@@ -8,7 +8,7 @@ import sys
 import uuid
 
 PRIVATE_DIR = Path.home() / '.config/orbe-finance'
-BANKS = ('bradesco', 'mercado-pago', 'unknown')
+BANKS = ('bradesco', 'mercado-pago', 'nubank', 'unknown')
 TEMPLATE = {'version': 2, 'items': [{'institution': 'unknown', 'itemId': ''}]}
 LEGACY_EMPTY = {'version': 1, 'items': {'bradesco': '', 'mercado-pago': ''}}
 

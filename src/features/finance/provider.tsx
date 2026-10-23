@@ -1,3 +1,5 @@
+import {createActivationRuntime} from '../connections/activation-runtime';
+import {nativeWalletCache} from '../cache/native';
 import {createContext,useContext,useEffect,useState,useSyncExternalStore,type ReactNode} from 'react';
 import {fetch as expoFetch} from 'expo/fetch';
 import {useAuth} from '../auth/provider';
@@ -17,8 +19,10 @@ export function FinanceProvider({children}:{children:ReactNode}){
   setHub(null);if(!runtime.liveIntegrationEnabled||!runtime.privateFinancialDataApproved||!auth.model||auth.snapshot.state!=='unlocked'||!protection||screen.snapshot.phase!=='ready'||!screen.snapshot.active)return;
   const config=()=>publicAuthConfig,accounts=createAccountsRuntime(auth.model,protection,config,expoFetch,createAccountScopeId,runtime),movements=createMovementsRuntime(auth.model,protection,config,expoFetch,createAccountScopeId,runtime),investments=createInvestmentsRuntime(auth.model,protection,config,expoFetch,createAccountScopeId,runtime);
   if(accounts.kind!=='ready'||movements.kind!=='ready'||investments.kind!=='ready'){for(const client of [accounts,movements,investments])if(client.kind==='ready')client.close();return;}
+  const activation=createActivationRuntime(auth.model,protection,config,expoFetch,runtime);
+  const vault=publicAuthConfig?nativeWalletCache(publicAuthConfig.origin):null;let owner:string|undefined;try{owner=auth.model.cacheSubject();}catch{}
   const reader=createConnectionStatusReader(auth.model,config,expoFetch,{enabled:true});
-  const current=createFinanceHub(auth.model,protection,{clients:{accounts,movements,investments},status:signal=>reader.read(signal)});setHub(current);void current.synchronize();return()=>current.close();
+  const current=createFinanceHub(auth.model,protection,{clients:{accounts,movements,investments},status:signal=>reader.read(signal),...(vault&&owner?{cache:{vault,owner}}:{}),...(activation.kind==='ready'?{activate:(id:string)=>activation.controller.run(id)}:{})});setHub(current);void current.synchronize();return()=>{current.close();if(activation.kind==='ready')activation.close();};
  },[auth.model,auth.snapshot.state,protection,screen.snapshot.phase,screen.snapshot.active]);
  return <Context.Provider value={hub}>{children}</Context.Provider>;
 }

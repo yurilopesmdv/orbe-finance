@@ -35,6 +35,8 @@ export function createAccountsController(session:SessionAccess,protection:Protec
   return Object.freeze({
    kind:'ready' as const,getSnapshot:()=>snapshot,subscribe:(listener:()=>void)=>{if(closed)return()=>{};listeners.add(listener);return()=>{listeners.delete(listener);};},
    query(){assertCurrent();return currentCache.queryAssets({},false);},
+   exportCache(){assertCurrent();return currentCache.exportCache();},
+   restoreCache(data:Parameters<typeof currentCache.restoreCache>[0],connections:Parameters<typeof currentCache.restoreCache>[1]){assertCurrent();currentCache.restoreCache(data,connections);emit('ready','partial');},
    async refresh(connectionId:string):Promise<boolean>{
     try{assertCurrent();}catch{return false;}if(!uuid(connectionId)){emit('error','unavailable');return false;}if(pending)return false;
     const controller=new AbortController();let timer:unknown,set=false,resolveStop:(value:boolean)=>void=()=>{};

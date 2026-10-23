@@ -34,6 +34,7 @@ export class SessionModel {
   requirePassword = () => { this.#suppressRestore = true; this.lock(); };
   get canRemember() { return this.#vault !== undefined; }
 
+  #clearPrivateCache:(()=>Promise<void>)|undefined;
   #origin: string | undefined;
   #now: () => number;
   #schedule: Schedule;
@@ -44,7 +45,7 @@ export class SessionModel {
   #controllers = new Set<AbortController>();
   #listeners = new Set<() => void>();
   #snapshot: SessionSnapshot = Object.freeze({ state: 'locked', error: null });
-  constructor(gateway: Gateway, now = Date.now, scheduler = schedule, vault?: RefreshVault) { this.#vault = vault; this.#gateway = gateway; const origin = gateway.origin; this.#origin = typeof origin === 'string' ? origin : undefined; this.#now = now; this.#schedule = scheduler; }
+  constructor(gateway: Gateway, now = Date.now, scheduler = schedule, vault?: RefreshVault, clearPrivateCache?:()=>Promise<void>) { this.#clearPrivateCache=clearPrivateCache; this.#vault = vault; this.#gateway = gateway; const origin = gateway.origin; this.#origin = typeof origin === 'string' ? origin : undefined; this.#now = now; this.#schedule = scheduler; }
   getPublicOrigin = (): string => { if (!this.#origin) throw new AuthFailure('invalid_configuration'); return this.#origin; };
   getSnapshot = () => this.#snapshot;
   subscribe = (listener: () => void) => { this.#listeners.add(listener); return () => { this.#listeners.delete(listener); }; };
@@ -98,16 +99,18 @@ export class SessionModel {
   }
   #establish(session: AuthSession, error: AuthCode | null = null) {
     // Only the access token enters the active in-memory session, never the refresh credential.
-    this.#session = Object.freeze({ accessToken: session.accessToken, expiresAt: session.expiresAt });
+    this.#session = Object.freeze({ accessToken: session.accessToken, expiresAt: session.expiresAt, ...(session.subject?{subject:session.subject}:{}) });
     this.#cancelExpiry = this.#schedule(() => {
       this.lock(); if (this.#active && this.#remembered) void this.resume();
     }, Math.max(1, session.expiresAt - this.#now()));
     this.#emit('unlocked', error);
   }
   async logout() {
+    let cacheFailure=false;const clearing=this.#clearPrivateCache?.().catch(()=>{cacheFailure=true;});
     this.#suppressRestore = true; this.#remembered = false;
     const previous = this.#clear(false), epoch = this.#epoch;
-    let failure = false, saved: SavedAccess | null = null;
+    await clearing;
+    let failure = cacheFailure, saved: SavedAccess | null = null;
     if (this.#vault) {
       try {
         saved = await this.#storage(async () => {
@@ -165,6 +168,7 @@ export class SessionModel {
     if (!this.#active || !this.#session || this.#snapshot.state !== 'unlocked') throw new AuthFailure('invalid_credentials');
     return this.#session;
   }
+  cacheSubject = (): string => {const subject=this.#requireSession().subject;if(!subject)throw new AuthFailure('unavailable');return subject;};
   assertUnlocked = (): void => { this.#requireSession(); };
   async read<T>(operation: (token: string, signal: AbortSignal) => Promise<T>): Promise<T> {
     const session = this.#requireSession(), epoch = this.#epoch, controller = this.#controller();

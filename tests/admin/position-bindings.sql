@@ -186,4 +186,21 @@ do $$ declare c uuid:='10000000-0000-4000-8000-000000000155';o uuid:=current_set
  assert public.orbe_begin_connection_read(c,o,1)->>'status'='cooldown','legacy_retains_admission';
 end $$;
 reset role;
+
+-- Automatic wallet Connect tickets: technical metadata only, all changes rolled back.
+do $$ declare o uuid:=current_setting('orbe.position_owner')::uuid;s uuid:=current_setting('orbe.position_session')::uuid;f uuid:='90000000-0000-4000-8000-000000000181';i uuid:='20000000-0000-4000-8000-000000000181';v jsonb;begin
+ assert not has_function_privilege('anon','public.orbe_connect_flow(uuid,uuid,uuid,text,uuid,text)','execute'),'connect_anon';
+ assert not has_function_privilege('authenticated','public.orbe_connect_flow(uuid,uuid,uuid,text,uuid,text)','execute'),'connect_authenticated';
+ assert not has_table_privilege('authenticated','orbe_private.connect_flows','select'),'connect_private_table';
+ assert public.orbe_connect_flow('00000000-0000-4000-8000-000000000152',s,f,'begin') is null,'connect_wrong_owner';
+ assert public.orbe_connect_flow(o,'70000000-0000-4000-8000-000000000152',f,'begin') is null,'connect_wrong_session';
+ v:=public.orbe_connect_flow(o,s,f,'begin');assert v->>'flowId'=f::text,'connect_begin';
+ assert public.orbe_connect_flow(o,s,f,'inspect')->>'flowId'=f::text,'connect_inspect';
+ assert public.orbe_connect_flow(o,s,f,'confirm',i,'unknown') is null,'connect_unknown_bank';
+ v:=public.orbe_connect_flow(o,s,f,'confirm',i,'nubank');assert v->>'institution'='nubank' and v->>'state'='pending','connect_nubank_stage';
+ assert public.orbe_connect_flow(o,s,f,'confirm',i,'nubank')=v,'connect_exact_repeat';
+ assert public.orbe_connect_flow(o,s,f,'confirm','20000000-0000-4000-8000-000000000182','nubank') is null,'connect_different_item';
+ update orbe_private.connect_flows set created_at=clock_timestamp()-interval '31 minutes',expires_at=clock_timestamp()-interval '1 minute' where id=f;
+ assert public.orbe_connect_flow(o,s,f,'inspect') is null,'connect_expired';
+end $$;
 rollback;

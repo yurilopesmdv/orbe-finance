@@ -1,5 +1,5 @@
 import {resolveExecutionMode,type ExecutionPolicy} from './execution-mode.ts';
-export interface ActivationEvidence {readonly itemId:string;readonly originalItemId:string;readonly institution:'bradesco'|'mercado-pago';readonly observedAt:string;readonly proxyConsentExpiresAt:string;readonly bankConsentExpiresAt:string|null;readonly bankConsentIndefinite:boolean;readonly sourceUpdatedAt:string|null;readonly capabilities:Readonly<{accounts:boolean;transactions:boolean;investments:boolean;reserves:false}>}
+export interface ActivationEvidence {readonly itemId:string;readonly originalItemId:string;readonly institution:'bradesco'|'mercado-pago'|'nubank';readonly observedAt:string;readonly proxyConsentExpiresAt:string;readonly bankConsentExpiresAt:string|null;readonly bankConsentIndefinite:boolean;readonly sourceUpdatedAt:string|null;readonly capabilities:Readonly<{accounts:boolean;transactions:boolean;investments:boolean;reserves:false}>}
 const record=(v:unknown):v is Record<string,unknown>=>typeof v==='object'&&v!==null&&!Array.isArray(v);
 const uuid=(v:unknown):v is string=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(v);
 function instant(v:unknown):number{
@@ -19,7 +19,7 @@ export function verifyActivationEvidence(item:unknown,consents:unknown,itemId:st
   for(const name of ['parameter','userAction','statusDetail'])if(Object.hasOwn(item,name)&&item[name]!==null)return denied;
   const proxyExpiry=instant(item.consentExpiresAt);if(proxyExpiry<=now)return denied;
   if(!record(originalItem)||!uuid(originalItem.id)||!record(originalItem.connector)||originalItem.connector.isOpenFinance!==true||originalItem.connector.isSandbox!==false||originalItem.status!=='UPDATED'||originalItem.executionStatus!=='SUCCESS'||originalItem.error!==null||!strings(originalItem.products,32))return denied;
-  const originalItemId=originalItem.id,institution=originalItem.connector.id===603?'bradesco':originalItem.connector.id===606?'mercado-pago':null;if(institution===null)return denied;
+  const originalItemId=originalItem.id,institution=originalItem.connector.id===603?'bradesco':originalItem.connector.id===606?'mercado-pago':originalItem.connector.id===612?'nubank':null;if(institution===null)return denied;
   if(!record(consents)||consents.page!==1||!Number.isSafeInteger(consents.total)||!Number.isSafeInteger(consents.totalPages)||!Array.isArray(consents.results)||consents.total!==consents.results.length||consents.results.length>100||consents.totalPages!==(consents.results.length?1:0)&&!(consents.results.length===0&&consents.totalPages===1))return denied;
   const active:Record<string,unknown>[]=[];
   for(const row of consents.results){

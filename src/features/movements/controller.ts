@@ -36,6 +36,8 @@ export function createMovementsController(session:SessionAccess,protection:Prote
   return Object.freeze({
    kind:'ready' as const,getSnapshot:()=>snapshot,subscribe:(listener:()=>void)=>{if(closed)return()=>{};listeners.add(listener);return()=>{listeners.delete(listener);};},
    query(filters:MovementFilters){assertCurrent();return currentCache.queryMovements(filters,false);},
+   exportCache(){assertCurrent();return currentCache.exportCache();},
+   restoreCache(data:Parameters<typeof currentCache.restoreCache>[0],connections:Parameters<typeof currentCache.restoreCache>[1]){assertCurrent();currentCache.restoreCache(data,connections);emit('ready','partial');},
    async refresh(connectionId:string,month:string):Promise<boolean>{
     try{assertCurrent();}catch{return false;}if(!uuid(connectionId)||typeof month!=='string'||!/^20[0-9]{2}-(0[1-9]|1[0-2])$/.test(month)){emit('error','unavailable');return false;}if(pending)return false;
     const controller=new AbortController();let timer:unknown,set=false,resolveStop:(value:boolean)=>void=()=>{};

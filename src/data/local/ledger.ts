@@ -122,6 +122,7 @@ export class MemoryLedger {
     if (!movement) throw new Error('movement_not_found');
     return this.#classify(movement);
   }
+  snapshotRows(){this.#authorize();return [...this.#rows.values()].map(row=>({...row,...(row.reversalOf?{reversalOf:{...row.reversalOf}}:{})}));}
   list(filters: MovementFilters, sourceComplete = false) {
     this.#authorize();
     const movements = [...this.#rows.values()].map(movement => { const classification = this.#classify(movement); return { ...movement, categoryId: classification.categoryId, type: classification.type }; });

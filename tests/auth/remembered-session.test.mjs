@@ -48,7 +48,7 @@ test('concurrent resume calls share one rotation',async()=>{
   const f=fixture({gateway:{refresh:async()=>{calls++;return pending.promise;}}});await f.model.login('','',true);f.model.setActive(false);
   // Activate triggers first restoration; explicit retry must share it.
   f.model.setActive(true);await flush();const a=f.model.resume(),b=f.model.resume();assert.equal(a,b);assert.equal(calls,1);
-  pending.resolve({accessToken:access,expiresAt:601000,refreshToken:rotated});assert.equal(await a,true);
+  pending.resolve({accessToken:access,expiresAt:601000,refreshToken:rotated,subject:user.id});assert.equal(await a,true);
 });
 test('temporary network error leaves saved token intact but never unlocks offline',async()=>{
   const f=fixture({gateway:{refresh:async()=>{throw new AuthFailure('unavailable');}}});await f.model.login('','',true);f.model.setActive(false);const old=f.raw;
@@ -94,7 +94,7 @@ function gatewayFixture(steps){const calls=[];const gateway=createAuthGateway({o
 const pair={access_token:access,refresh_token:rotated,expires_in:600,token_type:'bearer'};
 test('refresh uses fixed body-only route and verifies identity owner and active session',async()=>{
   const {gateway,calls}=gatewayFixture([pair,user,true,true]);const result=await gateway.refresh(refresh);
-  assert.deepEqual(result,{accessToken:access,expiresAt:601000,refreshToken:rotated});assert.equal(calls[0].url,origin+'/auth/v1/token?grant_type=refresh_token');assert.deepEqual(JSON.parse(calls[0].init.body),{refresh_token:refresh});
+  assert.deepEqual(result,{accessToken:access,expiresAt:601000,refreshToken:rotated,subject:user.id});assert.equal(calls[0].url,origin+'/auth/v1/token?grant_type=refresh_token');assert.deepEqual(JSON.parse(calls[0].init.body),{refresh_token:refresh});
   assert.ok(calls.at(-1).url.endsWith('/orbe_has_session'));assert.ok(calls.every(c=>!c.url.includes(refresh)&&!c.url.includes(rotated)));
 });
 test('refresh denied by active session gate discards newly issued access token',async()=>{
@@ -113,3 +113,5 @@ test('failed native deletion is visible and cannot auto-restore within the proce
   // Password login is still available without claiming that anything was saved.
   await f.model.login('','',true);await f.model.logout();assert.equal(f.model.getSnapshot().error,'secure_storage');f.model.setActive(false);f.model.setActive(true);await flush();assert.equal(await f.model.resume(),false);assert.equal(f.model.getSnapshot().state,'locked');
 });
+
+test('verified subject survives the private session for device-cache scoping',async()=>{const f=fixture({gateway:{signIn:async()=>({accessToken:access,expiresAt:601000,subject:user.id})}});await f.model.login('invented@example.invalid','synthetic-password');assert.equal(f.model.cacheSubject(),user.id);f.model.lock();assert.throws(()=>f.model.cacheSubject());});

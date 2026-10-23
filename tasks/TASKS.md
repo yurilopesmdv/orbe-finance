@@ -1290,3 +1290,12 @@ Spec010/planT77, integrador único.
 - [x] SPEC011 e planoT80a–i com fontes oficiais, contratos de faturas/CREDIT, orçamentozero e segurança.
 - [x] Registrar lacuna atual: CREDIT excluído de saldos e manifesto de movimentos; sem integração completa ou ativação de cartão.
 - [ ] T80a–i: implementar em sequência conforme plano; não confundir planejamento concluído com recurso disponível.
+
+## T81 — carteira automática e cache local
+
+- [x] SPEC012/planoT81; autorização posterior do titular remove confirmação adicional Orbe para conexões bancárias já aceitas.
+- [x] CacheAES256GCM/Keychaindeviceonly/doisslots/owner+projeto/30dias/4MiB, logout/clear com fencing, restore validado e purgememória preservando ciphertext ao fechar.
+- [x] Hub restaura e evita leitura recente duplicada, invalida mudançafonte/revisão, prepara pending autorizado na sessão; pausado/revogado não reativam.
+- [x] Adicionar banco peloapp/WebView/connector200/callbackvalidado; suporteNubank612/tickets técnicos/migration20. Sem ItemID pelochat no fluxo normal.
+- [x] Testes sintéticos de cifra/tamper/owner/projeto/logout/restore/callbackNubank/forjados/URLs/SQLdraftrollback semresíduos/ownerpreservado.
+- [ ] QAfinal/CI/migrationinstalada/backend/QR; aceite físico final do cache e adição pelo titular.

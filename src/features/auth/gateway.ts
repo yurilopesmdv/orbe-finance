@@ -5,7 +5,7 @@ export class AuthFailure extends Error {
   readonly code: AuthCode;
   constructor(code: AuthCode) { super(code); this.name = 'AuthFailure'; this.code = code; }
 }
-export interface AuthSession { readonly accessToken: string; readonly expiresAt: number }
+export interface AuthSession { readonly accessToken: string; readonly expiresAt: number; readonly subject?:string }
 export interface RememberedSession extends AuthSession { readonly refreshToken: string }
 export interface AuthConfig { origin: string; publishableKey: string }
 type Transport = (url: string, init: RequestInit) => Promise<Pick<Response,'ok'|'status'|'redirected'|'headers'|'body'>>;
@@ -78,7 +78,7 @@ export function createAuthGateway(config: AuthConfig, transport: Transport = fet
       if (!isPayload(user) || typeof user.id !== 'string' || !uuid.test(user.id) || user.is_anonymous === true) throw new AuthFailure('invalid_credentials');
       const allowed = await request('owner', {}, token, signal);
       if (allowed !== true || expiresAt <= now() || signal?.aborted) throw new AuthFailure(signal?.aborted ? 'cancelled' : 'invalid_credentials');
-      return Object.freeze({ accessToken: token, expiresAt });
+      return Object.freeze({ accessToken: token, expiresAt, subject:user.id });
     } catch (error) {
       if (token && !/\s/.test(token) && token.length <= 16384) await discard(token);
       throw error instanceof AuthFailure ? error : new AuthFailure('unavailable');

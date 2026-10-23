@@ -1,3 +1,4 @@
+import {createConnectRuntime} from './connect-runtime.ts';
 import { createActivationBackendRuntime } from './activation-runtime.ts';
 import { createInvestmentBackendRuntime } from './investment-runtime.ts';
 import { createMovementBackendRuntime } from './movement-runtime.ts';
@@ -15,12 +16,14 @@ export function createFinancialRuntime(read: AccountConfigurationReader, options
     const policy = { mode: 'live' as const, liveApproved: true, transport: options.transport };
     const accountReads = read('ORBE_ACCOUNT_READS_ENABLED') === 'true', movementReads = read('ORBE_MOVEMENT_READS_ENABLED') === 'true';
     const accounts = createAccountBackendRuntime(read, policy), inventory = createInventoryBackendRuntime(read, policy), movements = createMovementBackendRuntime(read,policy), investments=createInvestmentBackendRuntime(read,policy),activation=createActivationBackendRuntime(read,policy);
+    const connect=createConnectRuntime(read,options.transport);
     let closed = false;
     return Object.freeze({
       async handler(request: Request) {
         if (closed) return response(503, 'unavailable');
         try {
           const path = new URL(request.url).pathname;
+          if(['/orbe-bridge/connections/connect-token','/orbe-bridge/connections/import'].includes(path))return await connect.handler(request);
           if (path === '/orbe-bridge/connections/activate') return await activation.handler(request);
           if (['/orbe-bridge/investments/read','/orbe-bridge/investments/finalize'].includes(path) || path === '/orbe-bridge/reads/acquire' && !accountReads && !movementReads) return await investments.handler(request);
           if (['/orbe-bridge/movements/read','/orbe-bridge/movements/finalize'].includes(path) || path === '/orbe-bridge/reads/acquire' && !accountReads) return await movements.handler(request);
@@ -29,7 +32,7 @@ export function createFinancialRuntime(read: AccountConfigurationReader, options
           return response(404, 'not_found');
         } catch { return response(503, 'unavailable'); }
       },
-      close() { if (closed) return; closed = true; accounts.close(); inventory.close(); movements.close(); investments.close(); activation.close(); },
+      close() { if (closed) return; closed = true; connect.close(); accounts.close(); inventory.close(); movements.close(); investments.close(); activation.close(); },
     });
   } catch { return disabled; }
 }

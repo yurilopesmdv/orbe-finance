@@ -1,6 +1,6 @@
 import type {ConnectionMetadata} from '../connections/status.ts';
 import type {ProductReadState,FinanceProduct} from './hub.ts';
-export const personalBanks=['mercado-pago','bradesco'] as const;
+export const personalBanks=['mercado-pago','bradesco','nubank'] as const;
 export function productCoverage(connection:Readonly<ConnectionMetadata>|undefined,product:FinanceProduct,reads:readonly Readonly<ProductReadState>[]){
  if(!connection)return 'unlinked' as const;
  if(connection.state!=='active')return 'inactive' as const;

@@ -1,3 +1,4 @@
+import {nativeWalletCache} from '../cache/native';
 import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { fetch as expoFetch } from 'expo/fetch';
 import { AppState } from 'react-native';
@@ -14,7 +15,7 @@ const subscribe = () => () => {};
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [model] = useState(() => {
     if (!publicAuthConfig) return null;
-    try { return new SessionModel(createAuthGateway(publicAuthConfig,expoFetch), Date.now, undefined, runtime.rememberedLoginEnabled ? createNativeRefreshVault(publicAuthConfig.origin) : undefined); } catch { return null; }
+    try { return new SessionModel(createAuthGateway(publicAuthConfig,expoFetch), Date.now, undefined, runtime.rememberedLoginEnabled ? createNativeRefreshVault(publicAuthConfig.origin) : undefined, ()=>nativeWalletCache(publicAuthConfig!.origin)?.clear()??Promise.resolve()); } catch { return null; }
   });
   useEffect(() => {
     if (!model) return;

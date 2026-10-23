@@ -44,7 +44,7 @@ def project_consents(raw,item_id,now):
 def inspect_metadata(credentials,items,open_request=None,now=None):
     if not isinstance(items,list) or not 1<=len(items)<=5:raise SafeError('metadata_inventory_invalid')
     for item in items:
-        if not isinstance(item,dict) or set(item)!={'institution','itemId'} or item['institution'] not in ('bradesco','mercado-pago') or not isinstance(item['itemId'],str) or not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}',item['itemId']):raise SafeError('metadata_inventory_invalid')
+        if not isinstance(item,dict) or set(item)!={'institution','itemId'} or item['institution'] not in ('bradesco','mercado-pago','nubank') or not isinstance(item['itemId'],str) or not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}',item['itemId']):raise SafeError('metadata_inventory_invalid')
     if len({row['itemId'] for row in items})!=len(items) or len({row['institution'] for row in items})!=len(items):raise SafeError('metadata_inventory_ambiguous')
     if set(credentials)!={'PLUGGY_CLIENT_ID','PLUGGY_CLIENT_SECRET'} or not re.fullmatch(r'[A-Za-z0-9_-]{1,256}',credentials['PLUGGY_CLIENT_ID']) or not re.fullmatch(r'[A-Za-z0-9._~/-]{16,512}',credentials['PLUGGY_CLIENT_SECRET']):raise SafeError('metadata_credentials_invalid')
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}),profile.NoRedirect())
@@ -96,7 +96,7 @@ def inspect_metadata(credentials,items,open_request=None,now=None):
                             consents['linked_source_accessible']=isinstance(linked,dict) and linked.get('id')==candidate
                             consents['linked_source_ready']=isinstance(linked,dict) and linked.get('status')=='UPDATED' and linked.get('executionStatus')=='SUCCESS' and linked.get('error')is None
                             consents['linked_source_open_finance']=isinstance(connector,dict) and connector.get('isOpenFinance')is True and connector.get('isSandbox')is False
-                            consents['linked_source_institution_matches']=isinstance(connector,dict) and connector.get('id')=={'bradesco':603,'mercado-pago':606}[row['institution']]
+                            consents['linked_source_institution_matches']=isinstance(connector,dict) and connector.get('id')=={'bradesco':603,'mercado-pago':606,'nubank':612}[row['institution']]
                             if consents['linked_source_accessible'] and consents['linked_source_open_finance'] and consents['linked_source_institution_matches']:
                                 consents['linked_consent']=project_consents(consent_source,candidate,now)
                         except urllib.error.HTTPError as error:

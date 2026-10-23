@@ -21,7 +21,7 @@ function fixture(steps, now = () => 1000) {
 const code = expected => error => error instanceof AuthFailure && error.code === expected && error.message === expected;
 test('only verified owner receives a frozen short-lived session without refresh token', async () => {
   const { gateway } = fixture([login, user, true]); const result = await gateway.signIn(email, password);
-  assert.deepEqual(result, { accessToken: login.access_token, expiresAt: 601000 }); assert.equal(Object.isFrozen(result), true); assert.equal('refreshToken' in result, false);
+  assert.deepEqual(result, { accessToken: login.access_token, expiresAt: 601000, subject:user.id }); assert.equal(Object.isFrozen(result), true); assert.equal('refreshToken' in result, false);
 });
 test('denied owner gets no session and issued credentials are discarded', async () => {
   const { gateway, calls } = fixture([login, user, false, response(null, 204)]);

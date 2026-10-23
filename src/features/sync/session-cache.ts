@@ -1,3 +1,4 @@
+import {occurrenceMonth} from '../../domain/money.ts';
 import { runInvestmentBatch } from './investment-batch.ts';
 import type { InvestmentTransportContext } from './investment-transport.ts';
 import type { ConnectionProduct } from '../../domain/connections.ts';
@@ -22,6 +23,8 @@ export interface SyncSession {
   run(metadata: unknown, contexts: unknown, transport: ProductTransport, options?: { clock?: BatchClock; products?: readonly ConnectionProduct[] }): Promise<ProductBatchResult>;
   runMovements(metadata: unknown, context: MovementTransportContext, transport: ProductTransport, options?: { clock?: BatchClock }): Promise<BatchResult>;
   runInvestments(metadata:unknown,context:InvestmentTransportContext,transport:ProductTransport,options?:{clock?:BatchClock}):Promise<BatchResult>;
+  exportCache():{assets:ReturnType<MemoryAssets['list']>['items'];movements:ReturnType<MemoryLedger['snapshotRows']>};
+  restoreCache(data:{assets:ReturnType<MemoryAssets['list']>['items'];movements:ReturnType<MemoryLedger['snapshotRows']>},connections:readonly {id:string;institution:string}[]):void;
   cancel(): void;
   close(): void;
 }
@@ -86,6 +89,17 @@ export function createSyncSession(session: SessionAccess, scopeFactory: () => st
           return await runInvestmentBatch(metadata,context,assetStore,transport,{enabled:true,privateDataApproved:true,expectedOwnerSubject:scopeId,assertCurrent,signal:controller.signal,clock:options.clock});
         } catch { return Object.freeze({status:'failed'}); }
         finally { controller.abort();if(active===controller)active=undefined; }
+      },
+      exportCache(){assertCurrent();return {assets:assetStore.list().items,movements:ledgerStore.snapshotRows()};},
+      restoreCache(data,connections){
+       assertCurrent();if(!data||!Array.isArray(data.assets)||!Array.isArray(data.movements)||data.assets.length>10000||data.movements.length>10000)return unavailable();
+       for(const connection of connections){
+        for(const product of ['account','investment'] as const){const rows=data.assets.filter(row=>row.connectionId===connection.id&&row.product===product);if(!rows.length)continue;if(rows.some(row=>row.institutionId!==connection.institution))return unavailable();const scope={connectionId:connection.id,institutionId:connection.institution,product};assetStore.promote(assetStore.beginImport(scope),rows.map(row=>({...row,ownerSubject:scopeId})),true,false);}
+        const source='connection:'+connection.id,rows=data.movements.filter(row=>row.source===source);if(rows.some(row=>row.institutionId!==connection.institution))return unavailable();
+        const groups=new Map<string,typeof rows>();for(const row of rows){const k=JSON.stringify([row.accountId,occurrenceMonth(row.occurredAt)]);groups.set(k,[...(groups.get(k)??[]),row]);}
+        for(const values of groups.values()){const row=values[0]!;ledgerStore.promote(ledgerStore.beginImport({source,accountId:row.accountId,month:occurrenceMonth(row.occurredAt)}),values.map(row=>({...row,ownerSubject:scopeId})),true);}
+       }
+       assertCurrent();
       },
       cancel:()=>{ active?.abort(); },
       close,
