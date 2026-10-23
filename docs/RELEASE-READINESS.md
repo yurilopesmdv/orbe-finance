@@ -1,6 +1,6 @@
 # Prontidão do Orbe — 23/10/2026
 
-**Estado vigenteT79:** home grafite/violeta e estados porbanco/produto publicados; CI39987827224success/1252checks/types/export/audit1222fontes/56instâncias/scans/contraste. Backend21/metadata15/19migrations preservados. Titular confirmou valores apósT78; aceite visualT79 pendente. MPativo/investimentos sem posições recebidas; BradescoproxyOF603 validado/cadastradopending, falta Conexões→Preparar e ativar leitura na sessão titular. [Cobertura](BANK-COVERAGE.md), [QR](EXPO-PREVIEW.md). Cartões/faturas mapeados emSPEC011/planT80, ainda sem implementação. Nenhum dado financeiro real consultado por ferramentas.
+**Estado vigenteT81:** carteira automática/cachecriptografado/Nubank/Connect200 publicados.1270checks/CI39992630145/export/audit1250sources/58packages/scans/allowlist47;20migrations+fixtureSQLrollback/zeroresíduos/ownerpreservado, backend24/17/8flags/fontesdigests/11smokesanônimos401. MP/Bradescoativos, NuOF612validado/cadastradopending paraativaçãoautomática na sessão titular. QR emEXPO-PREVIEW. Cache/Connect/primeiraleituraNu físicos pendentes; nenhuma finança consultada portools. CartõesfaturasT80 mapeados, ainda sem implementação. GuiaAUTOMATIC-WALLET.
 
 O restante abaixo é histórico das etapas anteriores.
 

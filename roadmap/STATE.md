@@ -1,12 +1,16 @@
 # Estado de retomada — 21/10/2026
 
-## T81 — carteira automática e cache local (em implementação)
+## T81 — carteira automática/Nubank/cache publicados (VIGENTE)
 
 Titular pediuNubank/cachelocal/automação e autorizou explicitamente depois da revisão inicial preparar/ativar conexões já aceitas sem outro botãoOrbe. SPEC012/planT81. CacheAES256GCM nativo/doisslots/Keychaindeviceonly, owner+projeto/30dias/4MiB; backgroundlimpamemória/preservaciphertext, logout/clearapagam comfencing. AuthagorapreservaUUIDverificadoprivadoparacache; restoreapósmetadados/revisão/capability/consentimentovigentes, domainvalidators e novosscopes. Hub restaura/evitafetchrecente<15min/invalidadatafonte, prepara pending autorizado serial/retry; appabertoatualiza semconfirmaçãoduplicada, revogado/pausado não reativa. Nova conexão durantejob agenda revalidaçãoposterior.
 
 Adicionar banco/WebViewSDK57 usaMeuPluggy200/callbackmínimo/token30min/fluxoownersessão/clientUserId/validaçãoproxy→consentimento→origemOF603/606/612. Migration20 nova,19aplicadasimutáveis. Nenhuma enumeraçãoglobal403/scraping/cookiesportools. Bancos externos precisam seleção nofluxoapp; IDs chegamautomaticamente. NubankID salvo pelo titular empluggy-items.json: inventárioprivado3bancos, metadatavalidouOF612/ready/consentimentovigente semlerfinanças. Bradesco eMP confirmadosactive por metadados; investimentosamboscommitted0linhas, nãopatrimôniozero. T80cartões permaneceplanejado.
 
-QA: 1270checks(1122Node+148Python), typescliente/backend/exportiOSrelease passaram. SQL20draft+fixtureSQLRLSrollback/zeroresíduos/ownerpreservado passaram; auditfinal emandamento. Allowlistfunctions47. Próximaaçãoaudit/scans/GitCI→aplicar20+fixture→disable/deploy/enable→stageapenasNubank→smokesanônimos11→publicarQR/manifesto/docs. Não chamarstageinventáriocompleto(MP/Bradescoativos); script/tmp/orbe-stage-nubank.py fazsomenteNu após20hashverificadas. Nãoimpersonarowner oulerfinançasportools. Helpers/logs em/tmp/orbe-t81-*.
+**Entrega:**1270checks(1122Node+148Python)/typescliente+backend/export/audit1250fontes/58instâncias/scans/allowlist47; CI39992630145success/commitf2eceac7383896a3192c40490b299e9e235243b5.20migrations aplicadas/hashverificadas; fixtureSQLRLSdraft+instalada rollback/zeroresíduos/ownerpreservado. Disable22/16→deploy23→enable **bridge24/metadata17**,8flags/digests/fontes/identidades conferidos.11rotasanônimos401/no-store passaram.
+
+**Nubank:** stage1pending confirmado depoisdevalidarproxy/consentimento/OF612, inventárioprivado3bancos. MP eBradescoactivepreservados, nenhumfinanceiroportools. Preparação/ativação/leituraNu ocorrerãoautomaticamente na sessão titular ao abrirnovaversão, não alegarprimeirovalorfísicoconfirmado.
+
+**Cliente publicado:** update01a169c1-09cf-7835-9041-7aaa0218c70b, grupoa8d7b0de-0ec5-4d27-98bf-787fee242284, commitf2eceac7383896a3192c40490b299e9e235243b5, exp://u.expo.dev/update/01a169c1-09cf-7835-9041-7aaa0218c70b; manifesto/scheme/hashHBC/QRoficial conferidos. QRdocs/assets/orbe-expo-go-auto-20261023.png. DocsAUTOMATIC-WALLET/EXPO-PREVIEW/FINANCIAL-HOME atualizados. Aceitefísico cache/Connect/primeiraleituraNu pendente, não bloqueartrabalhoindependenteporisso. T80cartões apenasmapeado; próximoobjetivoimplementaçãoT80a conformepedido do titular. Não repetirchecks/exportsemnovasmudanças. GitdocsQRfinal aenviar.
 
 ## T79 — cobertura e identidade pessoal publicadas (vigente)
 

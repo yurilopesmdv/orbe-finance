@@ -9,3 +9,5 @@ SPEC012, integrador único, prioridade do titular. Etapas sequenciais:
 5. T81e: check/export/audit/scans/CI; SQLdraft/installfixture, backenddisabled→deploy→enable; publicarQR/manifesto/docs/STATE/Git.
 
 Não fingir descoberta de itens externos (listagem403), não ler finanças pelas ferramentas. Banco adicionado fora do Orbe será selecionado no MeuPluggy aberto peloapp. Sem pagamentos/cartões implementados nesta task (T80continua mapeado).
+
+Concluído:1270checks/CI39992630145,20migrations+SQLfixture, backend24/17/11smokes401, update01a169c1-09cf-7835-9041-7aaa0218c70b/manifesto/HBC/QRverificados. NuOF612validado/pendingcadastrado, ativaçãoautomática na sessão titular; primeirovalorfísico/cache/Connectpendentes.

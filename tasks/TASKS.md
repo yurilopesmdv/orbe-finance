@@ -1298,4 +1298,6 @@ Spec010/planT77, integrador único.
 - [x] Hub restaura e evita leitura recente duplicada, invalida mudançafonte/revisão, prepara pending autorizado na sessão; pausado/revogado não reativam.
 - [x] Adicionar banco peloapp/WebView/connector200/callbackvalidado; suporteNubank612/tickets técnicos/migration20. Sem ItemID pelochat no fluxo normal.
 - [x] Testes sintéticos de cifra/tamper/owner/projeto/logout/restore/callbackNubank/forjados/URLs/SQLdraftrollback semresíduos/ownerpreservado.
-- [ ] QAfinal/CI/migrationinstalada/backend/QR; aceite físico final do cache e adição pelo titular.
+- [x] QA1270/CI39992630145/migration20+fixture/backend24/17/11smokes401/QRupdate01a169c1-09cf-7835-9041-7aaa0218c70b/manifestoHBC.
+- [x] Nubank validadoOF612 e vínculo cadastrado; MP/Bradescoativos preservados.
+- [ ] Aceite físico: cache/Connect/primeiraleituraNu na sessão titular.

@@ -19,3 +19,7 @@ Publicação ao proprietário exige recibo privado600 fora do Metro corresponden
 ## Aceite
 
 Tipos e testes de origem/consentimento, ownership/RLS, replay, cancelamento, limites e rollback; SQL em transação revertida antes e após migration; export iOS/Hermes e scan de segredos; CI; fontes/digests remotos; HTTP anônimo sem acesso; manifesto/QR remoto. Teste positivo de valores depende da sessão do titular no iPhone e será registrado ao final, sem solicitar imagens ou valores.
+
+## Atualização23/10 — T81 autorizada pelo titular
+
+Persistência financeira local criptografada autorizada expressamente: AES256GCM/Keychaindeviceonly, owner+projeto, slotscriptografados/30dias/4MiB. Fechar/background preserva ciphertext e limpa memória; logout/clear apagam. Preparar/ativar conexões bancárias já aceitas pode ocorrer automaticamente no app aberto, sem nova concordância Orbe. Consentimento vigente/sessão/owner/revisão continuam obrigatórios. Nenhuma leitura financeira pelas ferramentas, persistência no servidor ou contratação adicionada. Nubank612 suportado; callbackConnect200 validado antes de cadastro. Spec012 eAUTOMATIC-WALLET descrevem fronteiras/testes/limites; aceite nativo no aparelho permanece pendente.

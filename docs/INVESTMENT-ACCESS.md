@@ -1,5 +1,7 @@
 # Investimentos no Orbe
 
+**VigenteT81:** após leituras autorizadas, cache financeiro é criptografado somente no iPhone e preservado ao fechar; memória continua purgada ao bloquear/background, logout/clear eliminam chave/arquivos. Automação e critérios em [AUTOMATIC-WALLET](AUTOMATIC-WALLET.md); afirmações anteriores de memória exclusiva são históricas.
+
 A tela privada **Seu acesso → Ver meus investimentos** apresenta posições por banco e moeda, com líquido, bruto e data da fonte. Ausência de valor não é zero. Nomes de aplicações, titular, documentos, códigos e dados extras do provedor não são enviados ao aplicativo. Posições são identificadas por IDs internos aleatórios, separados dos IDs do fornecedor.
 
 ## Funcionamento

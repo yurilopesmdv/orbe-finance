@@ -1,44 +1,21 @@
-# Visão geral financeira — 23/10/2026
+# Home financeira do Orbe
 
-A página inicial após entrar no Orbe reúne os dados reais da sessão. Não é necessário atualizar cada tela para começar.
+Estado vigenteT81,23/10/2026. Tema grafite/violeta, uso pessoal no iPhone/ExpoGo. [QR atual](EXPO-PREVIEW.md) e [automação/cache](AUTOMATIC-WALLET.md).
 
-## O que aparece
+A home apresenta saldo consolidado por moeda, subtotais de contas/investimentos, identificação de Mercado Pago/Bradesco/Nubank e cinco movimentos recentes do mês atual/anterior. Moedas não são convertidas ou misturadas. Investimentos com composição desconhecida aparecem separados do saldo para evitar dupla contagem; cofrinhos exigem evidência da fonte. Null não vira zero. Investimentos sem posições recebidas não são tratados como patrimôniozero.
 
-- Saldo consolidado em moeda selecionada, subtotais de contas e investimentos e valores por banco.
-- BRL, USD e EUR separados, sem conversão ou mistura de moedas.
-- Até cinco movimentações mais recentes dos últimos dois meses. Ver todas abre o histórico no período do movimento mais recente exibido.
-- Conexões e telas completas de contas/investimentos/movimentações com o mesmo cache da home.
-- Cofrinhos explicitamente indisponíveis quando a fonte não comprova natureza e vínculo. Investimentos de composição desconhecida são mostrados separados para não contar o mesmo dinheiro duas vezes.
+Atalhos preservam telas completas de contas, investimentos, movimentações e conexões. Ver todas abre o período do movimento mais recente. Os estados por banco/produto/revisão distinguem espera, atualização, falha, intervalo e leitura concluída sem posições. Capacidade disponível na fonte não é comprovante de posições existentes.
 
-Os valores e descrições começam ocultos. Toque em Mostrar valores e descrições na home para exibi-los. Falha de consulta não vira saldo zero; dados válidos anteriores permanecem enquanto a sessão está ativa. Dados parciais e falta de composição são sinalizados.
+## Atualização e cache
 
-## Atualização automática
+Abrir/retomar valida sessão e metadados, restaura cache criptografado local e atualiza produtos elegíveis. Janela recente15min evita repetir produtos; revisão/datafonte alteradas invalidam a validade. A data armazenada da fonte não é um feed em tempo real: após a janela, uma leitura ainda pode ser necessária para confirmar mudanças. Meses sem leitura ou falhos têm retentativas limitadas. Um job por vez por hub, produtos sequenciais/banco, admissão30s porproduto/lease120s; cliente antigo mantém protocolo legado900s.
 
-Ao desbloquear o acesso, o app identifica conexões ativas e atualiza os produtos disponíveis em sequência. Repete o ciclo a cada15min em primeiro plano. O botão Atualizar inicia um ciclo manual pela mesma fila. A consulta do segundo mês pode aguardar30s; o app continua sozinho sem exigir outro clique.
+A preparação/ativação de conexões pendentes já aceitas no banco ocorre automaticamente pela sessão do titular, por autorização expressa23/10. Pausado/revogado/consentimento vencido não reativa. Adicionar banco usa conectorMeuPluggy200 e recebeID via callback validado, sem cópia manual no fluxo normal.
 
-Uma única leitura por banco fica em andamento; a admissão de nova consulta é controlada por banco e produto, com intervalo30s. Atualizar contas não bloqueia movimentações ou investimentos durante15min. Clientes antigos mantêm protocolo e intervalo anterior até serem atualizados.
+Navegar mantém memória privada. Background/lock limpa memória e aborta consultas; ciphertext local permanece para a próxima autenticação. Sair da conta e Apagar cache deste iPhone e bloquear removem a cópia local. AES256GCM nativo/Keychaindeviceonly/doisslots/30dias/4MiB, sem finanças no Supabase/logs. Sem coleta com app fechado; detalhes e limites em AUTOMATIC-WALLET.
 
-Mudar de tela não apaga os dados. Isso corrige o comportamento em que uma leitura havia sido concluída mas desaparecia ao voltar à home. Ao bloquear, sair da conta ou colocar o app em segundo plano, as requisições são abortadas e os valores são removidos da memória. Ao retornar, a sessão é validada e os dados são buscados automaticamente. Não existe cache financeiro em disco nem em logs, e não há processamento financeiro em segundo plano.
+## Precisão e cobertura
 
-A atualização no Orbe é uma leitura da informação disponibilizada pela Pluggy; não representa renovação forçada de consentimento nem atualização em tempo real no banco. Disponibilidade, atraso e cobertura da fonte continuam aplicáveis. A conexão Bradesco ainda precisa de seu proxy próprio na aplicação; a home não inventa esse vínculo. Não refaça configurações já válidas.
+Formatador monetário usa strings de centavos inteiros seguros, sem Intl.NumberFormat/formatToParts nativo. Funciona com extremos e moedas explícitas sem arredondar ou converter; ocultação precede formatação e não informado difere de erro de formatação. Titular confirmou valores apósT78.
 
-## Operação e evidências
-
-SPEC-010/planT77. Migration19 adiciona somente metadados de admissão por produto e associa o produto à lease. Owner/revisão/capacidade/consentimento/proteção e singlelease permanecem obrigatórios. Lease de contas não pode ser usada para movimentos. Nenhuma nova credencial, fornecedor, serviço pago, cron ou webhook.
-
-Validação local:1248verificações, tiposcliente/backend, SQL/RLS emrollback/zeroresíduos/ownerpreservado, exportiOS/Hermes, auditoria1220fontes/56instâncias e scansprivados. Testes de fila, timer, cache entre consultas, lock/background/purge, resultado parcial e totais sem duplicação. A confirmação final da nova interface e valores acontece na sessão do titular; nenhuma ferramenta consulta extratos ou valores reais.
-
-[QR remoto](EXPO-PREVIEW.md) · [Prontidão](RELEASE-READINESS.md) · [Especificação](../specs/010-financial-home/spec.md).
-
-
-## Publicação instalada
-
-Backendbridge21/metadata15,19migrationshashverificadas/fixtureSQLinstalada comrollback/zeroresíduos/ownerpreservado.8flags/digests/fontes/identidades verificados;9rotasanônimas401/no-store. Clienteupdate01a16982-acae-7fbf-bf18-f3dda38e795a, grupo0b7fe19c-9cd6-47a8-bf3b-a77b41ecfc9e, commit876295e417acb32d3ea81c2b40c468ae6c774be3; manifesto/scheme/HBC/QRoficial conferidos. CI39981649710success eCI39983257856 da conferênciafinal; QR em EXPO-PREVIEW. Ao retornar à home, metadados são revalidados sem apagar os caches; produtos recentes não são buscados novamente desnecessariamente.
-
-## Correção T78 — apresentação monetária
-
-“Valor indisponível” era a mensagem de falha de formatação, diferente de “Não informado” (valor ausente na fonte). O formatador compartilhado agora usa diretamente centavos inteiros e agrupamento pt-BR, sem depender de Intl.NumberFormat/formatToParts no aparelho. Não há conversão de moeda ou arredondamento. Home e telas completas de contas, investimentos e movimentações permanecem disponíveis. Regressões simulam Intl ausente, incompleto e lançando erro; dados reais não foram consultados no diagnóstico. A confirmação no iPhone permanece necessária.
-
-## T79 — identidade pessoal e bancos
-
-Tema grafite/violeta com texto claro, identificação individual de Mercado Pago e Bradesco e ações de navegação preservadas. Banco sem vínculo aparece explicitamente e fica fora dos totais. Investimentos vazios têm mensagem de leitura sem posições; recibos por conexão/produto/revisão diferenciam espera, falha e sucesso. Consulte [cobertura e vínculo Bradesco](BANK-COVERAGE.md). Cofrinhos Mercado Pago não foram disponibilizados nesta integração; não são estimados.
+MP eBradesco ativos por metadados; Nubank validado/cadastrado para ativação automática ao abrir a nova versão. Valores/descrições não foram consultados por ferramentas; primeira leituraNu e cache nativo precisam de aceite no aparelho. [Cobertura](BANK-COVERAGE.md), [prontidão](RELEASE-READINESS.md), [specs](../specs/012-automatic-wallet/spec.md).

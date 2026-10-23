@@ -10,7 +10,13 @@ O [issue22 no repositório do Meu Pluggy](https://github.com/pluggyai/meu-pluggy
 
 Nesta integração não é possível apresentar o valor dos cofrinhos sem ele ser disponibilizado e identificado pela fonte. O Orbe não estima por diferença de saldo, rendimento, nome de CDB ou transferências. Não há endpoint extra, scraping do banco ou credenciais bancárias adicionadas como atalho.
 
-## Bradesco
+## Situação vigente apósT81
+
+Mercado Pago eBradesco foram confirmados ativos por metadados. As leituras de investimentos de ambos concluíram com0linhas recebidas. Nubank: identificador salvo pelo titular, proxy→consentimentoúnico→origemOF612 validado, vínculo pendente cadastrado e confirmado. A nova versão prepara/ativa automaticamente as conexões já aceitas no banco e inicia a leitura na sessão do titular, sem outro botão Orbe. Nenhuma finança real foi consultada por ferramentas.
+
+Futuras adições usam Adicionar banco no app; o callback chega ao backend e dispensa copiarID. Selecionar uma conexão já criada no MeuPluggy continua necessário porque a API pessoal não permite listá-las retroativamente. [Guia atual](AUTOMATIC-WALLET.md). As instruções manuais abaixo registram o processo histórico de cadastroBradesco e foram substituídas pelo fluxoT81.
+
+## Bradesco (histórico)
 
 O titular forneceu o identificador no arquivo privado. A cadeia proxy→consentimento único→origem Bradesco Open Finance603 foi validada, sem consultas financeiras. O cadastro pendente foi confirmado no Orbe e no inventário privado, com dois bancos distintos. Mercado Pago permanece ativo.
 

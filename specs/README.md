@@ -18,6 +18,7 @@ A ordem de trabalho é **spec → plan → tasks → implement → validate**. A
 | [009 — Meu Pluggy](009-meu-pluggy/spec.md) | Fornecedor selecionado, automação PF e controles da ponte |
 | [010 — Home financeira](010-financial-home/spec.md) | Sincronização, totais, cobertura e identidade pessoal |
 | [011 — Cartões](011-credit-cards/spec.md) | Resumo, faturas, compras e conciliação; planejada |
+| [012 — Carteira automática](012-automatic-wallet/spec.md) | Conexão pelo app, Nubank, atualização automática e cache local criptografado |
 
 ## Processo e controle de mudança
 

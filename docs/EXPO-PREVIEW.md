@@ -1,39 +1,23 @@
-# Orbe — nova home financeira no Expo Go
+# Orbe — carteira automática no Expo Go
 
-Publicação de23/10/2026, iOS/SDK57, remota e independente do PC ou rede local.
+Publicação23/10/2026, remota, iOS/SDK57. Não depende do PC/rede local.
 
-![QR da home financeira](assets/orbe-expo-go-home-20261023.png)
+![QR da carteira automática](assets/orbe-expo-go-auto-20261023.png)
 
-Link direto: exp://u.expo.dev/update/01a1699f-4286-78c5-8c69-8b8a4fb073f1
+Link direto: exp://u.expo.dev/update/01a169c1-09cf-7835-9041-7aaa0218c70b
 
-Update01a1699f-4286-78c5-8c69-8b8a4fb073f1 · grupo31b0f9b0-c871-4392-9b54-340ded3a3965 · commit421cc9a98cd72901c9154a16bcdba44c8028b3f8 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0.
+Update01a169c1-09cf-7835-9041-7aaa0218c70b · grupoa8d7b0de-0ec5-4d27-98bf-787fee242284 · commitf2eceac7383896a3192c40490b299e9e235243b5 · EAS69843dfe-ab1b-469e-bb78-c7948bbf1d9b · preview · runtimeexposdk:57.0.0. Manifesto/scheme/hashHBC/QRoficial conferidos.
 
-## Identidade e cobertura — T79
+## Abrir
 
-Tema grafite/violeta, bancos separados, estados por produto e atalhos preservados. CI39987827224success/1252checks (1104Node+148Python), tipos/export/audit1222fontes/56instâncias/scans e contraste≥4.5; manifesto/scheme/hashHBC/QRoficial verificados.
+Use sua conta existente. Mercado Pago e Bradesco estão ativos. Nubank já foi validado pela origemOpenFinance612 e cadastrado: ao abrir a nova versão, a sessão do titular prepara e ativa automaticamente o vínculo pendente, depois lê os produtos disponíveis. Não precisa copiar o Item ID novamente ou importar extrato.
 
-Mercado Pago ativo, valores confirmados pelo titular; leitura de investimentos retornou0linhas. Bradesco já validado e cadastrado pending. No app, **Conexões → Bradesco → Preparar e ativar leitura**; após confirmação, voltar à home inicia as leituras automaticamente. Não precisa importar extratos. [Cobertura e cofrinhos](BANK-COVERAGE.md). Cartões/faturas estão [mapeados emSPEC011](../specs/011-credit-cards/spec.md), ainda sem implementação.
+O app mantém cache financeiro criptografado neste iPhone ao fechar e o restaura depois de validar acesso e conexões. As atualizações acontecem discretamente no app aberto; cache recente evita leituras duplicadas. Valores começam ocultos: toque Mostrar valores e descrições. Sair da conta ou Apagar cache deste iPhone e bloquear remove chave e arquivos.
 
-## Usar
+Para futuros bancos suportados, use **Adicionar banco** e selecione a conexão na carteira Meu Pluggy aberta pelo app. O identificador chega automaticamente pelo callback e é revalidado pelo servidor. A API pessoal não lista itens externos: bancos criados fora do Orbe precisam ser selecionados nesse fluxo, sem mandar IDs ao chat. [Guia da automação/cache](AUTOMATIC-WALLET.md).
 
-Abra este QR com o Expo Go e use sua conta existente. A home privada agora mostra saldo consolidado, subtotais de contas e investimentos, valores por banco e até5movimentos recentes de2meses. Toque **Mostrar valores e descrições** para revelar as informações, inicialmente ocultas. **Ver todas** abre o histórico no período correspondente.
+## Validação e limites
 
-Os dados são carregados automaticamente ao abrir/retomar e atualizados durante o uso. Mudar de página mantém os dados da sessão; as telas completas usam o mesmo cache. Atualizar na home é opcional. Ao retornar à home, as conexões são revalidadas e produtos com cache recente não são consultados novamente.
+1270checks(1122Node+148Python), tiposcliente/backend, exportiOS/Hermes, audit1250fontes/58instâncias/advisoryrootsausentesJS, scansprivados eallowlist47. CI39992630145success. Migration20 e fixtureSQL/RLS instaladas/hashverificadas, rollback/zeroresíduos/ownerpreservado. Backendbridge24/metadata17/8flagsfontesdigestsidentidades verificados;11rotasanônimos401/no-store. Nenhuma finança real consultada por ferramentas.
 
-O intervalo porproduto é30s e não bloqueia outros produtos por15min. Apenas uma leitura por banco fica em andamento. O segundo mês pode aguardar um breve intervalo, com continuação automática. Ao bloquear/background/logout, dados e requisições são limpos; o app recarrega ao retornar. Não há persistência financeira em disco ou processamento em segundo plano.
-
-Investimentos com sobreposição desconhecida ficam separados do consolidado; cofres/reservas não são inventados nem duplicados. Bradesco ainda semproxypróprio identificado. Datas, cobertura e disponibilidade da fonte continuam relevantes; atualização no Orbe não equivale a forçar atualização bancária emtempo real. [Guia completo](FINANCIAL-HOME.md).
-
-## Correção dos valores — T78
-
-O formatador monetário compartilhado agora funciona sem Intl.NumberFormat/formatToParts do aparelho. A mensagem Valor indisponível era também usada para falha de formatação de valores válidos; Não informado continua reservado ao valor ausente. Home e telas completas preservadas. Abra o QR atualizado e toque Mostrar valores e descrições; não precisa refazer conexões. A confirmação no iPhone segue pendente, sem consulta de valores reais pelas ferramentas.
-
-CI39985350908 aprovada, 1249 verificações (1101Node+148Python), tipos/export/auditoria1220fontes/56instâncias/scans; manifesto/scheme/hashHBC/QR oficial conferidos. Backend e banco sem alterações nesta correção.
-
-## Verificações anteriores
-
-CI39981649710success/1248verificações(1100Node+148Python), tiposcliente/backend, SQL/RLSdraft e instalado comrollback/zeroresíduos/ownerpreservado. Ajustefinal de navegaçãoCI39983257856. ExportHermes/audit1220fontes/56instâncias/advisoriesausentesJS, scansprivados/allowlist46; sourcemaps privados. Manifesto/scheme/hashHBC/URLoficialQR conferidos depois de publicar.
-
-Backendbridge21/metadata15,19migrations imutáveis/hashverificadas,8flags ativas/digests/fontes/identidades confirmados.9rotasanônimas401/no-store. Valores reais nunca foram consultados pelas ferramentas; a validação da nova interface no aparelho fica para o titular. Saldo e leitura anterior de movimentos já foram confirmados por titular/metadados, respectivamente. Cadastro público/FaceID/recuperação continuam desligados. Nenhum serviço pago contratado.
-
-[Prontidão](RELEASE-READINESS.md) · [Specs](../specs/010-financial-home/spec.md) · [Roadmap](../roadmap/STATE.md).
+Primeira leituraNubank e cache/Connect nativos ainda precisam de confirmação no aparelho. Não afirmar que o cadastro técnico já é uma leitura financeira. InvestimentosMP/Bradesco terminaram sem posições recebidas; isso não prova patrimôniozero. Cofrinhos dependem da fonte; desconhecidos não são inventados nem duplicados no saldo. Cartões/faturas continuam no planejamentoT80. FaceID/cadastro público/recuperação desligados; nenhum serviço pago contratado.

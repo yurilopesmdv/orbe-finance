@@ -173,3 +173,7 @@ VerificadorMeuPluggy recebe operação fechada accounts(default)/transactions/in
 ## SEC-45 — Provisionamento das chaves de movimentações
 
 Preparação operacional pode criar duas chavesCSPRNG independentes de32bytes fora do projeto e provisioná-las no backend próprio, mantendo todos gatesfalse. Arquivo600, diretório700, donoatual/regular/singlelink/nofollow, sem chave em stdout/log/recibo/Git/Metro. Nunca sobrescrever/rotacionar silenciosamente, pois identidade e cursor dependem das chaves. Check não gera chave. Configuração valida perfil antes de rede e recusa qualquer flagtrue; preserva segredos alheios e exige digests/fontes/versões verificáveis. Canários existentes devem detectar os novos valores antes de publicar. Essa preparação não aprova runtime/fornecedor/origem nem autoriza dados reais.
+
+## SEC-CACHE-20261023 — autorização de cache local do titular
+
+SPEC012 substitui as proibições históricas de qualquer persistência financeira no aparelho: titular autorizou AES256GCM/Keychaindeviceonly/doisslots/owner+projeto/30dias/4MiB, sem plaintext/backend/logs. Memória bloqueada continua purgada; ciphertext persiste ao fechar/background, logout/clear removem chave e arquivos comfencing. Restore exige Auth/proteção/metadados/consentimento/revisão/capability atuais e valida domínio. Titular autorizou também preparar/ativar automaticamente conexões já aceitas no banco, sem confirmação Orbe duplicada. Isso não autoriza ferramentas a consultar finanças nem concede consentimentos bancários pelo titular. GuideAUTOMATIC-WALLET eSPEC012 prevalecem nesta fatia.

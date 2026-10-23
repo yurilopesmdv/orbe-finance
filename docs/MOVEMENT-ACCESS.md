@@ -1,5 +1,7 @@
 # Minhas movimentações
 
+**VigenteT81:** após leituras autorizadas, cache financeiro é criptografado somente no iPhone e preservado ao fechar; memória continua purgada ao bloquear/background, logout/clear eliminam chave/arquivos. Automação e critérios em [AUTOMATIC-WALLET](AUTOMATIC-WALLET.md); afirmações anteriores de memória exclusiva são históricas.
+
 A rota `/my-movements` é acessível por **Seu acesso está pronto → Ver minhas movimentações**, ou pela tela **Minhas contas**. Mantém o layout atual. Esta entrega está preparada localmente; a prévia publicada está identificada em [EXPO-PREVIEW](EXPO-PREVIEW.md).
 
 A leitura pessoal está habilitada e é carregada automaticamente pela home na préviaT77. Prepare e ative a conexão pela sua sessão, conforme [ativação](ACCOUNT-ACTIVATION.md). Mercado Pago tem origem e permissões comprovadas; Bradesco ainda sem proxy próprio. Primeiro movimento real no iPhone ainda não confirmado.
