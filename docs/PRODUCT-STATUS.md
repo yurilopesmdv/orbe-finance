@@ -8,7 +8,7 @@
 
 ## Entrega T82 — categorias e gastos reais
 
-Implementação: edição de categoria/tipo em Minhas movimentações; relatório real por mês, banco e moeda, gráfico de barras e movimentos detalhados; sugestões locais de categoria e identificação de itens a revisar/maior categoria. Dados permanecem no dispositivo; não usa IA externa. Validação/publicação registradas em roadmap/STATE.md.
+Publicado no Expo Go em23/10, CI39995370769 aprovado e1276 verificações; QR em [EXPO-PREVIEW](EXPO-PREVIEW.md). Implementação: edição de categoria/tipo em Minhas movimentações; relatório real por mês, banco e moeda, gráfico de barras e movimentos detalhados; sugestões locais de categoria e identificação de itens a revisar/maior categoria. Dados permanecem no dispositivo; não usa IA externa. Validação/publicação registradas em roadmap/STATE.md.
 
 Categoria e tipo são coisas diferentes. Marque Gasto de consumo para entrar no total de despesas. Transferências, aplicações e pagamento de fatura não são consumo. Tipo desconhecido não vira gasto automaticamente. Sugestões por palavras são propostas, não decisões automáticas.
 

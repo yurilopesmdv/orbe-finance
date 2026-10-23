@@ -1,6 +1,6 @@
 # Trabalho no Orbe Finance
 
-Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T81,23/10/2026**, [SPEC-012](specs/012-automatic-wallet/spec.md), [plano](plan/T81-AUTOMATIC-WALLET.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
+Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T82,23/10/2026**, [SPEC-012](specs/012-automatic-wallet/spec.md), [plano](plan/T81-AUTOMATIC-WALLET.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
 
 ## Direção autorizada
 
@@ -37,3 +37,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T81,23/10/202
 - T81publicado:1270checks/CI39992630145, runtimeaudit1250sources/58packages, fontes47/migrations20. CacheAES nativo emsrc/features/cache (nenhuma senha/JWT), subjectverificado privado preservado emSessionModel sóparaAAD. Vínculosnovos viaConnect200/ticketsowner-session/TTL30min, clientUserIdvalidado eorigemOF. ÚltimoQR/link emEXPO-PREVIEW/STATE. Nuprimeiraleitura/cache/Connectfísicos ainda não confirmados.
 
 - T82 vigente: usuário confirmou cache e Nubank. SPEC013/planT82 e docs/PRODUCT-STATUS.md detalham categorias/relatórios reais e pendências. Correções locais no cache AES são perdidas em logout/clear/expiração; não prometer backup. Inteligência determinística local, nenhuma IA externa.
+
+- T82 publicado:1276checks/CI39995370769, audit1253fontes/58instâncias; update/QR em EXPO-PREVIEW. Cache/Nubank confirmados pelo titular; edição/gráficos aguardam teste físico. T80 cartões e demais pendências em PRODUCT-STATUS.

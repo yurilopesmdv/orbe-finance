@@ -3,7 +3,7 @@
 - [x] T82a: SPEC013, plano e pendências em PRODUCT-STATUS; aceite físico T81 cache/Nubank registrado.
 - [x] T82b: correções locais persistidas no cache AES e isoladas por identidade/revisão.
 - [x] T82c: editor de movimento, relatório por categoria e análises locais sem rede externa.
-- [ ] T82d: validação completa, CI, publicação, QR e evidências.
+- [x] T82d: 1276 verificações, CI39995370769, publicação Expo/QR e evidências em STATE. Aceite físico de edição/gráficos permanece pendente.
 
 # Microtasks — backlog de implementação
 

@@ -6,3 +6,5 @@
 4. T82d: validar fixtures, tipos, exportação, privacidade, CI e publicar; atualizar roadmap.
 
 Uma etapa por vez, sem esperar confirmação entre etapas. Sem consultas financeiras por ferramentas.
+
+Entrega concluída: 1276 verificações/CI39995370769, Expo publicado e manifesto conferido. QR e detalhes em docs/EXPO-PREVIEW.md. Teste físico de edição/gráficos ainda não confirmado.
