@@ -1,6 +1,6 @@
 # Trabalho no Orbe Finance
 
-Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T83,25/10/2026**, [SPEC-012](specs/012-automatic-wallet/spec.md), [plano](plan/T81-AUTOMATIC-WALLET.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
+Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T83,25/10/2026**, [SPEC-014](specs/014-expo-sdk58/spec.md), [plano SDK58](plan/T83-EXPO-SDK58.md). Carteira preservada em [SPEC-012](specs/012-automatic-wallet/spec.md), [plano](plan/T81-AUTOMATIC-WALLET.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
 
 ## Direção autorizada
 
@@ -39,3 +39,5 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T83,25/10/202
 - T82 vigente: usuário confirmou cache e Nubank. SPEC013/planT82 e docs/PRODUCT-STATUS.md detalham categorias/relatórios reais e pendências. Correções locais no cache AES são perdidas em logout/clear/expiração; não prometer backup. Inteligência determinística local, nenhuma IA externa.
 
 - T82 publicado:1276checks/CI39995370769, audit1253fontes/58instâncias; update/QR em EXPO-PREVIEW. Cache/Nubank confirmados pelo titular; edição/gráficos aguardam teste físico. T80 cartões e demais pendências em PRODUCT-STATUS.
+
+- T83 publicado: SDK58/React19.3/RN0.88, 1281checks/CI40204815440 success, audit1299fontes/50instâncias. Update `01a17395-765d-7e9c-becd-313c819b8c43`, QR SDK58 em EXPO-PREVIEW. AppState undefined falha fechado, WebView14 tipada, Zod4.6.6 no tooling. Auditoria pessoal exige relatório bound ao lockfile; exceção sintética expirada não renovada, node-forge continua advisory não corrigido/ausente do JS. Recibo58/fontes verificados, backend24/17 preservado, nenhuma leitura financeira por tools. Commit/push/CI antes de publicar; docs/QR também enviados ao Git. Teste físico58 fica com o titular.

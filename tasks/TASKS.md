@@ -1313,6 +1313,6 @@ Spec010/planT77, integrador único.
 ## T83 — Expo SDK 58
 
 - [x] SPEC014/planoT83 e estado de retomada.
-- [x] Dependências, configuração e guardas runtime58; recibo real será renovado após CI.
-- [x] Tipos/1281checks/fixtures/exportHermes/audit/scans; CI será conferida após push.
-- [ ] Publicação verificada/QR oficial/docs/Git atualizado.
+- [x] Dependências/configuração/guardas runtime58; recibo real renovado após CI, sem mudar backend.
+- [x] Tipos/1281checks/fixtures/exportHermes/audit/scans e CI40204815440 success após push.
+- [x] Publicação `01a17395-765d-7e9c-becd-313c819b8c43` verificada/QR oficial SDK58/docs; evidências finais enviadas ao Git.
