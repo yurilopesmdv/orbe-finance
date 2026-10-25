@@ -3,7 +3,7 @@ const allowed = new Set([
   'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm',
   'https://github.com/advisories/GHSA-86w9-cpqp-85rv',
 ]);
-export function validateAudit(audit, now = Date.now()) {
+export function inspectAuditGraph(audit, allowedRoots) {
   if (audit?.error || !audit?.metadata?.vulnerabilities || !audit.vulnerabilities) throw new Error('audit_unavailable');
   if (audit.metadata.vulnerabilities.critical > 0) throw new Error('critical_advisory');
   const entries = Object.entries(audit.vulnerabilities), reachable = new Map(), roots = new Set();
@@ -14,7 +14,7 @@ export function validateAudit(audit, now = Date.now()) {
       if (typeof via === 'string') {
         if (!audit.vulnerabilities[via]) throw new Error('invalid_advisory_graph');
       } else {
-        if (!allowed.has(via?.url)) throw new Error(`unreviewed_advisory:${name}`);
+        if (!allowedRoots.has(via?.url)) throw new Error(`unreviewed_advisory:${name}`);
         direct.add(via.url); roots.add(via.url);
       }
     }
@@ -36,6 +36,11 @@ export function validateAudit(audit, now = Date.now()) {
     }
   }
   if ([...reachable.values()].some(urls => !urls.size)) throw new Error('invalid_advisory_graph');
-  if (entries.length && now >= expires) throw new Error('synthetic_audit_exceptions_expired');
   return { packages: entries.length, advisories: roots.size };
+}
+
+export function validateAudit(audit, now = Date.now()) {
+  const result = inspectAuditGraph(audit, allowed);
+  if (result.packages && now >= expires) throw new Error('synthetic_audit_exceptions_expired');
+  return result;
 }

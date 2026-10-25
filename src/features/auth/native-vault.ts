@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import { createRefreshVault, type RefreshVault } from './refresh-vault';
-/** SDK57 adapter: device passcode required; no FaceID or plaintext fallback. */
+/** SDK58 adapter: device passcode required; no FaceID or plaintext fallback. */
 export function createNativeRefreshVault(origin: string): RefreshVault | undefined {
   if (Platform.OS !== 'ios' || !/^https:\/\/[a-z]{20}\.supabase\.co$/.test(origin)) return undefined;
   const key = 'orbe.auth.refresh.v1.' + origin.slice(8, 28);

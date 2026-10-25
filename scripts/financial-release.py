@@ -61,7 +61,7 @@ def execute(operation):
     current=transition(request,desired,receipts,enabled,lambda slug,receipt:c.verify_function_sources(slug,receipt,token,ref))
     for slug,row in current.items():
         if row['version']!=receipts[slug]['version']:c.update_receipt(folder/c.SLUGS[slug],receipts[slug],{**receipts[slug],'version':row['version']})
-    receipt={'version':1,'enabled':enabled,'projectRef':ref,'projectId':'69843dfe-ab1b-469e-bb78-c7948bbf1d9b','runtime':'57.0.0','scope':'existing-owner-only','files':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in FILES}}
+    receipt={'version':1,'enabled':enabled,'projectRef':ref,'projectId':'69843dfe-ab1b-469e-bb78-c7948bbf1d9b','runtime':'58.0.0','scope':'existing-owner-only','files':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in FILES}}
     dest=folder/'financial-release.json'
     fd=os.open(dest,os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_NONBLOCK,0o600)
     with os.fdopen(fd,'w') as output:

@@ -18,6 +18,7 @@ function linking(expoConfig, environment = 'standalone') {
     const module = {exports:{}};cache.set(file,module);
     const source = ts.transpileModule(readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText;
     vm.runInNewContext(source, {module,exports:module.exports,__DEV__:environment==='storeClient',URL,URLSearchParams,console:{warn(){}},require(name){
+      if(name==='expo/internal/bundle-origin')return {getBundleOrigin:()=>environment==='storeClient'&&expoConfig.hostUri?'http://'+expoConfig.hostUri:null};
       if(name==='expo-constants')return {__esModule:true,default:constants,ExecutionEnvironment:{Bare:'bare',Standalone:'standalone',StoreClient:'storeClient'}};
       if(name==='expo-modules-core')return {Platform:{OS:'ios',select:values=>values.ios??values.default}};
       if(name.startsWith('.'))return load(path.resolve(path.dirname(file),name+'.js'));

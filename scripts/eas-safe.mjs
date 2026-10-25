@@ -16,11 +16,11 @@ try {
     if (operation === 'publish' && config.scheme !== 'orbe') throw new Error('eas_router_scheme_required');
     if (['app.config.js','app.config.ts','app.config.mjs','app.config.cjs'].some(name => existsSync(path.join(root,name))) || config.updates?.codeSigningCertificate || config.updates?.codeSigningMetadata) throw new Error('eas_signing_configuration_rejected');
     if (config.extra?.liveIntegrationEnabled === true) verifyOwnerRelease(root, directory, config);
-    if (config.slug !== 'orbe-finance' || ![false,true].includes(config.extra?.liveIntegrationEnabled) || config.runtimeVersion?.policy !== 'sdkVersion' || config.sdkVersion !== '57.0.0') throw new Error('eas_project_configuration_invalid');
+    if (config.slug !== 'orbe-finance' || ![false,true].includes(config.extra?.liveIntegrationEnabled) || config.runtimeVersion?.policy !== 'sdkVersion' || config.sdkVersion !== '58.0.0') throw new Error('eas_project_configuration_invalid');
     if (operation === 'init' && config.extra?.eas?.projectId) throw new Error('eas_project_already_linked');
     if (operation === 'publish') {
       const updatesPackage = path.join(root, 'node_modules/expo-updates/package.json');
-      if (!existsSync(updatesPackage) || JSON.parse(readFileSync(updatesPackage,'utf8')).version !== '57.0.26') throw new Error('eas_updates_dependency_required');
+      if (!existsSync(updatesPackage) || JSON.parse(readFileSync(updatesPackage,'utf8')).version !== '58.0.18') throw new Error('eas_updates_dependency_required');
       if (!/^[0-9a-f-]{36}$/.test(config.extra?.eas?.projectId ?? '')) throw new Error('eas_project_link_required');
       const linked = JSON.parse(readFileSync(path.join(directory, 'eas-init-receipt.json'), 'utf8'));
       if (linked.projectId !== config.extra.eas.projectId || linked.slug !== config.slug || config.updates?.url !== 'https://u.expo.dev/' + linked.projectId) throw new Error('eas_project_receipt_mismatch');

@@ -27,6 +27,6 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run check
       - run: npx --no-install expo install --check
-      - run: npm run security:audit
       - run: npm run export:ios
       - run: npm run security:runtime
+      - run: npm run security:audit

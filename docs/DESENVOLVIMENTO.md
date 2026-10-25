@@ -1,6 +1,6 @@
 # Desenvolvimento do Orbe
 
-Base SDK57 compatível com Expo Go57.0.9 do proprietário. Usar Node22.23.2 e npm12.2.0; não alterar default do projeto F1. Somente sintéticos. Nenhuma variável/secreto ou backend necessário para a tela inicial.
+Base SDK58 compatível com Expo Go58 do proprietário; migração em SPEC014/planoT83. Usar Node22.23.2 e npm12.2.0; não alterar default do projeto F1. Somente sintéticos. Nenhuma variável/secreto ou backend necessário para a tela inicial.
 
 ```sh
 nvm use
@@ -101,3 +101,8 @@ SecureStore57.0.4 do SDK57 guarda somente refresh token/origem/prazo local em Ke
 Desde c41, `npm run publish:expo` executa primeiro `scripts/publish-preflight.py`, offline e com ambiente sem tokens herdados. O helper reutiliza o parser de perfis privados do backend e compara todos os artefatos binários/textuais do dist com PAT, owner, Expo token, Client ID/Secret e IDs de itens configurados. O ref público do Supabase é excluído do conjunto secreto. Perfil inválido, link, arquivo especial ou ocorrência privada impede iniciar a CLI EAS; o erro não informa valor, trecho ou arquivo. Perfis opcionais ausentes não são inventados.
 
 Rodar apenas a checagem, sem publicação/rede: `PYTHONDONTWRITEBYTECODE=1 python3 scripts/publish-preflight.py`. Exige o export existente e os perfis privados já configurados. Testes usam perfis fictícios e uma CLI offline, verificando que segredo no export impede o subprocesso autenticado. Manter também o scan da fonte antes de commits. A proteção detecta canários conhecidos nos artefatos presentes no instante da leitura; não certifica dados desconhecidos ou o runtime. Não editar o export entre scan e upload.
+
+
+## SDK 58 (T83)
+
+Usar Node22.23.2/npm12.2.0 e **Python3.11+** para os testes administrativos (`tomllib`); nesta máquina há Python3.13.12 em `~/.local/share/uv/python/cpython-3.13.12-linux-x86_64-gnu/bin`. Rodar check → export:ios → security:runtime → security:audit → scans → commit/push/CI → renovação do recibo pelo procedimento financeiro existente → publish:expo. Detalhes e limites em [revisão SDK58](security/EXPO-SDK58-REVIEW-20261025.md). Nenhuma consulta financeira por ferramentas durante a migração.

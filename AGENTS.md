@@ -1,6 +1,6 @@
 # Trabalho no Orbe Finance
 
-Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T82,23/10/2026**, [SPEC-012](specs/012-automatic-wallet/spec.md), [plano](plan/T81-AUTOMATIC-WALLET.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
+Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T83,25/10/2026**, [SPEC-012](specs/012-automatic-wallet/spec.md), [plano](plan/T81-AUTOMATIC-WALLET.md), [guia da home](docs/FINANCIAL-HOME.md) e [QR atual](docs/EXPO-PREVIEW.md). Histórico de decisões/restrições anteriores está no STATE/specs; não confundir versões antigas com a direção atual.
 
 ## Direção autorizada
 
@@ -22,7 +22,7 @@ Comece por [roadmap/STATE.md](roadmap/STATE.md). Estado vigente: **T82,23/10/202
 
 ## Ambiente, validação e operação
 
-- Node22.23.2/npm12.2.0: `PATH=/home/yurilopesm/.nvm/versions/node/v22.23.2/bin:$PATH`. SDK57/iPhone11/ExpoGo57.0.9, versões fixadas; não usar Node18/latest indiscriminadamente.
+- Node22.23.2/npm12.2.0: `PATH=/home/yurilopesm/.nvm/versions/node/v22.23.2/bin:$PATH`. SDK58/iPhone11/ExpoGo58, versões fixadas; não usar Node18/latest indiscriminadamente.
 - `npm run check` verifica tiposcliente/backend e testes isolados, sem banco real. Cliente mudou: exportiOS/Hermes e `security:runtime`, scans e CI antes de publicar. Backend: tipos/check/SQL-RLS/scan/CI e fontes remotas verificadas. Não repetir testes/export sem mudança ou falha nova.
 - **20 migrations aplicadas/hashverificadas**, imutáveis. Próxima sequência nova; atualizar guard de quantidade em financial-release.py quando necessário. Fixture SQL instalada usa dados fictícios/rollback/ownerpreservado/zeroresíduos, sem finanças. Não limpar cooldown de leitura bem-sucedida administrativamente.
 - Remoto T77: **bridge24/metadata17**,8flags financeirastrue verificadas,11smokesanônimos401/no-store. ORBE_OWNER_LIVE_RELEASE é kill switch independente. `financial-release.py disable` → `bridge-deploy.py deploy-disabled` → `financial-release.py enable-owner`, conferindo fontes/digests/identidades/recibos. Disable admite source local pendente; enable exige fonte local igual à publicada. Não tratar POSTsecrets vazio como falha: é sucesso válido.

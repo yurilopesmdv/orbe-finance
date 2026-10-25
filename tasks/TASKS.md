@@ -1308,3 +1308,11 @@ Spec010/planT77, integrador único.
 - [x] QA1270/CI39992630145/migration20+fixture/backend24/17/11smokes401/QRupdate01a169c1-09cf-7835-9041-7aaa0218c70b/manifestoHBC.
 - [x] Nubank validadoOF612 e vínculo cadastrado; MP/Bradescoativos preservados.
 - [ ] Aceite físico: cache/Connect/primeiraleituraNu na sessão titular.
+
+
+## T83 — Expo SDK 58
+
+- [x] SPEC014/planoT83 e estado de retomada.
+- [x] Dependências, configuração e guardas runtime58; recibo real será renovado após CI.
+- [x] Tipos/1281checks/fixtures/exportHermes/audit/scans; CI será conferida após push.
+- [ ] Publicação verificada/QR oficial/docs/Git atualizado.

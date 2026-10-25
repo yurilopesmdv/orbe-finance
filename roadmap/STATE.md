@@ -1,3 +1,7 @@
+# T83 — Migração Expo SDK 58 (em andamento, 25/10/2026)
+
+Titular solicitou atualizar também Orbe Finance para o Expo Go SDK 58. SPEC014/planT83. Escopo: cliente, dependências e guardas de publicação; sem alteração de dados/backend e sem consulta financeira por ferramentas. Base Git limpa antes da migração. Dependências/guardas/AppState/WebView migrados. Validação local aprovada:1281checks(1133Node+148Python), tiposcliente/backend, expo installcheck, exportiOS/Hermes, audit1299fontes/50instâncias, Zod4.6.6 corrigido, único advisory restante node-forge no tooling sob OWNER-RELEASE revisada e bound ao lockfile. Scansprivados/allowlist47/export25artefatos aprovados. Python3.13.12 local necessário para tomllib; CI usa Ubuntu24.04. Próximo: commit/push/CI, renovar recibo pelo procedimento validado e publicar; QR T82 permanece histórico até concluir.
+
 # T82 — categorias e relatórios reais (VIGENTE)
 
 23/10/2026: titular confirmou cache e Nubank funcionando. Solicitou edição/classificação, gastos por categoria, gráficos e inteligência, com pendências claras. SPEC013 → planT82. Implementação publicada: correções fonte/conta/movimento/revisão no cache AES, relatório real /my-reports e editor em /my-movements. Sem dados financeiros por ferramentas, IA externa ou backend novo. Situação do produto em docs/PRODUCT-STATUS.md. T80 cartões permanece pendente; categorias próprias/regras/orçamentos/comparação real não incluídas nesta primeira entrega.

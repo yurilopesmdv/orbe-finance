@@ -133,14 +133,14 @@ class PublisherBoundaryTests(unittest.TestCase):
             (root / '.env.backend.local').write_text('ORBE_BACKEND_ENV_FILE=' + str(profiles / 'backend.env') + '\n')
             project = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
             (root / 'app.json').write_text(json.dumps({'expo': {
-                'scheme': 'orbe', 'slug': 'orbe-finance', 'sdkVersion': '57.0.0',
+                'scheme': 'orbe', 'slug': 'orbe-finance', 'sdkVersion': '58.0.0',
                 'runtimeVersion': {'policy': 'sdkVersion'},
                 'extra': {'liveIntegrationEnabled': False, 'eas': {'projectId': project}},
                 'updates': {'url': 'https://u.expo.dev/' + project}}}))
             (profiles / 'eas-init-receipt.json').write_text(json.dumps({'projectId': project, 'slug': 'orbe-finance'}))
             updates = root / 'node_modules/expo-updates'
             updates.mkdir(parents=True)
-            (updates / 'package.json').write_text('{"version":"57.0.26"}')
+            (updates / 'package.json').write_text('{"version":"58.0.18"}')
             dist = root / 'dist'
             dist.mkdir()
             (dist / 'metadata.json').write_text('{}')

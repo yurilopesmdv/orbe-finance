@@ -7,7 +7,7 @@ function source(state) {
   return { currentState: state, addEventListener(event, callback) { assert.equal(event, 'change'); listener = callback; return { remove() { removed = true; } }; }, emit(state) { this.currentState = state; listener?.(state); }, get removed() { return removed; } };
 }
 test('initial active state is delivered without waiting for next event', () => { const events = [], app = source('active'); const stop = observeActivity(app, active => events.push(active)); assert.deepEqual(events, [true]); stop(); });
-test('initial unknown and background states fail closed', () => { for (const state of [null, 'background', 'inactive', 'unknown']) { let active; const stop = observeActivity(source(state), next => { active = next; }); assert.equal(active, false); stop(); } });
+test('initial unknown and background states fail closed', () => { for (const state of [undefined, null, 'background', 'inactive', 'unknown']) { let active; const stop = observeActivity(source(state), next => { active = next; }); assert.equal(active, false); stop(); } });
 test('inactive background and return active are distinguished', () => { const events = [], app = source('active'); const stop = observeActivity(app, active => events.push(active)); app.emit('inactive'); app.emit('background'); app.emit('active'); assert.deepEqual(events, [true, false, false, true]); stop(); });
 test('cleanup removes subscription and ignores already queued callbacks', () => { const events = [], app = source('active'); const stop = observeActivity(app, active => events.push(active)); stop(); app.emit('background'); assert.equal(app.removed, true); assert.deepEqual(events, [true]); });
 test('lifecycle integration blocks an unlocked session and return never unlocks', async () => {

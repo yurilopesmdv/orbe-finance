@@ -37,3 +37,5 @@ Próximos documentos: [plano](../plan/PLAN.md), [microtasks](../tasks/TASKS.md),
 - [010 — Home financeira e sincronização automática](010-financial-home/spec.md): contrato vigente da experiência privada consolidada solicitada23/10.
 
 - [SPEC013 — categorias e análises reais](013-real-spending/spec.md): evolução real de SPEC007, sem alterar a demonstração.
+
+- [SPEC-014 — Expo Go SDK 58](014-expo-sdk58/spec.md): compatibilidade e publicação mantendo as fronteiras de privacidade.

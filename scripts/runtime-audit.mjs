@@ -24,7 +24,7 @@ try {
   if (lstatSync(maps[0]).size > 64 * 1024 * 1024 || lstatSync(bundles[0]).size > 8 * 1024 * 1024) throw Error('runtime_export_too_large');
   const mapBytes = readFileSync(maps[0]), bundleBytes = readFileSync(bundles[0]);
   const report = inspectRuntimeMap(JSON.parse(mapBytes.toString('utf8')), JSON.parse(readFileSync(path.join(root, 'package-lock.json'), 'utf8')));
-  const summary = { ...report, bundleSha256: createHash('sha256').update(bundleBytes).digest('hex'), mapSha256: createHash('sha256').update(mapBytes).digest('hex'),
+  const summary = { ...report, lockSha256: createHash('sha256').update(readFileSync(path.join(root, 'package-lock.json'))).digest('hex'), bundleSha256: createHash('sha256').update(bundleBytes).digest('hex'), mapSha256: createHash('sha256').update(mapBytes).digest('hex'),
     scope: 'JavaScript production iOS audit export only; native Expo Go, EAS and toolchain not certified' };
   const target = path.join(directory, 'report.json');
   writeFileSync(target, JSON.stringify(summary, null, 2) + '\n', { mode: 0o600 }); chmodSync(target, 0o600);
